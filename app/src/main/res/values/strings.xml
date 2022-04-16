@@ -3,4 +3,6 @@
     <string name="mail_hint">Mail</string>
     <string name="psw_hint">Password</string>
     <string name="no_account">Don\'t have an account?</string>
+    <string name="signup_here">Sign up here</string>
+    <string name="keep_logged">Keep me logged in</string>
 </resources>
