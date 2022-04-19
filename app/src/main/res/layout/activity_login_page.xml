@@ -45,6 +45,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         android:background="@drawable/edt_background"
+        android:drawableLeft="@drawable/ic_drawable_email"
+        android:drawablePadding="4dp"
         android:hint="E-mail"
         android:paddingLeft="10dp" />
 
@@ -57,6 +59,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:background="@drawable/edt_background"
+        android:drawableLeft="@drawable/ic_drawable_psw"
+        android:drawablePadding="4dp"
         android:hint="Password"
         android:inputType="textPersonName"
         android:paddingLeft="10dp" />
@@ -93,9 +97,9 @@
         android:layout_marginLeft="65dp"
         android:layout_marginTop="10dp"
         android:layoutDirection="rtl"
-        android:minHeight="32dp"
-        android:thumbTint="@color/greenLogin"
-        android:text="keep me logged in."/>
+        android:minHeight="48dp"
+        android:text="keep me logged in."
+        android:thumbTint="@color/greenLogin" />
 
     <!--btn del login che farà partire il tutto-->
     <!--id = "btn_login"-->
