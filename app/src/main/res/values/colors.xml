@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="greenLogin">#5BB53C</color>
     <color name="grey">#E1E1E1</color>
+    <color name="blueFacebook">#0073DD</color>
 </resources>
