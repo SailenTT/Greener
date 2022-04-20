@@ -7,12 +7,13 @@ import com.example.myapplication.databinding.ActivityRegisterPageBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class RegisterPage : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
-    private lateinit var database: DatabaseReference
+    private lateinit var database: FirebaseDatabase
     private lateinit var binding : ActivityRegisterPageBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +26,9 @@ class RegisterPage : AppCompatActivity() {
         }
         auth = FirebaseAuth.getInstance()
 
-        database=Firebase.database.reference
+        database = Firebase.database("https://ecoapp-706b8-default-rtdb.europe-west1.firebasedatabase.app/")
+
+        //database=Firebase.database.reference
     }
 
 
@@ -43,8 +46,8 @@ class RegisterPage : AppCompatActivity() {
                     Toast.makeText(this, "Utente registrato correttamente", Toast.LENGTH_SHORT)
                         .show()
                     val userUid=task.result.user!!.uid
-
-                    database.child("users").child(userUid).child("username").setValue(name)
+                    val reference = database.getReference("Users")
+                    reference.child(userUid).child("username").setValue(name)
                 } else {
                     Toast.makeText(this, "Errore nella registrazione", Toast.LENGTH_SHORT).show()
                 }
