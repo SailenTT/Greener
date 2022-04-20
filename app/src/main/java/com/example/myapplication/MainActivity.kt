@@ -39,6 +39,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.btnLogout.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+        }
+
     }
 
     //check if user is logged in
