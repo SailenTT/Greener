@@ -8,6 +8,7 @@
 
     <!--OK-->
     <!--Img del logo-->
+
     <ImageView
         android:id="@+id/app_logo"
         android:layout_width="150dp"
@@ -123,6 +124,23 @@
 
     <!--btn del login che farà partire il tutto-->
     <!--id = "btn_login"-->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="127dp"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/erba_png" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-2dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/foglie_png" />
+
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="263dp"
@@ -150,6 +168,7 @@
         android:textColor="#000000"
         android:textSize="10dp"
         tools:ignore="TouchTargetSizeCheck" />
+
     <Button
 
         android:id="@+id/btn_loginGoogle"
@@ -161,18 +180,11 @@
         android:background="@drawable/btn_background"
         android:backgroundTint="@color/grey"
         android:drawableLeft="@drawable/drawable_btn_icon_google"
+        android:paddingLeft="5dp"
         android:text="Sign-in with Google"
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="10dp"
-        android:paddingLeft="5dp"
-        tools:ignore="TouchTargetSizeCheck"/>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="127dp"
-        android:layout_alignParentBottom="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/erba_png" />
+        tools:ignore="TouchTargetSizeCheck" />
 
 </RelativeLayout>
