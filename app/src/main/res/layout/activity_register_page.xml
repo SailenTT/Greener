@@ -1,53 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterPage">
 
-    <Button
-        android:id="@+id/btn_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Registra"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_psw"
-        app:layout_constraintVertical_bias="0.32" />
+    <!--OK-->
+    <!--Img del logo-->
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:src="@drawable/logo1" />
 
-    <EditText
-        android:id="@+id/txt_nome"
+    <!--txt "Already registered?"-->
+    <TextView
+        android:id="@+id/txt_account"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="168dp"
-        android:ems="10"
+        android:layout_height="match_parent"
+        android:layout_below="@id/app_logo"
+        android:layout_marginLeft="65dp"
+        android:layout_marginTop="30dp"
+        android:text="Already registered?"
+        android:textSize="10dp" />
+
+    <!--txt "Login here" dobbiamo renderla un link alla page di login-->
+    <!--DA FARE-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Login here!"
+        android:textColor="@color/greenLogin"
+        android:layout_below="@id/app_logo"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="155dp"
+        android:textSize="10dp"/>
+
+    <!--OK-->
+    <!--edt nome, id = "edt_nome"-->
+    <EditText
+        android:id="@+id/edt_nome"
+        android:layout_width="282dp"
+        android:layout_height="48dp"
+        android:layout_below="@id/app_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/edt_background"
+        android:drawablePadding="4dp"
+        android:hint="Nome"
+        android:paddingLeft="10dp" />
+
+    <!--OK-->
+    <!--edt email, id = "edt_email"-->
+    <EditText
+        android:id="@+id/edt_email"
+        android:layout_width="282dp"
+        android:layout_height="48dp"
+        android:layout_below="@id/edt_nome"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edt_background"
+        android:drawableLeft="@drawable/ic_drawable_email"
+        android:drawablePadding="4dp"
+        android:hint="E-mail"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:paddingLeft="10dp" />
 
+    <!--OK-->
+    <!--edt psw, id = "edt_psw"-->
     <EditText
-        android:id="@+id/txt_psw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_email" />
+        android:id="@+id/edt_psw"
+        android:layout_width="282dp"
+        android:layout_height="48dp"
+        android:layout_below="@id/edt_email"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edt_background"
+        android:drawableLeft="@drawable/ic_drawable_psw"
+        android:drawablePadding="4dp"
+        android:hint="Password"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp" />
 
-    <EditText
-        android:id="@+id/txt_email"
-        android:layout_width="wrap_content"
+    <!--OK-->
+    <!--ho usato una view di H 2dp per creare tipo un "divider" (linea verde)-->
+    <!--solo per estetica-->
+    <View
+        android:layout_width="270dp"
+        android:layout_height="2dp"
+        android:layout_below="@id/edt_nome"
+        android:background="@color/greenLogin"
+        android:layout_marginTop="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"/>
+
+    <!--OK-->
+    <!--ho usato una view di H 2dp per creare tipo un "divider" (linea verde)-->
+    <!--solo per estetica-->
+    <View
+        android:layout_width="270dp"
+        android:layout_height="2dp"
+        android:layout_below="@id/edt_email"
+        android:background="@color/greenLogin"
+        android:layout_marginTop="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"/>
+
+    <!--OK-->
+    <!--ho usato una view di H 2dp per creare tipo un "divider" (linea verde)-->
+    <!--solo per estetica-->
+    <View
+        android:layout_width="270dp"
+        android:layout_height="2dp"
+        android:layout_below="@id/edt_psw"
+        android:background="@color/greenLogin"
+        android:layout_marginTop="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"/>
+
+    <!--btn del login che farà partire il tutto-->
+    <!--id = "btn_login"-->
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="263dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_nome" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_below="@id/edt_psw"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/btn_background"
+        android:text="LOGIN"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/btn_loginFacebook"
+        android:layout_width="234dp"
+        android:layout_height="28dp"
+        android:layout_below="@id/btn_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/btn_background"
+        android:backgroundTint="@color/blueFacebook"
+        android:drawableLeft="@drawable/drawable_btn_icon_facebook"
+        android:text="Continue with Facebook"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="10dp"
+        android:paddingLeft="4dp"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/btn_loginGoogle"
+        android:layout_width="234dp"
+        android:layout_height="28dp"
+        android:layout_below="@id/btn_loginFacebook"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_background"
+        android:backgroundTint="@color/grey"
+        android:drawableLeft="@drawable/drawable_btn_icon_google"
+        android:text="Sign-in with Google"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="10dp"
+        android:paddingLeft="5dp"
+        tools:ignore="TouchTargetSizeCheck"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="127dp"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/erba_png"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/foglie_png"/>
+</RelativeLayout>
