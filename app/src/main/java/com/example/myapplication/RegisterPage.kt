@@ -34,23 +34,34 @@ class RegisterPage : AppCompatActivity() {
 
 
     fun createAccount() {
-        val name= binding.txtNome.text.toString()
+        val name = binding.txtNome.text.toString()
         val email = binding.txtEmail.text.toString()
         val psw = binding.txtPsw.text.toString()
-        if (binding.txtEmail.text.toString().equals("") || binding.txtPsw.text.toString().equals("")
-            ||name.equals("")) {
-            Toast.makeText(this, "Controlla i dati inseriti", Toast.LENGTH_SHORT).show()
-        } else {
-            auth.createUserWithEmailAndPassword(email, psw).addOnCompleteListener{ task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(this, "Utente registrato correttamente", Toast.LENGTH_SHORT)
-                        .show()
-                    val userUid=task.result.user!!.uid
-                    val reference = database.getReference("Users")
-                    reference.child(userUid).child("username").setValue(name)
-                } else {
-                    Toast.makeText(this, "Errore nella registrazione", Toast.LENGTH_SHORT).show()
-                }
+
+        if (name.equals("")) {
+            binding.txtNome.setError("Check name")
+            return
+        }
+
+        if (email.equals("")) {
+            binding.txtEmail.setError("Check mail")
+            return
+        }
+
+        if (psw.equals("")) {
+            binding.txtPsw.setError("Check password")
+            return
+        }
+
+        auth.createUserWithEmailAndPassword(email, psw).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(this, "Utente registrato correttamente", Toast.LENGTH_SHORT)
+                    .show()
+                val userUid = task.result.user!!.uid
+                val reference = database.getReference("Users")
+                reference.child(userUid).child("username").setValue(name)
+            } else {
+                Toast.makeText(this, "Errore nella registrazione", Toast.LENGTH_SHORT).show()
             }
         }
     }
