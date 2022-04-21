@@ -1,11 +1,10 @@
-package com.example.myapplication
+package com.eco.app
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.myapplication.databinding.ActivityRegisterPageBinding
+import com.eco.app.databinding.ActivityRegisterPageBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database

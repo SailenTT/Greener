@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.eco.app
 
 import org.junit.Test
 
