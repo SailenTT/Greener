@@ -32,12 +32,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_below="@id/app_logo"
+        android:layout_marginLeft="155dp"
+        android:layout_marginTop="30dp"
         android:text="Login here!"
         android:textColor="@color/greenLogin"
-        android:layout_below="@id/app_logo"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="155dp"
-        android:textSize="10dp"/>
+        android:textSize="10dp" />
 
     <!--OK-->
     <!--edt nome, id = "edt_nome"-->

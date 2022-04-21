@@ -8,6 +8,5 @@
     <string name="facebook_app_id">356308096301356</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">f08b3c74d6de29e8cb1026c056001c56</string>
-    <string name="web_id">275809847401-nctktkio51r8kpjc8rcc3cecmd8vqsj0.apps.googleusercontent.com</string>
-    <string name="web_client_id">207955798858-ffd7a7r3otf9870heikm8u98t6t70eqv.apps.googleusercontent.com</string>
+    <string name="server_client_id">275809847401-nctktkio51r8kpjc8rcc3cecmd8vqsj0.apps.googleusercontent.com</string>
 </resources>

@@ -1,13 +1,14 @@
 {
   "project_info": {
     "project_number": "275809847401",
+    "firebase_url": "https://ecoapp-706b8-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "ecoapp-706b8",
     "storage_bucket": "ecoapp-706b8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:275809847401:android:f2303e9bafa70d0be77af8",
+        "mobilesdk_app_id": "1:275809847401:android:9fc859073bae0cf6e77af8",
         "android_client_info": {
           "package_name": "com.eco.app"
         }
@@ -27,7 +28,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "275809847401-nctktkio51r8kpjc8rcc3cecmd8vqsj0.apps.googleusercontent.com",
+              "client_id": "275809847401-k9skgqpplg78ph51m48q4der25hb6u5e.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

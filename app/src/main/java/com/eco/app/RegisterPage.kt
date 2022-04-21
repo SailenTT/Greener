@@ -97,7 +97,6 @@ class RegisterPage : AppCompatActivity() {
             binding.edtNome.setError("Check name")
             return
         }
-
         if (email.equals("")) {
             binding.edtEmail.setError("Check mail")
             return

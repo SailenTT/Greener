@@ -2,6 +2,7 @@ package com.eco.app
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.IntentSender
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -20,6 +21,8 @@ class LoginPage : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var oneTapClient: SignInClient
     private lateinit var signInRequest: BeginSignInRequest
+    private val REQ_ONE_TAP = 2  // Can be any integer unique to the Activity
+    private var showOneTapUI = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +38,19 @@ class LoginPage : AppCompatActivity() {
         }
 
         auth=Firebase.auth
+
+        oneTapClient = Identity.getSignInClient(this)
+        signInRequest = BeginSignInRequest.builder()
+            .setGoogleIdTokenRequestOptions(
+                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                    .setSupported(true)
+                    // Your server's client ID, not your Android client ID.
+                    .setServerClientId(getString(R.string.server_client_id))
+                    // Only show accounts previously used to sign in.
+                    .setFilterByAuthorizedAccounts(false)
+                    .build())
+            .setAutoSelectEnabled(true)
+            .build()
     }
 
     fun loginUser(){
@@ -67,22 +83,30 @@ class LoginPage : AppCompatActivity() {
     }
 
     fun loginWithGoogle(){
-        oneTapClient = Identity.getSignInClient(this)
-        signInRequest = BeginSignInRequest.builder()
-            .setGoogleIdTokenRequestOptions(
-                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                    .setSupported(true)
-                    // Your server's client ID, not your Android client ID.
-                    .setServerClientId(getString(R.string.web_client_id))
-                    .build())
-            .setAutoSelectEnabled(true)
-            .build()
+        oneTapClient.beginSignIn(signInRequest)
+            .addOnSuccessListener(this) { result ->
+                try {
+                    startIntentSenderForResult(
+                        result.pendingIntent.intentSender, REQ_ONE_TAP,
+                        null, 0, 0, 0, null)
+                } catch (e: IntentSender.SendIntentException) {
+                    Toast.makeText(this,"Non riesco a far partire la One Tap UI", Toast.LENGTH_SHORT).show()
+                    Log.e(TAG, "Couldn't start One Tap UI: ${e.localizedMessage}")
+                }
+            }
+            .addOnFailureListener(this) { e ->
+                // Error loading both signin and signup
+                Log.d(TAG, e.localizedMessage)
+            }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val googleCredential = oneTapClient.getSignInCredentialFromIntent(data)
         val idToken = googleCredential.googleIdToken
+
+        println("On activity result")
         when {
             idToken != null -> {
                 // Got an ID token from Google. Use it to authenticate
@@ -99,7 +123,7 @@ class LoginPage : AppCompatActivity() {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.exception)
-                            Toast.makeText(this,"Errore nel login",Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this,"Utente non registrato",Toast.LENGTH_SHORT).show()
                         }
                     }
             }

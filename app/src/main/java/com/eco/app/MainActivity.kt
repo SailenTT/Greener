@@ -37,7 +37,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.loginMain.setOnClickListener {
             val intent = Intent(this,LoginPage::class.java)
-            startActivity(intent)
+            //startActivity(intent)
+            startActivityForResult(intent,1)
+
         }
 
         binding.btnLogout.setOnClickListener {
