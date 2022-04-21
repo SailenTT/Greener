@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.registerMain.setOnClickListener {
-            val intent = Intent(this,RegisterPage::class.java)
+            val intent = Intent(this, RegisterPage::class.java)
             startActivity(intent)
         }
 

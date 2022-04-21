@@ -1,11 +1,11 @@
-package com.example.myapplication
+package com.eco.app
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.databinding.ActivityRegisterPageBinding
+import com.eco.app.databinding.ActivityRegisterPageBinding
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
