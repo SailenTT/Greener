@@ -6,15 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".LoginPage">
 
+    <!--OK-->
     <!--Img del logo-->
     <ImageView
         android:id="@+id/app_logo"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="0dp"
         android:src="@drawable/logo1" />
 
+    <!--OK-->
     <!--txt "don't have an account?"-->
     <TextView
         android:id="@+id/txt_account"
@@ -22,7 +24,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/app_logo"
         android:layout_marginLeft="65dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:text="Don’t have an account?"
         android:textSize="10dp" />
 
@@ -34,10 +36,11 @@
         android:text="Sign-up here!"
         android:textColor="@color/greenLogin"
         android:layout_below="@id/app_logo"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="170dp"
         android:textSize="10dp"/>
 
+    <!--OK-->
     <!--edt email, id = "edt_email"-->
     <EditText
         android:id="@+id/edt_email"
@@ -45,13 +48,14 @@
         android:layout_height="48dp"
         android:layout_below="@id/app_logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/edt_background"
         android:drawableLeft="@drawable/ic_drawable_email"
         android:drawablePadding="4dp"
         android:hint="E-mail"
         android:paddingLeft="10dp" />
 
+    <!--OK-->
     <!--edt psw, id = "edt_psw"-->
     <EditText
         android:id="@+id/edt_psw"
@@ -59,7 +63,7 @@
         android:layout_height="48dp"
         android:layout_below="@id/edt_email"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/edt_background"
         android:drawableLeft="@drawable/ic_drawable_psw"
         android:drawablePadding="4dp"
@@ -67,6 +71,7 @@
         android:inputType="textPersonName"
         android:paddingLeft="10dp" />
 
+    <!--OK-->
     <!--ho usato una view di H 2dp per creare tipo un "divider" (linea verde)-->
     <!--solo per estetica-->
     <View
@@ -78,6 +83,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"/>
 
+    <!--OK-->
     <!--stessa cosa di prima-->
     <!--solo per estetica-->
     <View
@@ -97,12 +103,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/edt_psw"
         android:layout_marginLeft="65dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layoutDirection="rtl"
         android:minHeight="48dp"
         android:text="keep me logged in."
         android:textSize="10dp"
-        android:thumbTint="@color/greenLogin" />
+        android:thumbTint="@color/greenLogin"
+        tools:ignore="SpUsage,UseSwitchCompatOrMaterialXml" />
 
     <!--btn del login che farà partire il tutto-->
     <!--id = "btn_login"-->
@@ -141,8 +148,6 @@
         android:textColor="@color/greenLogin"
         android:textSize="10dp" />
 
-    <!--ho messo la icon ma non me la fa resizare
-    devo vedere come fare-->
     <Button
         android:id="@+id/btn_loginFacebook"
         android:layout_width="234dp"
@@ -160,8 +165,6 @@
         android:paddingLeft="4dp"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <!--ho messo la icon ma non me la fa resizare
-    devo vedere come fare-->
     <Button
         android:id="@+id/btn_loginGoogle"
         android:layout_width="234dp"
@@ -172,7 +175,7 @@
         android:background="@drawable/btn_background"
         android:backgroundTint="@color/grey"
         android:drawableLeft="@drawable/drawable_btn_icon_google"
-        android:text="Sign-up with Google"
+        android:text="Sign-in with Google"
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="10dp"

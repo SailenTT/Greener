@@ -12,11 +12,17 @@
         <entry key="..\:/Users/carca/Desktop/ProgettoDispositiviMobili/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/btn_background.xml" value="0.6" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/drawable_btn_icon.xml" value="0.12" />
+        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/drawable_btn_icon_facebook.xml" value="0.128" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/drawable_btn_icon_google.xml" value="0.128" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/edt_background.xml" value="0.152" />
+        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/ic_drawable_account.xml" value="0.128" />
+        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/ic_drawable_email.xml" value="0.128" />
+        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/ic_drawable_psw.xml" value="0.128" />
+        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/ic_launcher_background.xml" value="0.128" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_login.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_login_page.xml" value="0.2" />
+        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_login_page.xml" value="0.264" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_main.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_register_page.xml" value="0.27447916666666666" />
       </map>
     </option>
   </component>
