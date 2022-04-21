@@ -113,16 +113,6 @@
 
     <!--btn del login che farà partire il tutto-->
     <!--id = "btn_login"-->
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="263dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/switch_keep_me"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/btn_background"
-        android:text="LOGIN"
-        android:textColor="@color/white" />
 
     <!--txt "Forgot Password"-->
     <TextView
@@ -148,40 +138,6 @@
         android:textColor="@color/greenLogin"
         android:textSize="10dp" />
 
-    <Button
-        android:id="@+id/btn_loginFacebook"
-        android:layout_width="234dp"
-        android:layout_height="28dp"
-        android:layout_below="@id/btn_login"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/btn_background"
-        android:backgroundTint="@color/blueFacebook"
-        android:drawableLeft="@drawable/drawable_btn_icon_facebook"
-        android:text="Continue with Facebook"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="10dp"
-        android:paddingLeft="4dp"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <Button
-        android:id="@+id/btn_loginGoogle"
-        android:layout_width="234dp"
-        android:layout_height="28dp"
-        android:layout_below="@id/btn_loginFacebook"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/btn_background"
-        android:backgroundTint="@color/grey"
-        android:drawableLeft="@drawable/drawable_btn_icon_google"
-        android:text="Sign-in with Google"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="10dp"
-        android:paddingLeft="5dp"
-        tools:ignore="TouchTargetSizeCheck"/>
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="127dp"
@@ -193,7 +149,53 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-2dp"
         android:scaleType="fitXY"
         android:src="@drawable/foglie_png" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="263dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/switch_keep_me"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_background"
+        android:text="LOGIN"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/btn_loginGoogle"
+        android:layout_width="234dp"
+        android:layout_height="28dp"
+        android:layout_below="@id/btn_loginFacebook"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_background"
+        android:backgroundTint="@color/grey"
+        android:drawableLeft="@drawable/drawable_btn_icon_google"
+        android:paddingLeft="5dp"
+        android:text="Sign-in with Google"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="10dp"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/btn_loginFacebook"
+        android:layout_width="234dp"
+        android:layout_height="28dp"
+        android:layout_below="@id/btn_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/btn_background"
+        android:backgroundTint="@color/blueFacebook"
+        android:drawableLeft="@drawable/drawable_btn_icon_facebook"
+        android:paddingLeft="4dp"
+        android:text="Continue with Facebook"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="10dp"
+        tools:ignore="TouchTargetSizeCheck" />
 
 </RelativeLayout>
