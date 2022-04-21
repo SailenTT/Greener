@@ -173,13 +173,6 @@
         android:layout_height="127dp"
         android:layout_alignParentBottom="true"
         android:scaleType="fitXY"
-        android:src="@drawable/erba_png"/>
+        android:src="@drawable/erba_png" />
 
-    <ImageView
-        android:id="@+id/btn_google_signin"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_alignParentBottom="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/foglie_png" />
 </RelativeLayout>

@@ -1,15 +1,17 @@
 package com.eco.app
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.eco.app.databinding.ActivityMainBinding
+import com.facebook.AccessToken
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var analytics: FirebaseAnalytics
@@ -48,9 +50,10 @@ class MainActivity : AppCompatActivity() {
     //funzione per vedere se l'utente è già loggato
     public override fun onStart() {
         super.onStart()
-        val currentUser = auth.currentUser
-        if(currentUser!= null){
-            Toast.makeText(this, "Logged in ", Toast.LENGTH_SHORT).show()
+        val accessToken = AccessToken.getCurrentAccessToken()
+        val isLoggedIn = accessToken != null && !accessToken.isExpired
+        if(isLoggedIn){
+            Toast.makeText(this, "logged in", Toast.LENGTH_SHORT).show()
         }
     }
 }

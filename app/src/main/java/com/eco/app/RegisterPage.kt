@@ -1,4 +1,5 @@
 package com.eco.app
+
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
@@ -22,35 +23,39 @@ import com.google.firebase.ktx.Firebase
 class RegisterPage : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
-    private lateinit var binding : ActivityRegisterPageBinding
-    private lateinit var callbackManager : CallbackManager
+    private lateinit var binding: ActivityRegisterPageBinding
+    private lateinit var callbackManager: CallbackManager
     val TAG = "FACEBOOKTAG"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
-         callbackManager = CallbackManager.Factory.create()
+        callbackManager = CallbackManager.Factory.create()
 
         auth = FirebaseAuth.getInstance()
-        database = Firebase.database("https://ecoapp-706b8-default-rtdb.europe-west1.firebasedatabase.app/")
+        database =
+            Firebase.database("https://ecoapp-706b8-default-rtdb.europe-west1.firebasedatabase.app/")
 
         binding.btnRegister.setOnClickListener {
             createAccount()
         }
 
-        binding.btnLoginFacebook.registerCallback(callbackManager,object : FacebookCallback<LoginResult>{
-            override fun onSuccess(loginResult: LoginResult){
-                Log.d(TAG,"facebook:onSuccess$loginResult")
-                handleFacebookAccessToken(loginResult.accessToken)
-            }
-            override fun onCancel() {
-                Log.d(TAG, "facebook:onCancel")
-            }
 
-            override fun onError(error: FacebookException) {
-                Log.d(TAG, "facebook:onError", error)
-            }
-        })
+        binding.btnLoginFacebook.registerCallback(callbackManager,
+            object : FacebookCallback<LoginResult> {
+                override fun onSuccess(loginResult: LoginResult) {
+                    Log.d(TAG, "facebook:onSuccess$loginResult")
+                    handleFacebookAccessToken(loginResult.accessToken)
+                }
+
+                override fun onCancel() {
+                    Log.d(TAG, "facebook:onCancel")
+                }
+
+                override fun onError(error: FacebookException) {
+                    Log.d(TAG, "facebook:onError", error)
+                }
+            })
     }
 
     private fun handleFacebookAccessToken(token: AccessToken) {
@@ -67,8 +72,10 @@ class RegisterPage : AppCompatActivity() {
                 } else {
                     // Sign in fail
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
     }
