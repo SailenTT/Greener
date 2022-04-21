@@ -34,22 +34,22 @@ class RegisterPage : AppCompatActivity() {
 
 
     fun createAccount() {
-        val name = binding.txtNome.text.toString()
-        val email = binding.txtEmail.text.toString()
-        val psw = binding.txtPsw.text.toString()
+        val name = binding.edtNome.text.toString()
+        val email = binding.edtEmail.text.toString()
+        val psw = binding.edtPsw.text.toString()
 
         if (name.equals("")) {
-            binding.txtNome.setError("Check name")
+            binding.edtNome.setError("Check name")
             return
         }
 
         if (email.equals("")) {
-            binding.txtEmail.setError("Check mail")
+            binding.edtEmail.setError("Check mail")
             return
         }
 
         if (psw.equals("")) {
-            binding.txtPsw.setError("Check password")
+            binding.edtPsw.setError("Check password")
             return
         }
 
