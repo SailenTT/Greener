@@ -46,10 +46,10 @@ class RegisterPage : AppCompatActivity() {
         callbackManager = CallbackManager.Factory.create()
 
         //assegno l'oggetto grafico della UI alla variabile
-        txtLogIn = findViewById(R.id.txt_LogIn)
+        val txtLogIn = binding.txtLogIn
 
         //metodo onClick della txtSignUp per far diventare la txt un link per la activity RegisterPage
-        txtLogIn.setOnClickListener {
+       txtLogIn.setOnClickListener {
             val intent= Intent(this, LoginPage::class.java)
             startActivity(intent)
         }
