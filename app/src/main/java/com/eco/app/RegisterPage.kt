@@ -1,10 +1,12 @@
 package com.eco.app
 
+import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.eco.app.databinding.ActivityRegisterPageBinding
 import com.facebook.AccessToken
@@ -12,6 +14,9 @@ import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -25,7 +30,14 @@ class RegisterPage : AppCompatActivity() {
     private lateinit var database: FirebaseDatabase
     private lateinit var binding: ActivityRegisterPageBinding
     private lateinit var callbackManager: CallbackManager
+    private val REQ_ONE_TAP = 2
     val TAG = "FACEBOOKTAG"
+    //callback contracts
+    var callbackforfacebook = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterPageBinding.inflate(layoutInflater)
@@ -40,23 +52,33 @@ class RegisterPage : AppCompatActivity() {
             createAccount()
         }
 
-
+        //FACEBOOK REGISTER
         binding.btnLoginFacebook.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult) {
                     Log.d(TAG, "facebook:onSuccess$loginResult")
                     handleFacebookAccessToken(loginResult.accessToken)
                 }
-
                 override fun onCancel() {
                     Log.d(TAG, "facebook:onCancel")
                 }
 
                 override fun onError(error: FacebookException) {
                     Log.d(TAG, "facebook:onError", error)
+                    val alertDialogBuilder = AlertDialog.Builder(this@RegisterPage)
+                    alertDialogBuilder.setTitle("Facebook Error")
+                    alertDialogBuilder.setMessage("Errore con le api facebook")
+                    alertDialogBuilder.show()
                 }
             })
+
+        //TODO GOOGLE REGISTER
+
+
+
     }
+
+
 
     private fun handleFacebookAccessToken(token: AccessToken) {
         Log.d(TAG, "handleFacebookAccessToken:$token")
@@ -67,8 +89,8 @@ class RegisterPage : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success
                     Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
-                    Toast.makeText(this, "SUCCESS", Toast.LENGTH_SHORT).show()
+                    val userid = auth.currentUser
+                    //TODO redirectare l'utente alla pagina main e qui mettere finish() inoltre togliere dal backstack
                 } else {
                     // Sign in fail
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -79,7 +101,7 @@ class RegisterPage : AppCompatActivity() {
                 }
             }
     }
-
+        //TODO dobbiamo avere piu onactivity, ma le api usano tutti metodi deprecati
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -106,7 +128,6 @@ class RegisterPage : AppCompatActivity() {
             binding.edtPsw.setError("Check password")
             return
         }
-
 
         auth.createUserWithEmailAndPassword(email, psw).addOnCompleteListener { task ->
             if (task.isSuccessful) {
