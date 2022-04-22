@@ -182,7 +182,7 @@
         android:textSize="10dp"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <Button
+    <com.facebook.login.widget.LoginButton
         android:id="@+id/btn_loginFacebook"
         android:layout_width="234dp"
         android:layout_height="28dp"
@@ -197,6 +197,6 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="10dp"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
 </RelativeLayout>

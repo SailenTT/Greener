@@ -84,9 +84,6 @@ class RegisterPage : AppCompatActivity() {
             })
 
         //TODO GOOGLE REGISTER
-
-
-
     }
 
 
