@@ -10,11 +10,11 @@
     <!--Img del logo-->
     <ImageView
         android:id="@+id/app_logo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:src="@drawable/new_app_logo" />
+        android:src="@drawable/app_logo2" />
 
     <!--OK-->
     <!--txt "don't have an account?"-->
@@ -26,7 +26,7 @@
         android:layout_marginLeft="65dp"
         android:layout_marginTop="30dp"
         android:text="Don’t have an account?"
-        android:textSize="10dp" />
+        android:textSize="12dp" />
 
     <!--txt "sign-up here" dobbiamo renderla un link alla page di sign-up-->
     <!--DA FARE-->
@@ -35,11 +35,11 @@
         android:layout_width="wrap_content"
         android:layout_height="18dp"
         android:layout_below="@id/app_logo"
-        android:layout_marginLeft="170dp"
+        android:layout_marginLeft="195dp"
         android:layout_marginTop="30dp"
         android:text="Sign-up here!"
         android:textColor="@color/greenLogin"
-        android:textSize="10dp" />
+        android:textSize="12dp" />
 
     <!--OK-->
     <!--edt email, id = "edt_email"-->
@@ -108,7 +108,7 @@
         android:layoutDirection="rtl"
         android:minHeight="48dp"
         android:text="keep me logged in."
-        android:textSize="10dp"
+        android:textSize="12dp"
         android:thumbTint="@color/greenLogin"
         tools:ignore="SpUsage,UseSwitchCompatOrMaterialXml" />
 
@@ -124,7 +124,7 @@
         android:layout_below="@id/btn_login"
         android:layout_marginLeft="120dp"
         android:layout_marginTop="3dp"
-        android:textSize="10dp"/>
+        android:textSize="12dp"/>
 
     <!--txt "Recover here" dobbiamo renderla un link alla page di sign-up-->
     <!--DA FARE-->
@@ -133,11 +133,11 @@
         android:layout_width="wrap_content"
         android:layout_height="18dp"
         android:layout_below="@id/btn_login"
-        android:layout_marginLeft="203dp"
+        android:layout_marginLeft="220dp"
         android:layout_marginTop="3dp"
         android:text="Recover here"
         android:textColor="@color/greenLogin"
-        android:textSize="10dp" />
+        android:textSize="12dp" />
 
     <ImageView
         android:layout_width="match_parent"
