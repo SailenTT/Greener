@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.eco.app.databinding.ActivityMainBinding
 import com.facebook.AccessToken
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -21,10 +22,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+
         super.onCreate(savedInstanceState)
-        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
-
 
         // Obtain the FirebaseAnalytics instance.
         analytics = Firebase.analytics
@@ -34,21 +34,21 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.registerMain.setOnClickListener {
+        /*binding.registerMain.setOnClickListener {
             val intent = Intent(this, RegisterPage::class.java)
             startActivity(intent)
         }
 
         binding.loginMain.setOnClickListener {
             val intent = Intent(this,LoginPage::class.java)
-            //startActivity(intent)
-            startActivityForResult(intent,1)
+            startActivity(intent)
 
         }
 
         binding.btnLogout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
-        }
+
+        }*/
 
     }
 
@@ -56,9 +56,20 @@ class MainActivity : AppCompatActivity() {
     //funzione per vedere se l'utente è già loggato
     public override fun onStart() {
         super.onStart()
-        val currentUser = auth.currentUser
+
+        val intent=Intent(this,LoginPage::class.java)
+        startActivity(intent)
+
+        /*val currentUser = auth.currentUser
         if(currentUser!= null){
             Toast.makeText(this, "Logged in ", Toast.LENGTH_SHORT).show()
+            val intent=Intent(this,HomeWindow::class.java)
+            startActivity(intent)
         }
+        else{
+            Toast.makeText(this, "Not logged in ", Toast.LENGTH_SHORT).show()
+            val intent=Intent(this,LoginPage::class.java)
+            startActivity(intent)
+        }*/
     }
 }

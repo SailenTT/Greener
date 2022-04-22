@@ -21,12 +21,12 @@
     <TextView
         android:id="@+id/txt_account"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="20dp"
         android:layout_below="@id/app_logo"
         android:layout_marginLeft="65dp"
         android:layout_marginTop="30dp"
         android:text="Don’t have an account?"
-        android:textSize="12dp" />
+        android:textSize="12sp" />
 
     <!--txt "sign-up here" dobbiamo renderla un link alla page di sign-up-->
     <!--DA FARE-->
@@ -39,7 +39,7 @@
         android:layout_marginTop="30dp"
         android:text="Sign-up here!"
         android:textColor="@color/greenLogin"
-        android:textSize="12dp" />
+        android:textSize="12sp" />
 
     <!--OK-->
     <!--edt email, id = "edt_email"-->
@@ -165,6 +165,7 @@
         android:text="LOGIN"
         android:textColor="@color/white" />
 
+    <!--sostituire dp con sp per il testo-->
     <Button
         android:id="@+id/btn_loginGoogle"
         android:layout_width="234dp"
@@ -185,7 +186,7 @@
     <com.facebook.login.widget.LoginButton
         android:id="@+id/btn_loginFacebook"
         android:layout_width="234dp"
-        android:layout_height="28dp"
+        android:layout_height="30dp"
         android:layout_below="@id/btn_login"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
@@ -196,7 +197,7 @@
         android:text="Continue with Facebook"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="10dp"
+        android:textSize="15sp"
         tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
 </RelativeLayout>

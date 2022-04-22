@@ -20,10 +20,18 @@
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/ic_drawable_psw.xml" value="0.128" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/ic_launcher_background.xml" value="0.128" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_login.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_login_page.xml" value="0.38321167883211676" />
+        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_login_page.xml" value="0.536" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_main.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_register_page.xml" value="0.34201954397394135" />
-        <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/layout/activity_login_page.xml" value="0.1408514492753623" />
+        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_register_page.xml" value="0.264" />
+        <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/drawable/app_logo_animator.xml" value="0.162" />
+        <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/drawable/ic_app_logo.xml" value="0.1" />
+        <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/drawable/ic_app_logo2.xml" value="0.1785" />
+        <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/drawable/news_avd_v02.xml" value="0.1" />
+        <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/layout/activity_home_window.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/layout/activity_login_page.xml" value="0.22" />
+        <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/layout/activity_main.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/layout/activity_register_page.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>
     </option>
   </component>

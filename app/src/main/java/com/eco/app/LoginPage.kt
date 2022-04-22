@@ -32,8 +32,6 @@ class LoginPage : AppCompatActivity() {
     private lateinit var callbackManager: CallbackManager
     private val REQ_ONE_TAP = 2
 
-    private lateinit var txtSignUp: TextView //txt che funzionerà da linker alla page di registrazione
-
     //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE
     //POI LI RIFACCIAMO
     //metodo onCreate
@@ -45,7 +43,7 @@ class LoginPage : AppCompatActivity() {
         callbackManager = CallbackManager.Factory.create()
 
         //assegno l'oggetto grafico della UI alla variabile
-        txtSignUp = findViewById(R.id.txt_SignUp)
+        val txtSignUp = binding.txtSignUp
 
         //metodo onClick della txtSignUp per far diventare la txt un link per la activity RegisterPage
         txtSignUp.setOnClickListener {
