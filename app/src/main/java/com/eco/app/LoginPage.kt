@@ -58,9 +58,16 @@ class LoginPage : AppCompatActivity() {
         val pswd=binding.edtPsw.text.toString()
 
 
-        if(email.equals("")||pswd.equals("")){
-            Toast.makeText(this,"Riempi tutti i campi",Toast.LENGTH_SHORT).show()
+        if (email.equals("")) {
+            binding.edtEmail.setError("Check mail")
+            return
         }
+
+        if (pswd.equals("")) {
+            binding.edtPsw.setError("Check password")
+            return
+        }
+
         else {
             auth.signInWithEmailAndPassword(email, pswd)
                 .addOnCompleteListener(this) { task ->
@@ -107,6 +114,7 @@ class LoginPage : AppCompatActivity() {
         val idToken = googleCredential.googleIdToken
 
         println("On activity result")
+        Toast.makeText(this, "$requestCode", Toast.LENGTH_SHORT).show()
         when {
             idToken != null -> {
                 // Got an ID token from Google. Use it to authenticate

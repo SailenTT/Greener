@@ -32,11 +32,7 @@ class RegisterPage : AppCompatActivity() {
     private lateinit var callbackManager: CallbackManager
     private val REQ_ONE_TAP = 2
     val TAG = "FACEBOOKTAG"
-    //callback contracts
-    var callbackforfacebook = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
 
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,7 +100,7 @@ class RegisterPage : AppCompatActivity() {
         //TODO dobbiamo avere piu onactivity, ma le api usano tutti metodi deprecati
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
+            Toast.makeText(this, "$requestCode", Toast.LENGTH_SHORT).show()
         // Pass the activity result back to the Facebook SDK
         callbackManager.onActivityResult(requestCode, resultCode, data)
     }

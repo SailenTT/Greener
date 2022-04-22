@@ -149,7 +149,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:background="@drawable/btn_background"
-        android:text="LOGIN"
+        android:text="REGISTER"
         android:textColor="@color/white" />
 
     <com.facebook.login.widget.LoginButton
