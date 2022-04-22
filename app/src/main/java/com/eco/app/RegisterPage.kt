@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +33,10 @@ class RegisterPage : AppCompatActivity() {
     private lateinit var callbackManager: CallbackManager
     private val REQ_ONE_TAP = 2
     val TAG = "FACEBOOKTAG"
+
+
+    private lateinit var txtLogIn : TextView //txt che funzionerà da linker alla page di login
+
     //callback contracts
     var callbackforfacebook = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
 
@@ -43,6 +48,16 @@ class RegisterPage : AppCompatActivity() {
         binding = ActivityRegisterPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         callbackManager = CallbackManager.Factory.create()
+
+        //assegno l'oggetto grafico della UI alla variabile
+        txtLogIn = findViewById(R.id.txt_LogIn)
+
+        //metodo onClick della txtSignUp per far diventare la txt un link per la activity RegisterPage
+        txtLogIn.setOnClickListener {
+            val intent= Intent(this, LoginPage::class.java)
+            startActivity(intent)
+        }
+
 
         auth = FirebaseAuth.getInstance()
         database =
