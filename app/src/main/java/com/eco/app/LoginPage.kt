@@ -73,6 +73,8 @@ class LoginPage : AppCompatActivity() {
             .build()
     }
 
+
+
     //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE
     //POI LI RIFACCIAMO
     //funzione per il login dell'utente

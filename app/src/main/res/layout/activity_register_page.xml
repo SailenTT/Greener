@@ -153,38 +153,4 @@
         android:text="REGISTER"
         android:textColor="@color/white" />
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/btn_loginFacebook"
-        android:layout_width="234dp"
-        android:layout_height="28dp"
-        android:layout_below="@id/btnRegister"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/btn_background"
-        android:backgroundTint="@color/blueFacebook"
-        android:drawableStart="@drawable/drawable_btn_icon_facebook"
-        android:paddingLeft="4dp"
-        android:text="Continue with Facebook"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="10dp"
-        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
-
-    <Button
-        android:id="@+id/btn_loginGoogle"
-        android:layout_width="234dp"
-        android:layout_height="28dp"
-        android:layout_below="@id/btn_loginFacebook"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/btn_background"
-        android:backgroundTint="@color/grey"
-        android:drawableLeft="@drawable/drawable_btn_icon_google"
-        android:paddingLeft="5dp"
-        android:text="Sign-in with Google"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="10dp"
-        tools:ignore="TouchTargetSizeCheck" />
-
 </RelativeLayout>
