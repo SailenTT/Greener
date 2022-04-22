@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -32,13 +33,27 @@ class RegisterPage : AppCompatActivity() {
     private lateinit var callbackManager: CallbackManager
     private val REQ_ONE_TAP = 2
     val TAG = "FACEBOOKTAG"
+    //callback contracts
+    var callbackforfacebook = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
 
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         callbackManager = CallbackManager.Factory.create()
+
+        //assegno l'oggetto grafico della UI alla variabile
+        txtLogIn = findViewById(R.id.txt_LogIn)
+
+        //metodo onClick della txtSignUp per far diventare la txt un link per la activity RegisterPage
+        txtLogIn.setOnClickListener {
+            val intent= Intent(this, LoginPage::class.java)
+            startActivity(intent)
+        }
+
 
         auth = FirebaseAuth.getInstance()
         database =
@@ -100,7 +115,7 @@ class RegisterPage : AppCompatActivity() {
         //TODO dobbiamo avere piu onactivity, ma le api usano tutti metodi deprecati
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-            Toast.makeText(this, "$requestCode", Toast.LENGTH_SHORT).show()
+
         // Pass the activity result back to the Facebook SDK
         callbackManager.onActivityResult(requestCode, resultCode, data)
     }

@@ -6,6 +6,7 @@ import android.content.IntentSender
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import com.eco.app.databinding.ActivityLoginPageBinding
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
@@ -24,15 +25,34 @@ class LoginPage : AppCompatActivity() {
     private val REQ_ONE_TAP = 2  // Can be any integer unique to the Activity
     private var showOneTapUI = true
 
+    private lateinit var txtSignUp: TextView //txt che funzionerà da linker alla page di registrazione
 
+
+
+
+    //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE
+    //POI LI RIFACCIAMO
+    //metodo onCreate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityLoginPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //assegno l'oggetto grafico della UI alla variabile
+        txtSignUp = findViewById(R.id.txt_SignUp)
+
+        //metodo onClick della txtSignUp per far diventare la txt un link per la activity RegisterPage
+        txtSignUp.setOnClickListener {
+            val intent= Intent(this, RegisterPage::class.java)
+            startActivity(intent)
+        }
+
+        //metodo onClick del btnLogin
         binding.btnLogin.setOnClickListener{
             loginUser()
         }
+
+        //metodo onClick del btnLoginGoogle
         binding.btnLoginGoogle.setOnClickListener{
             loginWithGoogle()
         }
@@ -53,6 +73,9 @@ class LoginPage : AppCompatActivity() {
             .build()
     }
 
+    //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE
+    //POI LI RIFACCIAMO
+    //funzione per il login dell'utente
     fun loginUser(){
         val email=binding.edtEmail.text.toString()
         val pswd=binding.edtPsw.text.toString()
@@ -89,6 +112,9 @@ class LoginPage : AppCompatActivity() {
 
     }
 
+    //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE
+    //POI LI RIFACCIAMO
+    //funzione per gestire il login con google(firebase)
     fun loginWithGoogle(){
         oneTapClient.beginSignIn(signInRequest)
             .addOnSuccessListener(this) { result ->
@@ -108,13 +134,15 @@ class LoginPage : AppCompatActivity() {
 
     }
 
+    //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE
+    //POI LI RIFACCIAMO
+    //funzione che controlla il risultato dell'operazione eseguita
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val googleCredential = oneTapClient.getSignInCredentialFromIntent(data)
         val idToken = googleCredential.googleIdToken
 
         println("On activity result")
-        Toast.makeText(this, "$requestCode", Toast.LENGTH_SHORT).show()
         when {
             idToken != null -> {
                 // Got an ID token from Google. Use it to authenticate
