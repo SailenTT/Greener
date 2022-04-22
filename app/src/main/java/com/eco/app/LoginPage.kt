@@ -50,6 +50,7 @@ class LoginPage : AppCompatActivity() {
         //metodo onClick della txtSignUp per far diventare la txt un link per la activity RegisterPage
         txtSignUp.setOnClickListener {
             val intent= Intent(this, RegisterPage::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
 
