@@ -10,4 +10,7 @@
     <color name="greenLogin">#5BB53C</color>
     <color name="grey">#E1E1E1</color>
     <color name="blueFacebook">#0073DD</color>
+
+    <color name="pink">#f469a9</color>
+    <color name="blue">#88bef5</color>
 </resources>

@@ -10,6 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Main">
         <activity
+            android:name=".IntroductorActivity"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity
             android:name=".quiz_activity"
             android:exported="false" />
         <activity
@@ -37,7 +48,8 @@
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait">
-            <!--android:theme="@style/Theme.App.Starting"-->
+
+            <!-- android:theme="@style/Theme.App.Starting" -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
