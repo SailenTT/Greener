@@ -1,15 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Spash screen theme. -->
-    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenAnimatedIcon">@drawable/app_logo2</item>
+    <!--<style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/app_logo_splash_screen</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/white</item>
         <item name="windowSplashScreenAnimationDuration">50</item>
         <item name="windowSplashScreenBackground">@color/white</item>
         <item name="postSplashScreenTheme">@style/Theme.Main</item>
-    </style>
+    </style>-->
     <!-- Base application theme. -->
     <style name="Theme.Main" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="fontFamily">@font/roboto</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/greenLogin</item>
         <item name="colorPrimaryVariant">@color/greenLogin</item>

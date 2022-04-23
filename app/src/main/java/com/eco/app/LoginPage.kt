@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.IntentSender
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -62,6 +63,8 @@ class LoginPage : AppCompatActivity() {
         binding.btnLogin.setOnClickListener{
             loginUser()
         }
+
+        binding.btnLoginFacebook.background=getDrawable(R.drawable.btn_background)
 
         binding.btnLoginFacebook.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {

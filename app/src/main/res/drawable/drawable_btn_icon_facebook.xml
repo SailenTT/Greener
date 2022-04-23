@@ -2,6 +2,6 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
         android:drawable="@drawable/icona_facebook"
-        android:width="29dp"
-        android:height="29dp" />
+        android:width="36dp"
+        android:height="36dp" />
 </layer-list >

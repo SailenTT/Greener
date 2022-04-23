@@ -156,8 +156,8 @@
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="263dp"
-        android:layout_height="wrap_content"
+        android:layout_width="264dp"
+        android:layout_height="44dp"
         android:layout_below="@id/switch_keep_me"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
@@ -165,39 +165,37 @@
         android:text="LOGIN"
         android:textColor="@color/white" />
 
-    <!--sostituire dp con sp per il testo-->
     <Button
         android:id="@+id/btn_loginGoogle"
-        android:layout_width="234dp"
-        android:layout_height="28dp"
+        android:layout_width="264dp"
+        android:layout_height="44dp"
         android:layout_below="@id/btn_loginFacebook"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
         android:background="@drawable/btn_background"
         android:backgroundTint="@color/grey"
         android:drawableLeft="@drawable/drawable_btn_icon_google"
         android:paddingLeft="5dp"
-        android:text="Sign-in with Google"
+        android:text="Accedi con Google"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:textSize="10dp"
-        tools:ignore="TouchTargetSizeCheck" />
+        android:textSize="16sp" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/btn_loginFacebook"
-        android:layout_width="234dp"
-        android:layout_height="30dp"
+        android:layout_width="264dp"
+        android:layout_height="44dp"
         android:layout_below="@id/btn_login"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_marginTop="40dp"
         android:background="@drawable/btn_background"
         android:backgroundTint="@color/blueFacebook"
         android:drawableLeft="@drawable/drawable_btn_icon_facebook"
-        android:paddingLeft="4dp"
+        android:paddingLeft="6dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
         android:text="Continue with Facebook"
         android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+        android:textSize="16sp" />
 
 </RelativeLayout>
