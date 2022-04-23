@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eco.app">
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_app_logo2"
@@ -8,6 +9,9 @@
         android:roundIcon="@drawable/ic_app_logo2"
         android:supportsRtl="true"
         android:theme="@style/Theme.Main">
+        <activity
+            android:name=".debug_activity"
+            android:exported="false" />
         <activity
             android:name=".HomeWindow"
             android:exported="false" />
@@ -27,8 +31,8 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"
             android:configChanges="orientation"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.App.Starting">
             <intent-filter>

@@ -7,7 +7,7 @@
     android:layout_marginTop="32dp"
     tools:context=".MainActivity">
 
-    <!--<Button
+    <Button
         android:id="@+id/login_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,5 +41,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.433"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_main" />
+
+    <Button
+        android:id="@+id/btn_calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="calendar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.307" />
         app:layout_constraintTop_toBottomOf="@+id/login_main" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
