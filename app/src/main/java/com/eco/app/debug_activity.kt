@@ -3,6 +3,7 @@ package com.eco.app
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.eco.app.databinding.ActivityMainBinding
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -47,6 +48,21 @@ class debug_activity : AppCompatActivity() {
         binding.btnCalendar.setOnClickListener {
             val intent = Intent(this,HomeWindow::class.java)
             startActivity(intent)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val currentUser = auth.currentUser
+        if(currentUser!= null){
+            Toast.makeText(this, "Logged in ", Toast.LENGTH_SHORT).show()
+           // val intent=Intent(this,HomeWindow::class.java)
+           // startActivity(intent)
+        }
+        else{
+            Toast.makeText(this, "Not logged in ", Toast.LENGTH_SHORT).show()
+            //val intent=Intent(this,LoginPage::class.java)
+            //startActivity(intent)
         }
     }
 }

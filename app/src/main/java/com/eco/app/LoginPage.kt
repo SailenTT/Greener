@@ -31,6 +31,12 @@ class LoginPage : AppCompatActivity() {
     private lateinit var signInRequest: BeginSignInRequest
     private lateinit var callbackManager: CallbackManager
     private val REQ_ONE_TAP = 2
+    /*variabile UID utile da portare in giro, settato al momento del login
+      per query
+     */
+    companion object{
+        var UID = ""
+    }
 
     //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE
     //POI LI RIFACCIAMO
@@ -124,7 +130,13 @@ class LoginPage : AppCompatActivity() {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success")
                         val user = auth.currentUser
+                        val uid = auth.uid
                         //TODO Load main dashboard
+                        if (uid != null) {
+                            UID = uid
+                        }
+                        val intent = Intent(this,debug_activity::class.java)
+                        startActivity(intent)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
