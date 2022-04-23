@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Main">
         <activity
+            android:name=".quiz_activity"
+            android:exported="false" />
+        <activity
             android:name=".debug_activity"
             android:exported="false" />
         <activity
