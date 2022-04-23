@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.eco.app.databinding.ActivityDebugBinding
 import com.eco.app.databinding.ActivityMainBinding
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -15,7 +16,7 @@ class debug_activity : AppCompatActivity() {
     private lateinit var analytics: FirebaseAnalytics
     private lateinit var auth: FirebaseAuth
 
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding : ActivityDebugBinding
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -26,7 +27,7 @@ class debug_activity : AppCompatActivity() {
         //Obtain the Firebase auth
         auth = Firebase.auth;
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityDebugBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.registerMain.setOnClickListener {
@@ -47,6 +48,11 @@ class debug_activity : AppCompatActivity() {
 
         binding.btnCalendar.setOnClickListener {
             val intent = Intent(this,HomeWindow::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnQuiz.setOnClickListener {
+            val intent = Intent(this,quiz_activity::class.java)
             startActivity(intent)
         }
     }

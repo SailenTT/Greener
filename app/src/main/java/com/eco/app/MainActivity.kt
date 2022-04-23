@@ -16,10 +16,9 @@ class MainActivity : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
 
-        //REDIRECTO AI BUTTON PER DEBUG E TESTING ZIO PORK, NELLA VERSIONE FINALE VA ALLA LOGIN
+        //REDIRECTO AI BUTTON PER DEBUG E TESTING, NELLA VERSIONE FINALE VA ALLA LOGIN
         val intent=Intent(this,debug_activity::class.java)
         startActivity(intent)
-
         /*val currentUser = auth.currentUser
         if(currentUser!= null){
             Toast.makeText(this, "Logged in ", Toast.LENGTH_SHORT).show()
