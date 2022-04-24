@@ -10,7 +10,6 @@
         <entry key="..\:/Users/carca/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/layout/activity_main.xml" value="0.18125" />
         <entry key="..\:/Users/carca/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/layout/activity_register_page.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/carca/Desktop/ProgettoDispositiviMobili/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/app_logo_splash_screen.xml" value="0.137" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/btn_background.xml" value="0.6" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/drawable_btn_icon.xml" value="0.12" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/drawable_btn_icon_facebook.xml" value="0.128" />
@@ -20,22 +19,26 @@
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/ic_drawable_email.xml" value="0.128" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/ic_drawable_psw.xml" value="0.128" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/ic_launcher_background.xml" value="0.128" />
-        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_introductor.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_login.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_login_page.xml" value="0.4" />
+        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_login_page.xml" value="0.536" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_main.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_register_page.xml" value="0.264" />
         <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/drawable/app_logo_animator.xml" value="0.162" />
+        <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/drawable/drawable_btn_icon_facebook.xml" value="0.167" />
         <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/drawable/drawable_recycle_bin.xml" value="0.167" />
         <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/drawable/ic_app_logo.xml" value="0.1" />
         <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/drawable/ic_app_logo2.xml" value="0.1785" />
+        <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/drawable/ic_baseline_videogame_asset.xml" value="0.1755" />
         <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/drawable/news_avd_v02.xml" value="0.1" />
         <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/drawable/recycle_bin.xml" value="0.167" />
+        <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/layout/activity_debug.xml" value="0.15760869565217392" />
         <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/layout/activity_home_window.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/layout/activity_introductor.xml" value="0.1" />
         <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/layout/activity_login_page.xml" value="0.22" />
         <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/layout/activity_main.xml" value="0.14130434782608695" />
         <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/layout/activity_register_page.xml" value="0.14130434782608695" />
         <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/layout/fragment_trash_bin_game.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/menu/bottom_navigation_bar_menu.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/david/Desktop/GitHub/EcoApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>
     </option>
