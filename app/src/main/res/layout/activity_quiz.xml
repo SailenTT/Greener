@@ -4,55 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".quiz_activity">
-
-    <Button
-        android:id="@+id/btn_r1"
-        android:layout_width="185dp"
-        android:layout_height="wrap_content"
-        android:text="r1"
-        app:layout_constraintBottom_toTopOf="@+id/btn_r3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.061"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.867" />
-
-    <Button
-        android:id="@+id/btn_r2"
-        android:layout_width="185dp"
-        android:layout_height="wrap_content"
-        android:text="r2"
-        app:layout_constraintBottom_toTopOf="@+id/btn_r4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.922"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.869" />
-
-    <Button
-        android:id="@+id/btn_r3"
-        android:layout_width="185dp"
-        android:layout_height="wrap_content"
-        android:text="r3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.87" />
-
-    <Button
-        android:id="@+id/btn_r4"
-        android:layout_width="185dp"
-        android:layout_height="wrap_content"
-        android:text="r4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
-        app:layout_constraintStart_toEndOf="@+id/btn_r3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.869" />
+    tools:context=".QuizActivity">
 
     <TextView
         android:id="@+id/tv_question"
@@ -63,6 +15,57 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.454" />
+        app:layout_constraintVertical_bias="0.242" />
+
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="332dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_question"
+        app:layout_constraintVertical_bias="1.0">
+
+        <Button
+            android:id="@+id/btn_r1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="8dp"
+            android:maxLines="2"
+            android:text="R1" />
+
+        <Button
+            android:id="@+id/btn_r2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="10dp"
+            android:text="R2" />
+
+        <Button
+            android:id="@+id/btn_r3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="10dp"
+            android:text="r3" />
+
+        <Button
+            android:id="@+id/btn_r4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="8dp"
+            android:text="r4" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.eco.app.databinding.ActivityDebugBinding
-import com.eco.app.databinding.ActivityMainBinding
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.FirebaseAuth
@@ -52,7 +51,7 @@ class debug_activity : AppCompatActivity() {
         }
 
         binding.btnQuiz.setOnClickListener {
-            val intent = Intent(this,quiz_activity::class.java)
+            val intent = Intent(this,QuizActivity::class.java)
             startActivity(intent)
         }
     }
