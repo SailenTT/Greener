@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TrashBinGame" >
+    tools:context=".TrashBinGame"
+    >
 
     <ImageView
         android:id="@+id/trash_bin"
@@ -12,9 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="0dp"
-        android:maxWidth="30dp"
-        android:maxHeight="30dp"
-        android:minWidth="30dp"
-        android:minHeight="30dp"
-        tools:src="@drawable/drawable_recycle_bin" />
+        android:cropToPadding="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/drawable_recycle_bin" />
 </RelativeLayout>
