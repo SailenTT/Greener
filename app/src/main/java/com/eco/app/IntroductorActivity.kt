@@ -4,8 +4,9 @@ import android.R
 import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -22,6 +23,7 @@ class IntroductorActivity : AppCompatActivity() {
     private lateinit var slogan: ImageView
     private lateinit var splashImg: ImageView
     private lateinit var lottie: LottieAnimationView
+    //private lateinit var anim : Animation
 
     private lateinit var viewPager: ViewPager
     private var pagerAdapter: ScreenSlidePagerAdapter? = null
@@ -44,13 +46,15 @@ class IntroductorActivity : AppCompatActivity() {
         logo = binding.logo
         lottie = binding.lottie
 
+        //anim = AnimationUtils.loadAnimation(this, R.anim.o_b_anim)
+
         viewPager = binding.pager
         pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager)
         viewPager.setAdapter(pagerAdapter)
 
         //animazione Activity_Introductor.xml
         //velocità originale 1400
-        //TODO mettere con velocità massima a 1000ms
+        //FATTO
         splashImg.animate().translationY(-3000f).setDuration(1400).startDelay = 3500
         slogan.animate().translationY(1800f).setDuration(1400).startDelay = 3500
         logo.animate().translationY(1800f).setDuration(1400).setStartDelay(3500)
