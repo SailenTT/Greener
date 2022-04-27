@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.airbnb.lottie.LottieAnimationView
 import com.eco.app.databinding.ActivityIntroductorBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class IntroductorActivity : AppCompatActivity() {
@@ -23,7 +24,7 @@ class IntroductorActivity : AppCompatActivity() {
     private lateinit var slogan: ImageView
     private lateinit var splashImg: ImageView
     private lateinit var lottie: LottieAnimationView
-    //private lateinit var anim : Animation
+    private lateinit var anim : Animation
 
     private lateinit var viewPager: ViewPager
     private var pagerAdapter: ScreenSlidePagerAdapter? = null
@@ -46,21 +47,25 @@ class IntroductorActivity : AppCompatActivity() {
         logo = binding.logo
         lottie = binding.lottie
 
-        //anim = AnimationUtils.loadAnimation(this, R.anim.o_b_anim)
-
         viewPager = binding.pager
         pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager)
         viewPager.setAdapter(pagerAdapter)
+
+        anim = AnimationUtils.loadAnimation(this, com.eco.app.R.anim.o_b_anim)
+        viewPager.startAnimation(anim)
 
         //animazione Activity_Introductor.xml
         //velocità originale 1400
         //FATTO
         splashImg.animate().translationY(-3000f).setDuration(1400).startDelay = 3500
         slogan.animate().translationY(1800f).setDuration(1400).startDelay = 3500
-        logo.animate().translationY(1800f).setDuration(1400).setStartDelay(3500)
+        logo.animate().translationY(2800f).setDuration(1400).setStartDelay(3500)
         lottie.animate().translationY(1600f).setDuration(1400).setStartDelay(3500)
 
-        val lottieView = binding.lottie
+
+        //TODO ho messo questo nel btnFineIntro
+        //TODO quindi possiamo toglierlo
+        /*val lottieView = binding.lottie
         lottieView.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animator: Animator) {}
 
@@ -72,7 +77,7 @@ class IntroductorActivity : AppCompatActivity() {
 
             override fun onAnimationCancel(animator: Animator) {}
             override fun onAnimationRepeat(animator: Animator) {}
-        })
+        })*/
     }
 
     class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
