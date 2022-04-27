@@ -50,6 +50,11 @@ class HomeWindow : AppCompatActivity() {
             cal.add(Calendar.DATE,i)
             Log.d("Calendar", dateFormat.format(cal.time))
         }
-        }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        finish()
+    }
+}
 
