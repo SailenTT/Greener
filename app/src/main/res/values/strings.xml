@@ -14,4 +14,8 @@
     <string name="menu_minigames">Minigames</string>
     <string name="menu_calendar">Calendario</string>
     <string name="menu_calculator">Carbon Footprint</string>
+    <string name="btn_R1">R1</string>
+    <string name="btn_R2">R2</string>
+    <string name="btn_R3">R3</string>
+    <string name="btn_R4">R4</string>
 </resources>

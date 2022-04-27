@@ -18,6 +18,10 @@ class RegisterPage : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterPageBinding
     private lateinit var callbackManager: CallbackManager
 
+    companion object{
+        val PATHTODB="https://ecoapp-706b8-default-rtdb.europe-west1.firebasedatabase.app/"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterPageBinding.inflate(layoutInflater)
@@ -32,11 +36,8 @@ class RegisterPage : AppCompatActivity() {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
-
-
         auth = FirebaseAuth.getInstance()
-        database =
-            Firebase.database("https://ecoapp-706b8-default-rtdb.europe-west1.firebasedatabase.app/")
+        database = Firebase.database(PATHTODB)
 
         binding.btnRegister.setOnClickListener {
             createAccount()

@@ -15,7 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.242" />
+        app:layout_constraintVertical_bias="0.242"
+        />
 
     <LinearLayout
         android:layout_width="409dp"
@@ -38,25 +39,26 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="8dp"
             android:maxLines="2"
-            android:text="R1" />
+            android:text="@string/btn_R1" />
 
         <Button
             android:id="@+id/btn_r2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginRight="10dp"
-            android:text="R2" />
+            android:layout_marginEnd="10dp"
+            android:text="@string/btn_R2" />
 
         <Button
             android:id="@+id/btn_r3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginRight="10dp"
-            android:text="r3" />
+            android:layout_marginEnd="10dp"
+            android:text="@string/btn_R3"
+            android:outlineProvider="bounds" />
 
         <Button
             android:id="@+id/btn_r4"
@@ -65,7 +67,8 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginRight="8dp"
-            android:text="r4" />
+            android:text="@string/btn_R4"
+            android:outlineProvider="bounds" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
