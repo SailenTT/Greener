@@ -65,7 +65,7 @@ class IntroductorActivity : AppCompatActivity() {
             override fun onAnimationStart(animator: Animator) {}
 
             override fun onAnimationEnd(animator: Animator) {
-                //TODO cambiare e far partire l'homepage (una volta pronta)
+                //TODO togliere questo
                 val intent=Intent(this@IntroductorActivity,debug_activity::class.java)
                 startActivity(intent)
             }
