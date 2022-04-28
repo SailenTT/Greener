@@ -21,7 +21,7 @@ class OnBoardingFragment1 : Fragment() {
         txtSkip = root.findViewById(R.id.txt_skip1)
 
         txtSkip.setOnClickListener(View.OnClickListener {
-            val intent= Intent(activity,debug_activity::class.java)
+            val intent= Intent(activity,First_Activity::class.java)
             startActivity(intent)
         })
 
