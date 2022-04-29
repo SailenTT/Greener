@@ -39,7 +39,8 @@
             android:layout_marginRight="8dp"
             android:layout_weight="0.5"
             android:backgroundTint="@color/greenLogin"
-            android:maxLines="2" />
+            android:maxLines="2"
+            android:text="@string/btn_R1" />
 
         <Button
             android:id="@+id/btn_r2"
@@ -49,7 +50,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="8dp"
             android:layout_weight="0.5"
-            android:backgroundTint="@color/greenLogin" />
+            android:backgroundTint="@color/greenLogin"
+            android:text="@string/btn_R2" />
 
         <Button
             android:id="@+id/btn_r3"
@@ -59,7 +61,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="8dp"
             android:layout_weight="0.5"
-            android:backgroundTint="@color/greenLogin" />
+            android:backgroundTint="@color/greenLogin"
+            android:text="@string/btn_R3" />
 
         <Button
             android:id="@+id/btn_r4"
@@ -69,7 +72,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="8dp"
             android:layout_weight="0.5"
-            android:backgroundTint="@color/greenLogin" />
+            android:backgroundTint="@color/greenLogin"
+            android:text="@string/btn_R4" />
     </LinearLayout>
 
 

@@ -60,12 +60,12 @@ class debug_activity : AppCompatActivity() {
         super.onStart()
         val currentUser = auth.currentUser
         if(currentUser!= null){
-            //Toast.makeText(this, "Logged in ", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Logged in ", Toast.LENGTH_SHORT).show()
            // val intent=Intent(this,HomeWindow::class.java)
            // startActivity(intent)
         }
         else{
-            //Toast.makeText(this, "Not logged in ", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Not logged in ", Toast.LENGTH_SHORT).show()
             //val intent=Intent(this,LoginPage::class.java)
             //startActivity(intent)
         }
