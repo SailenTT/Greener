@@ -100,7 +100,7 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
 
         activity?.runOnUiThread{
             run {
-                //for(i in 0..2){
+                for(i in 0..2){
                 val img_falling_sprite = ImageView(requireContext())
 
                 val metrics = requireContext().resources.displayMetrics
@@ -121,17 +121,19 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
                 //volendo si può usare il bounce per far riprendere i primi e poi toglierlo
 
                 //non faccio sparire la carta per far capire all'utente che ha inquinato
-
                 img_falling_sprite.animate()
                     .translationY(binding.root.height - img_falling_sprite.layoutParams.height.toFloat())
                     //.setInterpolator(AccelerateInterpolator())
                     //.setInterpolator(BounceInterpolator())
-                    .setDuration(6000)
+                    .setDuration(3000)
                     .withEndAction {
                         //TODO far finire il gioco
                         println("game over")
                         //fermo il cestino
                         img_falling_sprite.tag = true
+                        img_falling_sprite.layoutParams.height = img_falling_sprite.layoutParams.height-50
+                        img_falling_sprite.layoutParams.width = img_falling_sprite.layoutParams.width-48
+                        img_falling_sprite.y = img_falling_sprite.y + 100
                         //faccio comparire la schermata di fine
                         trashBin.setOnTouchListener(null)
                         binding.txtFinalScore.text=0.toString()
@@ -184,7 +186,7 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
                         }
                     }.start()
 
-                }
+                }}
             }
 
         }
