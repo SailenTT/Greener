@@ -30,6 +30,7 @@ class QuizFragment : Fragment() {
     private lateinit var reply: String
     private lateinit var correctreply: String
     private var quiz_questions_number: Int = 10
+
     val resultFragment = resultQuizFragment()
 
     companion object{
@@ -57,27 +58,28 @@ class QuizFragment : Fragment() {
     }
 
     fun setQuiz(txt_question: TextView, buttonsArray: Array<Button?>) {
+        val random_question = Random.nextInt(10)
         val randomList_buttons = (0..3).shuffled().take(4)
-        val random_question = Random.nextInt(3)
-        Log.i("random_question", "$random_question")
         val reference = database.getReference("Quiz")
         val question_db = reference.child("${random_question + 1}")//questo shuffle a caso
         val question = question_db.child("domanda").get().addOnSuccessListener {
             txt_question.setText(it.value.toString())
             Log.i("firebase", "Question presa")
         }
-        for (i in 0..3) {
-            val correctreply_db = question_db.child("risp0").get().addOnSuccessListener {
-                correctreply = it.value.toString()
-            }
-            val replies = question_db.child("risp$i").get().addOnSuccessListener {
-                buttonsArray[randomList_buttons.get(i)]?.setText(it.value.toString())
-                buttonsArray[i]?.setOnClickListener {
-                    reply = buttonsArray[i]?.text.toString()
-                    checkreply(reply, correctreply, i)
+            for (i in 0..3) {
+                val correctreply_db = question_db.child("risp0").get().addOnSuccessListener {
+                    correctreply = it.value.toString()
+                }
+                val replies = question_db.child("risp$i").get().addOnSuccessListener {
+                    buttonsArray[randomList_buttons.get(i)]?.setText(it.value.toString())
+                    buttonsArray[i]?.setOnClickListener {
+                        reply = buttonsArray[i]?.text.toString()
+                        checkreply(reply, correctreply, i)
+                    }
                 }
             }
-        }
+
+
     }
 
     fun checkreply(reply: String, correctReply: String, position: Int) {
