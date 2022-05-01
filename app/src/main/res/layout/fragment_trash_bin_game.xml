@@ -27,7 +27,7 @@
         android:background="@drawable/score_background"
         android:textColor="@color/white"
         android:text="0"
-        android:textSize="34sp"/>
+        android:textSize="30sp"/>
 
 
     <RelativeLayout
@@ -47,7 +47,7 @@
             android:textSize="30sp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="1dp"
             android:textColor="@color/white"
             />
         <TextView
@@ -57,15 +57,15 @@
             android:layout_centerHorizontal="true"
             android:layout_alignTop="@id/txt_game_over"
             android:textSize="26sp"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="42dp"
             android:textColor="@color/white"
             android:background="@android:color/transparent"/>
             <ImageButton
                 android:id="@+id/restart_game_button"
                 android:layout_width="120dp"
-                android:layout_height="80dp"
+                android:layout_height="75dp"
                 android:layout_alignTop="@id/txt_final_score"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="38dp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_baseline_play_arrow_24"
                 android:background="@drawable/btn_background"
@@ -96,16 +96,16 @@
             app:lottie_rawRes="@raw/recycle_animation"
             app:lottie_loop="false"
             app:lottie_autoPlay="false"
-            android:background="@color/greenLogin" />
+            android:background="@drawable/lottie_recycle_anim_bg" />
     </RelativeLayout>
 
     <ImageButton
         android:id="@+id/start_game_button"
         android:layout_width="120dp"
         android:layout_height="80dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_baseline_play_arrow_24"
+        android:layout_centerInParent="true"
         android:background="@drawable/btn_background"
-        android:scaleType="fitCenter"/>
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_baseline_play_arrow_24"
+        tools:ignore="SpeakableTextPresentCheck" />
 </RelativeLayout>
