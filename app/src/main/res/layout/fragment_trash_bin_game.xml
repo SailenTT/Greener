@@ -77,15 +77,15 @@
         android:id="@+id/trash_bin_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp">
+        android:layout_alignParentBottom="true">
+
         <ImageView
             android:id="@+id/trash_bin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:cropToPadding="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/drawable_recycle_bin"/>
+            android:src="@drawable/drawable_recycle_bin" />
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie"
             android:layout_width="65dp"

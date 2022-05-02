@@ -29,8 +29,10 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
     private var score=0
     private var last_falling_sprite: ImageView?=null
     private lateinit var lottie: LottieAnimationView
-    private val defaultSpeed=3600L
-    private val minimumSpeed=1000L
+    private val defaultSpeed=2700L
+    private val minimumSpeed=900L
+    private val defaultInclination=400
+    private val maxXInclination=1000
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //Inflate the binding for this fragment
@@ -114,10 +116,10 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
                 else if(score>=60){
                     ballSize -= (ballSize / 4)
                 }
-                else if(score>=35){
+                else if(score>=40){
                     ballSize-=(ballSize/5)
                 }
-                else if(score>=20){
+                else if(score>=25){
                     ballSize-=(ballSize/6)
                 }
 
@@ -175,8 +177,8 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
                     }
                 }
 
-                if(score>=15){
-                    val currentSpeed=defaultSpeed-(score*20)
+                if(score>=10){
+                    val currentSpeed=defaultSpeed-(score*18)
                     if(currentSpeed>=minimumSpeed) {
                         spriteAnimation.duration = currentSpeed
                     }
@@ -184,10 +186,22 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
                         spriteAnimation.duration=minimumSpeed
                     }
                 }
-                if(score>=45){
-                    //questo si può migliorare (magari basandosi sullo score
-                    ballXMovement=(Random.nextInt(1000)-500)*metrics.density
+
+                if(score>=25){
+                    if(defaultInclination+(score*10)>maxXInclination) {
+                        ballXMovement =
+                            (Random.nextInt((defaultInclination+(score*10)) * 2) - (defaultInclination+(score*15))) * metrics.density
+                    }
+                    else{
+                        ballXMovement =
+                            (Random.nextInt(maxXInclination * 2) - maxXInclination) * metrics.density
+                    }
                     spriteAnimation.translationXBy(ballXMovement)
+                }
+                else if(score>=15){
+                    ballXMovement=(Random.nextInt(defaultInclination*2)-defaultInclination)*metrics.density
+                    spriteAnimation.translationXBy(ballXMovement)
+
                 }
 
 
@@ -229,7 +243,7 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
             .translationX(trashBin.x + (trashBin.width / 2) - (img_falling_sprite.width / 2))
             .translationY(trashBin.y + img_falling_sprite.height)
             .alpha(1f)
-            .setDuration(250)
+            .setDuration(245)
             .withEndAction {
                 binding.relativeLayout.removeView(img_falling_sprite)
             }
