@@ -10,9 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Main">
         <activity
+            android:name=".Leaderboard"
+            android:exported="false" />
+        <activity
             android:name=".First_Activity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".IntroductorActivity"
             android:exported="true"
