@@ -9,9 +9,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.eco.app.databinding.FragmentQuizBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlin.concurrent.thread
 import kotlin.random.Random
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,7 +34,7 @@ class QuizFragment : Fragment() {
     private lateinit var reply: String
     private lateinit var correctreply: String
     private var quiz_questions_number: Int = 10
-
+    var quizList = arrayListOf<Question>()
     val resultFragment = resultQuizFragment()
 
     companion object{
@@ -52,33 +56,49 @@ class QuizFragment : Fragment() {
         buttons = getButtons()
         txt_question = binding.tvQuestion
         setQuiz(txt_question, buttons)
-
         return binding.root
 
     }
+
+
 
     fun setQuiz(txt_question: TextView, buttonsArray: Array<Button?>) {
         val random_question = Random.nextInt(10)
         val randomList_buttons = (0..3).shuffled().take(4)
         val reference = database.getReference("Quiz")
-        val question_db = reference.child("${random_question + 1}")//questo shuffle a caso
-        val question = question_db.child("domanda").get().addOnSuccessListener {
-            txt_question.setText(it.value.toString())
-            Log.i("firebase", "Question presa")
-        }
-            for (i in 0..3) {
-                val correctreply_db = question_db.child("risp0").get().addOnSuccessListener {
-                    correctreply = it.value.toString()
+        reference.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for ( i in snapshot.children){
+                    val rispList = arrayListOf<String>()
+                    val questionInDb = i.child("domanda").getValue(String::class.java)
+                    val risp0 = i.child("risp0").getValue(String::class.java)
+                    rispList.add(risp0!!)
+                    val risp1 = i.child("risp1").getValue(String::class.java)
+                    rispList.add(risp1!!)
+                    val risp2 = i.child("risp2").getValue(String::class.java)
+                    rispList.add(risp2!!)
+                    val risp3 = i.child("risp3").getValue(String::class.java)
+                    rispList.add(risp3!!)
+                    val questionObject = Question(questionInDb,rispList)
+                    quizList.add(questionObject)
+                    Log.d("QUESTIONS",questionObject.toString())
                 }
-                val replies = question_db.child("risp$i").get().addOnSuccessListener {
-                    buttonsArray[randomList_buttons.get(i)]?.setText(it.value.toString())
+                val question = quizList[random_question]
+                Log.d("QUESTIONS",question.toString())
+                txt_question.text = question.question//random question
+                correctreply = question.listofrisp[0]
+                for (i in 0..3) {
+                    buttonsArray[randomList_buttons.get(i)]?.setText(question.listofrisp[i])
                     buttonsArray[i]?.setOnClickListener {
                         reply = buttonsArray[i]?.text.toString()
                         checkreply(reply, correctreply, i)
                     }
                 }
             }
-
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
 
     }
 
@@ -87,23 +107,23 @@ class QuizFragment : Fragment() {
             //Toast.makeText(requireActivity(), "RISPOSTA ESATTA", Toast.LENGTH_SHORT).show()
             correct_replies++
             quiz_questions_number--
-            if(quiz_questions_number == 0){
+            if (quiz_questions_number == 0) {
                 replaceFragment(resultFragment)
             }
             setQuiz(txt_question, buttons)
         } else {
             //Toast.makeText(requireActivity(), "RISPOSTA ERRATA", Toast.LENGTH_SHORT).show()
             quiz_questions_number--
-            if(quiz_questions_number == 0){
+            if (quiz_questions_number == 0) {
                 replaceFragment(resultFragment)
             }
             setQuiz(txt_question, buttons)
         }
     }
 
-    fun replaceFragment(fragment : Fragment){
+    fun replaceFragment(fragment: Fragment) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
-        transaction?.replace(R.id.fragment_container_quiz,fragment)
+        transaction?.replace(R.id.fragment_container_quiz, fragment)
         transaction?.commit()
     }
 
