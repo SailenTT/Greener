@@ -2,6 +2,7 @@ package com.eco.app
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.eco.app.databinding.ActivityRegisterPageBinding
@@ -46,34 +47,41 @@ class RegisterPage : AppCompatActivity() {
     }
 
     fun createAccount() {
-        val name = binding.edtNome.text.toString()
-        val email = binding.edtEmail.text.toString()
-        val psw = binding.edtPsw.text.toString()
+        if(auth.currentUser==null){
+            val name = binding.edtNome.text.toString()
+            val email = binding.edtEmail.text.toString()
+            val psw = binding.edtPsw.text.toString()
 
-        if (name.equals("")) {
-            binding.edtNome.setError("Check name")
-            return
-        }
-        if (email.equals("")) {
-            binding.edtEmail.setError("Check mail")
-            return
-        }
-
-        if (psw.equals("")) {
-            binding.edtPsw.setError("Check password")
-            return
-        }
-
-        auth.createUserWithEmailAndPassword(email, psw).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Toast.makeText(this, "Utente registrato correttamente", Toast.LENGTH_SHORT)
-                    .show()
-                val userUid = task.result.user!!.uid
-                val reference = database.getReference("Users")
-                reference.child(userUid).child("username").setValue(name)
-            } else {
-                Toast.makeText(this, "Errore nella registrazione", Toast.LENGTH_SHORT).show()
+            if (name.equals("")) {
+                binding.edtNome.setError("Check name")
+                return
             }
+            if (email.equals("")) {
+                binding.edtEmail.setError("Check mail")
+                return
+            }
+
+            if (psw.equals("")) {
+                binding.edtPsw.setError("Check password")
+                return
+            }
+
+            auth.createUserWithEmailAndPassword(email, psw).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Utente registrato correttamente", Toast.LENGTH_SHORT)
+                        .show()
+                    val userUid = task.result.user!!.uid
+                    val usersReference = database.getReference("Users")
+                    usersReference.child(userUid).child("username").setValue(name)
+                    usersReference.child(userUid).child("quiz_score").setValue(0)
+                    usersReference.child(userUid).child("bin_score").setValue(0)
+                } else {
+                    Toast.makeText(this, "Errore nella registrazione", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }else{
+            Toast.makeText(this, "Sei gia loggato", Toast.LENGTH_SHORT).show()
+            Log.d("Register","GIA LOGGATO")
         }
     }
 }
