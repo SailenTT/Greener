@@ -17,12 +17,12 @@ class Leaderboard : AppCompatActivity() {
         setContentView(binding.root)
 
         //array che va riempoito con i dati della leaderboard ( tramite oggetto )
-        val array = ArrayList<leaderboardRow>()
+        val array = ArrayList<LeaderboardRow>()
         //propic del tizio che in qualche modo faremo uppare
         val imageView = ImageView(this)
         imageView.setImageResource(R.drawable.arrow1)
         //creazione dell'oggetto per riempire la riga
-        val leaderboardrowelement = leaderboardRow(100,200,imageView)
+        val leaderboardrowelement = LeaderboardRow(100,200,imageView)
         //debug ne ho messi 10 per vedere
         for(i in 0..10){
             array.add(i,leaderboardrowelement)

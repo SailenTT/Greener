@@ -15,7 +15,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlin.concurrent.thread
 import kotlin.random.Random
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,9 +32,9 @@ class QuizFragment : Fragment() {
     private lateinit var txt_question: TextView
     private lateinit var reply: String
     private lateinit var correctreply: String
-    private var quiz_questions_number: Int = 10
+    private var quizQuestionsNumber: Int = 10
     var quizList = arrayListOf<Question>()
-    val resultFragment = resultQuizFragment()
+    val resultFragment = ResultQuizFragment()
 
     companion object{
         var correct_replies = 0
@@ -63,8 +62,8 @@ class QuizFragment : Fragment() {
 
 
     fun setQuiz(txt_question: TextView, buttonsArray: Array<Button?>) {
-        val random_question = Random.nextInt(10)
-        val randomList_buttons = (0..3).shuffled().take(4)
+        val randomQuestion = Random.nextInt(10)
+        val randomlistButtons = (0..3).shuffled().take(4)
         val reference = database.getReference("Quiz")
         reference.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -83,12 +82,12 @@ class QuizFragment : Fragment() {
                     quizList.add(questionObject)
                     Log.d("QUESTIONS",questionObject.toString())
                 }
-                val question = quizList[random_question]
+                val question = quizList[randomQuestion]
                 Log.d("QUESTIONS",question.toString())
                 txt_question.text = question.question//random question
                 correctreply = question.listofrisp[0]
                 for (i in 0..3) {
-                    buttonsArray[randomList_buttons.get(i)]?.setText(question.listofrisp[i])
+                    buttonsArray[randomlistButtons.get(i)]?.setText(question.listofrisp[i])
                     buttonsArray[i]?.setOnClickListener {
                         reply = buttonsArray[i]?.text.toString()
                         checkreply(reply, correctreply, i)
@@ -106,15 +105,15 @@ class QuizFragment : Fragment() {
         if (reply == correctReply) {//TODO controllo , dopo 10 domande compare fragment con punteggio
             //Toast.makeText(requireActivity(), "RISPOSTA ESATTA", Toast.LENGTH_SHORT).show()
             correct_replies++
-            quiz_questions_number--
-            if (quiz_questions_number == 0) {
+            quizQuestionsNumber--
+            if (quizQuestionsNumber == 0) {
                 replaceFragment(resultFragment)
             }
             setQuiz(txt_question, buttons)
         } else {
             //Toast.makeText(requireActivity(), "RISPOSTA ERRATA", Toast.LENGTH_SHORT).show()
-            quiz_questions_number--
-            if (quiz_questions_number == 0) {
+            quizQuestionsNumber--
+            if (quizQuestionsNumber == 0) {
                 replaceFragment(resultFragment)
             }
             setQuiz(txt_question, buttons)

@@ -4,11 +4,9 @@ import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.IntentSender
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
 import com.eco.app.databinding.ActivityLoginPageBinding
 import com.facebook.AccessToken
@@ -138,7 +136,7 @@ class LoginPage : AppCompatActivity() {
                         if (uid != null) {
                             UID = uid
                         }
-                        val intent = Intent(this,debug_activity::class.java)
+                        val intent = Intent(this,DebugActivity::class.java)
                         startActivity(intent)
                     } else {
                         // If sign in fails, display a message to the user.

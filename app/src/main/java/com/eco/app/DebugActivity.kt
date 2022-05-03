@@ -15,7 +15,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 
-class debug_activity : AppCompatActivity() {
+class DebugActivity : AppCompatActivity() {
     private lateinit var analytics: FirebaseAnalytics
     private lateinit var auth: FirebaseAuth
 

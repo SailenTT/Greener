@@ -30,7 +30,7 @@
             android:name=".QuizActivity"
             android:exported="false" />
         <activity
-            android:name=".debug_activity"
+            android:name=".DebugActivity"
             android:exported="false" />
         <activity
             android:name=".HomeWindow"

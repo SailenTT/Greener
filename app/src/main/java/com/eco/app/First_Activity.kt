@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.eco.app.databinding.ActivityFirstBinding
-import com.eco.app.databinding.ActivityIntroductorBinding
 
 class First_Activity : AppCompatActivity() {
 
@@ -41,7 +40,7 @@ class First_Activity : AppCompatActivity() {
         })
 
         btnDeb.setOnClickListener(View.OnClickListener {
-            val intent=Intent(this,debug_activity::class.java)
+            val intent=Intent(this,DebugActivity::class.java)
             startActivity(intent)
         })
     }
