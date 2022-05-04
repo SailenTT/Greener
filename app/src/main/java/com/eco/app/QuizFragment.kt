@@ -9,10 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.eco.app.databinding.FragmentQuizBinding
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlin.random.Random
@@ -32,9 +29,12 @@ class QuizFragment : Fragment() {
     private lateinit var txt_question: TextView
     private lateinit var reply: String
     private lateinit var correctreply: String
+    private lateinit var getQuizDataListener : ValueEventListener
+    private lateinit var quizReference : DatabaseReference
     private var quizQuestionsNumber: Int = 10
     var quizList = arrayListOf<Question>()
     val resultFragment = ResultQuizFragment()
+
 
     companion object{
         var correct_replies = 0
@@ -64,8 +64,8 @@ class QuizFragment : Fragment() {
     fun setQuiz(txt_question: TextView, buttonsArray: Array<Button?>) {
         val randomQuestion = Random.nextInt(10)
         val randomlistButtons = (0..3).shuffled().take(4)
-        val reference = database.getReference("Quiz")
-        reference.addValueEventListener(object : ValueEventListener{
+         quizReference = database.getReference("Quiz")
+        getQuizDataListener=  quizReference.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for ( i in snapshot.children){
                     val rispList = arrayListOf<String>()
@@ -137,5 +137,10 @@ class QuizFragment : Fragment() {
         array[2] = btnr3
         array[3] = btnr4
         return array
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        quizReference.removeEventListener(getQuizDataListener)
     }
 }
