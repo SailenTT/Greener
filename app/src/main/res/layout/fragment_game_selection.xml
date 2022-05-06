@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameSelectionFragment" >
+
+    <TextView
+        android:id="@+id/txt_minigames"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Minigiochi"
+        android:textAlignment="center"
+        android:textSize="28sp" />
+
+    <RelativeLayout
+        android:id="@+id/trash_bin_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_minigames"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="125dp"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/trash_bin_game_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:elevation="2dp"
+            android:padding="6dp"
+            android:textAlignment="center"
+            android:background="@color/greenLogin"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/trash_bing_game_img"
+            android:text="Don't mess the lawn"
+            android:textSize="26sp" />
+
+        <ImageView
+            android:id="@+id/trash_bing_game_img"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/bg_rounded_corners" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/garbage_sorter_game"
+        android:elevation="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/trash_bin_game"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/garbage_sorter_game_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/garbage_sorter_game_img"
+            android:textAlignment="center"
+            android:text="Sort out the garbage"
+            android:padding="6dp"
+            android:background="@color/greenLogin"
+            android:textSize="26sp" />
+
+        <ImageView
+            android:id="@+id/garbage_sorter_game_img"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/bg_rounded_corners" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/quiz_game"
+        android:elevation="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/garbage_sorter_game"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/quiz_game_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:padding="6dp"
+            android:layout_toLeftOf="@id/quiz_game_img"
+            android:background="@color/greenLogin"
+            android:textAlignment="center"
+            android:text="Quiz green"
+            android:textSize="26sp" />
+
+        <ImageView
+            android:id="@+id/quiz_game_img"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_rounded_corners" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/growing_tree_game"
+        android:elevation="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quiz_game"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/growing_tree_game_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/growing_tree_game_img"
+            android:background="@color/greenLogin"
+            android:padding="6dp"
+            android:text="Grow your tree"
+            android:textAlignment="center"
+            android:textSize="26sp" />
+
+        <ImageView
+            android:id="@+id/growing_tree_game_img"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_rounded_corners" />
+    </RelativeLayout>
+
+</RelativeLayout>

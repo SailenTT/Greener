@@ -122,7 +122,7 @@ class QuizFragment : Fragment() {
 
     fun replaceFragment(fragment: Fragment) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
-        transaction?.replace(R.id.fragment_container_quiz, fragment)
+        transaction?.replace(R.id.home_fragment_container, fragment)
         transaction?.commit()
     }
 

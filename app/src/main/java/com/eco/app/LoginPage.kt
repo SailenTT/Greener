@@ -104,6 +104,12 @@ class LoginPage : AppCompatActivity() {
             .build()
     }
 
+    override fun onStart() {
+        super.onStart()
+        val user=auth.currentUser
+        //TODO caricare la prossima pagina
+    }
+
 
 
     //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE

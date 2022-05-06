@@ -50,13 +50,8 @@ class DebugActivity : AppCompatActivity() {
             FirebaseAuth.getInstance().signOut()
         }
 
-        binding.btnCalendar.setOnClickListener {
+        binding.btnHomepage.setOnClickListener {
             val intent = Intent(this,HomeWindow::class.java)
-            startActivity(intent)
-        }
-
-        binding.btnQuiz.setOnClickListener {
-            val intent = Intent(this,QuizActivity::class.java)
             startActivity(intent)
         }
 

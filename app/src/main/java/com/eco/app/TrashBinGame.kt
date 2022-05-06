@@ -1,6 +1,9 @@
 package com.eco.app
 
+import android.animation.Animator
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.*
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -18,14 +21,8 @@ import kotlin.random.Random
 class TrashBinGame : Fragment(), View.OnTouchListener {
 
     private lateinit var binding: FragmentTrashBinGameBinding
-    private val SWIPE_TRESHOLD: Int= 100
-    private val SWIPE_VELOCITY_THRESHOLD: Int= 200
-    private var begin= 0L
     private var xStart= 0.0F
-    private var firstMove=true
-    private var yStart= 0.0F
-    private var gameRunning=false
-    private lateinit var trashBin: RelativeLayout
+    private lateinit var trashBinContainer: RelativeLayout
     private var score=0
     private var last_falling_sprite: ImageView?=null
     private lateinit var lottie: LottieAnimationView
@@ -33,19 +30,22 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
     private val minimumSpeed=900L
     private val defaultInclination=400
     private val maxXInclination=1000
+    private var firstStart=true
+    private var gameRunning=false
+    private val spawnDelay=1400L
+    private val minimumSpawnDelay=900L
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //Inflate the binding for this fragment
         binding= FragmentTrashBinGameBinding.inflate(inflater,container,false)
 
-        trashBin=binding.trashBinContainer
+        trashBinContainer=binding.trashBinContainer
 
         binding.startGameButton.setOnClickListener {
             startGame()
         }
 
         lottie=binding.lottie
-        lottie.speed*=2
 
         return binding.root
     }
@@ -61,14 +61,14 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
             }
             MotionEvent.ACTION_MOVE->{
 
-                val newX = trashBin.x + (motion.x-xStart)
+                val newX = trashBinContainer.x + (motion.x-xStart)
 
                 if (newX < 0F) {
-                    trashBin.x = 0F
-                } else if (newX > ((binding.root.width - trashBin.width).toFloat())) {
-                    trashBin.x = (binding.root.width - trashBin.width).toFloat()
+                    trashBinContainer.x = 0F
+                } else if (newX > ((binding.root.width - trashBinContainer.width).toFloat())) {
+                    trashBinContainer.x = (binding.root.width - trashBinContainer.width).toFloat()
                 } else {
-                    trashBin.x = newX
+                    trashBinContainer.x = newX
                 }
                 return true
             }
@@ -79,21 +79,72 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
 
     fun startGame() {
 
-        binding.startGameButton.visibility = View.INVISIBLE
+        binding.startGameInstructionsContainer.visibility=View.INVISIBLE
         binding.gameOverScreen.visibility = View.INVISIBLE
         //Toast.makeText(context,"Gioco Startato",Toast.LENGTH_SHORT).show()
-        binding.txtFinalScore.text = 0.toString()
+        binding.txtScore.text = 0.toString()
         score=0
 
         binding.relativeLayout.removeView(last_falling_sprite)
 
-        trashBin.x=0F
+        val layoutParams=(trashBinContainer.layoutParams as RelativeLayout.LayoutParams)
+        layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL)
+        trashBinContainer.layoutParams=layoutParams
 
-        trashBin.setOnTouchListener(this)
+        trashBinContainer.setOnTouchListener(this)
 
-        println("spawna palla ora")
-        spawnFallingTrash()
+        gameRunning=true
 
+        if(firstStart) {
+            val lottieSwipeAnimation=binding.lottieSwipeAnimation
+            lottieSwipeAnimation.visibility=View.VISIBLE
+
+            lottieSwipeAnimation.addAnimatorListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(p0: Animator?) {
+                    binding.mainContainer.alpha = 0.70F
+                    lottieSwipeAnimation.alpha = 1F
+                }
+
+                override fun onAnimationCancel(p0: Animator?) {
+                }
+
+                override fun onAnimationRepeat(p0: Animator?) {
+                }
+
+                override fun onAnimationEnd(p0: Animator?) {
+                    lottieSwipeAnimation.visibility = View.INVISIBLE
+                    binding.mainContainer.alpha = 1F
+
+                    startSpawn()
+
+                }
+            })
+
+            firstStart=false
+
+            lottieSwipeAnimation.playAnimation()
+        }
+        else{
+            startSpawn()
+        }
+
+    }
+
+    fun startSpawn(){
+        Thread{
+            Thread.sleep(200)
+            while(gameRunning) {
+                println("spawna il prossimo")
+
+                //Fai partire il gioco dopo tot millisecondi
+                spawnFallingTrash()
+                var newDelay=spawnDelay-(score*3)
+                if(newDelay<minimumSpawnDelay){
+                    newDelay=minimumSpawnDelay
+                }
+                Thread.sleep(newDelay)
+            }
+        }.start()
     }
 
     fun spawnFallingTrash(){
@@ -106,11 +157,17 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
 
                 img_falling_sprite.setImageResource(R.drawable.crumbled_paper)
 
+                img_falling_sprite.tag=true
+
                 binding.relativeLayout.addView(img_falling_sprite)
 
                 var ballSize=(metrics.density * 55).toInt()
 
-                if(score>=85){
+                if(score>=100){
+                    img_falling_sprite.y=0+((Random.nextInt(200)+100)*metrics.density)
+                }
+
+                if(score>=80){
                     ballSize-=ballSize/3
                 }
                 else if(score>=60){
@@ -140,40 +197,46 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
                     .rotationBy(280F)
                     .setDuration(defaultSpeed)
                     .withEndAction {
-                        if(img_falling_sprite.tag==true) {
+                        if(img_falling_sprite.tag==true&&gameRunning) {
                             println("game over")
                             //fermo il cestino
                             img_falling_sprite.tag = false
+                            gameRunning=false
                             //faccio comparire la schermata di fine
-                            trashBin.setOnTouchListener(null)
+                            trashBinContainer.setOnTouchListener(null)
                             binding.txtFinalScore.text = "Hai fatto " + score.toString() + " punti"
+                            score=0
                             binding.restartGameButton.setOnClickListener { startGame() }
                             binding.gameOverScreen.visibility = View.VISIBLE
                         }
                     }
                 spriteAnimation.setUpdateListener {value->
                     //controllo se non sta più cadendo
-                    if (img_falling_sprite.tag == false) {
-                        println("faccio partire l'animazione di cattura")
-                        objectCatched(img_falling_sprite)
+                    if(gameRunning) {
+                        if (img_falling_sprite.tag == false) {
+                            println("faccio partire l'animazione di cattura")
+                            objectCatched(img_falling_sprite)
+                        }
+                        if ((img_falling_sprite.x + ballSize) > binding.root.width) {
+                            img_falling_sprite.x = (binding.root.width - ballSize).toFloat()
+                            if (ballXMovement != null) {
+                                spriteAnimation.translationXBy(-ballXMovement!!)
+                            } else {
+                                spriteAnimation.translationXBy(0F)
+                            }
+                        } else if (img_falling_sprite.x < 0) {
+                            if (ballXMovement != null) {
+                                img_falling_sprite.x = 0F
+                                spriteAnimation.translationXBy(-ballXMovement!!)
+                            } else {
+                                spriteAnimation.translationXBy(0F)
+                            }
+                        }
                     }
-                    if((img_falling_sprite.x+ballSize)>binding.root.width){
-                        img_falling_sprite.x=(binding.root.width-ballSize).toFloat()
-                        if(ballXMovement!=null) {
-                            spriteAnimation.translationXBy(-ballXMovement!!)
-                        }
-                        else{
-                            spriteAnimation.translationXBy(0F)
-                        }
-                    }
-                    else if(img_falling_sprite.x<0){
-                        if(ballXMovement!=null) {
-                            img_falling_sprite.x=0F
-                            spriteAnimation.translationXBy(-ballXMovement!!)
-                        }
-                        else{
-                            spriteAnimation.translationXBy(0F)
-                        }
+                    else{
+                        img_falling_sprite.clearAnimation()
+                        img_falling_sprite.animate().setUpdateListener(null)
+                        binding.root.removeView(img_falling_sprite)
                     }
                 }
 
@@ -209,15 +272,12 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
                 img_falling_sprite.post {
                     Thread {
                         //uso il tag per dire se l'oggetto sta cadendo o no
-                        img_falling_sprite.tag = true
                         while (img_falling_sprite.tag == true) {
-
-                            //if (rect1.intersect(rect2)) {
-                            if (img_falling_sprite.y + img_falling_sprite.height >= trashBin.y+(trashBin.height/8) && img_falling_sprite.y + img_falling_sprite.height <= trashBin.y + (trashBin.height / 4)) {
-                                if ((img_falling_sprite.x >= trashBin.x && img_falling_sprite.x <= trashBin.x + trashBin.width) || (img_falling_sprite.x + img_falling_sprite.width >= trashBin.x && img_falling_sprite.x + img_falling_sprite.width <= trashBin.x + trashBin.width)) {
+                            if (img_falling_sprite.y + img_falling_sprite.height >= trashBinContainer.y+(trashBinContainer.height/8) && img_falling_sprite.y + img_falling_sprite.height <= trashBinContainer.y + (trashBinContainer.height / 4)) {
+                                if ((img_falling_sprite.x >= trashBinContainer.x && img_falling_sprite.x <= trashBinContainer.x + trashBinContainer.width) || (img_falling_sprite.x + img_falling_sprite.width >= trashBinContainer.x && img_falling_sprite.x + img_falling_sprite.width <= trashBinContainer.x + trashBinContainer.width)) {
                                     println("intersezione!!!; img_falling_sprite: ${img_falling_sprite.y + img_falling_sprite.height}")
                                     img_falling_sprite.tag = false
-                                    spawnFallingTrash()
+                                    //spawnFallingTrash()
                                 }
                             }
                         }
@@ -240,8 +300,8 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
 
         println(lottie.y)
         img_falling_sprite.animate()
-            .translationX(trashBin.x + (trashBin.width / 2) - (img_falling_sprite.width / 2))
-            .translationY(trashBin.y + img_falling_sprite.height)
+            .translationX(trashBinContainer.x + (trashBinContainer.width / 2) - (img_falling_sprite.width / 2))
+            .translationY(trashBinContainer.y + img_falling_sprite.height)
             .alpha(1f)
             .setDuration(245)
             .withEndAction {

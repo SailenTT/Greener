@@ -7,9 +7,9 @@
     <item android:id="@+id/item_calendar"
         android:title="@string/menu_calendar"
         android:icon="@drawable/ic_baseline_calendar_month_24"
-        android:enabled="false"/>
+        android:enabled="true"/>
     <item android:id="@+id/item_calculator"
         android:title="@string/menu_calculator"
         android:icon="@drawable/ic_baseline_co2_24"
-        android:enabled="false"/>
+        android:enabled="true"/>
 </menu>

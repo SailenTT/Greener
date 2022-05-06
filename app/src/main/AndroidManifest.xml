@@ -27,9 +27,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".QuizActivity"
-            android:exported="false" />
-        <activity
             android:name=".DebugActivity"
             android:exported="false" />
         <activity
