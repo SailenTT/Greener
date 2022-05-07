@@ -14,14 +14,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlin.random.Random
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-/**
- * A simple [Fragment] subclass.
- * Use the [QuizFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class QuizFragment : Fragment() {
     private lateinit var binding: FragmentQuizBinding
     private lateinit var database: FirebaseDatabase
@@ -29,14 +21,14 @@ class QuizFragment : Fragment() {
     private lateinit var txt_question: TextView
     private lateinit var reply: String
     private lateinit var correctreply: String
-    private lateinit var getQuizDataListener : ValueEventListener
-    private lateinit var quizReference : DatabaseReference
+    private lateinit var getQuizDataListener: ValueEventListener
+    private lateinit var quizReference: DatabaseReference
     private var quizQuestionsNumber: Int = 10
     var quizList = arrayListOf<Question>()
     val resultFragment = ResultQuizFragment()
 
 
-    companion object{
+    companion object {
         var correct_replies = 0
     }
 
@@ -60,14 +52,13 @@ class QuizFragment : Fragment() {
     }
 
 
-
     fun setQuiz(txt_question: TextView, buttonsArray: Array<Button?>) {
         val randomQuestion = Random.nextInt(10)
         val randomlistButtons = (0..3).shuffled().take(4)
-         quizReference = database.getReference("Quiz")
-        getQuizDataListener=  quizReference.addValueEventListener(object : ValueEventListener{
+        quizReference = database.getReference("Quiz")
+        getQuizDataListener = quizReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for ( i in snapshot.children){
+                for (i in snapshot.children) {
                     val rispList = arrayListOf<String>()
                     val questionInDb = i.child("domanda").getValue(String::class.java)
                     val risp0 = i.child("risp0").getValue(String::class.java)
@@ -78,12 +69,12 @@ class QuizFragment : Fragment() {
                     rispList.add(risp2!!)
                     val risp3 = i.child("risp3").getValue(String::class.java)
                     rispList.add(risp3!!)
-                    val questionObject = Question(questionInDb,rispList)
+                    val questionObject = Question(questionInDb, rispList)
                     quizList.add(questionObject)
-                    Log.d("QUESTIONS",questionObject.toString())
+                    Log.d("QUESTIONS", questionObject.toString())
                 }
                 val question = quizList[randomQuestion]
-                Log.d("QUESTIONS",question.toString())
+                Log.d("QUESTIONS", question.toString())
                 txt_question.text = question.question//random question
                 correctreply = question.listofrisp[0]
                 for (i in 0..3) {
@@ -94,6 +85,7 @@ class QuizFragment : Fragment() {
                     }
                 }
             }
+
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
