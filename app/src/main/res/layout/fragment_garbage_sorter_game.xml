@@ -29,7 +29,7 @@
                 android:textAlignment="center"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:textSize="24sp"/>
+                android:textSize="22sp"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -52,7 +52,7 @@
                 android:paddingEnd="3dp"
                 android:text="Plastica"
                 android:textAlignment="center"
-                android:textSize="24sp" />
+                android:textSize="22sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -74,7 +74,7 @@
                 android:textAlignment="center"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:textSize="24sp"/>
+                android:textSize="22sp"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -96,7 +96,7 @@
                 android:text="Organico"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:textSize="24sp"/>
+                android:textSize="22sp"/>
         </RelativeLayout>
     </LinearLayout>
 

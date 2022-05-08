@@ -40,6 +40,8 @@ class QuizFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentQuizBinding.inflate(inflater, container, false)
 
+        binding.quizShimmer.startShimmer()
+
         database =
             Firebase.database(RegisterPage.PATHTODB)
 
@@ -47,6 +49,8 @@ class QuizFragment : Fragment() {
         buttons = getButtons()
         txt_question = binding.tvQuestion
         setQuiz(txt_question, buttons)
+
+
         return binding.root
 
     }
@@ -84,13 +88,17 @@ class QuizFragment : Fragment() {
                         checkreply(reply, correctreply, i)
                     }
                 }
+                if(binding.quizShimmer.isShimmerStarted) {
+                    binding.quizShimmer.stopShimmer()
+                    binding.quizShimmer.visibility = View.INVISIBLE
+                    binding.quizConstraintLayout.visibility = View.VISIBLE
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
-        })
 
+        })
     }
 
     fun checkreply(reply: String, correctReply: String, position: Int) {

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <TextView
+            android:id="@+id/tv_question_placeholder"
+            android:layout_width="320dp"
+            android:layout_height="150dp"
+            android:background="@color/placeholder_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.242"
+            />
+
+        <LinearLayout
+            android:id="@+id/linearLayout_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="332dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_question_placeholder"
+            app:layout_constraintVertical_bias="1.0">
+
+            <Button
+                android:id="@+id/btn_r1_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@color/placeholder_grey"                android:maxLines="2"
+                />
+
+            <Button
+                android:id="@+id/btn_r2_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="8dp"
+                android:background="@color/placeholder_grey"
+                />
+
+            <Button
+                android:id="@+id/btn_r3_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="8dp"
+                android:background="@color/placeholder_grey"
+                />
+
+            <Button
+                android:id="@+id/btn_r4_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="8dp"
+                android:background="@color/placeholder_grey"
+                 />
+        </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

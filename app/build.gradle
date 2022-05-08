@@ -51,6 +51,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx:20.0.4'
     implementation 'com.google.android.gms:play-services-auth:20.1.0'
     implementation 'com.facebook.android:facebook-login:latest.release'
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
     implementation 'com.google.android.gms:play-services-auth:20.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1")
