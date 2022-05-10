@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.eco.app.databinding.FragmentQuizBinding
 import com.google.firebase.database.*
@@ -15,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import kotlin.properties.Delegates
 import kotlin.random.Random
 
+//TODO convertire su firebase le domande del quiz da stringhe ad id per poi prendere la domanda di id corrispondente nel file strings.xml (per ottimizzare la traduzione)
 class QuizFragment : Fragment() {
     private lateinit var binding: FragmentQuizBinding
     private lateinit var database: FirebaseDatabase
@@ -62,6 +64,12 @@ class QuizFragment : Fragment() {
         val randomQuestion = Random.nextInt(10)
         val randomlistButtons = (0..3).shuffled().take(4)
         quizReference = database.getReference("Quiz")
+
+        //TODO usare il get per prendere una sola volta i valori dal db (è più ottimizzato)
+        /*quizReference.get().addOnSuccessListener { result->
+            result.children
+        }*/
+
         getQuizDataListener = quizReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (i in snapshot.children) {
@@ -94,6 +102,18 @@ class QuizFragment : Fragment() {
                     binding.quizShimmer.stopShimmer()
                     binding.quizShimmer.visibility = View.INVISIBLE
                     binding.quizConstraintLayout.visibility = View.VISIBLE
+
+                    /*val metrics = requireContext().resources.displayMetrics
+                    //binding.questionContainer.layoutParams.height=0
+                    binding.questionContainer.animate()
+                        .scaleYBy(metrics.density*180)
+                        .setDuration(500)
+                        .setUpdateListener {
+                            val layoutParams=binding.linearLayout.layoutParams as RelativeLayout.LayoutParams
+                            layoutParams.addRule(RelativeLayout.BELOW,binding.questionContainer.id)
+                            layoutParams.topMargin=(metrics.density*350).toInt()
+                            binding.linearLayout.layoutParams=layoutParams
+                        }*/
                 }
             }
 

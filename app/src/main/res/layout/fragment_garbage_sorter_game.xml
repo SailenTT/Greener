@@ -3,101 +3,135 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GarbageSorterGame" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".GarbageSorterGame">
 
-    <LinearLayout
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_swipe_animation"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:visibility="invisible"
+        app:lottie_rawRes="@raw/swipe_animation"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        app:lottie_speed="1.4" />
+
+    <RelativeLayout
+        android:id="@+id/main_container"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:layout_alignParentBottom="true">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <ImageView
-                android:id="@+id/paper_trash_bin"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cestino_rifiuto" />
-            <TextView
+        <TextView
+            android:id="@+id/txt_score"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/score_background"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_alignParentBottom="true">
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="3dp"
-                android:paddingEnd="3dp"
-                android:text="Carta"
-                android:textAlignment="center"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:textSize="22sp"/>
-        </RelativeLayout>
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/paper_trash_bin"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/cestino_rifiuto" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="3dp"
+                    android:paddingEnd="3dp"
+                    android:text="Carta"
+                    android:textAlignment="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="22sp"/>
+            </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/glass_trash_bin"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cestino_rifiuto" />
-
-            <TextView
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:paddingStart="3dp"
-                android:paddingEnd="3dp"
-                android:text="Plastica"
-                android:textAlignment="center"
-                android:textSize="22sp" />
-        </RelativeLayout>
+                android:layout_weight="1">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <ImageView
-                android:id="@+id/plastic_trash_bin"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cestino_rifiuto" />
-            <TextView
+                <ImageView
+                    android:id="@+id/glass_trash_bin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/cestino_rifiuto" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:paddingStart="3dp"
+                    android:paddingEnd="3dp"
+                    android:text="Plastica"
+                    android:textAlignment="center"
+                    android:textSize="22sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="3dp"
-                android:paddingEnd="3dp"
-                android:text="Indifferenziata"
-                android:textAlignment="center"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:textSize="22sp"/>
-        </RelativeLayout>
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/plastic_trash_bin"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/cestino_rifiuto" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="3dp"
+                    android:paddingEnd="3dp"
+                    android:text="Indifferenziata"
+                    android:textAlignment="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="22sp"/>
+            </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <ImageView
-                android:id="@+id/indiff_trash_bin"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cestino_rifiuto" />
-            <TextView
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="3dp"
-                android:paddingEnd="3dp"
-                android:textAlignment="center"
-                android:text="Organico"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:textSize="22sp"/>
-        </RelativeLayout>
-    </LinearLayout>
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/indiff_trash_bin"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/cestino_rifiuto" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="3dp"
+                    android:paddingEnd="3dp"
+                    android:textAlignment="center"
+                    android:text="Organico"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="22sp"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

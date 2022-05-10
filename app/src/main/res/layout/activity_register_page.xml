@@ -150,7 +150,7 @@
         android:layout_below="@id/edt_psw"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:background="@drawable/btn_background"
+        android:background="@drawable/btn_rounded_green_bg"
         android:text="REGISTER"
         android:textColor="@color/white" />
 

@@ -2,8 +2,6 @@ package com.eco.app
 
 import android.animation.Animator
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.*
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -25,14 +23,14 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
     private lateinit var trashBinContainer: RelativeLayout
     private var score=0
     private var last_falling_sprite: ImageView?=null
-    private lateinit var lottie: LottieAnimationView
+    private lateinit var lottieRecycleAnimation: LottieAnimationView
     private val defaultSpeed=2700L
     private val minimumSpeed=900L
     private val defaultInclination=400
     private val maxXInclination=1000
     private var firstStart=true
     private var gameRunning=false
-    private val spawnDelay=1400L
+    private val spawnDelay=1300L
     private val minimumSpawnDelay=900L
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,7 +43,7 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
             startGame()
         }
 
-        lottie=binding.lottie
+        lottieRecycleAnimation=binding.lottie
 
         return binding.root
     }
@@ -85,7 +83,8 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
         binding.txtScore.text = 0.toString()
         score=0
 
-        binding.relativeLayout.removeView(last_falling_sprite)
+        //TODO vedere se si può togliere questo comando
+        binding.root.removeView(last_falling_sprite)
 
         val layoutParams=(trashBinContainer.layoutParams as RelativeLayout.LayoutParams)
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL)
@@ -138,7 +137,7 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
 
                 //Fai partire il gioco dopo tot millisecondi
                 spawnFallingTrash()
-                var newDelay=spawnDelay-(score*3)
+                var newDelay=spawnDelay-(score*5)
                 if(newDelay<minimumSpawnDelay){
                     newDelay=minimumSpawnDelay
                 }
@@ -159,7 +158,7 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
 
                 img_falling_sprite.tag=true
 
-                binding.relativeLayout.addView(img_falling_sprite)
+                binding.root.addView(img_falling_sprite)
 
                 var ballSize=(metrics.density * 55).toInt()
 
@@ -296,16 +295,15 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
         //TODO al posto che punti caricare la stirnga dal file di stringhe (per le possibili traduzioni
         binding.txtScore.text = score.toString() + " punti"
 
-        lottie.playAnimation()
+        lottieRecycleAnimation.playAnimation()
 
-        println(lottie.y)
         img_falling_sprite.animate()
             .translationX(trashBinContainer.x + (trashBinContainer.width / 2) - (img_falling_sprite.width / 2))
             .translationY(trashBinContainer.y + img_falling_sprite.height)
             .alpha(1f)
             .setDuration(245)
             .withEndAction {
-                binding.relativeLayout.removeView(img_falling_sprite)
+                binding.root.removeView(img_falling_sprite)
             }
     }
 }

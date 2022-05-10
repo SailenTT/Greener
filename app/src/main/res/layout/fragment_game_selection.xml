@@ -23,27 +23,28 @@
         android:layout_below="@+id/txt_minigames"
         android:layout_marginStart="50dp"
         android:layout_marginTop="125dp"
+        android:background="@android:color/transparent"
         android:layout_centerHorizontal="true">
 
         <TextView
             android:id="@+id/trash_bin_game_name"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/trash_bing_game_img"
+            android:background="@drawable/btn_rounded"
             android:elevation="2dp"
             android:padding="6dp"
-            android:textAlignment="center"
-            android:background="@color/greenLogin"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/trash_bing_game_img"
             android:text="Don't mess the lawn"
+            android:textAlignment="center"
             android:textSize="26sp" />
 
         <ImageView
             android:id="@+id/trash_bing_game_img"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/bg_rounded_corners" />
     </RelativeLayout>
 
@@ -55,6 +56,7 @@
         android:layout_below="@+id/trash_bin_game"
         android:layout_marginStart="50dp"
         android:layout_marginTop="60dp"
+        android:background="@android:color/transparent"
         android:layout_centerHorizontal="true">
 
         <TextView
@@ -62,19 +64,20 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/garbage_sorter_game_img"
-            android:textAlignment="center"
-            android:text="Sort out the garbage"
+            android:layout_toStartOf="@id/garbage_sorter_game_img"
+            android:background="@drawable/btn_rounded"
             android:padding="6dp"
-            android:background="@color/greenLogin"
+            android:elevation="2dp"
+            android:text="Sort out the garbage"
+            android:textAlignment="center"
             android:textSize="26sp" />
 
         <ImageView
             android:id="@+id/garbage_sorter_game_img"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/bg_rounded_corners" />
     </RelativeLayout>
 
@@ -86,6 +89,7 @@
         android:layout_below="@+id/garbage_sorter_game"
         android:layout_marginStart="50dp"
         android:layout_marginTop="60dp"
+        android:background="@android:color/transparent"
         android:layout_centerHorizontal="true">
 
         <TextView
@@ -93,11 +97,12 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/quiz_game_img"
+            android:background="@drawable/btn_rounded"
+            android:elevation="2dp"
             android:padding="6dp"
-            android:layout_toLeftOf="@id/quiz_game_img"
-            android:background="@color/greenLogin"
-            android:textAlignment="center"
             android:text="Quiz green"
+            android:textAlignment="center"
             android:textSize="26sp" />
 
         <ImageView
@@ -117,6 +122,7 @@
         android:layout_below="@+id/quiz_game"
         android:layout_marginStart="50dp"
         android:layout_marginTop="60dp"
+        android:background="@android:color/transparent"
         android:layout_centerHorizontal="true">
 
         <TextView
@@ -124,9 +130,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/growing_tree_game_img"
-            android:background="@color/greenLogin"
+            android:layout_toStartOf="@id/growing_tree_game_img"
+            android:background="@drawable/btn_rounded"
             android:padding="6dp"
+            android:elevation="2dp"
             android:text="Grow your tree"
             android:textAlignment="center"
             android:textSize="26sp" />

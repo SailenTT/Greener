@@ -62,7 +62,7 @@ class LoginPage : AppCompatActivity() {
             loginUser()
         }
 
-        binding.btnLoginFacebook.background=getDrawable(R.drawable.btn_background)
+        binding.btnLoginFacebook.background=getDrawable(R.drawable.btn_rounded_green_bg)
 
         binding.btnLoginFacebook.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {

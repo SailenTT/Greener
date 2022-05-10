@@ -4,93 +4,107 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/quiz_constraint_layout"
-        android:visibility="invisible"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:visibility="invisible">
 
-        <TextView
-            android:id="@+id/tv_question"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            app:layout_constraintBottom_toTopOf="@id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="200dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.242"
-            />
+        <RelativeLayout
+            android:id="@+id/question_container"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:clipToPadding="false"
+            android:background="@drawable/layer_rectangle_circular_bottom" >
+
+            <include
+                layout="@layout/navbar_top" />
+
+            <TextView
+                android:id="@+id/tv_question"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:layout_below="@id/navbar_top"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="25sp" />
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="332dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/question_container"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="150dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="16dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_question">
+            android:layout_marginTop="130dp"
+            android:clipToPadding="false"
+            android:outlineProvider="bounds"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btn_r1"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_weight="0.5"
-                android:background="@drawable/btn_background"
+                android:layout_height="55dp"
+                android:background="@drawable/btn_rounded"
+                android:elevation="3dp"
                 android:text="@string/btn_R1" />
 
             <Button
                 android:id="@+id/btn_r2"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginLeft="8dp"
+                android:layout_height="55dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="8dp"
-                android:layout_weight="0.5"
-                android:background="@drawable/btn_background"
+                android:background="@drawable/btn_rounded"
+                android:elevation="3dp"
                 android:text="@string/btn_R2" />
 
             <Button
                 android:id="@+id/btn_r3"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginLeft="8dp"
+                android:layout_height="55dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="8dp"
-                android:layout_weight="0.5"
-                android:background="@drawable/btn_background"
+                android:background="@drawable/btn_rounded"
+                android:elevation="3dp"
                 android:text="@string/btn_R3" />
 
             <Button
                 android:id="@+id/btn_r4"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginLeft="8dp"
+                android:layout_height="55dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="8dp"
-                android:layout_weight="0.5"
-                android:background="@drawable/btn_background"
+                android:background="@drawable/btn_rounded"
+                android:elevation="3dp"
                 android:text="@string/btn_R4" />
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
-    <com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/quiz_shimmer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
         app:shimmer_auto_start="true"
         app:shimmer_repeat_mode="restart"
         android:animateLayoutChanges="true"
-        app:shimmer_duration="750">
+        app:shimmer_duration="700">
 
         <include layout="@layout/quiz_placeholder_screen" />
 
