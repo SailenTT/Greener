@@ -2,11 +2,12 @@ package com.eco.app
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.eco.app.LeaderboardAdapter.LeaderboardViewHolder
 import com.eco.app.databinding.LeaderboardRowBinding
 
-class LeaderboardAdapter(private val dataSet: ArrayList<LeaderBoardRow>, var clickListener :OnItemClicked):RecyclerView.Adapter<LeaderboardViewHolder>() {
+class LeaderboardAdapter(private val dataSet: ArrayList<LeaderBoardRow>, private val clickListener: Leaderboard):RecyclerView.Adapter<LeaderboardViewHolder>() {
     //inflate del layout leaderboard_row
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeaderboardViewHolder {
         val binding = LeaderboardRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)

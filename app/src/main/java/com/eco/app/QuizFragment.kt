@@ -12,6 +12,7 @@ import com.eco.app.databinding.FragmentQuizBinding
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlin.properties.Delegates
 import kotlin.random.Random
 
 class QuizFragment : Fragment() {
@@ -29,7 +30,7 @@ class QuizFragment : Fragment() {
 
 
     companion object {
-        var correct_replies = 0
+        var correct_replies by Delegates.notNull<Int>()
     }
 
     override fun onCreateView(
@@ -48,6 +49,7 @@ class QuizFragment : Fragment() {
         //getto i button in un array per comodità
         buttons = getButtons()
         txt_question = binding.tvQuestion
+        correct_replies=0
         setQuiz(txt_question, buttons)
 
 
@@ -102,7 +104,7 @@ class QuizFragment : Fragment() {
     }
 
     fun checkreply(reply: String, correctReply: String, position: Int) {
-        if (reply == correctReply) {//TODO controllo , dopo 10 domande compare fragment con punteggio
+        if (reply == correctReply) {
             //Toast.makeText(requireActivity(), "RISPOSTA ESATTA", Toast.LENGTH_SHORT).show()
             correct_replies++
             quizQuestionsNumber--
