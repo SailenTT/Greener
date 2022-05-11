@@ -65,7 +65,7 @@
                     android:textSize="30sp"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/txt_lunedi"
                     android:layout_marginLeft="125dp"
@@ -123,7 +123,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@id/txt_martedi"
                 android:layout_marginLeft="135dp"
@@ -179,7 +179,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@id/txt_mercoledi"
                 android:layout_marginLeft="165dp"
@@ -235,7 +235,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@id/txt_giovedi"
                 android:layout_marginLeft="135dp"
@@ -291,7 +291,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@id/txt_venerdi"
                 android:layout_marginLeft="135dp"
@@ -347,7 +347,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@id/txt_sabato"
                 android:layout_marginLeft="130dp"
@@ -403,7 +403,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@id/txt_dom"
                 android:layout_marginLeft="165dp"
