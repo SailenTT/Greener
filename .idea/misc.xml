@@ -12,6 +12,7 @@
         <entry key="..\:/Users/carca/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/layout/activity_register_page.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/carca/Desktop/ProgettoDispositiviMobili/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/btn_background.xml" value="0.6" />
+        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/circle.xml" value="0.238" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/drawable_btn_icon.xml" value="0.12" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/drawable_btn_icon_facebook.xml" value="0.128" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/drawable_btn_icon_google.xml" value="0.128" />
@@ -20,6 +21,8 @@
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/ic_drawable_email.xml" value="0.128" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/ic_drawable_psw.xml" value="0.128" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/ic_launcher_background.xml" value="0.128" />
+        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/layer_rectangle_circular_bottom.xml" value="0.238" />
+        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/txb_background.xml" value="0.238" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_first.xml" value="0.264" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_home_window.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_introductor.xml" value="0.1947463768115942" />
@@ -27,7 +30,7 @@
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_login_page.xml" value="0.264" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_main.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/activity_register_page.xml" value="0.264" />
-        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/fragment_calendar.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/fragment_calendar.xml" value="0.264" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/fragment_on_boarding1.xml" value="0.1947463768115942" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/fragment_on_boarding2.xml" value="0.264" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/layout/fragment_on_boarding3.xml" value="0.264" />

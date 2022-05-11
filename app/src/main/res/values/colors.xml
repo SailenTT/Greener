@@ -16,4 +16,21 @@
     <color name="yellow1"> #F4F7AA</color>
     <color name="blue2">#7A8BF4</color>
     <color name="green2">#DDEEDF</color>
+
+    <color name="greenVetro">#47844E</color>
+    <color name="blueCarta">#32A4F4</color>
+    <color name="brownUmido">#695206</color>
+    <color name="yellowPlastica">#EBDC37</color>
+    <color name="redIngombrante">#d64d2e</color>
+
+    <color name="colo1">#DAB88B</color>
+    <color name="colo2">#F3E9DD</color>
+    <color name="colo3">#FDF6EC</color>
+    <color name="colo4">#B7CADB</color>
+    <color name="colo5">#8FBDD3</color>
+    <color name="colo6">#9EA9F0</color>
+    <color name="colo7">#CCC1FF</color>
+
+    <color name="sfondo">#D1D9D9</color>
+
 </resources>

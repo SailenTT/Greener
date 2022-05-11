@@ -1,14 +1,446 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".CalendarFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Calendario" />
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:elevation="2dp"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:elevation="2dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back"
+                android:padding="15dp"
+                android:layout_centerVertical="true"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="15dp"
+                android:src="@drawable/search" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calendar"
+            android:textSize="30sp"
+            android:textAllCaps="true"
+            android:padding="10dp"/>
+
+        <!--inizio pannelli-->
+        <!--pannello lunedi-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="190dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/txb_background"
+                android:backgroundTint="@color/colo1">
+
+                <TextView
+                    android:id="@+id/txt_lunedi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="23dp"
+                    android:layout_marginLeft="13dp"
+                    android:text="Lunedì"
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="30sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/txt_lunedi"
+                    android:layout_marginLeft="125dp"
+                    android:layout_marginTop="22dp"
+                    android:text="18"
+                    android:textSize="30sp"
+                    android:textStyle="italic" />
+
+                <View
+                    android:id="@+id/view_lunedi"
+                    android:layout_width="150dp"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/txt_lunedi"
+                    android:layout_marginTop="-15dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@color/black"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view_lunedi"
+                    android:text="Plastica"
+                    android:textStyle="bold"
+                    android:textSize="40sp"
+                    android:layout_marginLeft="30dp"/>
+
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/circle"
+                    android:backgroundTint="@color/yellowPlastica"
+                    android:backgroundTintMode="src_over" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <!--pannello martedi-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/txb_background"
+            android:backgroundTint="@color/colo2">
+
+            <TextView
+                android:id="@+id/txt_martedi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="Martedì"
+                android:fontFamily="sans-serif-light"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/txt_martedi"
+                android:layout_marginLeft="135dp"
+                android:layout_marginTop="20dp"
+                android:text="19"
+                android:textSize="30sp"
+                android:textStyle="italic" />
+
+            <View
+                android:id="@+id/view_martedi"
+                android:layout_width="150dp"
+                android:layout_height="1dp"
+                android:layout_below="@id/txt_martedi"
+                android:layout_marginTop="-15dp"
+                android:layout_marginLeft="20dp"
+                android:background="@color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_martedi"
+                android:text="Vetro"
+                android:textStyle="bold"
+                android:textSize="40sp"
+                android:layout_marginLeft="30dp"/>
+
+            <View
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/greenVetro"
+                android:backgroundTintMode="src_over" />
+        </RelativeLayout>
+
+        <!--pannello mercoledi-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/txb_background"
+            android:backgroundTint="@color/colo3">
+
+            <TextView
+                android:id="@+id/txt_mercoledi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="Mercoledì"
+                android:fontFamily="sans-serif-light"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/txt_mercoledi"
+                android:layout_marginLeft="165dp"
+                android:layout_marginTop="20dp"
+                android:text="20"
+                android:textSize="30sp"
+                android:textStyle="italic" />
+
+            <View
+                android:id="@+id/view_mercoledi"
+                android:layout_width="150dp"
+                android:layout_height="1dp"
+                android:layout_below="@id/txt_mercoledi"
+                android:layout_marginTop="-15dp"
+                android:layout_marginLeft="20dp"
+                android:background="@color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_mercoledi"
+                android:text="Carta"
+                android:textStyle="bold"
+                android:textSize="40sp"
+                android:layout_marginLeft="30dp"/>
+
+            <View
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/blueCarta"
+                android:backgroundTintMode="src_over" />
+        </RelativeLayout>
+
+        <!--pannello giovedi-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/txb_background"
+            android:backgroundTint="@color/colo4">
+
+            <TextView
+                android:id="@+id/txt_giovedi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="Giovedì"
+                android:fontFamily="sans-serif-light"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/txt_giovedi"
+                android:layout_marginLeft="135dp"
+                android:layout_marginTop="20dp"
+                android:text="21"
+                android:textSize="30sp"
+                android:textStyle="italic" />
+
+            <View
+                android:id="@+id/view_giovedi"
+                android:layout_width="150dp"
+                android:layout_height="1dp"
+                android:layout_below="@id/txt_giovedi"
+                android:layout_marginTop="-15dp"
+                android:layout_marginLeft="20dp"
+                android:background="@color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_giovedi"
+                android:text="Umido"
+                android:textStyle="bold"
+                android:textSize="40sp"
+                android:layout_marginLeft="30dp"/>
+
+            <View
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/brownUmido"
+                android:backgroundTintMode="src_over" />
+        </RelativeLayout>
+
+        <!--pannello venerdi-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/txb_background"
+            android:backgroundTint="@color/colo5">
+
+            <TextView
+                android:id="@+id/txt_venerdi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="Venerdì"
+                android:fontFamily="sans-serif-light"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/txt_venerdi"
+                android:layout_marginLeft="135dp"
+                android:layout_marginTop="20dp"
+                android:text="22"
+                android:textSize="30sp"
+                android:textStyle="italic" />
+
+            <View
+                android:id="@+id/view_venerdi"
+                android:layout_width="150dp"
+                android:layout_height="1dp"
+                android:layout_below="@id/txt_venerdi"
+                android:layout_marginTop="-15dp"
+                android:layout_marginLeft="20dp"
+                android:background="@color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_venerdi"
+                android:layout_marginLeft="30dp"
+                android:text="Ingombranti"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/redIngombrante"
+                android:backgroundTintMode="src_over" />
+        </RelativeLayout>
+
+        <!--pannello sabato-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/txb_background"
+            android:backgroundTint="@color/colo6">
+
+            <TextView
+                android:id="@+id/txt_sabato"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:padding="20dp"
+                android:text="Sabato"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/txt_sabato"
+                android:layout_marginLeft="130dp"
+                android:layout_marginTop="20dp"
+                android:text="23"
+                android:textSize="30sp"
+                android:textStyle="italic" />
+
+            <View
+                android:id="@+id/view_sabato"
+                android:layout_width="150dp"
+                android:layout_height="1dp"
+                android:layout_below="@id/txt_sabato"
+                android:layout_marginTop="-15dp"
+                android:layout_marginLeft="20dp"
+                android:background="@color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_sabato"
+                android:text="Plastica"
+                android:textStyle="bold"
+                android:textSize="40sp"
+                android:layout_marginLeft="30dp"/>
+
+            <View
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/yellowPlastica"
+                android:backgroundTintMode="src_over" />
+        </RelativeLayout>
+
+        <!--pannello domenica-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/txb_background"
+            android:backgroundTint="@color/colo7">
+
+            <TextView
+                android:id="@+id/txt_dom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="Domenica"
+                android:fontFamily="sans-serif-light"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/txt_dom"
+                android:layout_marginLeft="165dp"
+                android:layout_marginTop="20dp"
+                android:text="24"
+                android:textSize="30sp"
+                android:textStyle="italic" />
+
+            <View
+                android:id="@+id/view_dom"
+                android:layout_width="150dp"
+                android:layout_height="1dp"
+                android:layout_below="@id/txt_dom"
+                android:layout_marginTop="-15dp"
+                android:layout_marginLeft="20dp"
+                android:background="@color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_dom"
+                android:layout_marginLeft="30dp"
+                android:text="Carta"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/blueCarta"
+                android:backgroundTintMode="src_over" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>
