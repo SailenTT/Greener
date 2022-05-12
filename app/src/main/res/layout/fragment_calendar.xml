@@ -34,12 +34,23 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/txt_calendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Calendar"
-            android:textSize="30sp"
+            android:textSize="35sp"
+            android:layout_marginLeft="100dp"
             android:textAllCaps="true"
+
             android:padding="10dp"/>
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="3dp"
+            android:layout_below="@id/txt_calendar"
+            android:layout_marginLeft="145dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/black" />
 
         <!--inizio pannelli-->
         <!--pannello lunedi-->
@@ -101,7 +112,6 @@
                     android:layout_height="60dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="15dp"
                     android:background="@drawable/circle"
                     android:backgroundTint="@color/yellowPlastica"
                     android:backgroundTintMode="src_over" />
