@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipToPadding="false">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,8 +14,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:elevation="2dp">
+            android:layout_height="?actionBarSize">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -50,19 +50,23 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_margin="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/txb_background"
-                android:backgroundTint="@color/colo1">
+                android:backgroundTint="@color/colo1"
+                android:elevation="15dp">
 
                 <TextView
                     android:id="@+id/txt_lunedi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="23dp"
                     android:layout_marginLeft="13dp"
-                    android:text="Lunedì"
                     android:fontFamily="sans-serif-light"
-                    android:textSize="30sp"/>
+                    android:padding="23dp"
+                    android:text="Lunedì"
+                    android:textSize="30sp" />
 
                 <TextView
                     android:layout_width="40dp"
@@ -79,18 +83,18 @@
                     android:layout_width="150dp"
                     android:layout_height="1dp"
                     android:layout_below="@id/txt_lunedi"
-                    android:layout_marginTop="-15dp"
                     android:layout_marginLeft="20dp"
-                    android:background="@color/black"/>
+                    android:layout_marginTop="-15dp"
+                    android:background="@color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/view_lunedi"
+                    android:layout_marginLeft="30dp"
                     android:text="Plastica"
-                    android:textStyle="bold"
                     android:textSize="40sp"
-                    android:layout_marginLeft="30dp"/>
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="60dp"
@@ -111,7 +115,8 @@
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="@drawable/txb_background"
-            android:backgroundTint="@color/colo2">
+            android:backgroundTint="@color/colo2"
+            android:elevation="15dp">
 
             <TextView
                 android:id="@+id/txt_martedi"
@@ -167,7 +172,8 @@
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="@drawable/txb_background"
-            android:backgroundTint="@color/colo3">
+            android:backgroundTint="@color/colo3"
+            android:elevation="15dp">
 
             <TextView
                 android:id="@+id/txt_mercoledi"
@@ -223,7 +229,8 @@
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="@drawable/txb_background"
-            android:backgroundTint="@color/colo4">
+            android:backgroundTint="@color/colo4"
+            android:elevation="15dp">
 
             <TextView
                 android:id="@+id/txt_giovedi"
@@ -279,7 +286,8 @@
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="@drawable/txb_background"
-            android:backgroundTint="@color/colo5">
+            android:backgroundTint="@color/colo5"
+            android:elevation="15dp">
 
             <TextView
                 android:id="@+id/txt_venerdi"
@@ -335,7 +343,8 @@
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="@drawable/txb_background"
-            android:backgroundTint="@color/colo6">
+            android:backgroundTint="@color/colo6"
+            android:elevation="15dp">
 
             <TextView
                 android:id="@+id/txt_sabato"
@@ -391,7 +400,8 @@
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="@drawable/txb_background"
-            android:backgroundTint="@color/colo7">
+            android:backgroundTint="@color/colo7"
+            android:elevation="15dp">
 
             <TextView
                 android:id="@+id/txt_dom"
