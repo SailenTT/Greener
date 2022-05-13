@@ -12,26 +12,6 @@
         android:elevation="2dp"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/back"
-                android:padding="15dp"
-                android:layout_centerVertical="true"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:padding="15dp"
-                android:src="@drawable/search" />
-
-        </RelativeLayout>
 
         <TextView
             android:id="@+id/txt_calendar"
@@ -40,6 +20,7 @@
             android:text="Calendar"
             android:textSize="35sp"
             android:layout_marginLeft="100dp"
+            android:layout_marginTop="10dp"
             android:textAllCaps="true"
 
             android:padding="10dp"/>
@@ -67,7 +48,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/txb_background"
                 android:backgroundTint="@color/colo1"
-                android:elevation="15dp">
+                android:elevation="8dp">
 
                 <TextView
                     android:id="@+id/txt_lunedi"
@@ -112,6 +93,7 @@
                     android:layout_height="60dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
                     android:background="@drawable/circle"
                     android:backgroundTint="@color/yellowPlastica"
                     android:backgroundTintMode="src_over" />
@@ -125,8 +107,8 @@
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="@drawable/txb_background"
-            android:backgroundTint="@color/colo2"
-            android:elevation="15dp">
+            android:backgroundTint="@color/colo1"
+            android:elevation="8dp">
 
             <TextView
                 android:id="@+id/txt_martedi"
@@ -182,8 +164,8 @@
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="@drawable/txb_background"
-            android:backgroundTint="@color/colo3"
-            android:elevation="15dp">
+            android:backgroundTint="@color/colo1"
+            android:elevation="8dp">
 
             <TextView
                 android:id="@+id/txt_mercoledi"
@@ -239,8 +221,8 @@
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="@drawable/txb_background"
-            android:backgroundTint="@color/colo4"
-            android:elevation="15dp">
+            android:backgroundTint="@color/colo1"
+            android:elevation="8dp">
 
             <TextView
                 android:id="@+id/txt_giovedi"
@@ -296,8 +278,8 @@
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="@drawable/txb_background"
-            android:backgroundTint="@color/colo5"
-            android:elevation="15dp">
+            android:backgroundTint="@color/colo1"
+            android:elevation="8dp">
 
             <TextView
                 android:id="@+id/txt_venerdi"
@@ -353,8 +335,8 @@
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="@drawable/txb_background"
-            android:backgroundTint="@color/colo6"
-            android:elevation="15dp">
+            android:backgroundTint="@color/colo1"
+            android:elevation="8dp">
 
             <TextView
                 android:id="@+id/txt_sabato"
@@ -410,8 +392,8 @@
             android:layout_height="150dp"
             android:layout_margin="20dp"
             android:background="@drawable/txb_background"
-            android:backgroundTint="@color/colo7"
-            android:elevation="15dp">
+            android:backgroundTint="@color/colo1"
+            android:elevation="8dp">
 
             <TextView
                 android:id="@+id/txt_dom"
