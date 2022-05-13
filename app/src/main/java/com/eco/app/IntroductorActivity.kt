@@ -36,6 +36,7 @@ class IntroductorActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+        //TODO sistemare sta roba deprecata
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN

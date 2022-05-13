@@ -25,13 +25,13 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
     private var last_falling_sprite: ImageView?=null
     private lateinit var lottieRecycleAnimation: LottieAnimationView
     private val defaultSpeed=2700L
-    private val minimumSpeed=900L
-    private val defaultInclination=400
-    private val maxXInclination=1000
+    private val minimumSpeed=1000L
+    private val defaultInclination=300
+    private val maxXInclination=9000
     private var firstStart=true
     private var gameRunning=false
     private val spawnDelay=1300L
-    private val minimumSpawnDelay=900L
+    private val minimumSpawnDelay=600L
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //Inflate the binding for this fragment
@@ -137,7 +137,7 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
 
                 //Fai partire il gioco dopo tot millisecondi
                 spawnFallingTrash()
-                var newDelay=spawnDelay-(score*5)
+                var newDelay=spawnDelay-(score*7)
                 if(newDelay<minimumSpawnDelay){
                     newDelay=minimumSpawnDelay
                 }
@@ -252,11 +252,10 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
                 if(score>=25){
                     if(defaultInclination+(score*10)>maxXInclination) {
                         ballXMovement =
-                            (Random.nextInt((defaultInclination+(score*10)) * 2) - (defaultInclination+(score*15))) * metrics.density
-                    }
+                            (Random.nextInt(maxXInclination * 2) - maxXInclination) * metrics.density                    }
                     else{
                         ballXMovement =
-                            (Random.nextInt(maxXInclination * 2) - maxXInclination) * metrics.density
+                            (Random.nextInt((defaultInclination+(score*5)) * 2) - (defaultInclination+(score*5))) * metrics.density
                     }
                     spriteAnimation.translationXBy(ballXMovement)
                 }

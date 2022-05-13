@@ -7,6 +7,7 @@ import android.content.IntentSender
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.eco.app.databinding.ActivityLoginPageBinding
 import com.facebook.AccessToken
@@ -44,6 +45,19 @@ class LoginPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding=ActivityLoginPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        oneTapClient = Identity.getSignInClient(this)
+        signInRequest = BeginSignInRequest.builder()
+            .setGoogleIdTokenRequestOptions(
+                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                    .setSupported(true)
+                    // Your server's client ID, not your Android client ID.
+                    .setServerClientId(getString(R.string.server_client_id))
+                    // Only show accounts previously used to sign in.
+                    .setFilterByAuthorizedAccounts(false)
+                    .build())
+            .setAutoSelectEnabled(true)
+            .build()
 
         callbackManager = CallbackManager.Factory.create()
 
@@ -89,19 +103,6 @@ class LoginPage : AppCompatActivity() {
         }
 
         auth=Firebase.auth
-
-        oneTapClient = Identity.getSignInClient(this)
-        signInRequest = BeginSignInRequest.builder()
-            .setGoogleIdTokenRequestOptions(
-                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                    .setSupported(true)
-                    // Your server's client ID, not your Android client ID.
-                    .setServerClientId(getString(R.string.server_client_id))
-                    // Only show accounts previously used to sign in.
-                    .setFilterByAuthorizedAccounts(false)
-                    .build())
-            .setAutoSelectEnabled(true)
-            .build()
     }
 
     override fun onStart() {
@@ -161,9 +162,12 @@ class LoginPage : AppCompatActivity() {
     //POI LI RIFACCIAMO
     //funzione per gestire il login con google(firebase)
     fun loginWithGoogle(){
+        binding.loginContainer.alpha=0.7F
+        binding.circularProgess.visibility= View.VISIBLE
         oneTapClient.beginSignIn(signInRequest)
             .addOnSuccessListener(this) { result ->
                 try {
+                    println("carico la UI")
                     startIntentSenderForResult(
                         result.pendingIntent.intentSender, REQ_ONE_TAP,
                         null, 0, 0, 0, null)
@@ -213,6 +217,8 @@ class LoginPage : AppCompatActivity() {
                 idToken != null -> {
                     // Got an ID token from Google. Use it to authenticate
                     // with Firebase.
+                    binding.loginContainer.alpha=1F
+                    binding.circularProgess.visibility= View.INVISIBLE
                     val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
                     auth.signInWithCredential(firebaseCredential)
                         .addOnCompleteListener(this) { task ->
