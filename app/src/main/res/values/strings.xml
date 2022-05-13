@@ -9,7 +9,6 @@
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">f08b3c74d6de29e8cb1026c056001c56</string>
     <string name="server_client_id">275809847401-nctktkio51r8kpjc8rcc3cecmd8vqsj0.apps.googleusercontent.com</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_minigames">Minigames</string>
     <string name="menu_calendar">Calendario</string>

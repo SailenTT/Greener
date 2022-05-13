@@ -3,12 +3,14 @@ package com.eco.app
 import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.content.IntentSender
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.IntentCompat
 import com.eco.app.databinding.ActivityLoginPageBinding
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -23,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+
 
 class LoginPage : AppCompatActivity() {
     private lateinit var binding: ActivityLoginPageBinding
@@ -194,6 +197,9 @@ class LoginPage : AppCompatActivity() {
                     Log.d(TAG, "signInWithCredential:success")
                     val userid = auth.currentUser
                     //TODO redirectare l'utente alla pagina main e qui mettere finish() inoltre togliere dal backstack
+                    val intent = Intent(this,HomeWindow::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
                 } else {
                     // Sign in fail
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
