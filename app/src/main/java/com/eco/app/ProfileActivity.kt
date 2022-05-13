@@ -8,12 +8,17 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.eco.app.databinding.ActivityProfileBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 private lateinit var binding: ActivityProfileBinding
+private  lateinit var auth: FirebaseAuth
 
 class ProfileActivity : AppCompatActivity() {
     val register = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -25,14 +30,19 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        auth = Firebase.auth
+        val user = auth.currentUser;
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
         checkPermissionForImage()
-        binding.imgProfile.setOnClickListener {
-            pickImage()
+        if(user==null){
+            Log.i("LoginInfo","Non sei loggato")
+        }else{
+            binding.imgProfile.setOnClickListener {
+                pickImage()
+            }
         }
-
     }
 
     private fun checkPermissionForImage() {
@@ -52,7 +62,7 @@ class ProfileActivity : AppCompatActivity() {
                     1002
                 ) // GIVE AN INTEGER VALUE FOR PERMISSION_CODE_WRITE LIKE 1002
             } else {
-
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
             }
         }
     }
