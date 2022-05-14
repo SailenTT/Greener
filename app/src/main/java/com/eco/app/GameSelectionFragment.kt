@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.eco.app.databinding.FragmentGameSelectionBinding
 
 /**
@@ -12,7 +14,6 @@ import com.eco.app.databinding.FragmentGameSelectionBinding
  */
 class GameSelectionFragment : Fragment() {
     private lateinit var binding: FragmentGameSelectionBinding
-    private lateinit var fragmentContainer: ViewGroup
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,56 +21,36 @@ class GameSelectionFragment : Fragment() {
     ): View? {
         binding= FragmentGameSelectionBinding.inflate(inflater,container,false)
 
+        val navController=findNavController()
+
         binding.trashBinGameName.setOnClickListener {
-            startTrashBinGame()
+             navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToTrashBinGame())
         }
         binding.trashBingGameImg.setOnClickListener{
-            startTrashBinGame()
+            navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToTrashBinGame())
         }
 
         binding.garbageSorterGameName.setOnClickListener {
-            startGarbageSorterGame()
+            navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToGarbageSorterGame())
         }
         binding.garbageSorterGameImg.setOnClickListener {
-            startGarbageSorterGame()
+            navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToGarbageSorterGame())
         }
 
         binding.quizGameName.setOnClickListener {
-            startQuizGame()
+            navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToQuizFragment())
         }
         binding.quizGameImg.setOnClickListener {
-            startQuizGame()
+            navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToQuizFragment())
         }
 
         binding.growingTreeGameName.setOnClickListener {
-            startGrowingTreeGame()
+            navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToGrowingTreeFragment())
         }
         binding.garbageSorterGameImg.setOnClickListener {
-            startGrowingTreeGame()
+            navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToGrowingTreeFragment())
         }
 
         return binding.root
-    }
-
-    fun startTrashBinGame(){
-        val transaction=parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.home_fragment_container,TrashBinGame())
-        transaction.commit()
-    }
-
-    fun startGarbageSorterGame(){
-        val transaction=parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.home_fragment_container,GarbageSorterGame())
-        transaction.commit()
-    }
-
-    fun startQuizGame(){
-        val transaction=parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.home_fragment_container,QuizFragment())
-        transaction.commit()
-    }
-
-    fun startGrowingTreeGame(){
-
     }
 }

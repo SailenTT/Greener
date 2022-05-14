@@ -3,14 +3,11 @@ package com.eco.app
 import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.content.IntentSender
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.IntentCompat
 import com.eco.app.databinding.ActivityLoginPageBinding
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -55,7 +52,7 @@ class LoginPage : AppCompatActivity() {
                 BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                     .setSupported(true)
                     // Your server's client ID, not your Android client ID.
-                    .setServerClientId(getString(R.string.server_client_id))
+                    .setServerClientId(getString(R.string.google_server_client_id))
                     // Only show accounts previously used to sign in.
                     .setFilterByAuthorizedAccounts(false)
                     .build())
@@ -165,8 +162,6 @@ class LoginPage : AppCompatActivity() {
     //POI LI RIFACCIAMO
     //funzione per gestire il login con google(firebase)
     fun loginWithGoogle(){
-        binding.loginContainer.alpha=0.7F
-        binding.circularProgess.visibility= View.VISIBLE
         oneTapClient.beginSignIn(signInRequest)
             .addOnSuccessListener(this) { result ->
                 try {
@@ -215,42 +210,46 @@ class LoginPage : AppCompatActivity() {
     //funzione che controlla il risultato dell'operazione eseguita
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode==REQ_ONE_TAP) {
-            val googleCredential = oneTapClient.getSignInCredentialFromIntent(data)
-            val idToken = googleCredential.googleIdToken
+        when (requestCode) {
+            REQ_ONE_TAP -> {
+                val googleCredential = oneTapClient.getSignInCredentialFromIntent(data)
+                val idToken = googleCredential.googleIdToken
 
-            when {
-                idToken != null -> {
-                    // Got an ID token from Google. Use it to authenticate
-                    // with Firebase.
-                    binding.loginContainer.alpha=1F
-                    binding.circularProgess.visibility= View.INVISIBLE
-                    val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
-                    auth.signInWithCredential(firebaseCredential)
-                        .addOnCompleteListener(this) { task ->
-                            if (task.isSuccessful) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "signInWithCredential:success")
-                                val user = auth.currentUser
-                                Toast.makeText(this, "Login Effettuato Fra", Toast.LENGTH_SHORT)
-                                    .show()
-                                //TODO carica prossima UI
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "signInWithCredential:failure", task.exception)
-                                Toast.makeText(this, "Utente non registrato", Toast.LENGTH_SHORT)
-                                    .show()
+                when {
+                    idToken != null -> {
+                        // Got an ID token from Google. Use it to authenticate
+                        // with Firebase.
+                        val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
+                        auth.signInWithCredential(firebaseCredential)
+                            .addOnCompleteListener(this) { task ->
+                                if (task.isSuccessful) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d(TAG, "signInWithCredential:success")
+                                    val user = auth.currentUser
+                                    Toast.makeText(this, "Login Effettuato Fra", Toast.LENGTH_SHORT)
+                                        .show()
+                                    //TODO carica prossima UI
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                                    Toast.makeText(
+                                        this,
+                                        "Utente non registrato",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                }
                             }
-                        }
-                }
-                else -> {
-                    // Shouldn't happen.
-                    Log.d(TAG, "No ID token!")
+                    }
+                    else -> {
+                        // Shouldn't happen.
+                        Log.d(TAG, "No ID token!")
+                    }
                 }
             }
-        }
-        else{
-            callbackManager.onActivityResult(requestCode, resultCode, data)
+            else -> {
+                callbackManager.onActivityResult(requestCode, resultCode, data)
+            }
         }
     }
 

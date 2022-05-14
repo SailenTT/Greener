@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_game_selection">
+
+    <fragment
+        android:id="@+id/fragment_game_selection"
+        android:name="com.eco.app.GameSelectionFragment"
+        android:label="Seleziona un gioco"
+        tools:layout="@layout/fragment_game_selection">
+
+        <action
+            android:id="@+id/action_GameSelectionFragment_to_TrashBinGame"
+            app:destination="@id/TrashBinGameFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_GameSelectionFragment_to_GarbageSorterGame"
+            app:destination="@+id/GarbageSorterGameFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_GameSelectionFragment_to_QuizFragment"
+            app:destination="@+id/QuizGameFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_GameSelectionFragment_to_GrowingTreeFragment"
+            app:destination="@+id/GrowingTreeGameFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/TrashBinGameFragment"
+        android:name="com.eco.app.TrashBinGame"
+        android:label="Non sporcare l'ambiente"
+        tools:layout="@layout/fragment_trash_bin_game">
+    </fragment>
+
+    <fragment
+        android:id="@+id/GarbageSorterGameFragment"
+        android:name="com.eco.app.GarbageSorterGame"
+        android:label="Dividi i rifiuti"
+        tools:layout="@layout/fragment_garbage_sorter_game"/>
+
+    <fragment
+        android:id="@+id/QuizGameFragment"
+        android:name="com.eco.app.QuizFragment"
+        android:label="Quiz"
+        tools:layout="@layout/fragment_quiz"/>
+
+    <fragment
+        android:id="@+id/GrowingTreeGameFragment"
+        android:name="com.eco.app.GrowingTreeFragment"
+        android:label="Fai crescere il tuo albero"
+        tools:layout="@layout/activity_growing_tree_fragment"/>
+</navigation>

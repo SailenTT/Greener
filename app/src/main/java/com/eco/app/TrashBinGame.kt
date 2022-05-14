@@ -207,6 +207,8 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
                             score=0
                             binding.restartGameButton.setOnClickListener { startGame() }
                             binding.gameOverScreen.visibility = View.VISIBLE
+                            binding.root.removeView(img_falling_sprite)
+                            //TODO se l'utente non è loggato far comparire il tasto per loggare
                         }
                     }
                 spriteAnimation.setUpdateListener {value->

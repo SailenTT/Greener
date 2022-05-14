@@ -21,27 +21,21 @@
             android:clipToPadding="false"
             android:background="@drawable/layer_rectangle_circular_bottom" >
 
-            <include
-                layout="@layout/navbar_top"
-                android:layout_height="35dp"
-                android:layout_width="match_parent"/>
 
             <TextView
                 android:id="@+id/tv_question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/navbar_top"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"
                 android:layout_centerInParent="true"
-                android:gravity="center"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:paddingTop="10dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="10dp"
-                android:textAlignment="center"
+                android:layout_marginBottom="35dp"
+                android:gravity="bottom|center_horizontal"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:textColor="@color/black"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
         </RelativeLayout>
 
         <LinearLayout

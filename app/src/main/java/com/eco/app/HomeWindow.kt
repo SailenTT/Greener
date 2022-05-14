@@ -3,15 +3,20 @@ package com.eco.app
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainerView
+import androidx.navigation.NavInflater
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.eco.app.databinding.ActivityHomeWindowBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
 class HomeWindow : AppCompatActivity() {
     private lateinit var binding : ActivityHomeWindowBinding
-
+    private lateinit var drawer: DrawerLayout
+    private lateinit var navHostFragment: NavHostFragment
     //COSTANTI
     //placeholders, li useremo per costruire la ui
     companion object{
@@ -22,6 +27,15 @@ class HomeWindow : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeWindowBinding.inflate(layoutInflater)
+
+        navHostFragment=supportFragmentManager.findFragmentById(R.id.home_fragment_container) as NavHostFragment
+        val navInflater=navHostFragment.navController.navInflater
+
+        binding.toolbar.setupWithNavController(navHostFragment.navController)
+        //binding.toolbar.setNavigationOnClickListener{
+
+        //}
+
         val navBar=binding.navBar
 
         navBar.setOnItemSelectedListener { item ->
@@ -30,12 +44,15 @@ class HomeWindow : AppCompatActivity() {
             when (item.itemId) {
                 R.id.item_minigames -> {
                     currentFragment = GameSelectionFragment()
+                    navHostFragment.navController.graph=navInflater.inflate(R.navigation.nav_minigames)
                 }
                 R.id.item_calendar -> {
                     currentFragment = CalendarFragment()
+                    navHostFragment.navController.graph=navInflater.inflate(R.navigation.nav_calendar)
                 }
                 R.id.item_calculator -> {
                     currentFragment = CalculatorFragment()
+                    navHostFragment.navController.graph=navInflater.inflate(R.navigation.nav_calculator)
                 }
                 else -> false
             }

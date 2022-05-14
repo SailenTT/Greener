@@ -10,11 +10,15 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white" />
+    <!--app:navigationIcon="@android:drawable/ic_menu"-->
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -28,12 +32,15 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/home_fragment_container"
-        android:name="com.eco.app.GameSelectionFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_below="@+id/toolbar"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_above="@id/navBar"/>
+        android:layout_above="@id/navBar"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_minigames"
+        />
 
 </RelativeLayout>

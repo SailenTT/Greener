@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Greener</string>
     <string name="mail_hint">Mail</string>
     <string name="psw_hint">Password</string>
     <string name="no_account">Don\'t have an account?</string>
@@ -8,7 +8,7 @@
     <string name="facebook_app_id">356308096301356</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">f08b3c74d6de29e8cb1026c056001c56</string>
-    <string name="server_client_id">275809847401-nctktkio51r8kpjc8rcc3cecmd8vqsj0.apps.googleusercontent.com</string>
+    <string name="google_server_client_id">275809847401-nctktkio51r8kpjc8rcc3cecmd8vqsj0.apps.googleusercontent.com</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_minigames">Minigames</string>
     <string name="menu_calendar">Calendario</string>
@@ -17,4 +17,13 @@
     <string name="btn_R2">R2</string>
     <string name="btn_R3">R3</string>
     <string name="btn_R4">R4</string>
+    <string name="title_activity_dacancellare">dacancellare</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
