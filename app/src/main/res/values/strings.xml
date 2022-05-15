@@ -10,9 +10,12 @@
     <string name="facebook_client_token">f08b3c74d6de29e8cb1026c056001c56</string>
     <string name="google_server_client_id">275809847401-k9skgqpplg78ph51m48q4der25hb6u5e.apps.googleusercontent.com</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="menu_minigames">Minigames</string>
+    <string name="menu_minigames">Giochi</string>
     <string name="menu_calendar">Calendario</string>
     <string name="menu_calculator">Carbon Footprint</string>
+    <string name="profile_page_name">Profilo</string>
+    <string name="logout_menu_item">Logout</string>
+    <string name="login_menu_item">Login</string>
     <string name="btn_R1">R1</string>
     <string name="btn_R2">R2</string>
     <string name="btn_R3">R3</string>

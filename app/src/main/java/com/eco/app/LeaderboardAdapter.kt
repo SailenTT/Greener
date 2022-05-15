@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.eco.app.LeaderboardAdapter.LeaderboardViewHolder
 import com.eco.app.databinding.LeaderboardRowBinding
 
-class LeaderboardAdapter(private val dataSet: ArrayList<LeaderBoardRow>, private val clickListener: Leaderboard):RecyclerView.Adapter<LeaderboardViewHolder>() {
+class LeaderboardAdapter(private val dataSet: ArrayList<LeaderBoardRow>, private val clickListener: LeaderboardAdapter.OnItemClicked):RecyclerView.Adapter<LeaderboardViewHolder>() {
+
     //inflate del layout leaderboard_row
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeaderboardViewHolder {
         val binding = LeaderboardRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)

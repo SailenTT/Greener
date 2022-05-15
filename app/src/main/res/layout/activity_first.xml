@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
+    <!--<Button
         android:id="@+id/btn_debug_first"
         android:layout_width="160dp"
         android:layout_height="50dp"
@@ -30,6 +30,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="290dp"/>-->
+    <Button
+        android:id="@+id/btn_go_to_homepage"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:text="Homepage"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/slogan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/btn_rounded_green_bg"
         android:layout_marginTop="290dp"/>
 
     <ImageView

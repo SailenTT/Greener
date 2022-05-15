@@ -6,37 +6,42 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.PermissionChecker
+import androidx.core.content.PermissionChecker.checkSelfPermission
 import com.eco.app.databinding.ActivityProfileBinding
+import com.eco.app.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-
-//TODO eliminare questa activity (perché è stata sostituita dal suo fragment)
-class ProfileActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityProfileBinding
+class ProfileFragment : Fragment() {
+    private lateinit var binding: FragmentProfileBinding
     private  lateinit var auth: FirebaseAuth
 
     val register = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
-            Toast.makeText(this, "APPOSTO REGISTER LAUNCHER", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "APPOSTO REGISTER LAUNCHER", Toast.LENGTH_SHORT).show()
             val imguri: Uri? = it.data?.data
             binding.imgProfile.setImageURI(imguri)
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding=FragmentProfileBinding.inflate(inflater,container,false)
+
         auth = Firebase.auth
         val user = auth.currentUser;
-        super.onCreate(savedInstanceState)
-        binding = ActivityProfileBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         checkPermissionForImage()
         if(user==null){
             Log.i("LoginInfo","Non sei loggato")
@@ -45,12 +50,14 @@ class ProfileActivity : AppCompatActivity() {
                 pickImage()
             }
         }
+
+        return binding.root
     }
 
     private fun checkPermissionForImage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if ((checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED)
-                && (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED)
+            if ((checkSelfPermission(requireContext(),Manifest.permission.READ_EXTERNAL_STORAGE) == PermissionChecker.PERMISSION_DENIED)
+                && (checkSelfPermission(requireContext(),Manifest.permission.WRITE_EXTERNAL_STORAGE) == PermissionChecker.PERMISSION_DENIED)
             ) {
                 val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
                 val permissionCoarse = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -64,7 +71,7 @@ class ProfileActivity : AppCompatActivity() {
                     1002
                 ) // GIVE AN INTEGER VALUE FOR PERMISSION_CODE_WRITE LIKE 1002
             } else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -74,4 +81,5 @@ class ProfileActivity : AppCompatActivity() {
         intent.type = "image/*"
         register.launch(intent)
     }
+
 }

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".HomeWindow"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -63,6 +64,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/main_drawer_menu"
+        app:menu="@menu/drawer_menu"
         android:fitsSystemWindows="true" />
 </androidx.drawerlayout.widget.DrawerLayout>

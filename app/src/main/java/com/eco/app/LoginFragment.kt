@@ -1,14 +1,20 @@
 package com.eco.app
 
 import android.app.AlertDialog
-import android.content.ContentValues.TAG
+import android.content.ContentValues
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.eco.app.databinding.ActivityLoginPageBinding
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
+import com.eco.app.databinding.FragmentLoginBinding
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -23,9 +29,8 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-//TODO eliminare questa activity (perché è stata sostituita dal suo fragment)
-class LoginPage : AppCompatActivity() {
-    private lateinit var binding: ActivityLoginPageBinding
+class LoginFragment : Fragment() {
+    private lateinit var binding: FragmentLoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var oneTapClient: SignInClient
     private lateinit var signInRequest: BeginSignInRequest
@@ -38,13 +43,12 @@ class LoginPage : AppCompatActivity() {
         var UID = ""
     }
 
-    //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE
-    //POI LI RIFACCIAMO
-    //metodo onCreate
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding=ActivityLoginPageBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding=FragmentLoginBinding.inflate(inflater,container,false)
 
         callbackManager = CallbackManager.Factory.create()
 
@@ -53,31 +57,28 @@ class LoginPage : AppCompatActivity() {
 
         //metodo onClick della txtSignUp per far diventare la txt un link per la activity RegisterPage
         txtSignUp.setOnClickListener {
-            val intent= Intent(this, RegisterPage::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
+            findNavController().navigate(LoginFragmentDirections.actionFromLoginToRegister())
         }
 
         //metodo onClick del btnLogin
         binding.btnLogin.setOnClickListener{
             loginUser()
         }
-
-        binding.btnLoginFacebook.background=getDrawable(R.drawable.btn_rounded_green_bg)
+        binding.btnLoginFacebook.background=AppCompatResources.getDrawable(requireContext(),R.drawable.btn_rounded_green_bg)
 
         binding.btnLoginFacebook.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult) {
-                    Log.d(TAG, "facebook:onSuccess$loginResult")
+                    Log.d(ContentValues.TAG, "facebook:onSuccess$loginResult")
                     handleFacebookAccessToken(loginResult.accessToken)
                 }
                 override fun onCancel() {
-                    Log.d(TAG, "facebook:onCancel")
+                    Log.d(ContentValues.TAG, "facebook:onCancel")
                 }
 
                 override fun onError(error: FacebookException) {
-                    Log.d(TAG, "facebook:onError", error)
-                    val alertDialogBuilder = AlertDialog.Builder(this@LoginPage)
+                    Log.d(ContentValues.TAG, "facebook:onError", error)
+                    val alertDialogBuilder = AlertDialog.Builder(requireContext())
                     alertDialogBuilder.setTitle("Facebook Error")
                     alertDialogBuilder.setMessage("Errore con le api facebook")
                     alertDialogBuilder.show()
@@ -89,9 +90,9 @@ class LoginPage : AppCompatActivity() {
             loginWithGoogle()
         }
 
-        auth=Firebase.auth
-
-        oneTapClient = Identity.getSignInClient(this)
+        auth= Firebase.auth
+        //activity.this in alternativa
+        oneTapClient = Identity.getSignInClient(requireContext())
         signInRequest = BeginSignInRequest.builder()
             .setGoogleIdTokenRequestOptions(
                 BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
@@ -103,6 +104,8 @@ class LoginPage : AppCompatActivity() {
                     .build())
             .setAutoSelectEnabled(true)
             .build()
+
+        return binding.root
     }
 
     override fun onStart() {
@@ -110,7 +113,6 @@ class LoginPage : AppCompatActivity() {
         val user=auth.currentUser
         //TODO caricare la prossima pagina
     }
-
 
 
     //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE
@@ -133,23 +135,21 @@ class LoginPage : AppCompatActivity() {
 
         else {
             auth.signInWithEmailAndPassword(email, pswd)
-                .addOnCompleteListener(this) { task ->
+                .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithEmail:success")
+                        Log.d(ContentValues.TAG, "signInWithEmail:success")
                         val user = auth.currentUser
                         val uid = auth.uid
-                        //TODO Load main dashboard
                         if (uid != null) {
-                            UID = uid
+                            LoginPage.UID = uid
                         }
-                        val intent = Intent(this,DebugActivity::class.java)
-                        startActivity(intent)
+                        goBackToHomepage()
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithEmail:failure", task.exception)
+                        Log.w(ContentValues.TAG, "signInWithEmail:failure", task.exception)
                         Toast.makeText(
-                            baseContext, "Authentication failed.",
+                            requireContext(), "Authentication failed.",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -163,43 +163,46 @@ class LoginPage : AppCompatActivity() {
     //funzione per gestire il login con google(firebase)
     fun loginWithGoogle(){
         oneTapClient.beginSignIn(signInRequest)
-            .addOnSuccessListener(this) { result ->
+            .addOnSuccessListener(requireActivity()) { result ->
                 try {
                     println("carico la UI")
                     startIntentSenderForResult(
                         result.pendingIntent.intentSender, REQ_ONE_TAP,
                         null, 0, 0, 0, null)
                 } catch (e: IntentSender.SendIntentException) {
-                    Toast.makeText(this,"Error nel caricamento del login", Toast.LENGTH_SHORT).show()
-                    Log.e(TAG, "Couldn't start One Tap UI: ${e.localizedMessage}")
+                    Toast.makeText(requireContext(),"Error nel caricamento del login", Toast.LENGTH_SHORT).show()
+                    Log.e(ContentValues.TAG, "Couldn't start One Tap UI: ${e.localizedMessage}")
                 }
             }
-            .addOnFailureListener(this) { e ->
+            .addOnFailureListener(requireActivity()) { e ->
                 // Error loading both signin and signup
-                Log.d(TAG, e.localizedMessage)
+                Log.d(ContentValues.TAG, e.localizedMessage)
             }
 
     }
 
     private fun handleFacebookAccessToken(token: AccessToken) {
-        Log.d(TAG, "handleFacebookAccessToken:$token")
+        Log.d(ContentValues.TAG, "handleFacebookAccessToken:$token")
 
         val credential = FacebookAuthProvider.getCredential(token.token)
         auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
+            .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     // Sign in success
-                    Log.d(TAG, "signInWithCredential:success")
-                    val userid = auth.currentUser
-                    //TODO redirectare l'utente alla pagina main e qui mettere finish() inoltre togliere dal backstack
-                    val intent = Intent(this,HomeWindow::class.java)
+                    Log.d(ContentValues.TAG, "signInWithCredential:success")
+                    //val userid = auth.currentUser
+                    /*val intent = Intent(requireContext(),HomeWindow::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    startActivity(intent)
+                    startActivity(intent)*/
+                    Toast.makeText(requireContext(), "Login Effettuato", Toast.LENGTH_SHORT)
+                        .show()
+                    goBackToHomepage()
+
                 } else {
                     // Sign in fail
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
                     Toast.makeText(
-                        baseContext, "Authentication failed.",
+                        requireContext(), "Authentication failed.",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -221,19 +224,19 @@ class LoginPage : AppCompatActivity() {
                         // with Firebase.
                         val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
                         auth.signInWithCredential(firebaseCredential)
-                            .addOnCompleteListener(this) { task ->
+                            .addOnCompleteListener(requireActivity()) { task ->
                                 if (task.isSuccessful) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    Log.d(TAG, "signInWithCredential:success")
+                                    Log.d(ContentValues.TAG, "signInWithCredential:success")
                                     val user = auth.currentUser
-                                    Toast.makeText(this, "Login Effettuato Fra", Toast.LENGTH_SHORT)
+                                    Toast.makeText(requireContext(), "Login Effettuato", Toast.LENGTH_SHORT)
                                         .show()
-                                    //TODO carica prossima UI
+                                    goBackToHomepage()
                                 } else {
                                     // If sign in fails, display a message to the user.
-                                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                                    Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
                                     Toast.makeText(
-                                        this,
+                                        requireContext(),
                                         "Utente non registrato",
                                         Toast.LENGTH_SHORT
                                     )
@@ -243,7 +246,7 @@ class LoginPage : AppCompatActivity() {
                     }
                     else -> {
                         // Shouldn't happen.
-                        Log.d(TAG, "No ID token!")
+                        Log.d(ContentValues.TAG, "No ID token!")
                     }
                 }
             }
@@ -253,4 +256,8 @@ class LoginPage : AppCompatActivity() {
         }
     }
 
+    fun goBackToHomepage(){
+        activity?.finish()
+        findNavController().navigate(LoginFragmentDirections.actionFromLoginBackToHome())
+    }
 }

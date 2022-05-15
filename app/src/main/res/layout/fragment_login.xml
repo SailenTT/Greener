@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginPage">
+
+    <!--OK-->
+    <!--Img del logo-->
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="190dp"
+        android:layout_height="110dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo_app" />
+
+    <!--OK-->
+    <!--txt "don't have an account?"-->
+    <TextView
+        android:id="@+id/txt_account"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_below="@id/app_logo"
+        android:layout_marginLeft="65dp"
+        android:layout_marginTop="24dp"
+        android:text="Don’t have an account?"
+        android:textSize="12sp" />
+
+    <!--txt "sign-up here" dobbiamo renderla un link alla page di sign-up-->
+    <!--DA FARE-->
+    <TextView
+        android:id="@+id/txt_SignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:layout_below="@id/app_logo"
+        android:layout_marginLeft="195dp"
+        android:layout_marginTop="24dp"
+        android:text="Sign-up here!"
+        android:textColor="@color/greenLogin"
+        android:textSize="12sp" />
+
+    <!--OK-->
+    <!--edt email, id = "edt_email"-->
+    <EditText
+        android:id="@+id/edt_email"
+        android:layout_width="282dp"
+        android:layout_height="48dp"
+        android:layout_below="@id/txt_account"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/edt_background"
+        android:drawableLeft="@drawable/ic_drawable_email"
+        android:drawablePadding="4dp"
+        android:hint="E-mail"
+        android:paddingLeft="10dp" />
+
+    <!--OK-->
+    <!--edt psw, id = "edt_psw"-->
+    <EditText
+        android:id="@+id/edt_psw"
+        android:layout_width="282dp"
+        android:layout_height="48dp"
+        android:layout_below="@id/edt_email"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/edt_background"
+        android:drawableLeft="@drawable/ic_drawable_psw"
+        android:drawablePadding="4dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp" />
+
+    <!--OK-->
+    <!--ho usato una view di H 2dp per creare tipo un "divider" (linea verde)-->
+    <!--solo per estetica-->
+    <View
+        android:layout_width="270dp"
+        android:layout_height="2dp"
+        android:layout_below="@id/edt_email"
+        android:background="@color/greenLogin"
+        android:layout_marginTop="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"/>
+
+    <!--OK-->
+    <!--stessa cosa di prima-->
+    <!--solo per estetica-->
+    <View
+        android:layout_width="270dp"
+        android:layout_height="2dp"
+        android:layout_below="@id/edt_psw"
+        android:background="@color/greenLogin"
+        android:layout_marginTop="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"/>
+
+    <!--switch per tenere conto se l'utente vuole restare connesso o meno-->
+    <!--id = "switch_keep_me"-->
+    <Switch
+        android:id="@+id/switch_keep_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_psw"
+        android:layout_marginLeft="65dp"
+        android:layout_marginTop="5dp"
+        android:layoutDirection="rtl"
+        android:minHeight="48dp"
+        android:text="keep me logged in."
+        android:textSize="12dp"
+        android:thumbTint="@color/greenLogin"
+        tools:ignore="SpUsage,UseSwitchCompatOrMaterialXml" />
+
+    <!--btn del login che farà partire il tutto-->
+    <!--id = "btn_login"-->
+
+    <!--txt "Forgot Password"-->
+    <TextView
+        android:id="@+id/txtForgotpsw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_login"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="3dp"
+        android:text="Forgot password?"
+        android:textSize="12dp" />
+
+    <!--txt "Recover here" dobbiamo renderla un link alla page di sign-up-->
+    <!--DA FARE-->
+    <TextView
+        android:id="@+id/txtRecover"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:layout_below="@id/btn_login"
+        android:layout_marginLeft="220dp"
+        android:layout_marginTop="3dp"
+        android:text="Recover here"
+        android:textColor="@color/greenLogin"
+        android:textSize="12dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="127dp"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/erba_png"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-2dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/foglie_png" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="264dp"
+        android:layout_height="48dp"
+        android:layout_below="@id/switch_keep_me"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_rounded_green_bg"
+        android:text="LOGIN"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/btn_loginGoogle"
+        android:layout_width="264dp"
+        android:layout_height="48dp"
+        android:layout_below="@id/btn_loginFacebook"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_rounded_green_bg"
+        android:backgroundTint="@color/grey"
+        android:drawableLeft="@drawable/drawable_btn_icon_google"
+        android:paddingLeft="5dp"
+        android:text="Accedi con Google"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/btn_loginFacebook"
+        android:layout_width="264dp"
+        android:layout_height="48dp"
+        android:layout_below="@id/txtForgotpsw"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_rounded_green_bg"
+        android:backgroundTint="@color/blueFacebook"
+        android:drawableStart="@drawable/drawable_btn_icon_facebook"
+        android:paddingLeft="6dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
+        android:text="Continue with Facebook"
+        android:textAllCaps="false"
+        android:textSize="16sp" />
+
+</RelativeLayout>

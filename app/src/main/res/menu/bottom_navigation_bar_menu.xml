@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/GameSelectionFragment"
         android:title="@string/menu_minigames"
-        android:icon="@drawable/ic_baseline_videogame_asset"
+        android:icon="@drawable/ic_videogame"
         app:showAsAction="always"
         android:enabled="true" />
     <item android:id="@+id/CalendarFragment"
         android:title="@string/menu_calendar"
-        android:icon="@drawable/ic_baseline_calendar_month_24"
+        android:icon="@drawable/ic_calendar_month"
         app:showAsAction="always"
         android:enabled="true"/>
     <item android:id="@+id/CalculatorFragment"
         android:title="@string/menu_calculator"
-        android:icon="@drawable/ic_baseline_co2_24"
+        android:icon="@drawable/ic_co2"
         app:showAsAction="always"
         android:enabled="true"/>
 </menu>

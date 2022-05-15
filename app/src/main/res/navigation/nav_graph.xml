@@ -78,4 +78,35 @@
         android:name="com.eco.app.CalculatorFragment"
         android:label="Carbon Footprint"
         tools:layout="@layout/fragment_calculator"/>
+
+    <fragment android:id="@+id/login_fragment"
+        android:name="com.eco.app.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/activity_login_page">
+        <action
+            android:id="@+id/action_fromLogin_backToHome"
+            app:destination="@+id/GameSelectionFragment"/>
+        <action
+            android:id="@+id/action_fromLogin_toRegister"
+            app:destination="@id/register_fragment"/>
+    </fragment>
+
+    <fragment android:id="@+id/leaderboard_fragment"
+        android:name="com.eco.app.LeaderboardFragment"
+        android:label="Leaderboard"
+        tools:layout="@layout/fragment_leaderboard"/>
+
+    <fragment android:id="@+id/register_fragment"
+        android:name="com.eco.app.RegisterFragment"
+        android:label="Registrazione"
+        tools:layout="@layout/fragment_register">
+
+        <action android:id="@+id/action_fromRegister_toLogin"
+            app:destination="@id/login_fragment"/>
+    </fragment>
+
+    <fragment android:id="@+id/profile_fragment"
+        android:label="@string/profile_page_name"
+        android:name="com.eco.app.ProfileFragment"
+        tools:layout="@layout/activity_profile"/>
 </navigation>

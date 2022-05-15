@@ -75,7 +75,7 @@
                 android:layout_marginTop="38dp"
                 android:background="@drawable/btn_rounded_green_bg"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_baseline_play_arrow_24" />
+                android:src="@drawable/ic_play_arrow" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -136,7 +136,7 @@
                 android:layout_marginBottom="8dp"
                 android:background="@null"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_baseline_play_arrow_24"
+                android:src="@drawable/ic_play_arrow"
                 tools:ignore="SpeakableTextPresentCheck" />
 
         </RelativeLayout>

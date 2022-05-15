@@ -26,7 +26,7 @@ class First_Activity : AppCompatActivity() {
 
         btnLog = binding.btnFirstLogin
         btnSign = binding.btnFirstSignup
-        btnDeb = binding.btnDebugFirst
+        //btnDeb = binding.btnDebugFirst
         txtWho = binding.txtWho
 
         btnLog.setOnClickListener(View.OnClickListener {
@@ -39,9 +39,13 @@ class First_Activity : AppCompatActivity() {
             startActivity(intent)
         })
 
-        btnDeb.setOnClickListener(View.OnClickListener {
+        /*btnDeb.setOnClickListener(View.OnClickListener {
             val intent=Intent(this,DebugActivity::class.java)
             startActivity(intent)
-        })
+        })*/
+        binding.btnGoToHomepage.setOnClickListener {
+            val intent=Intent(this,HomeWindow::class.java)
+            startActivity(intent)
+        }
     }
 }
