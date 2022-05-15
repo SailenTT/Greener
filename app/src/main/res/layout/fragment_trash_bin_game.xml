@@ -83,6 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="6dp"
             android:layout_centerHorizontal="true">
 
             <ImageView
@@ -97,9 +98,9 @@
                 android:id="@+id/lottie"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="95dp"
-                android:background="@drawable/lottie_recycle_anim_bg"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:background="@android:color/transparent"
                 app:lottie_autoPlay="false"
                 app:lottie_loop="false"
                 app:lottie_rawRes="@raw/recycle_animation"

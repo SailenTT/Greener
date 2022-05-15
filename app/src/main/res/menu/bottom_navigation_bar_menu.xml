@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/item_minigames"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/GameSelectionFragment"
         android:title="@string/menu_minigames"
         android:icon="@drawable/ic_baseline_videogame_asset"
+        app:showAsAction="always"
         android:enabled="true" />
-    <item android:id="@+id/item_calendar"
+    <item android:id="@+id/CalendarFragment"
         android:title="@string/menu_calendar"
         android:icon="@drawable/ic_baseline_calendar_month_24"
+        app:showAsAction="always"
         android:enabled="true"/>
-    <item android:id="@+id/item_calculator"
+    <item android:id="@+id/CalculatorFragment"
         android:title="@string/menu_calculator"
         android:icon="@drawable/ic_baseline_co2_24"
+        app:showAsAction="always"
         android:enabled="true"/>
 </menu>

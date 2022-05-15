@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_game_selection">
+    app:startDestination="@id/GameSelectionFragment">
 
     <fragment
-        android:id="@+id/fragment_game_selection"
+        android:id="@+id/GameSelectionFragment"
         android:name="com.eco.app.GameSelectionFragment"
         android:label="Seleziona un gioco"
         tools:layout="@layout/fragment_game_selection">
@@ -45,25 +45,37 @@
     <fragment
         android:id="@+id/TrashBinGameFragment"
         android:name="com.eco.app.TrashBinGame"
-        android:label="Non sporcare l'ambiente"
+        android:label="@string/trash_bin_game_name"
         tools:layout="@layout/fragment_trash_bin_game">
     </fragment>
 
     <fragment
         android:id="@+id/GarbageSorterGameFragment"
         android:name="com.eco.app.GarbageSorterGame"
-        android:label="Dividi i rifiuti"
+        android:label="@string/garbage_sorter_game_name"
         tools:layout="@layout/fragment_garbage_sorter_game"/>
 
     <fragment
         android:id="@+id/QuizGameFragment"
         android:name="com.eco.app.QuizFragment"
-        android:label="Quiz"
+        android:label="@string/quiz_game_name"
         tools:layout="@layout/fragment_quiz"/>
 
     <fragment
         android:id="@+id/GrowingTreeGameFragment"
         android:name="com.eco.app.GrowingTreeFragment"
-        android:label="Fai crescere il tuo albero"
-        tools:layout="@layout/activity_growing_tree_fragment"/>
+        android:label="@string/growing_tree_game_name"
+        tools:layout="@layout/fragment_growing_tree"/>
+
+    <fragment
+        android:id="@+id/CalendarFragment"
+        android:name="com.eco.app.CalendarFragment"
+        android:label="Calendario"
+        tools:layout="@layout/fragment_calendar"/>
+
+    <fragment
+        android:id="@id/CalculatorFragment"
+        android:name="com.eco.app.CalculatorFragment"
+        android:label="Carbon Footprint"
+        tools:layout="@layout/fragment_calculator"/>
 </navigation>
