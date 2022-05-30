@@ -1,6 +1,8 @@
 package com.eco.app
 
 import android.animation.Animator
+import android.content.res.AssetManager
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,9 +12,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.eco.app.databinding.FragmentGarbageSorterGameBinding
+import java.util.*
+import kotlin.collections.HashMap
 import kotlin.random.Random
 
-class GarbageSorterGame : Fragment(), View.OnTouchListener{
+class GarbageSorterFragment : Fragment(), View.OnTouchListener{
     private lateinit var binding : FragmentGarbageSorterGameBinding
     private var xStart= 0.0F
     private var score=0
@@ -22,13 +26,26 @@ class GarbageSorterGame : Fragment(), View.OnTouchListener{
     private val minimumSpeed=900L
     private val spawnDelay=1400L
     private val minimumSpawnDelay=900L
+    private lateinit var paperBinContainer: RelativeLayout
+    private lateinit var plasticBinContainer: RelativeLayout
+    private lateinit var indiffBinContainer: RelativeLayout
+    private lateinit var organicBinContainer: RelativeLayout
+    private val isFalling="falling_status"
+    private val wasteType="waste_type"
+    //TODO rendere questa variabile statiche e pubbliche
+    val prePathToAsset: String="/waste_type_"
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding= FragmentGarbageSorterGameBinding.inflate(layoutInflater,container,false)
+
+        paperBinContainer=binding.paperBinContainer
+        plasticBinContainer=binding.plasticBinContainer
+        indiffBinContainer=binding.indiffBinContainer
+        organicBinContainer=binding.organicBinContainer
 
         return binding.root
     }
@@ -73,8 +90,6 @@ class GarbageSorterGame : Fragment(), View.OnTouchListener{
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL)
         trashBinContainer.layoutParams=layoutParams*/
 
-        val img_falling_sprite=ImageView(requireContext())
-
         gameRunning=true
 
         if(firstStart) {
@@ -87,11 +102,9 @@ class GarbageSorterGame : Fragment(), View.OnTouchListener{
                     lottieSwipeAnimation.alpha = 1F
                 }
 
-                override fun onAnimationCancel(p0: Animator?) {
-                }
+                override fun onAnimationCancel(p0: Animator?) {}
 
-                override fun onAnimationRepeat(p0: Animator?) {
-                }
+                override fun onAnimationRepeat(p0: Animator?) {}
 
                 override fun onAnimationEnd(p0: Animator?) {
                     lottieSwipeAnimation.visibility = View.INVISIBLE
@@ -133,16 +146,29 @@ class GarbageSorterGame : Fragment(), View.OnTouchListener{
         activity?.runOnUiThread{
             run {
                 val img_falling_sprite = ImageView(requireContext())
+                img_falling_sprite.setOnTouchListener(this)
 
                 val metrics = requireContext().resources.displayMetrics
 
-                img_falling_sprite.setImageResource(R.drawable.crumbled_paper)
+                //estraggo un tipo di rifiuto
+                val type=Random.nextInt(4)
 
-                img_falling_sprite.tag=true
+                //prendo la lista dei contenuti nella subdirectory relativa al numero di rifiuto estratto
+                val assetList=context?.assets?.list(prePathToAsset+type)
+                //estraggo l'id dell'immagine da usare
+                val resId=Random.nextInt(assetList!!.size)
+
+                //setto l'immagine
+                img_falling_sprite.setImageURI(Uri.parse(assetList[resId]))
+
+                val tag=HashMap<String,Any>()
+                tag[wasteType] = type
+                tag[isFalling] = true
+                img_falling_sprite.tag=tag
 
                 binding.root.addView(img_falling_sprite)
 
-                var ballSize=(metrics.density * 55).toInt()
+                /*var ballSize=(metrics.density * 55).toInt()
 
                 if(score>=100){
                     img_falling_sprite.y=0+((Random.nextInt(200)+100)*metrics.density)
@@ -171,7 +197,7 @@ class GarbageSorterGame : Fragment(), View.OnTouchListener{
                 //volendo si può usare il bounce per far riprendere i primi e poi toglierlo
 
                 //non faccio sparire la carta per far capire all'utente che ha inquinato
-                var ballXMovement: Float?=null
+                var ballXMovement: Float?=null*/
 
                 val spriteAnimation=img_falling_sprite.animate()
                     .translationY(binding.root.height - (img_falling_sprite.layoutParams.height/2).toFloat())
@@ -181,7 +207,7 @@ class GarbageSorterGame : Fragment(), View.OnTouchListener{
                         if(img_falling_sprite.tag==true&&gameRunning) {
                             println("game over")
                             //fermo il cestino
-                            img_falling_sprite.tag = false
+                            (img_falling_sprite.tag as HashMap<String,Any>)[isFalling] = false
                             gameRunning=false
                             //faccio comparire la schermata di fine
                             img_falling_sprite.setOnTouchListener(null)
@@ -200,7 +226,7 @@ class GarbageSorterGame : Fragment(), View.OnTouchListener{
                     }
                 }
 
-                if(score>=10){
+                /*if(score>=10){
                     val currentSpeed=defaultSpeed-(score*18)
                     if(currentSpeed>=minimumSpeed) {
                         spriteAnimation.duration = currentSpeed
@@ -216,7 +242,7 @@ class GarbageSorterGame : Fragment(), View.OnTouchListener{
                 else if(score>=15){
 
 
-                }
+                }*/
 
 
                 //Thread che rileva la collisione
@@ -224,14 +250,32 @@ class GarbageSorterGame : Fragment(), View.OnTouchListener{
                     Thread {
                         //uso il tag per dire se l'oggetto sta cadendo o no
                         while (img_falling_sprite.tag == true) {
-                            //TODO sostituire trashBinContainer col cestino giusto
-                            /*if (img_falling_sprite.y + img_falling_sprite.height >= trashBinContainer.y+(trashBinContainer.height/8) && img_falling_sprite.y + img_falling_sprite.height <= trashBinContainer.y + (trashBinContainer.height / 4)) {
-                                if ((img_falling_sprite.x >= trashBinContainer.x && img_falling_sprite.x <= trashBinContainer.x + trashBinContainer.width) || (img_falling_sprite.x + img_falling_sprite.width >= trashBinContainer.x && img_falling_sprite.x + img_falling_sprite.width <= trashBinContainer.x + trashBinContainer.width)) {
-                                    println("intersezione!!!; img_falling_sprite: ${img_falling_sprite.y + img_falling_sprite.height}")
-                                    img_falling_sprite.tag = false
-                                    //spawnFallingTrash()
+                            val id=(img_falling_sprite.tag as HashMap<String,Any>)[wasteType]
+                            if (img_falling_sprite.y + img_falling_sprite.height >= paperBinContainer.y+(paperBinContainer.height/8) && img_falling_sprite.y + img_falling_sprite.height <= paperBinContainer.y + (paperBinContainer.height / 4)) {
+                                when(id) {
+                                    0->{
+                                        if ((img_falling_sprite.x >= paperBinContainer.x && img_falling_sprite.x <= paperBinContainer.x + paperBinContainer.width) || (img_falling_sprite.x + img_falling_sprite.width >= paperBinContainer.x && img_falling_sprite.x + img_falling_sprite.width <= paperBinContainer.x + paperBinContainer.width)) {
+                                            (img_falling_sprite.tag as HashMap<String, Any>)[isFalling] = false
+                                        }
+
+                                    }
+                                    1-> {
+                                        if ((img_falling_sprite.x >= plasticBinContainer.x && img_falling_sprite.x <= plasticBinContainer.x + plasticBinContainer.width) || (img_falling_sprite.x + img_falling_sprite.width >= plasticBinContainer.x && img_falling_sprite.x + img_falling_sprite.width <= plasticBinContainer.x + plasticBinContainer.width)) {
+                                            (img_falling_sprite.tag as HashMap<String, Any>)[isFalling] = false
+                                        }
+                                    }
+                                    2-> {
+                                        if ((img_falling_sprite.x >= indiffBinContainer.x && img_falling_sprite.x <= indiffBinContainer.x + indiffBinContainer.width) || (img_falling_sprite.x + img_falling_sprite.width >= indiffBinContainer.x && img_falling_sprite.x + img_falling_sprite.width <= indiffBinContainer.x + indiffBinContainer.width)) {
+                                            (img_falling_sprite.tag as HashMap<String, Any>)[isFalling] = false
+                                        }
+                                    }
+                                    3-> {
+                                        if ((img_falling_sprite.x >= organicBinContainer.x && img_falling_sprite.x <= organicBinContainer.x + organicBinContainer.width) || (img_falling_sprite.x + img_falling_sprite.width >= organicBinContainer.x && img_falling_sprite.x + img_falling_sprite.width <= organicBinContainer.x + organicBinContainer.width)) {
+                                            (img_falling_sprite.tag as HashMap<String, Any>)[isFalling] = false
+                                        }
+                                    }
                                 }
-                            }*/
+                            }
                         }
                     }.start()
 
@@ -245,8 +289,7 @@ class GarbageSorterGame : Fragment(), View.OnTouchListener{
         img_falling_sprite.clearAnimation()
         img_falling_sprite.animate().setUpdateListener(null)
         score++
-        //TODO al posto che punti caricare la stirnga dal file di stringhe (per le possibili traduzioni
-        binding.txtScore.text = score.toString() + " punti"
+        binding.txtScore.text = score.toString() + getString(R.string.points)
 
 
         //lottie.playAnimation()

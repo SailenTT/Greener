@@ -7,8 +7,6 @@
     <string name="keep_logged">Keep me logged in</string>
     <string name="facebook_app_id">356308096301356</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
-    <string name="facebook_client_token">f08b3c74d6de29e8cb1026c056001c56</string>
-    <string name="google_server_client_id">275809847401-k9skgqpplg78ph51m48q4der25hb6u5e.apps.googleusercontent.com</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_minigames">Giochi</string>
     <string name="menu_calendar">Calendario</string>
@@ -16,6 +14,7 @@
     <string name="profile_page_name">Profilo</string>
     <string name="logout_menu_item">Logout</string>
     <string name="login_menu_item">Login</string>
+    <string name="points">Punti</string>
     <string name="btn_R1">R1</string>
     <string name="btn_R2">R2</string>
     <string name="btn_R3">R3</string>

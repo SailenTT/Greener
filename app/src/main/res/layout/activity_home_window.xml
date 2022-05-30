@@ -37,9 +37,9 @@
             android:id="@+id/navBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:background="@color/white"
             android:elevation="20dp"
-            android:layout_alignParentBottom="true"
             app:menu="@menu/bottom_navigation_bar_menu" />
 
         <androidx.fragment.app.FragmentContainerView
@@ -47,13 +47,12 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_above="@id/navBar"
             android:layout_below="@+id/appbar"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_above="@id/navBar"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/nav_graph"
-            />
+            app:navGraph="@navigation/nav_graph" />
 
     </RelativeLayout>
 

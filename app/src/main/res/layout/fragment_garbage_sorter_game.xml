@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".GarbageSorterGame">
+    tools:context=".GarbageSorterFragment">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_swipe_animation"
@@ -44,34 +44,38 @@
             android:layout_alignParentBottom="true">
 
             <RelativeLayout
+                android:id="@+id/paper_bin_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
+
                 <ImageView
-                    android:id="@+id/paper_trash_bin"
-                    android:layout_height="match_parent"
+                    android:id="@+id/paper_trash_img"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/cestino_rifiuto" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:paddingStart="3dp"
                     android:paddingEnd="3dp"
                     android:text="Carta"
                     android:textAlignment="center"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:textSize="22sp"/>
+                    android:textSize="22sp" />
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/plastic_bin_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
                 <ImageView
-                    android:id="@+id/glass_trash_bin"
+                    android:id="@+id/plastic_trash_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
@@ -89,47 +93,53 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/indiff_bin_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
+
                 <ImageView
-                    android:id="@+id/plastic_trash_bin"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/indiff_trash_img"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
                     android:src="@drawable/cestino_rifiuto" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:paddingStart="3dp"
                     android:paddingEnd="3dp"
                     android:text="Indifferenziata"
                     android:textAlignment="center"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:textSize="22sp"/>
+                    android:textSize="22sp" />
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/organic_bin_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
+
                 <ImageView
-                    android:id="@+id/indiff_trash_bin"
-                    android:layout_height="match_parent"
+                    android:id="@+id/organic_trash_img"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/cestino_rifiuto" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="3dp"
-                    android:paddingEnd="3dp"
-                    android:textAlignment="center"
-                    android:text="Organico"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:textSize="22sp"/>
+                    android:paddingStart="3dp"
+                    android:paddingEnd="3dp"
+                    android:text="Organico"
+                    android:textAlignment="center"
+                    android:textSize="22sp" />
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>

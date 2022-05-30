@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TrashBinGame"
+    tools:context=".TrashBinGameFragment"
     android:id="@+id/relative_layout">
 
     <RelativeLayout

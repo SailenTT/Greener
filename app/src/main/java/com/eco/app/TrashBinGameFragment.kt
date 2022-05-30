@@ -13,10 +13,10 @@ import kotlin.random.Random
 
 /**
  * A simple [Fragment] subclass.
- * Use the [TrashBinGame.newInstance] factory method to
+ * Use the [TrashBinGameFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TrashBinGame : Fragment(), View.OnTouchListener {
+class TrashBinGameFragment : Fragment(), View.OnTouchListener {
 
     private lateinit var binding: FragmentTrashBinGameBinding
     private var xStart= 0.0F
@@ -30,7 +30,7 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
     private val maxXInclination=9000
     private var firstStart=true
     private var gameRunning=false
-    private val spawnDelay=1300L
+    private val spawnDelay=1000L
     private val minimumSpawnDelay=600L
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -137,7 +137,7 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
 
                 //Fai partire il gioco dopo tot millisecondi
                 spawnFallingTrash()
-                var newDelay=spawnDelay-(score*7)
+                var newDelay=spawnDelay-(score*5)
                 if(newDelay<minimumSpawnDelay){
                     newDelay=minimumSpawnDelay
                 }
@@ -277,7 +277,6 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
                                 if ((img_falling_sprite.x >= trashBinContainer.x && img_falling_sprite.x <= trashBinContainer.x + trashBinContainer.width) || (img_falling_sprite.x + img_falling_sprite.width >= trashBinContainer.x && img_falling_sprite.x + img_falling_sprite.width <= trashBinContainer.x + trashBinContainer.width)) {
                                     println("intersezione!!!; img_falling_sprite: ${img_falling_sprite.y + img_falling_sprite.height}")
                                     img_falling_sprite.tag = false
-                                    //spawnFallingTrash()
                                 }
                             }
                         }
@@ -293,8 +292,7 @@ class TrashBinGame : Fragment(), View.OnTouchListener {
         img_falling_sprite.clearAnimation()
         img_falling_sprite.animate().setUpdateListener(null)
         score++
-        //TODO al posto che punti caricare la stirnga dal file di stringhe (per le possibili traduzioni
-        binding.txtScore.text = score.toString() + " punti"
+        binding.txtScore.text = score.toString() +getString(R.string.points)
 
         lottieRecycleAnimation.playAnimation()
 
