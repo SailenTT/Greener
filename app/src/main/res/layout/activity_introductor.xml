@@ -60,6 +60,7 @@
         app:layout_constraintVertical_bias=".7"
         android:layout_marginTop="250dp"
         app:lottie_rawRes="@raw/x1_5splash"
+        app:lottie_speed="1.2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

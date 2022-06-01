@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+     android:layout_centerInParent="true"
+    android:layout_gravity="center"
     tools:context=".GameSelectionFragment">
 
     <RelativeLayout
@@ -12,7 +14,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="45dp"
         android:layout_marginEnd="20dp"
         android:background="@android:color/transparent">
 
@@ -44,11 +45,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/trash_bin_game"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="55dp"
-        android:background="@android:color/transparent"
-        android:layout_centerHorizontal="true">
+        android:background="@android:color/transparent">
 
         <TextView
             android:id="@+id/garbage_sorter_game_name"
@@ -58,9 +59,9 @@
             android:layout_toStartOf="@id/garbage_sorter_game_img"
             android:background="@drawable/btn_rounded"
             android:elevation="4dp"
+            android:gravity="center"
             android:padding="6dp"
             android:text="Sort out the garbage"
-            android:gravity="center"
             android:textAlignment="center"
             android:textSize="20sp" />
 
@@ -80,7 +81,7 @@
         android:layout_below="@+id/garbage_sorter_game"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
         android:background="@android:color/transparent">
 
@@ -114,7 +115,7 @@
         android:layout_below="@+id/quiz_game"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
         android:background="@android:color/transparent">
 

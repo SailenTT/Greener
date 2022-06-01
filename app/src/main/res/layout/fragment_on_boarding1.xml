@@ -35,18 +35,19 @@
 
     <TextView
         android:id="@+id/txt_skip1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="36dp"
+        android:layout_marginRight="18dp"
+        android:gravity="center"
         android:text="Skip"
+        android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        app:layout_constraintHorizontal_bias="1"
-        android:layout_marginRight="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintBottom_toBottomOf="@id/textView"
-        app:layout_constraintTop_toTopOf="@id/textView"/>/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@id/textView" />/>
 
     <TextView
         android:id="@+id/textView2"

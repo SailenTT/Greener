@@ -13,6 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
+        android:layout_marginTop="20dp"
         android:visibility="invisible"
         app:lottie_rawRes="@raw/swipe_animation"
         app:lottie_autoPlay="false"
@@ -22,7 +23,8 @@
     <RelativeLayout
         android:id="@+id/main_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/garbage_sorter_game_background">
 
         <TextView
             android:id="@+id/txt_score"
@@ -41,31 +43,40 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="130dp"
+            android:id="@+id/trashes_container"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true">
 
             <RelativeLayout
                 android:id="@+id/paper_bin_container"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/paper_trash_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/cestino_rifiuto" />
 
-                <TextView
+                <!--<TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:paddingStart="3dp"
-                    android:paddingEnd="3dp"
+                    android:layout_centerInParent="true"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
                     android:text="Carta"
                     android:textAlignment="center"
-                    android:textSize="22sp" />
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />-->
+                <ImageView
+                    android:id="@+id/paper_trash_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_paper_waste" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -78,24 +89,31 @@
                     android:id="@+id/plastic_trash_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/cestino_rifiuto" />
 
-                <TextView
+                <!--<TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:paddingStart="3dp"
-                    android:paddingEnd="3dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
                     android:text="Plastica"
                     android:textAlignment="center"
-                    android:textSize="22sp" />
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />-->
+                <ImageView
+                    android:id="@+id/plastic_trash_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_plastic_waste" />
             </RelativeLayout>
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:id="@+id/indiff_bin_container"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1">
 
                 <ImageView
@@ -108,14 +126,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:paddingStart="3dp"
-                    android:paddingEnd="3dp"
+                    android:layout_centerInParent="true"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
                     android:text="Indifferenziata"
                     android:textAlignment="center"
+                    android:textColor="@color/white"
                     android:textSize="22sp" />
-            </RelativeLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_indiff_waste"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>-->
 
             <RelativeLayout
                 android:id="@+id/organic_bin_container"
@@ -127,21 +150,107 @@
                     android:id="@+id/organic_trash_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/cestino_rifiuto" />
 
-                <TextView
+                <!--<TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:paddingStart="3dp"
-                    android:paddingEnd="3dp"
+                    android:layout_centerInParent="true"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
                     android:text="Organico"
                     android:textAlignment="center"
-                    android:textSize="22sp" />
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />-->
+                <ImageView
+                    android:id="@+id/organic_trash_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_food_waste" />
             </RelativeLayout>
         </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/game_over_screen"
+        android:layout_width="240dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/btn_rounded_green_bg"
+        android:visibility="invisible">
+
+        <TextView
+            android:id="@+id/txt_game_over"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="1dp"
+            android:background="@android:color/transparent"
+            android:text="Game Over"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/txt_final_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/txt_game_over"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="42dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/white"
+            android:textSize="26sp" />
+
+        <ImageButton
+            android:id="@+id/restart_game_button"
+            android:layout_width="120dp"
+            android:layout_height="75dp"
+            android:layout_alignTop="@id/txt_final_score"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="38dp"
+            android:background="@drawable/btn_rounded_green_bg"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_play_arrow" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/start_game_instructions_container"
+        android:layout_width="240dp"
+        android:layout_height="180dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/btn_rounded_green_bg">
+
+        <TextView
+            android:id="@+id/txt_instructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Fai cadere i rifiuti nel cestino corretto!"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="26sp" />
+
+        <ImageButton
+            android:id="@+id/start_game_button"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:layout_below="@id/txt_instructions"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="5dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_play_arrow"
+            tools:ignore="SpeakableTextPresentCheck" />
+
     </RelativeLayout>
 
 </RelativeLayout>

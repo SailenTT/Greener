@@ -235,6 +235,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
                         }
                     }
                     else{
+                        img_falling_sprite.tag=false
                         img_falling_sprite.clearAnimation()
                         img_falling_sprite.animate().setUpdateListener(null)
                         binding.root.removeView(img_falling_sprite)
@@ -292,7 +293,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
         img_falling_sprite.clearAnimation()
         img_falling_sprite.animate().setUpdateListener(null)
         score++
-        binding.txtScore.text = score.toString() +getString(R.string.points)
+        binding.txtScore.text = score.toString()
 
         lottieRecycleAnimation.playAnimation()
 
