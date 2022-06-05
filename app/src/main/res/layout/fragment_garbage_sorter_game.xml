@@ -6,20 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".GarbageSorterFragment">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottie_swipe_animation"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="20dp"
-        android:visibility="invisible"
-        app:lottie_rawRes="@raw/swipe_animation"
-        app:lottie_autoPlay="false"
-        app:lottie_loop="false"
-        app:lottie_speed="1.4" />
-
     <RelativeLayout
         android:id="@+id/main_container"
         android:layout_width="match_parent"
@@ -41,9 +27,9 @@
             android:textSize="30sp" />
 
         <LinearLayout
+            android:id="@+id/trashes_container"
             android:layout_width="match_parent"
             android:layout_height="130dp"
-            android:id="@+id/trashes_container"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true">
@@ -51,8 +37,8 @@
             <RelativeLayout
                 android:id="@+id/paper_bin_container"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/paper_trash_img"
@@ -75,15 +61,28 @@
                     android:id="@+id/paper_trash_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
                     android:src="@drawable/ic_paper_waste" />
+
+                <TextView
+                    android:id="@+id/paper_trash_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/paper_trash_icon"
+                    android:layout_centerHorizontal="true"
+                    android:text="Carta"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/plastic_bin_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/plastic_trash_img"
@@ -106,8 +105,20 @@
                     android:id="@+id/plastic_trash_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
                     android:src="@drawable/ic_plastic_waste" />
+
+                <TextView
+                    android:id="@+id/plastic_trash_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/plastic_trash_icon"
+                    android:layout_centerHorizontal="true"
+                    android:text="Plastica"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
             </RelativeLayout>
 
             <!--<RelativeLayout
@@ -167,8 +178,20 @@
                     android:id="@+id/organic_trash_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:layout_centerInParent="true"
+                    android:layout_marginTop="30dp"
                     android:src="@drawable/ic_food_waste" />
+
+                <TextView
+                    android:id="@+id/organic_trash_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/organic_trash_icon"
+                    android:layout_centerHorizontal="true"
+                    android:text="Organico"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
@@ -252,5 +275,18 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
     </RelativeLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_swipe_animation"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:visibility="invisible"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        app:lottie_rawRes="@raw/swipe_animation"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        app:lottie_speed="1.4" />
 
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.eco.app.databinding.FragmentGarbageSorterGameBinding
 import kotlin.random.Random
@@ -31,9 +32,9 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
     private val isFalling="falling_status"
     private val wasteType="waste_type"
     //TODO rendere questa variabile statica e pubblica
-    val NUMBER_OF_PAPER_WASTE_ICONS=1
-    val NUMBER_OF_PLASTIC_WASTE_ICONS=1
-    val NUMBER_OF_ORGANIC_WASTE_ICONS=2
+    private var numberOfPaperWasteIcons=0
+    private var numberOfPlasticWasteIcons=0
+    private var numberOfOrganicWasteIcons=0
     val prePathToPaperIcon: String="paper_waste_"
     val prePathToPlasticIcon: String="plastic_waste_"
     val prePathToOrganicIcon: String="organic_waste_"
@@ -56,6 +57,8 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
         binding.startGameButton.setOnClickListener {
             startGame()
         }
+
+        calculateNumberOfWasteIcons()
 
         return binding.root
     }
@@ -154,6 +157,37 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
         }.start()
     }
 
+    //Calcola il numero di file dentro la cartella drawable che contengono nel nome il prefisso delle immagini
+    fun calculateNumberOfWasteIcons() {
+        for(i in 0..100){
+            val resId=resources.getIdentifier("$prePathToOrganicIcon$i","drawable",requireContext().packageName)
+            if(resId!=0){
+                numberOfOrganicWasteIcons++
+            }
+            else{
+                break
+            }
+        }
+        for(i in 0..100){
+            val resId=resources.getIdentifier("$prePathToPaperIcon$i","drawable",requireContext().packageName)
+            if(resId!=0){
+                numberOfPaperWasteIcons++
+            }
+            else{
+                break
+            }
+        }
+        for(i in 0..100){
+            val resId=resources.getIdentifier("$prePathToPlasticIcon$i","drawable",requireContext().packageName)
+            if(resId!=0){
+                numberOfPlasticWasteIcons++
+            }
+            else{
+                break
+            }
+        }
+    }
+
     fun spawnFallingTrash(){
         activity?.runOnUiThread{
             run {
@@ -170,15 +204,15 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
                 when(type){
                     0->{
                         imgName=prePathToPaperIcon
-                        resId=Random.nextInt(NUMBER_OF_PAPER_WASTE_ICONS)
+                        resId=Random.nextInt(numberOfPaperWasteIcons)
                     }
                     1->{
                         imgName=prePathToPlasticIcon
-                        resId=Random.nextInt(NUMBER_OF_PLASTIC_WASTE_ICONS)
+                        resId=Random.nextInt(numberOfPlasticWasteIcons)
                     }
                     2->{
                         imgName=prePathToOrganicIcon
-                        resId=Random.nextInt(NUMBER_OF_ORGANIC_WASTE_ICONS)
+                        resId=Random.nextInt(numberOfOrganicWasteIcons)
                     }
                 }
 
@@ -186,7 +220,7 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
 
                 val uri="@drawable/$imgName"
                 val imgRes=resources.getIdentifier(uri,null,requireActivity().packageName)
-                img_falling_sprite.setImageDrawable(resources.getDrawable(imgRes))
+                img_falling_sprite.setImageDrawable(ResourcesCompat.getDrawable(resources,imgRes,null))
 
                 val tag=HashMap<String,Any>()
                 tag[wasteType] = type

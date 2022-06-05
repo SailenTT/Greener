@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -12,8 +13,10 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
+import com.airbnb.lottie.LottieAnimationView
 import com.eco.app.databinding.ActivityHomeWindowBinding
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -60,6 +63,29 @@ class HomeWindow : AppCompatActivity() {
         val navBar=binding.navBar
         navBar.setupWithNavController(navController)
 
+        //quando il drawer viene aperto, se l'animazione di lottie è visibile, e quindi l'utente
+        //non è loggato, allora faccio partire l'animazione
+        drawer.addDrawerListener(object : DrawerLayout.DrawerListener{
+            override fun onDrawerStateChanged(newState: Int) {
+                //nothing
+            }
+
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                //nothing
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                //nothing
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+                val lottie=drawer.findViewById<LottieAnimationView>(R.id.lottie_stock_profile_animation)
+                if(lottie.visibility==View.VISIBLE){
+                    lottie.playAnimation()
+                }
+            }
+        })
+
         //TODO cambiare icona logout
 
         /*
@@ -78,10 +104,13 @@ class HomeWindow : AppCompatActivity() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        super.onPrepareOptionsMenu(menu)
         loadDrawerMenuItems()
 
-        return super.onPrepareOptionsMenu(menu)
+        return true
     }
+
+
 
     fun loadDrawerMenuItems(){
         if(Firebase.auth.currentUser!=null){
@@ -94,13 +123,35 @@ class HomeWindow : AppCompatActivity() {
             navView.menu.add(0,logoutActionId!!,1,getString(R.string.logout_menu_item))
                 .setIcon(R.drawable.ic_logout)
                 .setOnMenuItemClickListener {
-                //TODO mettere un popup di conferma
-                FirebaseAuth.getInstance().signOut()
-                drawer.closeDrawer(GravityCompat.START)
-                invalidateOptionsMenu()
-                Toast.makeText(this,"Logout effettuato", Toast.LENGTH_SHORT).show()
-                //TODO cambiare anche l'header del menù settando la profile pic
-                true
+                    drawer.closeDrawer(GravityCompat.START)
+                    val logoutDialog=AlertDialog.Builder(this)
+                    logoutDialog.setMessage("Sei sicuro di voler effettuare il logout?")
+                    logoutDialog.setNegativeButton("Annulla"){dialog,_->
+                        dialog.dismiss()
+                    }
+                    logoutDialog.setPositiveButton("Conferma"){dialog,_->
+                        dialog.dismiss()
+                        val snackbar=Snackbar.make(binding.homeFragmentContainer,"Logout effettuato con successo",Snackbar.LENGTH_SHORT)
+                        //tasto per annullare il logout
+                        snackbar.setAction("Annulla"){
+                            //settare la callback della snackbar a null
+                            snackbar.dismiss()
+                        }
+                        //quando la snackbar non è più visibile, fa il logout
+                        snackbar.addCallback(object : Snackbar.Callback(){
+                            override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                                super.onDismissed(transientBottomBar, event)
+                                if(event==Snackbar.Callback.DISMISS_EVENT_TIMEOUT){
+                                    Firebase.auth.signOut()
+                                    invalidateOptionsMenu()
+                                }
+                            }
+                        })
+                        snackbar.show()
+                    }
+                    logoutDialog.show()
+                    //TODO cambiare anche l'header del menù settando la profile pic
+                    true
             }
         }
         else{

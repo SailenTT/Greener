@@ -2,6 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="160dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/greenLogin">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_stock_profile_animation"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_centerInParent="true"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/stock_profile_anim" />
 </RelativeLayout>

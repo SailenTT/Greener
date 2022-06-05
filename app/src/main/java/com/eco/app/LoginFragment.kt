@@ -257,7 +257,8 @@ class LoginFragment : Fragment() {
     }
 
     fun goBackToHomepage(){
-        activity?.finish()
+        //ricreo il menù delle opzioni
+        requireActivity().invalidateOptionsMenu()
         findNavController().navigate(LoginFragmentDirections.actionFromLoginBackToHome())
     }
 }
