@@ -12,97 +12,110 @@
         android:elevation="2dp"
         android:orientation="vertical">
 
-
-        <TextView
-            android:id="@+id/txt_calendar"
+        <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Calendar"
-            android:textSize="35sp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="10dp"
-            android:textAllCaps="true"
+            android:layout_gravity="center">
+        </Switch>
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:theme="@style/mySwitch"
+            android:checked="true">
+        </Switch>
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:track="@drawable/track_selector">
+        </Switch>
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:thumb="@drawable/ic_baseline_brightness_1_24"
+            android:checked="true"
+            android:track="@drawable/track_selector">
+        </Switch>
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:thumb="@drawable/thumb_selector"
+            android:checked="false"
+            android:track="@drawable/track_selector">
+        </Switch>
 
-            android:padding="10dp"/>
-
-        <View
-            android:layout_width="100dp"
-            android:layout_height="3dp"
-            android:layout_below="@id/txt_calendar"
-            android:layout_marginLeft="145dp"
-            android:layout_marginTop="3dp"
-            android:background="@color/black" />
 
         <!--inizio pannelli-->
         <!--pannello lunedi-->
         <RelativeLayout
+            android:id="@+id/RLlunedi"
             android:layout_width="match_parent"
-            android:layout_height="190dp">
+            android:layout_height="150dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/txb_background"
+            android:backgroundTint="@color/colo1"
+            android:elevation="8dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/txb_background"
-                android:backgroundTint="@color/colo1"
-                android:elevation="8dp">
+            <TextView
+                android:id="@+id/txt_lunedi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif-light"
+                android:padding="23dp"
+                android:text="Lunedì"
+                android:textSize="25sp"
+                android:textStyle="italic" />
 
-                <TextView
-                    android:id="@+id/txt_lunedi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="13dp"
-                    android:fontFamily="sans-serif-light"
-                    android:padding="23dp"
-                    android:text="Lunedì"
-                    android:textSize="30sp" />
-
-                <TextView
+            <!--<TextView
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/txt_lunedi"
-                    android:layout_marginLeft="125dp"
+                    android:layout_marginLeft="115dp"
                     android:layout_marginTop="22dp"
                     android:text="18"
-                    android:textSize="30sp"
-                    android:textStyle="italic" />
+                    android:textSize="25sp"
+                    android:textStyle="italic" />-->
 
-                <View
-                    android:id="@+id/view_lunedi"
-                    android:layout_width="150dp"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/txt_lunedi"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="-15dp"
-                    android:background="@color/black" />
+            <View
+                android:id="@+id/view_lunedi"
+                android:layout_width="150dp"
+                android:layout_height="1dp"
+                android:layout_below="@id/txt_lunedi"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="-15dp"
+                android:background="@color/black" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/view_lunedi"
-                    android:layout_marginLeft="30dp"
-                    android:text="Plastica"
-                    android:textSize="40sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_lunedi"
+                android:layout_marginLeft="25dp"
+                android:text="Plastica"
+                android:textSize="40sp"
+                android:textStyle="bold" />
 
-                <View
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="15dp"
-                    android:background="@drawable/circle"
-                    android:backgroundTint="@color/yellowPlastica"
-                    android:backgroundTintMode="src_over" />
-
-            </RelativeLayout>
+            <View
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/yellowPlastica"
+                android:backgroundTintMode="src_over" />
         </RelativeLayout>
+
 
         <!--pannello martedi-->
         <RelativeLayout
+            android:id="@+id/RLmartedi"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
@@ -160,6 +173,7 @@
 
         <!--pannello mercoledi-->
         <RelativeLayout
+            android:id="@+id/RLmercoledi"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
@@ -217,6 +231,7 @@
 
         <!--pannello giovedi-->
         <RelativeLayout
+            android:id="@+id/RLgiovedi"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
@@ -274,6 +289,7 @@
 
         <!--pannello venerdi-->
         <RelativeLayout
+            android:id="@+id/RLvenerdi"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
@@ -331,6 +347,7 @@
 
         <!--pannello sabato-->
         <RelativeLayout
+            android:id="@+id/RLsabato"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
@@ -388,6 +405,7 @@
 
         <!--pannello domenica-->
         <RelativeLayout
+            android:id="@+id/RLdomenica"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
