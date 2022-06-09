@@ -1,5 +1,7 @@
 package com.eco.app
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -53,6 +55,7 @@ class HomeWindow : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
+        //Inserisco gli elementi base della navigation UI
         appBarConfiguration= AppBarConfiguration(setOf(R.id.GameSelectionFragment,R.id.CalendarFragment,R.id.CalculatorFragment),drawer)
 
         setupActionBarWithNavController(navController,appBarConfiguration)
@@ -66,21 +69,27 @@ class HomeWindow : AppCompatActivity() {
         //quando il drawer viene aperto, se l'animazione di lottie è visibile, e quindi l'utente
         //non è loggato, allora faccio partire l'animazione
         drawer.addDrawerListener(object : DrawerLayout.DrawerListener{
-            override fun onDrawerStateChanged(newState: Int) {
-                //nothing
-            }
+            override fun onDrawerStateChanged(newState: Int) {}
 
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-                //nothing
+                val lottie=drawer.findViewById<LottieAnimationView>(R.id.lottie_stock_profile_animation)
+                if(lottie.visibility==View.VISIBLE) {
+                    lottie.progress = 0f
+                }
             }
 
-            override fun onDrawerClosed(drawerView: View) {
-                //nothing
-            }
+            override fun onDrawerClosed(drawerView: View) {}
 
             override fun onDrawerOpened(drawerView: View) {
                 val lottie=drawer.findViewById<LottieAnimationView>(R.id.lottie_stock_profile_animation)
                 if(lottie.visibility==View.VISIBLE){
+                    //resetto l'animazione
+                    //faccio fermare l'animazione quando arriva all'ultimo frame
+                    lottie.addAnimatorUpdateListener { animation ->
+                        if(animation.animatedFraction==0.99F){
+                            lottie.pauseAnimation()
+                        }
+                    }
                     lottie.playAnimation()
                 }
             }
@@ -111,12 +120,13 @@ class HomeWindow : AppCompatActivity() {
     }
 
 
-
     fun loadDrawerMenuItems(){
+        //TODO se l'utente è loggato mostrare la sua profile pic nel drawer_header.xml
         if(Firebase.auth.currentUser!=null){
             currentUser= Firebase.auth.currentUser!!
 
             logoutActionId= View.generateViewId()
+
 
             navView.menu.removeItem(R.id.login_fragment)
             navView.menu.add(0,R.id.profile_fragment,0,getString(R.string.profile_page_name)).setIcon(R.drawable.ic_person)
@@ -131,7 +141,8 @@ class HomeWindow : AppCompatActivity() {
                     }
                     logoutDialog.setPositiveButton("Conferma"){dialog,_->
                         dialog.dismiss()
-                        val snackbar=Snackbar.make(binding.homeFragmentContainer,"Logout effettuato con successo",Snackbar.LENGTH_SHORT)
+                        val snackbar=Snackbar.make(binding.root,"Logout effettuato con successo",Snackbar.LENGTH_SHORT)
+                        snackbar.anchorView=binding.navBar
                         //tasto per annullare il logout
                         snackbar.setAction("Annulla"){
                             //settare la callback della snackbar a null
@@ -151,6 +162,7 @@ class HomeWindow : AppCompatActivity() {
                     }
                     logoutDialog.show()
                     //TODO cambiare anche l'header del menù settando la profile pic
+
                     true
             }
         }
@@ -168,5 +180,6 @@ class HomeWindow : AppCompatActivity() {
         super.onDestroy()
         finish()
     }
+
 }
 

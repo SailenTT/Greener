@@ -30,8 +30,6 @@
             app:title="@string/app_name"
             app:titleTextColor="@color/white"/>
         </com.google.android.material.appbar.AppBarLayout>
-        <!--app:navigationIcon="@android:drawable/ic_menu"-->
-
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navBar"

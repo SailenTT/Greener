@@ -21,8 +21,8 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
     private var score=0
     private var gameRunning=false
     private var firstStart=true
-    private val defaultSpeed=3500L
-    private val minimumSpeed=900L
+    private val defaultSpeed=2250L
+    private val minimumSpeed=1850L
     private val spawnDelay=2000L
     private val minimumSpawnDelay=900L
     private lateinit var paperBinContainer: RelativeLayout
@@ -146,19 +146,20 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
                 //Fai partire il gioco dopo tot millisecondi
                 spawnFallingTrash()
 
-                //TODO riabilitare questo
-                /*var newDelay=spawnDelay-(score*5)
+                var newDelay=spawnDelay-(score*5)
                 if(newDelay<minimumSpawnDelay){
                     newDelay=minimumSpawnDelay
                 }
-                Thread.sleep(newDelay)*/
+                Thread.sleep(newDelay)
                 Thread.sleep(spawnDelay)
             }
         }.start()
     }
 
+
     //Calcola il numero di file dentro la cartella drawable che contengono nel nome il prefisso delle immagini
     fun calculateNumberOfWasteIcons() {
+
         for(i in 0..100){
             val resId=resources.getIdentifier("$prePathToOrganicIcon$i","drawable",requireContext().packageName)
             if(resId!=0){
@@ -243,7 +244,7 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
                 /*if(score>=80){
                     ballSize-=ballSize/3
                 }
-                else if(score>=60){
+                else*/ if(score>=60){
                     ballSize -= (ballSize / 4)
                 }
                 else if(score>=40){
@@ -251,7 +252,7 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
                 }
                 else if(score>=25){
                     ballSize-=(ballSize/6)
-                }*/
+                }
 
                 img_falling_sprite.layoutParams.height = ballSize
                 img_falling_sprite.layoutParams.width = ballSize
@@ -302,8 +303,8 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
                     }
                 }
 
-                /*if(score>=10){
-                    val currentSpeed=defaultSpeed-(score*18)
+                if(score>=10){
+                    val currentSpeed=defaultSpeed-(score*5)
                     if(currentSpeed>=minimumSpeed) {
                         spriteAnimation.duration = currentSpeed
                     }
@@ -311,14 +312,6 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
                         spriteAnimation.duration=minimumSpeed
                     }
                 }
-
-                if(score>=25){
-
-                }
-                else if(score>=15){
-
-
-                }*/
 
 
                 //Thread che rileva la collisione

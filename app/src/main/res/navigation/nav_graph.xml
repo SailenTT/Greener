@@ -85,6 +85,8 @@
         tools:layout="@layout/activity_login_page">
         <action
             android:id="@+id/action_fromLogin_backToHome"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
             app:destination="@+id/GameSelectionFragment"/>
         <action
             android:id="@+id/action_fromLogin_toRegister"
