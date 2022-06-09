@@ -45,6 +45,7 @@ class First_Activity : AppCompatActivity() {
         })*/
         binding.btnGoToHomepage.setOnClickListener {
             val intent=Intent(this,HomeWindow::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
         }
     }

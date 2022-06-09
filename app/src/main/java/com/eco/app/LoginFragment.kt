@@ -1,19 +1,24 @@
 package com.eco.app
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.eco.app.databinding.FragmentLoginBinding
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -23,11 +28,16 @@ import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.android.gms.auth.api.identity.SignInCredential
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
@@ -35,7 +45,10 @@ class LoginFragment : Fragment() {
     private lateinit var oneTapClient: SignInClient
     private lateinit var signInRequest: BeginSignInRequest
     private lateinit var callbackManager: CallbackManager
+    private lateinit var progressBar: ProgressBar
+    private lateinit var loginPageContainer: RelativeLayout
     private val REQ_ONE_TAP = 2
+    private var showOneTapUI = true
     /*variabile UID utile da portare in giro, settato al momento del login
       per query
      */
@@ -47,8 +60,11 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding=FragmentLoginBinding.inflate(inflater,container,false)
+
+        loginPageContainer=binding.loginPageContainer
+        progressBar=binding.progressBar
 
         callbackManager = CallbackManager.Factory.create()
 
@@ -68,9 +84,9 @@ class LoginFragment : Fragment() {
 
         binding.btnLoginFacebook.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
-                override fun onSuccess(loginResult: LoginResult) {
-                    Log.d(ContentValues.TAG, "facebook:onSuccess$loginResult")
-                    handleFacebookAccessToken(loginResult.accessToken)
+                override fun onSuccess(result: LoginResult) {
+                    Log.d(ContentValues.TAG, "facebook:onSuccess$result")
+                    handleFacebookAccessToken(result.accessToken)
                 }
                 override fun onCancel() {
                     Log.d(ContentValues.TAG, "facebook:onCancel")
@@ -110,8 +126,10 @@ class LoginFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val user=auth.currentUser
-        //TODO caricare la prossima pagina
+
+        if(auth.currentUser!=null){
+            goBackToHomepage()
+        }
     }
 
 
@@ -162,10 +180,15 @@ class LoginFragment : Fragment() {
     //POI LI RIFACCIAMO
     //funzione per gestire il login con google(firebase)
     fun loginWithGoogle(){
+        //creo una progressBar per mostrare il caricamento
+        val progressBar=binding.progressBar
+        progressBar.visibility=View.VISIBLE
+
+        binding.loginPageContainer.alpha=0.7f
+
         oneTapClient.beginSignIn(signInRequest)
             .addOnSuccessListener(requireActivity()) { result ->
                 try {
-                    println("carico la UI")
                     startIntentSenderForResult(
                         result.pendingIntent.intentSender, REQ_ONE_TAP,
                         null, 0, 0, 0, null)
@@ -208,15 +231,20 @@ class LoginFragment : Fragment() {
                 }
             }
     }
+
     //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE
     //POI LI RIFACCIAMO
     //funzione che controlla il risultato dell'operazione eseguita
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         when (requestCode) {
             REQ_ONE_TAP -> {
                 val googleCredential = oneTapClient.getSignInCredentialFromIntent(data)
                 val idToken = googleCredential.googleIdToken
+
+                progressBar.visibility=View.GONE
+                loginPageContainer.alpha=1f
 
                 when {
                     idToken != null -> {
@@ -229,8 +257,7 @@ class LoginFragment : Fragment() {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(ContentValues.TAG, "signInWithCredential:success")
                                     val user = auth.currentUser
-                                    Toast.makeText(requireContext(), "Login Effettuato", Toast.LENGTH_SHORT)
-                                        .show()
+                                    //Toast.makeText(requireContext(), "Login Effettuato", Toast.LENGTH_SHORT).show()
                                     goBackToHomepage()
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -256,9 +283,20 @@ class LoginFragment : Fragment() {
         }
     }
 
+
+
     fun goBackToHomepage(){
         //ricreo il menù delle opzioni
         requireActivity().invalidateOptionsMenu()
-        findNavController().navigate(LoginFragmentDirections.actionFromLoginBackToHome())
+        findNavController().popBackStack()
+        //findNavController().navigate(LoginFragmentDirections.actionFromLoginBackToHome())
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 }

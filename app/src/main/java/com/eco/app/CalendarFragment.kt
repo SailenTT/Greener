@@ -12,6 +12,8 @@ import com.eco.app.databinding.FragmentCalendarBinding
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CalendarFragment : Fragment() {
 
@@ -35,6 +37,18 @@ class CalendarFragment : Fragment() {
         txtLunedi.setText( dateFormat.format(cal.time));
 
         // Inflate the layout for this fragment
+        //prendo il numero e il nome dei prossimi 7 giorni e li metto in una lista
+        /*val listaGiorni = ArrayList<String>()
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.DAY_OF_MONTH, 1)
+        for (i in 1..7) {
+            val formatter = SimpleDateFormat("dd/MM/yyyy")
+            val date = cal.time
+            listaGiorni.add(formatter.format(date))
+            cal.add(Calendar.DAY_OF_MONTH, 1)
+        }*/
+
+        return inflater.inflate(R.layout.fragment_calendar, container, false)
         return binding.root
     }
 }

@@ -39,7 +39,7 @@ class QuizFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentQuizBinding.inflate(inflater, container, false)
 

@@ -27,7 +27,7 @@ class GameSelectionFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding= FragmentGameSelectionBinding.inflate(inflater,container,false)
 
         val navController=findNavController()
@@ -60,34 +60,7 @@ class GameSelectionFragment : Fragment() {
             navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToGrowingTreeFragment())
         }
 
-        /*
-        //TODO mettere questo blocco anche nel fragment calendar e calculator
-        if(Firebase.auth.currentUser!=null){
-            currentUser=Firebase.auth.currentUser!!
-
-            val navView=activity?.findViewById<NavigationView>(R.id.nav_view)
-            if(navView!=null) {
-                navView.menu.clear()
-                //TODO cambiare icona logout
-                navView.inflateMenu(R.menu.drawer_menu_logged)
-                navView.menu.getItem(1).setOnMenuItemClickListener { menuItem->
-                    if(menuItem.itemId==R.id.logout_action){
-                        FirebaseAuth.getInstance().signOut()
-                        val drawer=activity?.findViewById<DrawerLayout>(R.id.drawerLayout)
-                        drawer?.closeDrawer(GravityCompat.START)
-                        drawer?.invalidate()
-                        drawer?.refreshDrawableState()
-                        navView.invalidate()
-                        Toast.makeText(requireContext(),"Logout effettuato",Toast.LENGTH_SHORT).show()
-                    }
-                    //TODO cambiare anche l'header del menù settando la profile pic
-                    true
-                }
-
-            }
-        }
-        */
-
         return binding.root
     }
+
 }
