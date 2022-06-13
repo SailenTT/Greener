@@ -20,11 +20,16 @@ import com.eco.app.databinding.ActivityProfileBinding
 import com.eco.app.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private  lateinit var auth: FirebaseAuth
+    private lateinit var database: FirebaseDatabase
 
     val register = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
@@ -39,19 +44,39 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding=FragmentProfileBinding.inflate(inflater,container,false)
-
         auth = Firebase.auth
         val user = auth.currentUser;
-        checkPermissionForImage()
+        database = Firebase.database(RegisterPage.PATHTODB)
+        val usersReference = database.getReference("Users")
+
         if(user==null){
             Log.i("LoginInfo","Non sei loggato")
         }else{
+            val UID = user.uid
+            getInfos(usersReference,UID)
+            checkPermissionForImage()
             binding.imgProfile.setOnClickListener {
                 pickImage()
             }
         }
 
         return binding.root
+    }
+
+    private fun getInfos(usersReference : DatabaseReference, UID : String) {
+        usersReference.child(UID).get().addOnSuccessListener {
+            val username : CharSequence = it.child("username").value as CharSequence
+            val binScore : Long= it.child("bin_score").value as Long
+            val quizScore : Long = it.child("quiz_score").value as Long
+            val carbonFootprint : Long = it.child("carbon_footprint").value as Long
+            binding.tvName.text = username
+            binding.tvQuizscore1.text = quizScore.toString()
+            binding.tvTrashscore1.text = binScore.toString()
+            binding.tvCarbon1.text = carbonFootprint.toString()
+
+        }.addOnFailureListener{
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun checkPermissionForImage() {
@@ -71,7 +96,7 @@ class ProfileFragment : Fragment() {
                     1002
                 ) // GIVE AN INTEGER VALUE FOR PERMISSION_CODE_WRITE LIKE 1002
             } else {
-                Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
             }
         }
     }

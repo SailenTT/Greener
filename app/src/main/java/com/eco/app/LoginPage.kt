@@ -9,10 +9,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.eco.app.databinding.ActivityLoginPageBinding
-import com.facebook.AccessToken
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
+import com.facebook.*
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
@@ -30,6 +27,7 @@ class LoginPage : AppCompatActivity() {
     private lateinit var oneTapClient: SignInClient
     private lateinit var signInRequest: BeginSignInRequest
     private lateinit var callbackManager: CallbackManager
+
     private val REQ_ONE_TAP = 2
     /*variabile UID utile da portare in giro, settato al momento del login
       per query
@@ -64,7 +62,7 @@ class LoginPage : AppCompatActivity() {
         }
 
         binding.btnLoginFacebook.background=getDrawable(R.drawable.btn_rounded_green_bg)
-
+        FacebookSdk.sdkInitialize(this)
         binding.btnLoginFacebook.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult) {

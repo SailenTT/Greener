@@ -5,7 +5,6 @@
     <string name="no_account">Don\'t have an account?</string>
     <string name="signup_here">Sign up here</string>
     <string name="keep_logged">Keep me logged in</string>
-    <string name="facebook_app_id">356308096301356</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_minigames">Giochi</string>
