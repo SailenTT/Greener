@@ -160,7 +160,7 @@ class LoginFragment : Fragment() {
                         val user = auth.currentUser
                         val uid = auth.uid
                         if (uid != null) {
-                            LoginPage.UID = uid
+                            UID = uid //todo verificare che funzioni
                         }
                         goBackToHomepage()
                     } else {

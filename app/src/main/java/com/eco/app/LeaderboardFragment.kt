@@ -28,7 +28,7 @@ class LeaderboardFragment : Fragment(),LeaderboardAdapter.OnItemClicked {
         savedInstanceState: Bundle?
     ): View? {
         binding=FragmentLeaderboardBinding.inflate(inflater,container,false)
-        database = Firebase.database(RegisterPage.PATHTODB)
+        database = Firebase.database(RegisterFragment.PATHTODB)
         val array = ArrayList<LeaderBoardRow>()
         setLeaderboard(array)
 
