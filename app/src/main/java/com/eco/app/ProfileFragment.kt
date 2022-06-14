@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.media.Image
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -13,6 +15,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.PermissionChecker
@@ -25,19 +28,30 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
+import java.net.URI
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
-    private  lateinit var auth: FirebaseAuth
+    private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
-
+    private lateinit var storage : FirebaseStorage
+    private lateinit var imguri : Uri
+    private lateinit var UID : String
     val register = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
-            Toast.makeText(requireContext(), "APPOSTO REGISTER LAUNCHER", Toast.LENGTH_SHORT).show()
-            val imguri: Uri? = it.data?.data
+            //Toast.makeText(requireContext(), "APPOSTO REGISTER LAUNCHER", Toast.LENGTH_SHORT).show()
+            imguri = it.data?.data!!
             val imgBitmap : Bitmap? = context?.let { it1 -> decodeUri(it1,imguri,230) }
             binding.imgProfile.setImageBitmap(imgBitmap)
+            uploadToStorage(UID)
+
         }
     }
 
@@ -50,11 +64,10 @@ class ProfileFragment : Fragment() {
         val user = auth.currentUser;
         database = Firebase.database(RegisterPage.PATHTODB)
         val usersReference = database.getReference("Users")
-
         if(user==null){
             Log.i("LoginInfo","Non sei loggato")
         }else{
-            val UID = user.uid
+             UID = user.uid
             getInfos(usersReference,UID)
             checkPermissionForImage()
             binding.imgProfile.setOnClickListener {
@@ -65,7 +78,17 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
-    fun decodeUri(c: Context, uri: Uri?, requiredSize: Int): Bitmap? {
+    fun uploadToStorage(UID : String){
+        val filename = UID
+        val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
+        storageReference.putFile(imguri).addOnSuccessListener {
+            Toast.makeText(context, "YES", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener{
+            Toast.makeText(context, "FUCK", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun decodeUri(c: Context, uri: Uri?, requiredSize: Int): Bitmap? { //FUNZIONE PER RESIZARE L'IMMAGINE
         val o = BitmapFactory.Options()
         o.inJustDecodeBounds = true
         BitmapFactory.decodeStream(uri?.let { c.getContentResolver().openInputStream(it) }, null, o)
