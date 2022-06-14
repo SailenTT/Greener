@@ -8,9 +8,9 @@
         android:id="@+id/tv_question_placeholder"
         android:layout_width="320dp"
         android:layout_height="150dp"
-        android:layout_marginTop="55dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
         android:background="@color/placeholder_grey" />
 
     <LinearLayout
