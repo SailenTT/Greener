@@ -69,9 +69,8 @@ class ProfileFragment : Fragment() {
         }else{
              UID = user.uid
             getInfos(usersReference,UID)
-            checkPermissionForImage()
             binding.imgProfile.setOnClickListener {
-                pickImage()
+                checkPermissionForImage()
             }
         }
 
@@ -139,7 +138,7 @@ class ProfileFragment : Fragment() {
                     1002
                 ) // GIVE AN INTEGER VALUE FOR PERMISSION_CODE_WRITE LIKE 1002
             } else {
-                //Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
+                pickImage()
             }
         }
     }
