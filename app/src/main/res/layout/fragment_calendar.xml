@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="false">
+    android:clipToPadding="false"
+    tools:context=".CalendarFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,41 +13,43 @@
         android:elevation="2dp"
         android:orientation="vertical">
 
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
-        </Switch>
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:theme="@style/mySwitch"
-            android:checked="true">
-        </Switch>
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:track="@drawable/track_selector">
-        </Switch>
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:thumb="@drawable/ic_baseline_brightness_1_24"
-            android:checked="true"
-            android:track="@drawable/track_selector">
-        </Switch>
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:thumb="@drawable/thumb_selector"
-            android:checked="false"
-            android:track="@drawable/track_selector">
-        </Switch>
+            android:background="@drawable/txb_background"
+            android:backgroundTint="@color/colo1"
+            android:elevation="8dp">
 
+            <TextView
+                android:id="@+id/txt_notifiche"
+                android:layout_width="215dp"
+                android:layout_height="100dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="Eccoti! vuoi rimanere aggiornato e ricevere notifiche?"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignRight="@id/txt_notifiche"
+                android:background="@color/black" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:checked="true"
+                android:thumb="@drawable/thumb_selector"
+                android:track="@drawable/track_selector"></Switch>
+        </RelativeLayout>
 
         <!--inizio pannelli-->
         <!--pannello lunedi-->
@@ -55,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="100dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/txb_background"
@@ -73,15 +76,15 @@
                 android:textSize="25sp"
                 android:textStyle="italic" />
 
-            <!--<TextView
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@id/txt_lunedi"
-                    android:layout_marginLeft="115dp"
-                    android:layout_marginTop="22dp"
-                    android:text="18"
-                    android:textSize="25sp"
-                    android:textStyle="italic" />-->
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/txt_lunedi"
+                android:layout_marginLeft="115dp"
+                android:layout_marginTop="22dp"
+                android:text="18"
+                android:textSize="25sp"
+                android:textStyle="italic" />
 
             <View
                 android:id="@+id/view_lunedi"
@@ -92,14 +95,14 @@
                 android:layout_marginTop="-15dp"
                 android:background="@color/black" />
 
-            <TextView
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view_lunedi"
                 android:layout_marginLeft="25dp"
                 android:text="Plastica"
                 android:textSize="40sp"
-                android:textStyle="bold" />
+                android:textStyle="bold" />-->
 
             <View
                 android:layout_width="50dp"
@@ -151,14 +154,14 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
 
-            <TextView
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view_martedi"
+                android:layout_marginLeft="30dp"
                 android:text="Vetro"
-                android:textStyle="bold"
                 android:textSize="40sp"
-                android:layout_marginLeft="30dp"/>
+                android:textStyle="bold" />-->
 
             <View
                 android:layout_width="60dp"
@@ -209,27 +212,27 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/view_mercoledi"
-                android:text="Carta"
-                android:textStyle="bold"
-                android:textSize="40sp"
-                android:layout_marginLeft="30dp"/>
+        <!--<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_mercoledi"
+            android:layout_marginLeft="30dp"
+            android:text="Carta"
+            android:textSize="40sp"
+            android:textStyle="bold" />-->
 
-            <View
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/circle"
-                android:backgroundTint="@color/blueCarta"
-                android:backgroundTintMode="src_over" />
-        </RelativeLayout>
+        <View
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@color/blueCarta"
+            android:backgroundTintMode="src_over" />
+    </RelativeLayout>
 
-        <!--pannello giovedi-->
+    <!--pannello giovedi-->
         <RelativeLayout
             android:id="@+id/RLgiovedi"
             android:layout_width="match_parent"
@@ -267,27 +270,27 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/view_giovedi"
-                android:text="Umido"
-                android:textStyle="bold"
-                android:textSize="40sp"
-                android:layout_marginLeft="30dp"/>
+        <!--<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_giovedi"
+            android:text="Umido"
+            android:textStyle="bold"
+            android:textSize="40sp"
+            android:layout_marginLeft="30dp"/>-->
 
-            <View
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/circle"
-                android:backgroundTint="@color/brownUmido"
-                android:backgroundTintMode="src_over" />
-        </RelativeLayout>
+        <View
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@color/brownUmido"
+            android:backgroundTintMode="src_over" />
+    </RelativeLayout>
 
-        <!--pannello venerdi-->
+    <!--pannello venerdi-->
         <RelativeLayout
             android:id="@+id/RLvenerdi"
             android:layout_width="match_parent"
@@ -325,27 +328,27 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/view_venerdi"
-                android:layout_marginLeft="30dp"
-                android:text="Ingombranti"
-                android:textSize="40sp"
-                android:textStyle="bold" />
+        <!--<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_venerdi"
+            android:layout_marginLeft="30dp"
+            android:text="Ingombranti"
+            android:textSize="40sp"
+            android:textStyle="bold" />-->
 
-            <View
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/circle"
-                android:backgroundTint="@color/redIngombrante"
-                android:backgroundTintMode="src_over" />
-        </RelativeLayout>
+        <View
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@color/redIngombrante"
+            android:backgroundTintMode="src_over" />
+    </RelativeLayout>
 
-        <!--pannello sabato-->
+    <!--pannello sabato-->
         <RelativeLayout
             android:id="@+id/RLsabato"
             android:layout_width="match_parent"
@@ -383,27 +386,27 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/view_sabato"
-                android:text="Plastica"
-                android:textStyle="bold"
-                android:textSize="40sp"
-                android:layout_marginLeft="30dp"/>
+        <!--<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_sabato"
+            android:text="Plastica"
+            android:textStyle="bold"
+            android:textSize="40sp"
+            android:layout_marginLeft="30dp"/>-->
 
-            <View
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/circle"
-                android:backgroundTint="@color/yellowPlastica"
-                android:backgroundTintMode="src_over" />
-        </RelativeLayout>
+        <View
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@color/yellowPlastica"
+            android:backgroundTintMode="src_over" />
+    </RelativeLayout>
 
-        <!--pannello domenica-->
+    <!--pannello domenica-->
         <RelativeLayout
             android:id="@+id/RLdomenica"
             android:layout_width="match_parent"
@@ -441,14 +444,14 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
 
-            <TextView
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view_dom"
                 android:layout_marginLeft="30dp"
                 android:text="Carta"
                 android:textSize="40sp"
-                android:textStyle="bold" />
+                android:textStyle="bold" />-->
 
             <View
                 android:layout_width="60dp"
