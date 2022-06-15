@@ -44,6 +44,8 @@ class ProfileFragment : Fragment() {
     private lateinit var storage : FirebaseStorage
     private lateinit var imguri : Uri
     private lateinit var UID : String
+
+    //CONTRATTI
     val register = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
             //Toast.makeText(requireContext(), "APPOSTO REGISTER LAUNCHER", Toast.LENGTH_SHORT).show()
@@ -54,6 +56,7 @@ class ProfileFragment : Fragment() {
 
         }
     }
+    //CONTRATTI
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,7 +86,7 @@ class ProfileFragment : Fragment() {
         storageReference.putFile(imguri).addOnSuccessListener {
             Toast.makeText(context, "YES", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener{
-            Toast.makeText(context, "FUCK", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "NO", Toast.LENGTH_SHORT).show()
         }
     }
 

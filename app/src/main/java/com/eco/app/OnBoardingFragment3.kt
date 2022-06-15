@@ -1,5 +1,6 @@
 package com.eco.app
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,17 +23,34 @@ class OnBoardingFragment3 : Fragment() {
         val root = inflater.inflate(R.layout.fragment_on_boarding3, container, false) as ViewGroup
         btnEndIntro = root.findViewById(R.id.btn_endIntro)
         txtSkip = root.findViewById(R.id.txt_skip3)
-
-        btnEndIntro.setOnClickListener(View.OnClickListener {
-            val intent=Intent(activity,First_Activity::class.java)
+        val skipped = checkSkip();
+        if(skipped == 1){
+            val intent= Intent(activity,First_Activity::class.java)
             startActivity(intent)
-        })
+        }else{
+            btnEndIntro.setOnClickListener(View.OnClickListener {
+                val intent=Intent(activity,First_Activity::class.java)
+                startActivity(intent)
+            })
 
-        txtSkip.setOnClickListener(View.OnClickListener {
-            val intent=Intent(activity,First_Activity::class.java)
-            startActivity(intent)
-        })
+            txtSkip.setOnClickListener(View.OnClickListener {
+                val sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+                val editor = sharedPreferences?.edit()
+                editor?.apply {
+                    putInt("skip",1);
+                }?.apply()
+
+                val intent=Intent(activity,First_Activity::class.java)
+                startActivity(intent)
+            })
+        }
+
 
         return root
+    }
+    private  fun checkSkip(): Int {
+        val sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val skipped = sharedPreferences!!.getInt("skip",0)
+        return skipped
     }
 }
