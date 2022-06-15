@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Main">
         <activity
-            android:name=".ProfileActivity"
+            android:name=".ProfileFragment"
             android:exported="false" />
         <activity
             android:name=".Leaderboard"
