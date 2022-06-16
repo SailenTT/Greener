@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.eco.app.databinding.FragmentCalendarBinding
@@ -27,6 +28,7 @@ class CalendarFragment : Fragment() {
     private lateinit var day6 : TextView
     private lateinit var day7 : TextView
     private lateinit var mese : TextView
+    private lateinit var btnData : Button
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //Inflate the binding for this fragment
@@ -39,6 +41,8 @@ class CalendarFragment : Fragment() {
         day6 = binding.txtDay6
         day7 = binding.txtDay7
         mese = binding.txtMese
+        btnData = binding.btnDataCalendar
+
 
         //setto il mese
         val cal1= Calendar.getInstance()

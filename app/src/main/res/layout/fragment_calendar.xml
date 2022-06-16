@@ -29,7 +29,7 @@
                 android:fontFamily="sans-serif-light"
                 android:gravity="center"
                 android:text="Eccoti! vuoi rimanere aggiornato e ricevere notifiche?"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <View
@@ -49,6 +49,41 @@
                 android:checked="true"
                 android:thumb="@drawable/thumb_selector"
                 android:track="@drawable/track_selector"></Switch>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/txb_background"
+            android:backgroundTint="@color/colo1"
+            android:elevation="8dp">
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="Popola il tuo calendario!"
+                android:layout_marginLeft="5dp"
+                android:textStyle="italic" />
+
+            <Button
+                android:id="@+id/btn_dataCalendar"
+                android:layout_width="90dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/txb_background"
+                android:backgroundTint="@color/colo2"
+                android:text="inizia ora"
+                android:textAllCaps="false"
+                android:textColorHint="@color/blue"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textStyle="normal" />
+
         </RelativeLayout>
 
         <TextView
