@@ -1,5 +1,6 @@
 package com.eco.app
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.eco.app.databinding.FragmentCalendarBinding
-import com.eco.app.databinding.FragmentTrashBinGameBinding
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,6 +30,9 @@ class CalendarFragment : Fragment() {
     private lateinit var day7 : TextView
     private lateinit var mese : TextView
     private lateinit var btnData : Button
+    private var dialogBuilder: AlertDialog.Builder? = null
+    private var dialog: AlertDialog? = null
+    //TODO aggiungere poi elementi della popup window
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //Inflate the binding for this fragment
@@ -42,7 +46,7 @@ class CalendarFragment : Fragment() {
         day7 = binding.txtDay7
         mese = binding.txtMese
         btnData = binding.btnDataCalendar
-
+        //TODO aggiungere poi elementi della popup window
 
         //setto il mese
         val cal1= Calendar.getInstance()
@@ -71,6 +75,16 @@ class CalendarFragment : Fragment() {
         day6.setText(listaGiorni[5])
         day7.setText(listaGiorni[6])
 
+        btnData.setOnClickListener(View.OnClickListener {
+
+            dialogBuilder = AlertDialog.Builder(context)
+            val contactPopupView = layoutInflater.inflate(R.layout.fragment_popup, null)
+            //TODO bindare qui elementi della popup
+
+            dialogBuilder!!.setView(contactPopupView)
+            dialog = dialogBuilder!!.create()
+            dialog?.show()
+        })
 
         //return inflater.inflate(R.layout.fragment_calendar, container, false)
         return binding.root

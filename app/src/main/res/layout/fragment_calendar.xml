@@ -78,10 +78,10 @@
                 android:layout_marginRight="10dp"
                 android:background="@drawable/txb_background"
                 android:backgroundTint="@color/colo2"
+                android:fontFamily="sans-serif-condensed-light"
                 android:text="inizia ora"
                 android:textAllCaps="false"
                 android:textColorHint="@color/blue"
-                android:fontFamily="sans-serif-condensed-light"
                 android:textStyle="normal" />
 
         </RelativeLayout>
