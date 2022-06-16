@@ -51,14 +51,25 @@
                 android:track="@drawable/track_selector"></Switch>
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/txt_mese"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="MESE"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="70dp"
+            android:textSize="35sp"
+            android:textStyle="bold"/>
+
         <!--inizio pannelli-->
-        <!--pannello lunedi-->
+        <!--pannello day1-->
         <RelativeLayout
-            android:id="@+id/RLlunedi"
+            android:id="@+id/RLday1"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/txb_background"
@@ -66,31 +77,21 @@
             android:elevation="8dp">
 
             <TextView
-                android:id="@+id/txt_lunedi"
-                android:layout_width="wrap_content"
+                android:id="@+id/txt_day1"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:fontFamily="sans-serif-light"
                 android:padding="23dp"
-                android:text="Lunedì"
-                android:textSize="25sp"
-                android:textStyle="italic" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/txt_lunedi"
-                android:layout_marginLeft="115dp"
-                android:layout_marginTop="22dp"
-                android:text="18"
+                android:text="D1"
                 android:textSize="25sp"
                 android:textStyle="italic" />
 
             <View
-                android:id="@+id/view_lunedi"
+                android:id="@+id/view_day1"
                 android:layout_width="150dp"
                 android:layout_height="1dp"
-                android:layout_below="@id/txt_lunedi"
+                android:layout_below="@id/txt_day1"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="-15dp"
                 android:background="@color/black" />
@@ -98,7 +99,7 @@
             <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/view_lunedi"
+                android:layout_below="@id/view_day1"
                 android:layout_marginLeft="25dp"
                 android:text="Plastica"
                 android:textSize="40sp"
@@ -116,9 +117,9 @@
         </RelativeLayout>
 
 
-        <!--pannello martedi-->
+        <!--pannello day2-->
         <RelativeLayout
-            android:id="@+id/RLmartedi"
+            android:id="@+id/RLday2"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
@@ -127,45 +128,37 @@
             android:elevation="8dp">
 
             <TextView
-                android:id="@+id/txt_martedi"
-                android:layout_width="wrap_content"
+                android:id="@+id/txt_day2"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="Martedì"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="sans-serif-light"
-                android:textSize="30sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/txt_martedi"
-                android:layout_marginLeft="135dp"
-                android:layout_marginTop="20dp"
-                android:text="19"
-                android:textSize="30sp"
+                android:padding="23dp"
+                android:text="D2"
+                android:textSize="25sp"
                 android:textStyle="italic" />
 
             <View
-                android:id="@+id/view_martedi"
+                android:id="@+id/view_day2"
                 android:layout_width="150dp"
                 android:layout_height="1dp"
-                android:layout_below="@id/txt_martedi"
-                android:layout_marginTop="-15dp"
+                android:layout_below="@id/txt_day2"
                 android:layout_marginLeft="20dp"
-                android:background="@color/black"/>
+                android:layout_marginTop="-15dp"
+                android:background="@color/black" />
 
             <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/view_martedi"
+                android:layout_below="@id/view_day2"
                 android:layout_marginLeft="30dp"
                 android:text="Vetro"
                 android:textSize="40sp"
                 android:textStyle="bold" />-->
 
             <View
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
@@ -174,9 +167,9 @@
                 android:backgroundTintMode="src_over" />
         </RelativeLayout>
 
-        <!--pannello mercoledi-->
+        <!--pannello day3-->
         <RelativeLayout
-            android:id="@+id/RLmercoledi"
+            android:id="@+id/RLday3"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
@@ -185,29 +178,21 @@
             android:elevation="8dp">
 
             <TextView
-                android:id="@+id/txt_mercoledi"
-                android:layout_width="wrap_content"
+                android:id="@+id/txt_day3"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="Mercoledì"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="sans-serif-light"
-                android:textSize="30sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/txt_mercoledi"
-                android:layout_marginLeft="165dp"
-                android:layout_marginTop="20dp"
-                android:text="20"
-                android:textSize="30sp"
-                android:textStyle="italic" />
+                android:padding="23dp"
+                android:text="D3"
+                android:textSize="25sp"
+                android:textStyle="italic"/>
 
             <View
-                android:id="@+id/view_mercoledi"
+                android:id="@+id/view_day3"
                 android:layout_width="150dp"
                 android:layout_height="1dp"
-                android:layout_below="@id/txt_mercoledi"
+                android:layout_below="@id/txt_day3"
                 android:layout_marginTop="-15dp"
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
@@ -215,26 +200,26 @@
         <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/view_mercoledi"
+            android:layout_below="@id/view_day3"
             android:layout_marginLeft="30dp"
             android:text="Carta"
             android:textSize="40sp"
             android:textStyle="bold" />-->
 
-        <View
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/circle"
-            android:backgroundTint="@color/blueCarta"
-            android:backgroundTintMode="src_over" />
+            <View
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/blueCarta"
+                android:backgroundTintMode="src_over" />
     </RelativeLayout>
 
-    <!--pannello giovedi-->
+    <!--pannello day4-->
         <RelativeLayout
-            android:id="@+id/RLgiovedi"
+            android:id="@+id/RLday4"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
@@ -243,29 +228,21 @@
             android:elevation="8dp">
 
             <TextView
-                android:id="@+id/txt_giovedi"
-                android:layout_width="wrap_content"
+                android:id="@+id/txt_day4"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="Giovedì"
+                android:layout_marginLeft="10dp"
+                android:padding="23dp"
+                android:text="D4"
                 android:fontFamily="sans-serif-light"
-                android:textSize="30sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/txt_giovedi"
-                android:layout_marginLeft="135dp"
-                android:layout_marginTop="20dp"
-                android:text="21"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="italic" />
 
             <View
-                android:id="@+id/view_giovedi"
+                android:id="@+id/view_day4"
                 android:layout_width="150dp"
                 android:layout_height="1dp"
-                android:layout_below="@id/txt_giovedi"
+                android:layout_below="@id/txt_day4"
                 android:layout_marginTop="-15dp"
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
@@ -273,15 +250,15 @@
         <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/view_giovedi"
+            android:layout_below="@id/view_day4"
             android:text="Umido"
             android:textStyle="bold"
             android:textSize="40sp"
             android:layout_marginLeft="30dp"/>-->
 
         <View
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
@@ -290,9 +267,9 @@
             android:backgroundTintMode="src_over" />
     </RelativeLayout>
 
-    <!--pannello venerdi-->
+    <!--pannello day5-->
         <RelativeLayout
-            android:id="@+id/RLvenerdi"
+            android:id="@+id/RLday5"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
@@ -301,29 +278,21 @@
             android:elevation="8dp">
 
             <TextView
-                android:id="@+id/txt_venerdi"
-                android:layout_width="wrap_content"
+                android:id="@+id/txt_day5"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="Venerdì"
+                android:layout_marginLeft="10dp"
+                android:padding="23dp"
+                android:text="D5"
                 android:fontFamily="sans-serif-light"
-                android:textSize="30sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/txt_venerdi"
-                android:layout_marginLeft="135dp"
-                android:layout_marginTop="20dp"
-                android:text="22"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="italic" />
 
             <View
-                android:id="@+id/view_venerdi"
+                android:id="@+id/view_day5"
                 android:layout_width="150dp"
                 android:layout_height="1dp"
-                android:layout_below="@id/txt_venerdi"
+                android:layout_below="@id/txt_day5"
                 android:layout_marginTop="-15dp"
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
@@ -331,15 +300,15 @@
         <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/view_venerdi"
+            android:layout_below="@id/view_day5"
             android:layout_marginLeft="30dp"
             android:text="Ingombranti"
             android:textSize="40sp"
             android:textStyle="bold" />-->
 
         <View
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
@@ -348,9 +317,9 @@
             android:backgroundTintMode="src_over" />
     </RelativeLayout>
 
-    <!--pannello sabato-->
+    <!--pannello day6-->
         <RelativeLayout
-            android:id="@+id/RLsabato"
+            android:id="@+id/RLday6"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
@@ -359,29 +328,21 @@
             android:elevation="8dp">
 
             <TextView
-                android:id="@+id/txt_sabato"
-                android:layout_width="wrap_content"
+                android:id="@+id/txt_day6"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="sans-serif-light"
-                android:padding="20dp"
-                android:text="Sabato"
-                android:textSize="30sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/txt_sabato"
-                android:layout_marginLeft="130dp"
-                android:layout_marginTop="20dp"
-                android:text="23"
-                android:textSize="30sp"
+                android:padding="23dp"
+                android:text="D6"
+                android:textSize="25sp"
                 android:textStyle="italic" />
 
             <View
-                android:id="@+id/view_sabato"
+                android:id="@+id/view_day6"
                 android:layout_width="150dp"
                 android:layout_height="1dp"
-                android:layout_below="@id/txt_sabato"
+                android:layout_below="@id/txt_day6"
                 android:layout_marginTop="-15dp"
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
@@ -389,15 +350,15 @@
         <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/view_sabato"
+            android:layout_below="@id/view_day6"
             android:text="Plastica"
             android:textStyle="bold"
             android:textSize="40sp"
             android:layout_marginLeft="30dp"/>-->
 
         <View
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
@@ -406,9 +367,9 @@
             android:backgroundTintMode="src_over" />
     </RelativeLayout>
 
-    <!--pannello domenica-->
+    <!--pannello day7-->
         <RelativeLayout
-            android:id="@+id/RLdomenica"
+            android:id="@+id/RLday7"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
@@ -417,29 +378,21 @@
             android:elevation="8dp">
 
             <TextView
-                android:id="@+id/txt_dom"
-                android:layout_width="wrap_content"
+                android:id="@+id/txt_day7"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="Domenica"
+                android:layout_marginLeft="10dp"
+                android:padding="23dp"
+                android:text="D7"
                 android:fontFamily="sans-serif-light"
-                android:textSize="30sp" />
-
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/txt_dom"
-                android:layout_marginLeft="165dp"
-                android:layout_marginTop="20dp"
-                android:text="24"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="italic" />
 
             <View
-                android:id="@+id/view_dom"
+                android:id="@+id/view_day7"
                 android:layout_width="150dp"
                 android:layout_height="1dp"
-                android:layout_below="@id/txt_dom"
+                android:layout_below="@id/txt_day7"
                 android:layout_marginTop="-15dp"
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
@@ -447,15 +400,15 @@
             <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/view_dom"
+                android:layout_below="@id/view_day7"
                 android:layout_marginLeft="30dp"
                 android:text="Carta"
                 android:textSize="40sp"
                 android:textStyle="bold" />-->
 
             <View
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"

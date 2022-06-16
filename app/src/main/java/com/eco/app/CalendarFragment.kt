@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.eco.app.databinding.FragmentCalendarBinding
+import com.eco.app.databinding.FragmentTrashBinGameBinding
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -17,40 +18,57 @@ import java.util.*
 class CalendarFragment : Fragment() {
 
     val currentDateTimeString = DateFormat.getDateTimeInstance().format(Date())
-    private lateinit var txtLunedi : TextView
     private lateinit var binding : FragmentCalendarBinding
+    private lateinit var day : TextView
+    private lateinit var day2 : TextView
+    private lateinit var day3 : TextView
+    private lateinit var day4 : TextView
+    private lateinit var day5 : TextView
+    private lateinit var day6 : TextView
+    private lateinit var day7 : TextView
+    private lateinit var mese : TextView
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding= FragmentCalendarBinding.inflate(layoutInflater)
-        txtLunedi = binding.txtLunedi;
-        txtLunedi.text = "aaaaaaa";
-        /*val cal=Calendar.getInstance()
-        val dateFormat= SimpleDateFormat("EEE d MMM yyyy")
-        for (i in 0..6) {
-            cal.add(Calendar.DATE,i)
-            Log.d("Calendar", dateFormat.format(cal.time))
-        }*/
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        //Inflate the binding for this fragment
+        binding= FragmentCalendarBinding.inflate(inflater,container,false)
+        day = binding.txtDay1
+        day2 = binding.txtDay2
+        day3 = binding.txtDay3
+        day4 = binding.txtDay4
+        day5 = binding.txtDay5
+        day6 = binding.txtDay6
+        day7 = binding.txtDay7
+        mese = binding.txtMese
+
+        //setto il mese
+        val cal1= Calendar.getInstance()
+        //definisco pattern per come visualizzare la data (in questo caso "MESE")
+        val df = SimpleDateFormat("MMMM")
+        mese.setText(df.format(cal1.time).uppercase())
 
 
-
-        // Inflate the layout for this fragment
-        //prendo il numero e il nome dei prossimi 7 giorni e li metto in una lista
+        //setto i giorni della settimana
         val listaGiorni = ArrayList<String>()
-        val cal = Calendar.getInstance()
-        cal.add(Calendar.DAY_OF_MONTH, 1)
-        for (i in 1..7) {
-            val formatter = SimpleDateFormat("dd")
-            val date = cal.time
-            listaGiorni.add(formatter.format(date))
-            cal.add(Calendar.DAY_OF_MONTH, 1)
-            txtLunedi.setText( formatter.format(cal.time));
-        }
-        //txtLunedi.setText("listaGiorni[0]");
+        val cal= Calendar.getInstance()
+        //definisco pattern per come visualizzare la data (in questo caso "giorno numero")
+        val dateFormat= SimpleDateFormat("EEEE dd")
 
-        return inflater.inflate(R.layout.fragment_calendar, container, false)
+        for (i in 0..6) {
+            val date = cal.time
+            listaGiorni.add(dateFormat.format(date))
+            cal.add(Calendar.DAY_OF_MONTH, 1)
+        }
+
+        day.setText(listaGiorni[0])
+        day2.setText(listaGiorni[1])
+        day3.setText(listaGiorni[2])
+        day4.setText(listaGiorni[3])
+        day5.setText(listaGiorni[4])
+        day6.setText(listaGiorni[5])
+        day7.setText(listaGiorni[6])
+
+
+        //return inflater.inflate(R.layout.fragment_calendar, container, false)
         return binding.root
     }
 }
