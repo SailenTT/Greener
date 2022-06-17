@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Rifiuti">
+        <item>Vetro</item>
+        <item>Plastica e lattine</item>
+        <item>Carta e cartone</item>
+        <item>Umido</item>
+        <item>Indifferenziato</item>
+        <item>Ingombranti</item>
+    </string-array>
+</resources>
