@@ -81,7 +81,6 @@
                 android:fontFamily="sans-serif-condensed-light"
                 android:text="inizia ora"
                 android:textAllCaps="false"
-                android:textColorHint="@color/blue"
                 android:textStyle="normal" />
 
         </RelativeLayout>

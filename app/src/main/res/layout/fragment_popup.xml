@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".PopupFragment">
 
     <LinearLayout
@@ -294,17 +293,17 @@
                 android:layout_height="100dp"
                 android:layout_below="@id/RLdomenica"
                 android:layout_margin="20dp"
-                android:background="@color/colo2">
+                android:background="@drawable/txb_background"
+                android:backgroundTint="@color/colo2"
+                android:gravity="center">
 
                 <Button
                     android:id="@+id/btn_popInvio"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
-                    android:text="Popola ora!"
-                    android:elevation="8dp"
-                    android:layout_centerHorizontal="true"
                     android:background="@drawable/txb_background"
-                    android:layout_marginTop="20dp"/>
+                    android:elevation="8dp"
+                    android:text="Popola ora!" />
 
             </RelativeLayout>
 

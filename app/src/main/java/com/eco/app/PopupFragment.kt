@@ -1,5 +1,7 @@
 package com.eco.app
 
+import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +21,9 @@ class PopupFragment : Fragment() {
     private lateinit var rifiutoSabato : Spinner
     private lateinit var rifiutoDomenica : Spinner
     private lateinit var btnPopola : Button
-    private lateinit var prova : TextView
+
+    private var dialogBuilder: AlertDialog.Builder? = null
+    private var dialog: AlertDialog? = null
 
 
     override fun onCreateView(
@@ -37,12 +41,31 @@ class PopupFragment : Fragment() {
         rifiutoSabato = binding.spinDay6
         rifiutoDomenica = binding.spinDay7
         btnPopola = binding.btnPopInvio
-        prova = binding.txtPopD7
 
 
         btnPopola.setOnClickListener( View.OnClickListener {
-            Toast.makeText(context, "You clicked me.", Toast.LENGTH_SHORT).show()
+
+            val sharedPref = activity?.getSharedPreferences("sharedPrefsCalendar", Context.MODE_PRIVATE)
+            val editor = sharedPref?.edit()
+            editor?.apply {
+
+                putString("lunedi",rifiutoLunedi.selectedItem.toString())
+                putString("martedi",rifiutoMartedi.selectedItem.toString())
+                putString("mercoledi",rifiutoMercoledi.selectedItem.toString())
+                putString("giovedi",rifiutoGiovedi.selectedItem.toString())
+                putString("venerdi",rifiutoVenerdi.selectedItem.toString())
+                putString("sabato",rifiutoSabato.selectedItem.toString())
+                putString("domenica",rifiutoDomenica.selectedItem.toString())
+
+            }?.apply()
+
+            dialogBuilder = AlertDialog.Builder(context)
+            val contactPopupView = layoutInflater.inflate(R.layout.fragment_popup, null)
+
+            dialogBuilder!!.setView(contactPopupView)
+            dialog?.dismiss()
         })
+
 
         return binding.root
     }
