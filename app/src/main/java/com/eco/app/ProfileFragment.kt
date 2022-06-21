@@ -63,6 +63,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding=FragmentProfileBinding.inflate(inflater,container,false)
+        binding.profileShimmer.startShimmer()
         auth = Firebase.auth
         val user = auth.currentUser;
         database = Firebase.database(RegisterPage.PATHTODB)
@@ -76,6 +77,7 @@ class ProfileFragment : Fragment() {
                 checkPermissionForImage()
             }
         }
+
 
         return binding.root
     }
@@ -115,13 +117,18 @@ class ProfileFragment : Fragment() {
             val quizScore : Long = it.child("quiz_score").value as Long
             val carbonFootprint : Long = it.child("carbon_footprint").value as Long
             binding.tvName.text = username
-            binding.tvQuizscore1.text = quizScore.toString()
-            binding.tvTrashscore1.text = binScore.toString()
-            binding.tvCarbon1.text = carbonFootprint.toString()
-
+            binding.tvQuizscore.text = "Quiz score: $quizScore"
+            binding.tvTrashscore.text = "Trash bin score: $binScore"
+            binding.tvCarbon.text = "Carboon footprint: $carbonFootprint"
+            if(binding.profileShimmer.isShimmerStarted){
+                binding.profileShimmer.stopShimmer()
+                binding.profileShimmer.visibility = View.INVISIBLE
+                binding.profileConstraintLayout.visibility = View.VISIBLE
+            }
         }.addOnFailureListener{
             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
         }
+
     }
 
     private fun checkPermissionForImage() {

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/propic_placeholder"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:background="@color/placeholder_grey"
+        />
+
+    <LinearLayout
+        android:id="@+id/linearlayout_profile_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/propic_placeholder"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/username_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/placeholder_grey"
+
+            />
+        <TextView
+            android:id="@+id/quiz_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:background="@color/placeholder_grey"
+
+            />
+        <TextView
+            android:id="@+id/bin_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:background="@color/placeholder_grey"
+
+            />
+        <TextView
+            android:id="@+id/carbon_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:background="@color/placeholder_grey"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

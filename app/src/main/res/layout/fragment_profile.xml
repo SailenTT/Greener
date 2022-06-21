@@ -7,6 +7,7 @@
     tools:context=".ProfileActivitt">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profile_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible">
@@ -68,38 +69,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_trashscore" />
 
-        <TextView
-            android:id="@+id/tv_quizscore1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.25"
-            app:layout_constraintStart_toEndOf="@+id/tv_quizscore"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.707" />
-
-        <TextView
-            android:id="@+id/tv_trashscore1"
-            android:layout_width="0dp"
-            android:layout_height="14dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/tv_trashscore"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.821" />
-
-        <TextView
-            android:id="@+id/tv_carbon1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.38"
-            app:layout_constraintStart_toEndOf="@+id/tv_carbon"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.953" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.facebook.shimmer.ShimmerFrameLayout
@@ -115,7 +84,7 @@
         android:animateLayoutChanges="true"
         app:shimmer_duration="700">
 
-        <include layout="@layout/fragment_placeholder_screen" />
+        <include layout="@layout/profile_placeholder_screen" />
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
