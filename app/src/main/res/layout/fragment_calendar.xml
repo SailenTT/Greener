@@ -130,14 +130,15 @@
                 android:layout_marginTop="-15dp"
                 android:background="@color/black" />
 
-            <!--<TextView
+            <TextView
+                android:id="@+id/day1_rifiuto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view_day1"
-                android:layout_marginLeft="25dp"
-                android:text="Plastica"
-                android:textSize="40sp"
-                android:textStyle="bold" />-->
+                android:layout_marginLeft="30dp"
+                android:text=""
+                android:textSize="38sp"
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="50dp"
@@ -181,14 +182,15 @@
                 android:layout_marginTop="-15dp"
                 android:background="@color/black" />
 
-            <!--<TextView
+            <TextView
+                android:id="@+id/day2_rifiuto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view_day2"
                 android:layout_marginLeft="30dp"
-                android:text="Vetro"
-                android:textSize="40sp"
-                android:textStyle="bold" />-->
+                android:text=""
+                android:textSize="38sp"
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="50dp"
@@ -231,14 +233,15 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
 
-        <!--<TextView
+        <TextView
+            android:id="@+id/day3_rifiuto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/view_day3"
             android:layout_marginLeft="30dp"
-            android:text="Carta"
-            android:textSize="40sp"
-            android:textStyle="bold" />-->
+            android:text=""
+            android:textSize="38sp"
+            android:textStyle="bold" />
 
             <View
                 android:layout_width="50dp"
@@ -281,14 +284,15 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
 
-        <!--<TextView
+        <TextView
+            android:id="@+id/day4_rifiuto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/view_day4"
-            android:text="Umido"
+            android:text=""
             android:textStyle="bold"
-            android:textSize="40sp"
-            android:layout_marginLeft="30dp"/>-->
+            android:textSize="38sp"
+            android:layout_marginLeft="30dp"/>
 
         <View
             android:layout_width="50dp"
@@ -331,14 +335,15 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
 
-        <!--<TextView
+        <TextView
+            android:id="@+id/day5_rifiuto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/view_day5"
             android:layout_marginLeft="30dp"
-            android:text="Ingombranti"
-            android:textSize="40sp"
-            android:textStyle="bold" />-->
+            android:text=""
+            android:textSize="38sp"
+            android:textStyle="bold" />
 
         <View
             android:layout_width="50dp"
@@ -381,14 +386,15 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
 
-        <!--<TextView
+        <TextView
+            android:id="@+id/day6_rifiuto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/view_day6"
-            android:text="Plastica"
+            android:text=""
             android:textStyle="bold"
-            android:textSize="40sp"
-            android:layout_marginLeft="30dp"/>-->
+            android:textSize="38sp"
+            android:layout_marginLeft="30dp"/>
 
         <View
             android:layout_width="50dp"
@@ -431,14 +437,15 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
 
-            <!--<TextView
+            <TextView
+                android:id="@+id/day7_rifiuto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view_day7"
                 android:layout_marginLeft="30dp"
-                android:text="Carta"
-                android:textSize="40sp"
-                android:textStyle="bold" />-->
+                android:text=""
+                android:textSize="38sp"
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="50dp"
