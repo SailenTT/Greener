@@ -1,11 +1,13 @@
 package com.eco.app
 
 import android.animation.Animator
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.*
-import android.view.animation.BounceInterpolator
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.eco.app.databinding.FragmentTrashBinGameBinding
@@ -18,20 +20,24 @@ import kotlin.random.Random
  * create an instance of this fragment.
  */
 class TrashBinGameFragment : Fragment(), View.OnTouchListener {
+    companion object {
+        const val isFalling="isFalling"
+        const val horizontalDirection="ballXMovement"
+    }
     private lateinit var binding: FragmentTrashBinGameBinding
     private var xStart= 0.0F
     private lateinit var trashBinContainer: RelativeLayout
     private var score=0
-    private var last_falling_sprite: ImageView?=null
     private lateinit var lottieRecycleAnimation: LottieAnimationView
-    private val defaultSpeed=2250L
-    private val minimumSpeed=1400L
+    private val defaultSpeed=2100L
+    private val minimumSpeed=1300L
     private val defaultInclination=300
     private val maxXInclination=800
     private var firstStart=true
     private var gameRunning=false
     private val spawnDelay=1000L
     private val minimumSpawnDelay=650L
+    private lateinit var spawnThread: Thread;
     private lateinit var trashBinBottomLayer: ImageView
     private lateinit var trashBinTopLayer: ImageView
     //TODO aggiungere la possibilità di mettere in pausa il gioco
@@ -82,7 +88,6 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
 
 
     fun startGame() {
-
         binding.startGameInstructionsContainer.visibility=View.INVISIBLE
         binding.gameOverScreen.visibility = View.INVISIBLE
         //Toast.makeText(context,"Gioco Startato",Toast.LENGTH_SHORT).show()
@@ -107,11 +112,9 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
                     lottieSwipeAnimation.alpha = 1F
                 }
 
-                override fun onAnimationCancel(p0: Animator?) {
-                }
+                override fun onAnimationCancel(p0: Animator?) { }
 
-                override fun onAnimationRepeat(p0: Animator?) {
-                }
+                override fun onAnimationRepeat(p0: Animator?) { }
 
                 override fun onAnimationEnd(p0: Animator?) {
                     lottieSwipeAnimation.visibility = View.INVISIBLE
@@ -133,33 +136,43 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
     }
 
     fun startSpawn(){
-        Thread{
-            Thread.sleep(200)
-            while(gameRunning) {
-                println("spawna il prossimo")
+        spawnThread=Thread{
+            try{
+                Thread.sleep(200)
+                while(gameRunning&&!Thread.currentThread().isInterrupted){
+                    println("spawna il prossimo")
 
-                //Fai partire il gioco dopo tot millisecondi
-                spawnFallingTrash()
-                var newDelay=spawnDelay-(score*5)
-                if(newDelay<minimumSpawnDelay){
-                    newDelay=minimumSpawnDelay
+                    //Fai partire il gioco dopo tot millisecondi
+                    spawnFallingTrash()
+                    var newDelay=spawnDelay-(score*5)
+                    if(newDelay<minimumSpawnDelay){
+                        newDelay=minimumSpawnDelay
+                    }
+
+                    if(!Thread.currentThread().isInterrupted) {
+                        Thread.sleep(newDelay)
+                    }
+
                 }
-                Thread.sleep(newDelay)
             }
-        }.start()
+            catch (exception: InterruptedException){
+                println("Spawn thread interrotto")
+            }
+        }
+        spawnThread.start()
     }
 
     fun spawnFallingTrash(){
         activity?.runOnUiThread{
             run {
                 val img_falling_sprite = ImageView(requireContext())
-                last_falling_sprite=img_falling_sprite
 
                 val metrics = requireContext().resources.displayMetrics
 
                 img_falling_sprite.setImageResource(R.drawable.crumbled_paper)
 
-                img_falling_sprite.tag=true
+                val map=HashMap<String,Any>()
+                map[isFalling] = true
 
                 binding.root.addView(img_falling_sprite)
                 //porto il cestino in primo piano per fare in modo che le palline cadano dentro
@@ -191,65 +204,20 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
 
                 img_falling_sprite.y=0-ballSize.toFloat()
 
-                //Falling tag
-                //volendo si può usare il bounce per far riprendere i primi e poi toglierlo
-
-                //non faccio sparire la carta per far capire all'utente che ha inquinato
-                var ballXMovement: Float?=null
+                var ballXMovement: Float=0F
 
                 val spriteAnimation=img_falling_sprite.animate()
                     .translationY(binding.root.height - (img_falling_sprite.layoutParams.height/2).toFloat())
                     .rotationBy(280F)
                     .setDuration(defaultSpeed)
                     .withEndAction {
-                        if(img_falling_sprite.tag==true&&gameRunning) {
-                            println("game over")
-                            //fermo il cestino
-                            img_falling_sprite.tag = false
-                            gameRunning=false
-                            //faccio comparire la schermata di fine
-                            trashBinContainer.setOnTouchListener(null)
-                            binding.txtFinalScore.text = "Hai fatto " + score.toString() + " punti"
-                            score=0
-                            binding.restartGameButton.setOnClickListener { startGame() }
-                            binding.gameOverScreen.visibility = View.VISIBLE
-                            binding.root.removeView(img_falling_sprite)
-                            //TODO se l'utente non è loggato far comparire il tasto per loggare
+                        if((img_falling_sprite.tag as HashMap<String,Any>)[isFalling]==true&&gameRunning) {
+                            spriteFallen(img_falling_sprite)
                         }
                         else{
-                            binding.root.removeView(img_falling_sprite)
+                            binding.root.removeView(img_falling_sprite);
                         }
                     }
-                spriteAnimation.setUpdateListener {value->
-                    //controllo se non sta più cadendo
-                    if(gameRunning) {
-                        if (img_falling_sprite.tag == false) {
-                            println("faccio partire l'animazione di cattura")
-                            objectCatched(img_falling_sprite)
-                        }
-                        if ((img_falling_sprite.x + ballSize) > binding.root.width) {
-                            img_falling_sprite.x = (binding.root.width - ballSize).toFloat()
-                            if (ballXMovement != null) {
-                                spriteAnimation.translationXBy(-ballXMovement!!)
-                            } else {
-                                spriteAnimation.translationXBy(0F)
-                            }
-                        } else if (img_falling_sprite.x < 0) {
-                            if (ballXMovement != null) {
-                                img_falling_sprite.x = 0F
-                                spriteAnimation.translationXBy(-ballXMovement!!)
-                            } else {
-                                spriteAnimation.translationXBy(0F)
-                            }
-                        }
-                    }
-                    else{
-                        img_falling_sprite.tag=false
-                        img_falling_sprite.clearAnimation()
-                        img_falling_sprite.animate().setUpdateListener(null)
-                        binding.root.removeView(img_falling_sprite)
-                    }
-                }
 
                 if(score>=10){
                     val currentSpeed=defaultSpeed-(score*9)
@@ -277,73 +245,189 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
 
                 }
 
+                map[horizontalDirection] = ballXMovement
 
-                //Thread che rileva la collisione
-                img_falling_sprite.post {
-                    Thread {
-                        binding.root.bringChildToFront(trashBinContainer)
-                        //uso il tag per dire se l'oggetto sta cadendo o no
-                        while (img_falling_sprite.tag == true) {
-                            val binY=trashBinTopLayer.y
-                            val binX=trashBinContainer.x+((trashBinContainer.width-trashBinBottomLayer.width)/2).toFloat()
-                            //TODO mettere che se il rifiuto cade oltre la metà del bordo del cestino, rimbalza in alto
-                            if (img_falling_sprite.y + img_falling_sprite.height >=binY && img_falling_sprite.y + img_falling_sprite.height <= binY+ (trashBinBottomLayer.height / 2)) {
-                                if ((img_falling_sprite.x >= binX && img_falling_sprite.x <= binX + trashBinTopLayer.width) || (img_falling_sprite.x + img_falling_sprite.width >= binX && img_falling_sprite.x + img_falling_sprite.width <= binX + trashBinTopLayer.width)) {
-                                    //controllo se la pallina è caduta bene o in caso contrario, la faccio rimbalzare di nuovo
-                                    if(img_falling_sprite.x+(img_falling_sprite.width/3*2)<=binX||img_falling_sprite.x+(img_falling_sprite.width/3)>=binX+trashBinBottomLayer.width){
-                                        img_falling_sprite.animate().interpolator=BounceInterpolator()
-                                    }
-                                    else {
-                                        img_falling_sprite.tag = false
-                                    }
-                                }
-                            }
-                        }
-                    }.start()
-
+                spriteAnimation.setUpdateListener {
+                    //controllo se non sta più cadendo
+                    spriteStatusCheck(img_falling_sprite,null)
                 }
+
+                img_falling_sprite.tag=map
+
+                checkSpriteCollision(img_falling_sprite)
+
+
             }
 
         }
     }
 
-    fun objectCatched(img_falling_sprite: ImageView) {
-        img_falling_sprite.clearAnimation()
-        img_falling_sprite.animate().setUpdateListener(null)
-        score++
-        binding.txtScore.text = score.toString()
-
-
-        //trashBinTopContainer.bringChildToFront(img_falling_sprite)
-        //trashBinTopContainer.bringChildToFront(binding.voidView)
-
-        lottieRecycleAnimation.playAnimation()
-
-        val containerHeight = trashBinContainer.height+img_falling_sprite.height
-        binding.root.removeView(img_falling_sprite)
-        trashBinContainer.addView(img_falling_sprite)
-        val x = img_falling_sprite.x - trashBinContainer.x
-        val y=img_falling_sprite.y
-        val height = img_falling_sprite.height
-        val width = img_falling_sprite.width
-        img_falling_sprite.layoutParams.height = height
-        img_falling_sprite.layoutParams.width = width
-        img_falling_sprite.x = x
-        img_falling_sprite.y = y
-        img_falling_sprite.invalidate()
-        trashBinContainer.invalidate()
-        trashBinContainer.layoutParams.height = containerHeight
-        trashBinContainer.bringChildToFront(trashBinBottomLayer)
-        trashBinContainer.bringChildToFront(lottieRecycleAnimation)
-
-        img_falling_sprite.animate()
-            .translationX((trashBinContainer.width / 2) - (img_falling_sprite.width / 2).toFloat())
-            //.translationY(trashBinContainer.height/2.toFloat())
-            .translationY(trashBinTopLayer.y + trashBinTopLayer.height.toFloat())
-                //dimezzo la dimensione del rifiuto
-            .setDuration(350)
-            .withEndAction {
-                trashBinContainer.removeView(img_falling_sprite)
+    //Thread che rileva la collisione
+    fun checkSpriteCollision(img_falling_sprite: ImageView){
+        Thread {
+            //uso il tag per dire se l'oggetto sta cadendo o no
+            while ((img_falling_sprite.tag as HashMap<String,Any>)[isFalling] == true) {
+                //println("y palla=${img_falling_sprite.y}; x palla=${img_falling_sprite.x}")
+                val binY=trashBinTopLayer.y
+                val binX=trashBinContainer.x+((trashBinContainer.width-trashBinBottomLayer.width)/2).toFloat()
+                //TODO mettere che se il rifiuto cade oltre la metà del bordo del cestino, rimbalza in alto
+                if (img_falling_sprite.y + img_falling_sprite.height >=binY+img_falling_sprite.height/7 && img_falling_sprite.y + img_falling_sprite.height <= binY+ (trashBinBottomLayer.height / 2)) {
+                    if ((img_falling_sprite.x >= binX && img_falling_sprite.x <= binX + trashBinTopLayer.width) || (img_falling_sprite.x + img_falling_sprite.width >= binX && img_falling_sprite.x + img_falling_sprite.width <= binX + trashBinTopLayer.width)) {
+                        //controllo se la pallina è caduta bene o in caso contrario, la faccio rimbalzare di nuovo
+                        (img_falling_sprite.tag as HashMap<String,Any>)[isFalling] = false
+                    }
+                }
             }
+        }.start()
+    }
+
+    //Fa rimbalzare la pallina se è caduta a bordo del cestino
+    fun spriteBounce(img_falling_sprite: ImageView){
+        var currentSpeed=defaultSpeed-(score*9)
+        if(currentSpeed<minimumSpeed) {
+            currentSpeed=minimumSpeed
+        }
+
+        var ballXMovement=(img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection] as Float
+        ballXMovement=-ballXMovement
+        (img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection]=ballXMovement
+
+        var newX=img_falling_sprite.x+ballXMovement
+        if(newX>binding.root.width||newX<0){
+            newX=0F
+        }
+
+        println("ballXMovement: $ballXMovement")
+
+        var animSet=AnimatorSet()
+
+        val anim1=ObjectAnimator.ofFloat(img_falling_sprite, "translationY",binding.root.height/4F)
+        anim1.duration=currentSpeed/2
+        val anim2=ObjectAnimator.ofFloat(img_falling_sprite, "translationY",binding.root.height - (img_falling_sprite.layoutParams.height/2).toFloat())
+        val xMovement=ObjectAnimator.ofFloat(img_falling_sprite, "translationX",newX)
+        xMovement.duration=currentSpeed/2
+        anim2.duration=currentSpeed/3
+
+        animSet.doOnEnd {
+            checkSpriteCollision(img_falling_sprite)
+            anim2.start()
+        }
+
+        anim2.addUpdateListener {
+            spriteStatusCheck(img_falling_sprite,anim2)
+        }
+        anim2.doOnEnd {
+            spriteFallen(img_falling_sprite)
+        }
+
+        animSet.playTogether(anim1,xMovement)
+        animSet.start()
+
+    }
+
+    fun objectCatched(img_falling_sprite: ImageView){
+        img_falling_sprite.animate().setUpdateListener(null)
+        img_falling_sprite.animate().cancel()
+
+        val binX=trashBinContainer.x+((trashBinContainer.width-trashBinBottomLayer.width)/2).toFloat()
+        if(img_falling_sprite.x+(img_falling_sprite.width/2+img_falling_sprite.width/8)<=binX||img_falling_sprite.x+(img_falling_sprite.width/2+img_falling_sprite.width/8)>=binX+trashBinTopLayer.width) {
+            var ballXMovement=(img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection] as Float
+            ballXMovement=-ballXMovement
+            (img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection]=ballXMovement
+
+            (img_falling_sprite.tag as HashMap<String,Any>)[isFalling]=true
+
+            spriteBounce(img_falling_sprite)
+        }
+        else {
+            score++
+            binding.txtScore.text = score.toString()
+
+            lottieRecycleAnimation.playAnimation()
+
+            val containerHeight = trashBinContainer.height + img_falling_sprite.height
+            binding.root.removeView(img_falling_sprite)
+            //binding.root.removeView(img_falling_sprite)
+            trashBinContainer.addView(img_falling_sprite)
+            val x = img_falling_sprite.x - trashBinContainer.x
+            val y = img_falling_sprite.y
+            val height = img_falling_sprite.height
+            val width = img_falling_sprite.width
+            img_falling_sprite.layoutParams.height = height
+            img_falling_sprite.layoutParams.width = width
+            img_falling_sprite.x = x
+            img_falling_sprite.y = y
+            img_falling_sprite.invalidate()
+            trashBinContainer.invalidate()
+            trashBinContainer.layoutParams.height = containerHeight
+            trashBinContainer.bringChildToFront(trashBinBottomLayer)
+            trashBinContainer.bringChildToFront(lottieRecycleAnimation)
+
+
+            img_falling_sprite.animate()
+                .translationX((trashBinContainer.width / 2) - (img_falling_sprite.width / 2).toFloat())
+                //.translationY(trashBinContainer.height/2.toFloat())
+                .translationY(trashBinTopLayer.y + trashBinTopLayer.height.toFloat())
+                //dimezzo la dimensione del rifiuto
+                .setDuration(350)
+                .withEndAction {
+                    trashBinContainer.removeView(img_falling_sprite)
+                }
+        }
+    }
+
+    fun spriteStatusCheck(img_falling_sprite: ImageView, animation: ObjectAnimator?){
+        if(gameRunning) {
+            if ((img_falling_sprite.tag as HashMap<String,Any>)[isFalling] == false) {
+                //animation?.removeAllUpdateListeners()
+                //animation?.doOnEnd {  }
+                //TODO sistemare il fatto che non si possa cancellare
+                animation?.pause()
+                //animation?.cancel()
+                objectCatched(img_falling_sprite)
+            }
+            else if ((img_falling_sprite.x + img_falling_sprite.width) > binding.root.width) {
+                img_falling_sprite.x = (binding.root.width - img_falling_sprite.width).toFloat()
+
+                var ballXMovement=(img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection] as Float
+                ballXMovement=-ballXMovement
+                (img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection]=ballXMovement
+                img_falling_sprite.animate().translationX(-ballXMovement)
+
+            } else if (img_falling_sprite.x < 0) {
+                var ballXMovement=(img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection] as Float
+                ballXMovement=-ballXMovement
+                (img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection]=ballXMovement
+
+                img_falling_sprite.animate().translationX(-ballXMovement)
+            }
+        }
+        else{
+            (img_falling_sprite.tag as HashMap<String,Any>)[isFalling]=false
+            img_falling_sprite.animate().setUpdateListener(null)
+            img_falling_sprite.animate().cancel()
+            binding.root.removeView(img_falling_sprite)
+        }
+    }
+
+    fun spriteFallen(img_falling_sprite: ImageView){
+        if((img_falling_sprite.tag as HashMap<String,Any>)[isFalling]==true&&gameRunning) {
+            spawnThread.interrupt()
+            println("game over")
+            //fermo il cestino
+            gameRunning=false
+            (img_falling_sprite.tag as HashMap<String,Any>)[isFalling]=false
+            //faccio comparire la schermata di fine
+            trashBinContainer.setOnTouchListener(null)
+            binding.txtFinalScore.text = "Hai fatto " + score.toString() + " punti"
+            score=0
+            binding.restartGameButton.setOnClickListener { startGame() }
+            binding.gameOverScreen.visibility = View.VISIBLE
+            binding.root.removeView(img_falling_sprite)
+            //TODO se l'utente non è loggato far comparire il tasto per loggare
+        }
+        else {
+            binding.root.removeView(img_falling_sprite)
+        }
     }
 }

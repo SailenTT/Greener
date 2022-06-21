@@ -31,6 +31,7 @@ class PopupFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        println("on create")
         binding = FragmentPopupBinding.inflate(inflater,container,false)
 
         rifiutoLunedi = binding.spinDay1
@@ -43,7 +44,7 @@ class PopupFragment : Fragment() {
         btnPopola = binding.btnPopInvio
 
 
-        btnPopola.setOnClickListener( View.OnClickListener {
+        binding.btnPopInvio.setOnClickListener{
 
             val sharedPref = activity?.getSharedPreferences("sharedPrefsCalendar", Context.MODE_PRIVATE)
             val editor = sharedPref?.edit()
@@ -64,7 +65,7 @@ class PopupFragment : Fragment() {
 
             dialogBuilder!!.setView(contactPopupView)
             dialog?.dismiss()
-        })
+        }
 
 
         return binding.root
