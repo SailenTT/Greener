@@ -11,6 +11,7 @@ import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.eco.app.databinding.FragmentTrashBinGameBinding
+import kotlin.math.abs
 import kotlin.random.Random
 
 
@@ -290,10 +291,22 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
 
         var ballXMovement=(img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection] as Float
         ballXMovement=-ballXMovement
+
+        if(img_falling_sprite.x<trashBinTopLayer.x){
+            ballXMovement=-abs(ballXMovement)
+        }
+        else{
+            ballXMovement=abs(ballXMovement)
+        }
+
         (img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection]=ballXMovement
 
+
         var newX=img_falling_sprite.x+ballXMovement
-        if(newX>binding.root.width||newX<0){
+        if(newX+img_falling_sprite.width>binding.root.width){
+            newX=binding.root.width-img_falling_sprite.width.toFloat()
+        }
+        else if(newX<0){
             newX=0F
         }
 
@@ -306,7 +319,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
         val anim2=ObjectAnimator.ofFloat(img_falling_sprite, "translationY",binding.root.height - (img_falling_sprite.layoutParams.height/2).toFloat())
         val xMovement=ObjectAnimator.ofFloat(img_falling_sprite, "translationX",newX)
         xMovement.duration=currentSpeed/2
-        anim2.duration=currentSpeed/3
+        anim2.duration=currentSpeed/2
 
         animSet.doOnEnd {
             checkSpriteCollision(img_falling_sprite)

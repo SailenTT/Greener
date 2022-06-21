@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import com.eco.app.databinding.FragmentQuizBinding
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
@@ -189,9 +190,12 @@ class QuizFragment : Fragment() {
     }
 
     fun replaceFragment(fragment: Fragment) {
-        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        /*val transaction = activity?.supportFragmentManager?.beginTransaction()
         transaction?.replace(R.id.home_fragment_container, fragment)
-        transaction?.commit()
+        transaction?.commit()*/
+
+        //sostituisco la vecchia transaction con la navigation ui
+        findNavController().navigate(QuizFragmentDirections.actionQuizFragmentToQuizResultFragment())
     }
 
     fun getButtons(): Array<Button?> {

@@ -1,10 +1,11 @@
 package com.eco.app
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.eco.app.databinding.FragmentResultQuizBinding
 
 
@@ -18,10 +19,19 @@ class ResultQuizFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentResultQuizBinding.inflate(inflater, container, false)
+
+
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,  object: OnBackPressedCallback(true) {
+            @Override
+            override fun handleOnBackPressed() {
+                findNavController().navigate(ResultQuizFragmentDirections.actionQuizResultFragmentToGameSelectionFragment())
+            }
+        })
         // Inflate the layout for this fragment
-        binding.tvQuizResult.setText("Risultato: ${QuizFragment.correct_replies}/10")
+        binding.tvQuizResult.text = "Risultato: ${QuizFragment.correct_replies}/10"
         return binding.root
     }
 

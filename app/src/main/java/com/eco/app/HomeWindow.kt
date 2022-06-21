@@ -96,20 +96,19 @@ class HomeWindow : AppCompatActivity() {
         })
 
         //TODO cambiare icona logout
-
-        /*
-        //CODICE PER CREARE LA LISTVIEW, PRENDE I PRIMI 7 GIORNI A PARTIRE DA MO
-        //PER CRI
-        val dateFormat= SimpleDateFormat("EEE d MMM yyyy")
-        for (i in 0..7) {
-            val cal=Calendar.getInstance()
-            cal.add(Calendar.DATE,i)
-            Log.d("Calendar", dateFormat.format(cal.time))
-        }*/
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        //se l'utente si trova nella schermata di risultato del quiz
+        //allora, una volta premuto il tasto per tornare indietro,
+        //lo faccio tornare alla schermata di selezione dei giochi
+        return if(navController.currentDestination?.id==(R.id.QuizResultFragment)){
+            navController.navigate(ResultQuizFragmentDirections.actionQuizResultFragmentToGameSelectionFragment())
+            true
+        }
+        else {
+            navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        }
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {

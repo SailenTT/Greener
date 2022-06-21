@@ -209,7 +209,7 @@ class CalendarFragment : Fragment() {
                 putString("domenica",rifiutoDomenica.selectedItem.toString())
 
             }?.apply()
-            dialog?.dismiss();
+            dialog?.dismiss()
             setSharedPref()
         })
     }
