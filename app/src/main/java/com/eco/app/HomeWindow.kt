@@ -175,11 +175,5 @@ class HomeWindow : AppCompatActivity() {
         }
     }
 
-
-    override fun onDestroy() {
-        super.onDestroy()
-        finish()
-    }
-
 }
 
