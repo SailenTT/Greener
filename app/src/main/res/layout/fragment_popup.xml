@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".PopupFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!--RL testo-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="15dp"
             android:background="@color/colo1">
 
             <TextView
                 android:id="@+id/txt_popup1"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
                 android:text="Benvenuto nella schermata per popolare il tuo calendario!"
                 android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -35,212 +35,277 @@
                 android:layout_marginTop="90dp"
                 android:text="di seguito troverai un form, in cui dovrai selezionare per ogni giorno il rifiuto che bisogna mettere fuori nel tuo comune."
                 android:textAlignment="center"
-                android:textStyle="italic"
-                android:textSize="15sp"/>
+                android:textSize="15sp"
+                android:textStyle="italic" />
 
         </RelativeLayout>
 
+        <!--RL form-->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/colo2">
+            android:layout_height="match_parent"
+            android:background="@drawable/txb_background"
+            android:backgroundTint="@color/colo2"
+            android:layout_margin="20dp">
 
-            <TextView
-                android:id="@+id/txt_popD1"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="150dp"
+            <!--RL Lunedì-->
+            <RelativeLayout
+                android:id="@+id/RLlunedi"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_margin="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Lunedì"
-                android:textAlignment="center"
-                android:layout_centerHorizontal="true"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/txb_background"
+                android:elevation="8dp">
 
-            <Spinner
-                android:id="@+id/spin_day1"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_popD1"
-                android:layout_centerHorizontal="true"
-                android:entries="@array/Rifiuti" />
+                <TextView
+                    android:id="@+id/txt_popD1"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="150dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Lunedì"
+                    android:textAlignment="center"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
-        </RelativeLayout>
+                <Spinner
+                    android:id="@+id/spin_day1"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_popD1"
+                    android:layout_centerHorizontal="true"
+                    android:entries="@array/Rifiuti" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/colo2">
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/txt_popD2"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="150dp"
+            <!--RL Martedì-->
+            <RelativeLayout
+                android:id="@+id/RLmartedi"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_below="@id/RLlunedi"
+                android:layout_margin="20dp"
+                android:background="@drawable/txb_background"
+                android:elevation="8dp">
+
+                <TextView
+                    android:id="@+id/txt_popD2"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="150dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Martedì"
+                    android:textAlignment="center"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spin_day2"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_popD2"
+                    android:layout_centerHorizontal="true"
+                    android:entries="@array/Rifiuti" />
+
+            </RelativeLayout>
+
+            <!--RLmercoledi-->
+            <RelativeLayout
+                android:id="@+id/RLmercoledi"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_below="@id/RLmartedi"
+                android:layout_margin="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Martedì"
-                android:textAlignment="center"
-                android:layout_centerHorizontal="true"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/txb_background"
+                android:elevation="8dp">
 
-            <Spinner
-                android:id="@+id/spin_day2"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_popD2"
-                android:layout_centerHorizontal="true"
-                android:entries="@array/Rifiuti" />
+                <TextView
+                    android:id="@+id/txt_popD3"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="150dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Mercoledì"
+                    android:textAlignment="center"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
-        </RelativeLayout>
+                <Spinner
+                    android:id="@+id/spin_day3"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_popD3"
+                    android:layout_centerHorizontal="true"
+                    android:entries="@array/Rifiuti" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/colo2">
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/txt_popD3"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="150dp"
+            <!--RLgiovedi-->
+            <RelativeLayout
+                android:id="@+id/RLgiovedi"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_below="@id/RLmercoledi"
+                android:layout_margin="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Mercoledì"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/txb_background"
+                android:elevation="8dp">
 
-            <Spinner
-                android:id="@+id/spin_day3"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_popD3"
-                android:layout_centerHorizontal="true"
-                android:entries="@array/Rifiuti" />
+                <TextView
+                    android:id="@+id/txt_popD4"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="150dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Giovedì"
+                    android:textAlignment="center"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
-        </RelativeLayout>
+                <Spinner
+                    android:id="@+id/spin_day4"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_popD4"
+                    android:layout_centerHorizontal="true"
+                    android:entries="@array/Rifiuti" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/colo2">
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/txt_popD4"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="150dp"
+            <!--RLvenerdi-->
+            <RelativeLayout
+                android:id="@+id/RLvenerdi"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_below="@id/RLgiovedi"
+                android:background="@drawable/txb_background"
+                android:layout_margin="20dp"
+                android:elevation="8dp">
+
+                <TextView
+                    android:id="@+id/txt_popD5"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="150dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Venerdì"
+                    android:textAlignment="center"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spin_day5"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_popD5"
+                    android:layout_centerHorizontal="true"
+                    android:entries="@array/Rifiuti" />
+
+            </RelativeLayout>
+
+            <!--RLsabato-->
+            <RelativeLayout
+                android:id="@+id/RLsabato"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_below="@id/RLvenerdi"
+                android:background="@drawable/txb_background"
+                android:layout_margin="20dp"
+                android:elevation="8dp">
+
+                <TextView
+                    android:id="@+id/txt_popD6"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="150dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Sabato"
+                    android:textAlignment="center"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="17sp"
+                    android:textStyle="bold"/>
+
+                <Spinner
+                    android:id="@+id/spin_day6"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_popD6"
+                    android:layout_centerHorizontal="true"
+                    android:entries="@array/Rifiuti" />
+
+            </RelativeLayout>
+
+            <!--RLdomenica-->
+            <RelativeLayout
+                android:id="@+id/RLdomenica"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_below="@id/RLsabato"
+                android:layout_margin="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Giovedì"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/txb_background"
+                android:elevation="8dp">
 
-            <Spinner
-                android:id="@+id/spin_day4"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_popD4"
-                android:layout_centerHorizontal="true"
-                android:entries="@array/Rifiuti" />
+                <TextView
+                    android:id="@+id/txt_popD7"
+                    android:layout_width="160dp"
+                    android:layout_height="43dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="150dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Domenica"
+                    android:textAlignment="center"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
-        </RelativeLayout>
+                <Spinner
+                    android:id="@+id/spin_day7"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_popD7"
+                    android:layout_centerHorizontal="true"
+                    android:entries="@array/Rifiuti" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/colo2">
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/txt_popD5"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="150dp"
-                android:layout_marginTop="10dp"
-                android:text="Venerdì"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+            <!--RLbutton-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/RLdomenica"
+                android:layout_margin="20dp"
+                android:background="@drawable/txb_background"
+                android:backgroundTint="@color/colo2"
+                android:gravity="center">
 
-            <Spinner
-                android:id="@+id/spin_day5"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_popD5"
-                android:layout_centerHorizontal="true"
-                android:entries="@array/Rifiuti" />
+                <Button
+                    android:id="@+id/btn_popInvio"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/txb_background"
+                    android:elevation="8dp"
+                    android:text="Popola ora!" />
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/colo2">
-
-            <TextView
-                android:id="@+id/txt_popD6"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="150dp"
-                android:layout_marginTop="10dp"
-                android:text="Sabato"
-                android:textAlignment="center"
-                android:layout_centerHorizontal="true"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
-
-            <Spinner
-                android:id="@+id/spin_day6"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_popD6"
-                android:layout_centerHorizontal="true"
-                android:entries="@array/Rifiuti" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/colo2">
-
-            <TextView
-                android:id="@+id/txt_popD7"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="150dp"
-                android:layout_marginTop="10dp"
-                android:text="Domenica"
-                android:textAlignment="center"
-                android:layout_centerHorizontal="true"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
-
-            <Spinner
-                android:id="@+id/spin_day7"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_popD7"
-                android:layout_centerHorizontal="true"
-                android:entries="@array/Rifiuti" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/colo2">
-
-            <Button
-                android:id="@+id/btn_popInvio"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:text="Popola ora!"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"/>
+            </RelativeLayout>
 
         </RelativeLayout>
 
