@@ -1,6 +1,9 @@
 package com.eco.app
 
 import android.app.AlertDialog
+import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -35,6 +38,7 @@ class CalendarFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //Inflate the binding for this fragment
         binding= FragmentCalendarBinding.inflate(inflater,container,false)
+
         day = binding.txtDay1
         day2 = binding.txtDay2
         day3 = binding.txtDay3
@@ -45,13 +49,35 @@ class CalendarFragment : Fragment() {
         mese = binding.txtMese
         btnData = binding.btnDataCalendar
 
+        //richiamo le funzioni per settare tutti i dati all'interno del calendar
+        setMonth()
+        setWeekDays()
+        setSharedPref()
+        setCircleColor()
+
+        btnData.setOnClickListener(View.OnClickListener {
+
+            dialogBuilder = AlertDialog.Builder(context)
+            val contactPopupView = layoutInflater.inflate(R.layout.fragment_popup, null)
+
+            dialogBuilder!!.setView(contactPopupView)
+            dialog = dialogBuilder!!.create()
+            dialog?.show()
+
+            saveSharedPref()
+        })
+
+        return binding.root
+    }
+
+    fun setMonth(){
         //setto il mese
         val cal1= Calendar.getInstance()
         //definisco pattern per come visualizzare la data (in questo caso "MESE")
         val df = SimpleDateFormat("MMMM")
         mese.setText(df.format(cal1.time).uppercase())
-
-
+    }
+    fun setWeekDays(){
         //setto i giorni della settimana
         val listaGiorni = ArrayList<String>()
         val cal= Calendar.getInstance()
@@ -71,17 +97,185 @@ class CalendarFragment : Fragment() {
         day5.setText(listaGiorni[4])
         day6.setText(listaGiorni[5])
         day7.setText(listaGiorni[6])
+    }
+    fun setSharedPref(){
+        val SHARED_PREFS = "sharedPrefsCalendar"
 
-        btnData.setOnClickListener(View.OnClickListener {
+        val rifiutoD1 : TextView = binding.day1Rifiuto
+        val rifiutoD2 : TextView = binding.day2Rifiuto
+        val rifiutoD3 : TextView = binding.day3Rifiuto
+        val rifiutoD4 : TextView = binding.day4Rifiuto
+        val rifiutoD5 : TextView = binding.day5Rifiuto
+        val rifiutoD6 : TextView = binding.day6Rifiuto
+        val rifiutoD7 : TextView = binding.day7Rifiuto
 
-            dialogBuilder = AlertDialog.Builder(context)
-            val contactPopupView = layoutInflater.inflate(R.layout.fragment_popup, null)
+        val sharedPref = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
+        if (day.text.toString().contains("lunedì")) {
+            rifiutoD1.setText(sharedPref!!.getString("lunedi",""))
+            rifiutoD2.setText(sharedPref.getString("martedi",""))
+            rifiutoD3.setText(sharedPref.getString("mercoledi",""))
+            rifiutoD4.setText(sharedPref.getString("giovedi",""))
+            rifiutoD5.setText(sharedPref.getString("venerdi",""))
+            rifiutoD6.setText(sharedPref.getString("sabato",""))
+            rifiutoD7.setText(sharedPref.getString("domenica",""))
+        } else if (day.text.toString().contains("martedì")){
+            rifiutoD1.setText(sharedPref!!.getString("martedi",""))
+            rifiutoD2.setText(sharedPref.getString("mercoledi",""))
+            rifiutoD3.setText(sharedPref.getString("giovedi",""))
+            rifiutoD4.setText(sharedPref.getString("venerdi",""))
+            rifiutoD5.setText(sharedPref.getString("sabato",""))
+            rifiutoD6.setText(sharedPref.getString("domenica",""))
+            rifiutoD7.setText(sharedPref.getString("lunedi",""))
+        } else if (day.text.toString().contains("mercoledì")){
+            rifiutoD1.setText(sharedPref!!.getString("mercoledi",""))
+            rifiutoD2.setText(sharedPref.getString("giovedi",""))
+            rifiutoD3.setText(sharedPref.getString("venerdi",""))
+            rifiutoD4.setText(sharedPref.getString("sabato",""))
+            rifiutoD5.setText(sharedPref.getString("domenica",""))
+            rifiutoD6.setText(sharedPref.getString("lunedi",""))
+            rifiutoD7.setText(sharedPref.getString("martedi",""))
+        } else if (day.text.toString().contains("giovedì")){
+            rifiutoD1.setText(sharedPref!!.getString("giovedi",""))
+            rifiutoD2.setText(sharedPref.getString("venerdi",""))
+            rifiutoD3.setText(sharedPref.getString("sabato",""))
+            rifiutoD4.setText(sharedPref.getString("domenica",""))
+            rifiutoD5.setText(sharedPref.getString("lunedi",""))
+            rifiutoD6.setText(sharedPref.getString("martedi",""))
+            rifiutoD7.setText(sharedPref.getString("mercoledi",""))
+        } else if (day.text.toString().contains("venerdi")){
+            rifiutoD1.setText(sharedPref!!.getString("venerdi",""))
+            rifiutoD2.setText(sharedPref.getString("sabato",""))
+            rifiutoD3.setText(sharedPref.getString("domenica",""))
+            rifiutoD4.setText(sharedPref.getString("lunedi",""))
+            rifiutoD5.setText(sharedPref.getString("martedi",""))
+            rifiutoD6.setText(sharedPref.getString("mercoledi",""))
+            rifiutoD7.setText(sharedPref.getString("giovedi",""))
+        } else if (day.text.toString().contains("sabato")){
+            rifiutoD1.setText(sharedPref!!.getString("sabato",""))
+            rifiutoD2.setText(sharedPref.getString("domenica",""))
+            rifiutoD3.setText(sharedPref.getString("lunedi",""))
+            rifiutoD4.setText(sharedPref.getString("martedi",""))
+            rifiutoD5.setText(sharedPref.getString("mercoledi",""))
+            rifiutoD6.setText(sharedPref.getString("giovedi",""))
+            rifiutoD7.setText(sharedPref.getString("venerdi",""))
+        } else {
+            rifiutoD1.setText(sharedPref!!.getString("domenica",""))
+            rifiutoD2.setText(sharedPref.getString("lunedi",""))
+            rifiutoD3.setText(sharedPref.getString("martedi",""))
+            rifiutoD4.setText(sharedPref.getString("mercoledi",""))
+            rifiutoD5.setText(sharedPref.getString("giovedi",""))
+            rifiutoD6.setText(sharedPref.getString("venerdi",""))
+            rifiutoD7.setText(sharedPref.getString("sabato",""))
+        }
+    }
+    fun setCircleColor() {
+        val cD1 : View = binding.circleD1
+        val cD2 : View = binding.circleD2
+        val cD3 : View = binding.circleD3
+        val cD4 : View = binding.circleD4
+        val cD5 : View = binding.circleD5
+        val cD6 : View = binding.circleD6
+        val cD7 : View = binding.circleD7
 
-            dialogBuilder!!.setView(contactPopupView)
-            dialog = dialogBuilder!!.create()
-            dialog?.show()
+        if (binding.day1Rifiuto.text.equals("Vetro")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
+        else if(binding.day1Rifiuto.text.equals("Carta")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#32A4F4")))}
+        else if(binding.day1Rifiuto.text.equals("Umido")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#695206")))}
+        else if(binding.day1Rifiuto.text.equals("Plastica")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EBDC37")))}
+        else if(binding.day1Rifiuto.text.equals("Ingombranti")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d64d2e")))}
+        else if(binding.day1Rifiuto.text.equals("Indifferenziato")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#a8a8a8")))}
+        else if(binding.day1Rifiuto.text.equals("--")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}
+
+        if (binding.day2Rifiuto.text.equals("Vetro")){ cD2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
+        else if(binding.day2Rifiuto.text.equals("Carta")){ cD2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#32A4F4")))}
+        else if(binding.day2Rifiuto.text.equals("Umido")){ cD2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#695206")))}
+        else if(binding.day2Rifiuto.text.equals("Plastica")){ cD2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EBDC37")))}
+        else if(binding.day2Rifiuto.text.equals("Ingombranti")){ cD2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d64d2e")))}
+        else if(binding.day2Rifiuto.text.equals("Indifferenziato")){ cD2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#a8a8a8")))}
+        else if(binding.day2Rifiuto.text.equals("--")){ cD2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}
+
+        if (binding.day3Rifiuto.text.equals("Vetro")){ cD3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
+        else if(binding.day3Rifiuto.text.equals("Carta")){ cD3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#32A4F4")))}
+        else if(binding.day3Rifiuto.text.equals("Umido")){ cD3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#695206")))}
+        else if(binding.day3Rifiuto.text.equals("Plastica")){ cD3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EBDC37")))}
+        else if(binding.day3Rifiuto.text.equals("Ingombranti")){ cD3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d64d2e")))}
+        else if(binding.day3Rifiuto.text.equals("Indifferenziato")){ cD3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#a8a8a8")))}
+        else if(binding.day3Rifiuto.text.equals("--")){ cD3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}
+
+        if (binding.day4Rifiuto.text.equals("Vetro")){ cD4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
+        else if(binding.day4Rifiuto.text.equals("Carta")){ cD4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#32A4F4")))}
+        else if(binding.day4Rifiuto.text.equals("Umido")){ cD4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#695206")))}
+        else if(binding.day4Rifiuto.text.equals("Plastica")){ cD4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EBDC37")))}
+        else if(binding.day4Rifiuto.text.equals("Ingombranti")){ cD4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d64d2e")))}
+        else if(binding.day4Rifiuto.text.equals("Indifferenziato")){ cD4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#a8a8a8")))}
+        else if(binding.day4Rifiuto.text.equals("--")){ cD4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}
+
+        if (binding.day5Rifiuto.text.equals("Vetro")){ cD5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
+        else if(binding.day5Rifiuto.text.equals("Carta")){ cD5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#32A4F4")))}
+        else if(binding.day5Rifiuto.text.equals("Umido")){ cD5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#695206")))}
+        else if(binding.day5Rifiuto.text.equals("Plastica")){ cD5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EBDC37")))}
+        else if(binding.day5Rifiuto.text.equals("Ingombranti")){ cD5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d64d2e")))}
+        else if(binding.day5Rifiuto.text.equals("Indifferenziato")){ cD5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#a8a8a8")))}
+        else if(binding.day5Rifiuto.text.equals("--")){ cD5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}
+
+        if (binding.day6Rifiuto.text.equals("Vetro")){ cD6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
+        else if(binding.day6Rifiuto.text.equals("Carta")){ cD6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#32A4F4")))}
+        else if(binding.day6Rifiuto.text.equals("Umido")){ cD6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#695206")))}
+        else if(binding.day6Rifiuto.text.equals("Plastica")){ cD6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EBDC37")))}
+        else if(binding.day6Rifiuto.text.equals("Ingombranti")){ cD6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d64d2e")))}
+        else if(binding.day6Rifiuto.text.equals("Indifferenziato")){ cD6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#a8a8a8")))}
+        else if(binding.day6Rifiuto.text.equals("--")){ cD6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}
+
+        if (binding.day7Rifiuto.text.equals("Vetro")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
+        else if(binding.day7Rifiuto.text.equals("Carta")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#32A4F4")))}
+        else if(binding.day7Rifiuto.text.equals("Umido")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#695206")))}
+        else if(binding.day7Rifiuto.text.equals("Plastica")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EBDC37")))}
+        else if(binding.day7Rifiuto.text.equals("Ingombranti")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d64d2e")))}
+        else if(binding.day7Rifiuto.text.equals("Indifferenziato")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#a8a8a8")))}
+        else if(binding.day7Rifiuto.text.equals("--")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}
+
+    }
+
+    fun saveSharedPref(){
+
+        val SHARED_PREFS = "sharedPrefsCalendar"
+
+        var rifiutoLunedi : Spinner
+        var rifiutoMartedi : Spinner
+        var rifiutoMercoledi : Spinner
+        var rifiutoGiovedi : Spinner
+        var rifiutoVenerdi : Spinner
+        var rifiutoSabato : Spinner
+        var rifiutoDomenica : Spinner
+        var btnPopola : Button
+        var prova : TextView
+
+        rifiutoLunedi = dialog!!.findViewById(R.id.spin_day1)
+        rifiutoMartedi = dialog!!.findViewById(R.id.spin_day2)
+        rifiutoMercoledi = dialog!!.findViewById(R.id.spin_day3)
+        rifiutoGiovedi = dialog!!.findViewById(R.id.spin_day4)
+        rifiutoVenerdi = dialog!!.findViewById(R.id.spin_day5)
+        rifiutoSabato = dialog!!.findViewById(R.id.spin_day6)
+        rifiutoDomenica = dialog!!.findViewById(R.id.spin_day7)
+        btnPopola = dialog!!.findViewById(R.id.btn_popInvio)
+
+        btnPopola.setOnClickListener(View.OnClickListener {
+
+            val sharedPref = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
+            val editor = sharedPref?.edit()
+            editor?.apply {
+
+                putString("lunedi",rifiutoLunedi.selectedItem.toString())
+                putString("martedi",rifiutoMartedi.selectedItem.toString())
+                putString("mercoledi",rifiutoMercoledi.selectedItem.toString())
+                putString("giovedi",rifiutoGiovedi.selectedItem.toString())
+                putString("venerdi",rifiutoVenerdi.selectedItem.toString())
+                putString("sabato",rifiutoSabato.selectedItem.toString())
+                putString("domenica",rifiutoDomenica.selectedItem.toString())
+
+            }?.apply()
+            dialog?.dismiss()
+            setSharedPref()
+            setCircleColor()
         })
-
-        return binding.root
     }
 }

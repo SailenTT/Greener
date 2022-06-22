@@ -22,6 +22,7 @@
     <string name="garbage_sorter_game_name">Dividi i rifiuti</string>
     <string name="quiz_game_name">Quiz</string>
     <string name="growing_tree_game_name">Fai crescere il tuo albero</string>
+    <string name="quiz_result_nav_name">Risultato</string>
     <string name="title_activity_dacancellare">dacancellare</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

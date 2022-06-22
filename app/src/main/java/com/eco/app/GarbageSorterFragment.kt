@@ -25,6 +25,7 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
     private val minimumSpeed=1850L
     private val spawnDelay=2000L
     private val minimumSpawnDelay=900L
+    private lateinit var spawnThread: Thread
     private lateinit var paperBinContainer: RelativeLayout
     private lateinit var plasticBinContainer: RelativeLayout
     private lateinit var indiffBinContainer: RelativeLayout
@@ -138,22 +139,30 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
     }
 
     fun startSpawn(){
-        Thread{
-            Thread.sleep(200)
-            while(gameRunning) {
-                println("spawna il prossimo")
+        spawnThread=Thread{
+            try{
+                Thread.sleep(200)
+                while(gameRunning&&!Thread.currentThread().isInterrupted) {
+                    println("spawna il prossimo")
 
-                //Fai partire il gioco dopo tot millisecondi
-                spawnFallingTrash()
+                    //Fai partire il gioco dopo tot millisecondi
+                    spawnFallingTrash()
 
-                var newDelay=spawnDelay-(score*5)
-                if(newDelay<minimumSpawnDelay){
-                    newDelay=minimumSpawnDelay
+                    var newDelay=spawnDelay-(score*5)
+                    if(newDelay<minimumSpawnDelay){
+                        newDelay=minimumSpawnDelay
+                    }
+                    if(!Thread.currentThread().isInterrupted) {
+                        Thread.sleep(newDelay)
+                    }
                 }
-                Thread.sleep(newDelay)
-                Thread.sleep(spawnDelay)
             }
-        }.start()
+            catch(exception: InterruptedException){
+
+            }
+        }
+
+        spawnThread.start()
     }
 
 
@@ -275,6 +284,7 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
                     .setDuration(defaultSpeed)
                     .withEndAction {
                         if((img_falling_sprite.tag as HashMap<String,Any>)[isFalling]==true&&gameRunning) {
+                            spawnThread.interrupt()
                             println("game over")
                             //fermo il cestino
                             (img_falling_sprite.tag as HashMap<String,Any>)[isFalling] = false

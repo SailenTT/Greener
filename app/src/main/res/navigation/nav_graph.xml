@@ -59,7 +59,30 @@
         android:id="@+id/QuizGameFragment"
         android:name="com.eco.app.QuizFragment"
         android:label="@string/quiz_game_name"
-        tools:layout="@layout/fragment_quiz"/>
+        tools:layout="@layout/fragment_quiz">
+
+        <action android:id="@+id/action_QuizFragment_to_QuizResultFragment"
+            app:destination="@id/QuizResultFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/QuizResultFragment"
+        android:name="com.eco.app.ResultQuizFragment"
+        android:label="@string/quiz_result_nav_name"
+        tools:layout="@layout/fragment_result_quiz">
+
+        <action
+            android:id="@+id/action_QuizResultFragment_to_GameSelectionFragment"
+            app:destination="@id/GameSelectionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
     <fragment
         android:id="@+id/GrowingTreeGameFragment"

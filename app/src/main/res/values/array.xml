@@ -2,10 +2,11 @@
 <resources>
     <string-array name="Rifiuti">
         <item>Vetro</item>
-        <item>Plastica e lattine</item>
-        <item>Carta e cartone</item>
+        <item>Plastica</item>
+        <item>Carta</item>
         <item>Umido</item>
         <item>Indifferenziato</item>
         <item>Ingombranti</item>
+        <item>--</item>
     </string-array>
 </resources>

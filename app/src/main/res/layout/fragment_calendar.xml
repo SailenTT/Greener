@@ -130,16 +130,18 @@
                 android:layout_marginTop="-15dp"
                 android:background="@color/black" />
 
-            <!--<TextView
+            <TextView
+                android:id="@+id/day1_rifiuto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view_day1"
-                android:layout_marginLeft="25dp"
-                android:text="Plastica"
-                android:textSize="40sp"
-                android:textStyle="bold" />-->
+                android:layout_marginLeft="30dp"
+                android:text=""
+                android:textSize="38sp"
+                android:textStyle="bold" />
 
             <View
+                android:id="@+id/circleD1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
@@ -181,16 +183,18 @@
                 android:layout_marginTop="-15dp"
                 android:background="@color/black" />
 
-            <!--<TextView
+            <TextView
+                android:id="@+id/day2_rifiuto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view_day2"
                 android:layout_marginLeft="30dp"
-                android:text="Vetro"
-                android:textSize="40sp"
-                android:textStyle="bold" />-->
+                android:text=""
+                android:textSize="38sp"
+                android:textStyle="bold" />
 
             <View
+                android:id="@+id/circleD2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
@@ -231,16 +235,18 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
 
-        <!--<TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/view_day3"
-            android:layout_marginLeft="30dp"
-            android:text="Carta"
-            android:textSize="40sp"
-            android:textStyle="bold" />-->
+            <TextView
+                android:id="@+id/day3_rifiuto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_day3"
+                android:layout_marginLeft="30dp"
+                android:text=""
+                android:textSize="38sp"
+                android:textStyle="bold" />
 
             <View
+                android:id="@+id/circleD3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
@@ -281,27 +287,29 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
 
-        <!--<TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/view_day4"
-            android:text="Umido"
-            android:textStyle="bold"
-            android:textSize="40sp"
-            android:layout_marginLeft="30dp"/>-->
+            <TextView
+                android:id="@+id/day4_rifiuto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_day4"
+                android:text=""
+                android:textStyle="bold"
+                android:textSize="38sp"
+                android:layout_marginLeft="30dp"/>
 
-        <View
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/circle"
-            android:backgroundTint="@color/brownUmido"
-            android:backgroundTintMode="src_over" />
-    </RelativeLayout>
+            <View
+                android:id="@+id/circleD4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/brownUmido"
+                android:backgroundTintMode="src_over" />
+        </RelativeLayout>
 
-    <!--pannello day5-->
+        <!--pannello day5-->
         <RelativeLayout
             android:id="@+id/RLday5"
             android:layout_width="match_parent"
@@ -331,27 +339,29 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
 
-        <!--<TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/view_day5"
-            android:layout_marginLeft="30dp"
-            android:text="Ingombranti"
-            android:textSize="40sp"
-            android:textStyle="bold" />-->
+            <TextView
+                android:id="@+id/day5_rifiuto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_day5"
+                android:layout_marginLeft="30dp"
+                android:text=""
+                android:textSize="38sp"
+                android:textStyle="bold" />
 
-        <View
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/circle"
-            android:backgroundTint="@color/redIngombrante"
-            android:backgroundTintMode="src_over" />
-    </RelativeLayout>
+            <View
+                android:id="@+id/circleD5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/redIngombrante"
+                android:backgroundTintMode="src_over" />
+        </RelativeLayout>
 
-    <!--pannello day6-->
+        <!--pannello day6-->
         <RelativeLayout
             android:id="@+id/RLday6"
             android:layout_width="match_parent"
@@ -381,27 +391,29 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
 
-        <!--<TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/view_day6"
-            android:text="Plastica"
-            android:textStyle="bold"
-            android:textSize="40sp"
-            android:layout_marginLeft="30dp"/>-->
+            <TextView
+                android:id="@+id/day6_rifiuto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_day6"
+                android:text=""
+                android:textStyle="bold"
+                android:textSize="38sp"
+                android:layout_marginLeft="30dp"/>
 
-        <View
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/circle"
-            android:backgroundTint="@color/yellowPlastica"
-            android:backgroundTintMode="src_over" />
-    </RelativeLayout>
+            <View
+                android:id="@+id/circleD6"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/yellowPlastica"
+                android:backgroundTintMode="src_over" />
+        </RelativeLayout>
 
-    <!--pannello day7-->
+        <!--pannello day7-->
         <RelativeLayout
             android:id="@+id/RLday7"
             android:layout_width="match_parent"
@@ -431,16 +443,18 @@
                 android:layout_marginLeft="20dp"
                 android:background="@color/black"/>
 
-            <!--<TextView
+            <TextView
+                android:id="@+id/day7_rifiuto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view_day7"
                 android:layout_marginLeft="30dp"
-                android:text="Carta"
-                android:textSize="40sp"
-                android:textStyle="bold" />-->
+                android:text=""
+                android:textSize="38sp"
+                android:textStyle="bold" />
 
             <View
+                android:id="@+id/circleD7"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
