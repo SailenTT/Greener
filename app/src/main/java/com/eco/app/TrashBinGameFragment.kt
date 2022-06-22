@@ -4,14 +4,22 @@ import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.eco.app.databinding.FragmentTrashBinGameBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlin.math.abs
+import kotlin.properties.Delegates
 import kotlin.random.Random
 
 
@@ -26,6 +34,11 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
         const val horizontalDirection="ballXMovement"
     }
     private lateinit var binding: FragmentTrashBinGameBinding
+    private lateinit var database: FirebaseDatabase
+    private lateinit var auth: FirebaseAuth
+    private lateinit var UID : String
+    private lateinit var bestTrashScore : String
+    private lateinit var userReference : DatabaseReference
     private var xStart= 0.0F
     private lateinit var trashBinContainer: RelativeLayout
     private var score=0
@@ -46,7 +59,10 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         //Inflate the binding for this fragment
         binding= FragmentTrashBinGameBinding.inflate(inflater,container,false)
-
+        auth = FirebaseAuth.getInstance()
+        UID = auth.uid!!
+        database =
+            Firebase.database(RegisterPage.PATHTODB)
         trashBinContainer=binding.trashBinContainer
         trashBinBottomLayer=binding.trashBin
         trashBinTopLayer=binding.trashBinTopLayer
@@ -429,6 +445,17 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
             println("game over")
             //fermo il cestino
             gameRunning=false
+            //salvo il max score nel db
+            userReference = database.getReference("Users")
+            userReference.child(UID).child("bin_score").get().addOnSuccessListener { //getto il tuo max score
+                bestTrashScore = it.value.toString()
+                val bestTrashInt = Integer.parseInt(bestTrashScore) //parsing
+                score  = Integer.parseInt(binding.txtScore.text.toString())
+                if(bestTrashInt < score){ //se il tuo max score è piu piccolo, aggiorno il db
+                    Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
+                    userReference.child(UID).child("bin_score").setValue(score)
+                }
+            }
             (img_falling_sprite.tag as HashMap<String,Any>)[isFalling]=false
             //faccio comparire la schermata di fine
             trashBinContainer.setOnTouchListener(null)
