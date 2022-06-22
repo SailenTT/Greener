@@ -1,5 +1,6 @@
 package com.eco.app
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.eco.app.databinding.FragmentQuizBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -73,7 +75,6 @@ class QuizFragment : Fragment() {
         val randomQuestion = Random.nextInt(10)
         val randomlistButtons = (0..3).shuffled().take(4)
         quizReference = database.getReference("Quiz")
-
         //TODO chiamare una sola volta questo e salvare tutti i valori
         quizReference.get().addOnSuccessListener { snapshot->
             for (i in snapshot.children) {
@@ -177,8 +178,9 @@ class QuizFragment : Fragment() {
         })*/
     }
 
-    fun checkreply(reply: String, correctReply: String, position: Int) {
+    fun checkreply(reply: String, correctReply: String, position: Int){
         if (reply == correctReply) {
+            buttons[position]?.setBackgroundColor(R.color.green2) //TODO aiuto non mi resetta il color
             correct_replies++
             quizQuestionsNumber--
             if (quizQuestionsNumber == 0) {

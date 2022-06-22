@@ -113,7 +113,7 @@ class ProfileFragment : Fragment() {
                 val resized = Bitmap.createScaledBitmap(bitmap,400,400,true)
                 binding.imgProfile.setImageBitmap(resized)
             }.addOnFailureListener{
-                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Errore nella propic", Toast.LENGTH_SHORT).show()
             }
         usersReference.child(UID).get().addOnSuccessListener {
             val username : CharSequence = it.child("username").value as CharSequence
@@ -130,7 +130,7 @@ class ProfileFragment : Fragment() {
                 binding.profileConstraintLayout.visibility = View.VISIBLE
             }
         }.addOnFailureListener{
-            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Error nei dati", Toast.LENGTH_SHORT).show()
         }
 
     }

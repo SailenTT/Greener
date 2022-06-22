@@ -144,7 +144,7 @@ class HomeWindow : AppCompatActivity() {
                         snackbar.anchorView=binding.navBar
                         //tasto per annullare il logout
                         snackbar.setAction("Annulla"){
-                            //settare la callback della snackbar a null
+                            //settare la callback della snackbar a null //todo rivedere snackbar fa schifo
                             snackbar.dismiss()
                         }
                         //quando la snackbar non è più visibile, fa il logout

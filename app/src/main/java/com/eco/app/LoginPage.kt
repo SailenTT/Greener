@@ -18,11 +18,15 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import org.json.JSONException
 
 //TODO eliminare questa activity (perché è stata sostituita dal suo fragment)
 class LoginPage : AppCompatActivity() {
     private lateinit var binding: ActivityLoginPageBinding
+    private lateinit var database: FirebaseDatabase
     private lateinit var auth: FirebaseAuth
     private lateinit var oneTapClient: SignInClient
     private lateinit var signInRequest: BeginSignInRequest
@@ -43,7 +47,7 @@ class LoginPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding=ActivityLoginPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        database = Firebase.database(RegisterPage.PATHTODB)
         callbackManager = CallbackManager.Factory.create()
 
         //assegno l'oggetto grafico della UI alla variabile
@@ -180,23 +184,43 @@ class LoginPage : AppCompatActivity() {
 
     private fun handleFacebookAccessToken(token: AccessToken) {
         Log.d(TAG, "handleFacebookAccessToken:$token")
-
         val credential = FacebookAuthProvider.getCredential(token.token)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show()
                     // Sign in success
                     Log.d(TAG, "signInWithCredential:success")
-                    val userid = auth.currentUser
+                    val userid = token.userId //non uso auth.uid perchè quello cambia, questo no
+                    val bundle = Bundle()
+                    bundle.putString("fields", "id, email, first_name, last_name, gender,age_range")
+                    val request = GraphRequest.newMeRequest(token){fbObject, response ->
+                        try {
+                            val firstName = fbObject?.getString("first_name")
+                            val lastName = fbObject?.getString("last_name")
+
+                            val usersReference = database.getReference("Users")
+                            usersReference.child(userid).child("username").setValue(firstName.toString())
+                            usersReference.child(userid).child("quiz_score").setValue(0)
+                            usersReference.child(userid).child("bin_score").setValue(0)
+                            usersReference.child(userid).child("carbon_footprint").setValue(0)
+
+                        }catch (e: JSONException){
+                            e.printStackTrace()
+                        }
+                    }
+                    request.parameters = bundle
+                    request.executeAsync()
+
                     //TODO redirectare l'utente alla pagina main e qui mettere finish() inoltre togliere dal backstack
                     val intent = Intent(this,HomeWindow::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    startActivity(intent)
+                    //startActivity(intent)
                 } else {
                     // Sign in fail
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     Toast.makeText(
-                        baseContext, "Authentication failed.",
+                        this, "Authentication failed.",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

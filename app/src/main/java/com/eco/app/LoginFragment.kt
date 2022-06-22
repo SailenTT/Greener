@@ -20,10 +20,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.eco.app.databinding.FragmentLoginBinding
-import com.facebook.AccessToken
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
+import com.facebook.*
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
@@ -36,11 +33,15 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import org.json.JSONException
 
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var database: FirebaseDatabase
     private lateinit var auth: FirebaseAuth
     private lateinit var oneTapClient: SignInClient
     private lateinit var signInRequest: BeginSignInRequest
@@ -65,7 +66,7 @@ class LoginFragment : Fragment() {
 
         loginPageContainer=binding.loginPageContainer
         progressBar=binding.progressBar
-
+        database = Firebase.database(RegisterPage.PATHTODB)
         callbackManager = CallbackManager.Factory.create()
 
         //assegno l'oggetto grafico della UI alla variabile
@@ -206,26 +207,43 @@ class LoginFragment : Fragment() {
 
     private fun handleFacebookAccessToken(token: AccessToken) {
         Log.d(ContentValues.TAG, "handleFacebookAccessToken:$token")
-
         val credential = FacebookAuthProvider.getCredential(token.token)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
+                    Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
                     // Sign in success
                     Log.d(ContentValues.TAG, "signInWithCredential:success")
-                    //val userid = auth.currentUser
-                    /*val intent = Intent(requireContext(),HomeWindow::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    startActivity(intent)*/
-                    Toast.makeText(requireContext(), "Login Effettuato", Toast.LENGTH_SHORT)
-                        .show()
-                    goBackToHomepage()
+                    val userid = token.userId //non uso auth.uid perchè quello cambia, questo no
+                    val bundle = Bundle()
+                    bundle.putString("fields", "id, email, first_name, last_name, gender,age_range")
+                    val request = GraphRequest.newMeRequest(token){ fbObject, response ->
+                        try {
+                            val firstName = fbObject?.getString("first_name")
+                            val lastName = fbObject?.getString("last_name")
 
+                            val usersReference = database.getReference("Users")
+                            usersReference.child(userid).child("username").setValue(firstName.toString())
+                            usersReference.child(userid).child("quiz_score").setValue(0)
+                            usersReference.child(userid).child("bin_score").setValue(0)
+                            usersReference.child(userid).child("carbon_footprint").setValue(0)
+
+                        }catch (e: JSONException){
+                            e.printStackTrace()
+                        }
+                    }
+                    request.parameters = bundle
+                    request.executeAsync()
+
+                    //TODO redirectare l'utente alla pagina main e qui mettere finish() inoltre togliere dal backstack
+                    val intent = Intent(context,HomeWindow::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    //startActivity(intent)
                 } else {
                     // Sign in fail
                     Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
                     Toast.makeText(
-                        requireContext(), "Authentication failed.",
+                        context, "Authentication failed.",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
