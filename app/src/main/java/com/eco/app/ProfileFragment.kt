@@ -30,8 +30,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.util.*
-import kotlin.properties.Delegates
 
 
 class ProfileFragment : Fragment() {
@@ -107,20 +105,16 @@ class ProfileFragment : Fragment() {
     }
 
     private fun getInfos(usersReference : DatabaseReference, UID : String) {
-        Thread{
             val filename = UID
             val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
             val localfile = File.createTempFile("tempImage","jpg")
             storageReference.getFile(localfile).addOnSuccessListener {
                 val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-                val image =  context?.let { it1 -> getImageUri(it1,bitmap) }
-                val bitmapResized = context?.let { it1 -> decodeUri(it1,image,230) }
-                binding.imgProfile.setImageBitmap(bitmapResized)
+                val resized = Bitmap.createScaledBitmap(bitmap,400,400,true)
+                binding.imgProfile.setImageBitmap(resized)
             }.addOnFailureListener{
                 Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
-            }//todo gettare immagine profilo dal server una volta uppata
-
-        }.start()
+            }
         usersReference.child(UID).get().addOnSuccessListener {
             val username : CharSequence = it.child("username").value as CharSequence
             val binScore : Long= it.child("bin_score").value as Long
@@ -139,14 +133,6 @@ class ProfileFragment : Fragment() {
             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
         }
 
-    }
-
-    fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
-        val bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path =
-            MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
-        return Uri.parse(path)
     }
 
 
