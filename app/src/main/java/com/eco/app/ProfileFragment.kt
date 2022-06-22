@@ -6,18 +6,17 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.media.Image
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
@@ -29,12 +28,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.ktx.storage
 import java.io.ByteArrayOutputStream
-import java.net.URI
-import java.text.SimpleDateFormat
+import java.io.File
 import java.util.*
+import kotlin.properties.Delegates
 
 
 class ProfileFragment : Fragment() {
@@ -44,7 +41,6 @@ class ProfileFragment : Fragment() {
     private lateinit var storage : FirebaseStorage
     private lateinit var imguri : Uri
     private lateinit var UID : String
-
     //CONTRATTI
     val register = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
@@ -71,7 +67,7 @@ class ProfileFragment : Fragment() {
         if(user==null){
             Log.i("LoginInfo","Non sei loggato")
         }else{
-             UID = user.uid
+            UID = user.uid
             getInfos(usersReference,UID)
             binding.imgProfile.setOnClickListener {
                 checkPermissionForImage()
@@ -110,7 +106,21 @@ class ProfileFragment : Fragment() {
         return BitmapFactory.decodeStream(uri?.let { c.getContentResolver().openInputStream(it) }, null, o2)
     }
 
-    private fun getInfos(usersReference : DatabaseReference, UID : String) { //todo finire con regole aperte
+    private fun getInfos(usersReference : DatabaseReference, UID : String) {
+        Thread{
+            val filename = UID
+            val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
+            val localfile = File.createTempFile("tempImage","jpg")
+            storageReference.getFile(localfile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                val image =  context?.let { it1 -> getImageUri(it1,bitmap) }
+                val bitmapResized = context?.let { it1 -> decodeUri(it1,image,230) }
+                binding.imgProfile.setImageBitmap(bitmapResized)
+            }.addOnFailureListener{
+                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+            }//todo gettare immagine profilo dal server una volta uppata
+
+        }.start()
         usersReference.child(UID).get().addOnSuccessListener {
             val username : CharSequence = it.child("username").value as CharSequence
             val binScore : Long= it.child("bin_score").value as Long
@@ -131,6 +141,15 @@ class ProfileFragment : Fragment() {
 
     }
 
+    fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path =
+            MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
+        return Uri.parse(path)
+    }
+
+
     private fun checkPermissionForImage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if ((checkSelfPermission(requireContext(),Manifest.permission.READ_EXTERNAL_STORAGE) == PermissionChecker.PERMISSION_DENIED)
@@ -148,7 +167,15 @@ class ProfileFragment : Fragment() {
                     1002
                 ) // GIVE AN INTEGER VALUE FOR PERMISSION_CODE_WRITE LIKE 1002
             } else {
-                pickImage()
+                val changePicDialog= AlertDialog.Builder(context!!)
+                changePicDialog.setMessage("Vuoi cambiare immagine?")
+                changePicDialog.setNegativeButton("No"){dialog,_ ->
+                    dialog.dismiss()
+                }
+                changePicDialog.setPositiveButton("Si"){dialog,_ ->
+                    pickImage()
+                }
+                changePicDialog.show()
             }
         }
     }

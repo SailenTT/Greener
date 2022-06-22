@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.eco.app.databinding.FragmentQuizBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -18,6 +19,9 @@ import kotlin.random.Random
 
 //TODO convertire su firebase le domande del quiz da stringhe ad id per poi prendere la domanda di id corrispondente nel file strings.xml (per ottimizzare la traduzione)
 class QuizFragment : Fragment() {
+    private lateinit var auth: FirebaseAuth
+    private lateinit var UID : String
+    private lateinit var bestQuizScore : String
     private lateinit var binding: FragmentQuizBinding
     private lateinit var database: FirebaseDatabase
     private lateinit var buttons: Array<Button?>
@@ -26,6 +30,7 @@ class QuizFragment : Fragment() {
     private lateinit var correctreply: String
     private lateinit var getQuizDataListener: ValueEventListener
     private lateinit var quizReference: DatabaseReference
+    private lateinit var userReference : DatabaseReference
     private var quizQuestionsNumber: Int = 10
     var quizList = arrayListOf<Question>()
     val resultFragment = ResultQuizFragment()
@@ -47,6 +52,8 @@ class QuizFragment : Fragment() {
 
         database =
             Firebase.database(RegisterPage.PATHTODB)
+        auth = FirebaseAuth.getInstance()
+        UID = auth.uid!!
 
         //getto i button in un array per comodità
         buttons = getButtons()
@@ -171,7 +178,6 @@ class QuizFragment : Fragment() {
 
     fun checkreply(reply: String, correctReply: String, position: Int) {
         if (reply == correctReply) {
-            //Toast.makeText(requireActivity(), "RISPOSTA ESATTA", Toast.LENGTH_SHORT).show()
             correct_replies++
             quizQuestionsNumber--
             if (quizQuestionsNumber == 0) {
@@ -179,9 +185,16 @@ class QuizFragment : Fragment() {
             }
             setQuiz(txt_question, buttons)
         } else {
-            //Toast.makeText(requireActivity(), "RISPOSTA ERRATA", Toast.LENGTH_SHORT).show()
             quizQuestionsNumber--
-            if (quizQuestionsNumber == 0) {
+            if (quizQuestionsNumber == 0) { //se sei a fine quiz
+                userReference = database.getReference("Users")
+                userReference.child(UID).child("quiz_score").get().addOnSuccessListener { //getto il tuo max questions corrette
+                    bestQuizScore = it.value.toString()
+                    val bestQuizInt = Integer.parseInt(bestQuizScore) //parsing
+                    if(bestQuizInt < correct_replies){ //se il tuo max score è piu piccolo, aggiorno il db
+                        userReference.child(UID).child("quiz_score").setValue(correct_replies)
+                    }
+                }
                 replaceFragment(resultFragment)
             }
             setQuiz(txt_question, buttons)
