@@ -49,7 +49,6 @@ class CalendarFragment : Fragment() {
         mese = binding.txtMese
         btnData = binding.btnDataCalendar
 
-        //richiamo le funzioni per settare tutti i dati all'interno del calendar
         setMonth()
         setWeekDays()
         setSharedPref()
@@ -234,7 +233,6 @@ class CalendarFragment : Fragment() {
         else if(binding.day7Rifiuto.text.equals("--")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}
 
     }
-
     fun saveSharedPref(){
 
         val SHARED_PREFS = "sharedPrefsCalendar"

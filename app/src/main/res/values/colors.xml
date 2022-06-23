@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--palette colori generale-->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -17,12 +19,14 @@
     <color name="blue2">#7A8BF4</color>
     <color name="green2">#DDEEDF</color>
 
+    <!--palette colori per rifiuti-->
     <color name="greenVetro">#47844E</color>
     <color name="blueCarta">#32A4F4</color>
     <color name="brownUmido">#695206</color>
     <color name="yellowPlastica">#EBDC37</color>
     <color name="redIngombrante">#d64d2e</color>
 
+    <!--palette colori scala di grigi-->
     <color name="colo1">#eaeaea</color>
     <color name="colo2">#dedede</color>
     <color name="colo3">#cecece</color>
@@ -32,5 +36,8 @@
     <color name="colo7">#838383</color>
 
     <color name="sfondo">#D1D9D9</color>
+
+    <!--palette colori per carbonfootprint-->
+    <color name="bg1CFP">#A4C745</color>
 
 </resources>

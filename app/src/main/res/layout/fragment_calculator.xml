@@ -1,14 +1,339 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#A9BCDF"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CalculatorFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/linear1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="calcolatore" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <!--RL padre e contenitore Journey Mode-->
+        <RelativeLayout
+            android:id="@+id/RL_Padre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#A9BCDF"
+            android:elevation="8dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img1footprint"
+                android:layout_width="match_parent"
+                android:scaleType="centerCrop"
+                android:layout_height="250dp"
+                android:layout_marginTop="0dp"
+                android:elevation="8dp"
+                app:shapeAppearanceOverlay="@style/roundedCorners"
+                app:srcCompat="@drawable/bg_footprint" />
+
+            <TextView
+                android:id="@+id/txt_journeyMode"
+                android:layout_width="270dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/img1footprint"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
+                android:text="Journey Mode"
+                android:textSize="35sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_info1"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/txt_journeyMode"
+                android:layout_marginLeft="25dp"
+                android:text="Seleziona il metodo di trasporto che utilizzi più spesso."
+                android:textSize="17sp"
+                android:textStyle="normal" />
+
+            <!--RL generale-->
+            <RelativeLayout
+                android:id="@+id/RLgenerale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_info1"
+                android:layout_margin="10dp"
+                android:background="@drawable/txb_background">
+
+                <!--RL che contiene la gridV-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:elevation="8dp"
+                    android:background="@drawable/txb_background">
+
+                    <GridLayout
+                        android:layout_width="380dp"
+                        android:layout_height="270dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="20dp"
+                        android:columnCount="3"
+                        android:rowCount="2">
+
+                        <!--CARD auto-->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvAuto"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:layout_margin="5dp"
+                            android:checkable="true"
+                            android:clickable="true"
+                            android:focusable="true"
+                            app:cardBackgroundColor="@color/yellowPlastica"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="3dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_centerInParent="true"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/car_footprint" />
+
+                            </RelativeLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!--CARD bus-->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvBus"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:layout_margin="5dp"
+                            android:checkable="true"
+                            android:clickable="true"
+                            android:focusable="true"
+                            app:cardBackgroundColor="#BBE0F8"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="3dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_centerInParent="true"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/bus_footprint" />
+
+                            </RelativeLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!--CARD treno-->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvTrain"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:layout_margin="5dp"
+                            android:checkable="true"
+                            android:clickable="true"
+                            android:focusable="true"
+                            app:cardBackgroundColor="#D9E0EE"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="3dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_centerInParent="true"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/train_footprint" />
+
+                            </RelativeLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!--CARD taxi-->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvTaxi"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:layout_margin="5dp"
+                            android:checkable="true"
+                            android:clickable="true"
+                            android:focusable="true"
+                            app:cardBackgroundColor="#D9EDF2"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="3dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_centerInParent="true"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/taxi_footprint" />
+
+                            </RelativeLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!--CARD moto-->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvMoto"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:layout_margin="5dp"
+                            android:checkable="true"
+                            android:clickable="true"
+                            android:focusable="true"
+                            app:cardBackgroundColor="#BAC7BE"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="3dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_centerInParent="true"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/moto_footprint" />
+
+                            </RelativeLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!--CARD a piedi-->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvWalk"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:layout_margin="5dp"
+                            android:checkable="true"
+                            android:clickable="true"
+                            android:focusable="true"
+                            app:cardBackgroundColor="#ECF4FA"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="3dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_centerInParent="true"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/walk_footprint" />
+
+                            </RelativeLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </GridLayout>
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+            <!--<Button
+                android:id="@+id/btn_prova"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/RLgenerale"
+                android:text="calcola"/>-->
+
+            <!--RL contenitore Journey Time-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:layout_below="@id/RLgenerale"
+                android:background="@drawable/txb_background"
+                android:backgroundTint="#344779">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/img2footprint"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:scaleType="centerCrop"
+                    android:elevation="8dp"
+                    android:layout_marginTop="0dp"
+                    app:shapeAppearanceOverlay="@style/roundedCorners"
+                    app:srcCompat="@drawable/road_bg_footprint"/>
+
+                <TextView
+                    android:id="@+id/txt_journeyMode2"
+                    android:layout_width="270dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/img2footprint"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Journey Time"
+                    android:textSize="35sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_info2"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/txt_journeyMode2"
+                    android:layout_marginLeft="25dp"
+                    android:text="Di media, quanto tempo spendi al giorno viaggiando?"
+                    android:textSize="17sp"
+                    android:textStyle="normal" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_below="@id/txt_info2"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/txb_background">
+
+                    <!--TODO continuare da qui-->
+                    <TextView
+                        android:layout_width="300dp"
+                        android:layout_height="100dp"
+                        android:text="TO BE CONTINUED.."
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:textAlignment="center"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

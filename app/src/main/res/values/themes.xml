@@ -38,4 +38,10 @@
     <style name="mySwitch">
         <item name="android:colorControlActivated">@color/greenVetro</item>
     </style>
+
+    <style name="roundedCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">25dp</item>
+    </style>
+
 </resources>
