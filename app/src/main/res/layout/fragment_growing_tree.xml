@@ -13,4 +13,15 @@
 
         android:src="@drawable/growing_tree_wallpaper" />
 
+    <TextView
+        android:id="@+id/total_steps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="66dp"
+        android:text="0"
+        android:textSize="34sp" />
+
 </RelativeLayout>

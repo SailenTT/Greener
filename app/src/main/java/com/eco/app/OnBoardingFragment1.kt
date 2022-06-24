@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 
 class OnBoardingFragment1 : Fragment() {
 
-    private lateinit var txtSkip : TextView
+    private lateinit var txtSkip: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,26 +21,23 @@ class OnBoardingFragment1 : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_on_boarding1, container, false) as ViewGroup
         txtSkip = root.findViewById(R.id.txt_skip1)
-        val skipped = checkSkip();
-        if (skipped == 1){
-            val intent= Intent(activity,First_Activity::class.java)
+        txtSkip.setOnClickListener(View.OnClickListener {
+            val sharedPreferences =
+                activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+            val editor = sharedPreferences?.edit()
+            editor?.apply {
+                putInt("skip", 1);
+            }?.apply()
+            val intent = Intent(activity, First_Activity::class.java)
             startActivity(intent)
-        }else{
-            txtSkip.setOnClickListener(View.OnClickListener {
-                val sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-                val editor = sharedPreferences?.edit()
-                editor?.apply {
-                    putInt("skip",1);
-                }?.apply()
-                val intent= Intent(activity,First_Activity::class.java)
-                startActivity(intent)
-            })
-        }
+        })
+
         return root
     }
-    private  fun checkSkip(): Int {
+
+    private fun checkSkip(): Int {
         val sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-        val skipped = sharedPreferences!!.getInt("skip",0)
+        val skipped = sharedPreferences!!.getInt("skip", 0)
         return skipped
     }
 }

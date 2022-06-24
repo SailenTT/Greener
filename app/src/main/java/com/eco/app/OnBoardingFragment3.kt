@@ -12,8 +12,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class OnBoardingFragment3 : Fragment() {
 
-    private lateinit var btnEndIntro : FloatingActionButton
-    private lateinit var txtSkip : TextView
+    private lateinit var btnEndIntro: FloatingActionButton
+    private lateinit var txtSkip: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,34 +23,25 @@ class OnBoardingFragment3 : Fragment() {
         val root = inflater.inflate(R.layout.fragment_on_boarding3, container, false) as ViewGroup
         btnEndIntro = root.findViewById(R.id.btn_endIntro)
         txtSkip = root.findViewById(R.id.txt_skip3)
-        val skipped = checkSkip();
-        if(skipped == 1){
-            val intent= Intent(activity,First_Activity::class.java)
+        btnEndIntro.setOnClickListener(View.OnClickListener {
+            val intent = Intent(activity, First_Activity::class.java)
             startActivity(intent)
-        }else{
-            btnEndIntro.setOnClickListener(View.OnClickListener {
-                val intent=Intent(activity,First_Activity::class.java)
-                startActivity(intent)
-            })
+        })
 
-            txtSkip.setOnClickListener(View.OnClickListener {
-                val sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-                val editor = sharedPreferences?.edit()
-                editor?.apply {
-                    putInt("skip",1);
-                }?.apply()
+        txtSkip.setOnClickListener(View.OnClickListener {
+            val sharedPreferences =
+                activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+            val editor = sharedPreferences?.edit()
+            editor?.apply {
+                putInt("skip", 1);
+            }?.apply()
 
-                val intent=Intent(activity,First_Activity::class.java)
-                startActivity(intent)
-            })
-        }
+            val intent = Intent(activity, First_Activity::class.java)
+            startActivity(intent)
+        })
+
 
 
         return root
-    }
-    private  fun checkSkip(): Int {
-        val sharedPreferences = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-        val skipped = sharedPreferences!!.getInt("skip",0)
-        return skipped
     }
 }

@@ -2,12 +2,14 @@ package com.eco.app
 
 import android.R
 import android.animation.Animator
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -63,6 +65,12 @@ class IntroductorActivity : AppCompatActivity() {
         logo.animate().translationY(2800f).setDuration(1400).setStartDelay(3500)
         lottie.animate().translationY(1600f).setDuration(1400).setStartDelay(3500)
 
+        /*val skipped = checkSkip(); //TODO integrare questo
+        if (skipped == 1) {
+            val intent = Intent(this, First_Activity::class.java)
+            startActivity(intent)
+        }
+        */
 
         //TODO ho messo questo nel btnFineIntro
         //TODO quindi possiamo toglierlo
@@ -80,6 +88,12 @@ class IntroductorActivity : AppCompatActivity() {
             override fun onAnimationRepeat(animator: Animator) {}
         })*/
     }
+
+   /* private  fun checkSkip(): Int { //TODO integrare anche questo
+        val sharedPreferences = this.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val skipped = sharedPreferences!!.getInt("skip",0)
+        return skipped
+    }*/
 
     class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
@@ -104,4 +118,10 @@ class IntroductorActivity : AppCompatActivity() {
             return NUM_PAGES
         }
     }
+
+
+
+
+
+
 }
