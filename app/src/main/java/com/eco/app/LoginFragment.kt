@@ -40,6 +40,7 @@ import org.json.JSONException
 
 
 class LoginFragment : Fragment() {
+    //TODO EVITARE DOPPI LOGIN GOOGLE FACEBOOK FIREBASE
     private lateinit var binding: FragmentLoginBinding
     private lateinit var database: FirebaseDatabase
     private lateinit var auth: FirebaseAuth
@@ -223,7 +224,7 @@ class LoginFragment : Fragment() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
+                   //Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
                     // Sign in success
                     Log.d(ContentValues.TAG, "signInWithCredential:success")
                     val userid = token.userId //non uso auth.uid perchè quello cambia, questo no
@@ -233,7 +234,6 @@ class LoginFragment : Fragment() {
                         try {
                             val firstName = fbObject?.getString("first_name")
                             val lastName = fbObject?.getString("last_name")
-
                             val usersReference = database.getReference("Users")
                             usersReference.child(userid).child("username").setValue(firstName.toString())
                             usersReference.child(userid).child("quiz_score").setValue(0)

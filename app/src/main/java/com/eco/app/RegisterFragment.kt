@@ -1,19 +1,20 @@
 package com.eco.app
 
-import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.eco.app.databinding.FragmentRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 
 class RegisterFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
@@ -71,14 +72,16 @@ class RegisterFragment : Fragment() {
 
                 auth.createUserWithEmailAndPassword(email, psw).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(requireContext(), "Utente registrato correttamente", Toast.LENGTH_SHORT)
-                            .show()
+                      //  Toast.makeText(requireContext(), "Utente registrato correttamente", Toast.LENGTH_SHORT).show()
                         val userUid = task.result.user!!.uid
                         val usersReference = database.getReference("Users")
                         usersReference.child(userUid).child("username").setValue(name)
                         usersReference.child(userUid).child("quiz_score").setValue(0)
                         usersReference.child(userUid).child("bin_score").setValue(0)
                         usersReference.child(userUid).child("carbon_footprint").setValue(0)
+                        uploadToStorageDefaultProfilePic(userUid)
+
+
                     } else {
                         Toast.makeText(requireContext(), "Errore nella registrazione", Toast.LENGTH_SHORT).show()
                     }
@@ -89,6 +92,16 @@ class RegisterFragment : Fragment() {
             }
         }else{
             Toast.makeText(context, "Sei già loggato con facebook", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun uploadToStorageDefaultProfilePic(UID : String){
+        val uri = Uri.parse("android.resource://" + context!!.packageName.toString() + "/drawable/pollo_mangiato")
+        val filename = UID
+        val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
+        storageReference.putFile(uri).addOnSuccessListener {
+            Toast.makeText(context, "Foto uppata", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener{
+            Toast.makeText(context, "Non uppata la foto", Toast.LENGTH_SHORT).show()
         }
     }
 

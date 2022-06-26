@@ -21,6 +21,7 @@ import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.eco.app.databinding.FragmentProfileBinding
+import com.facebook.AccessToken
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -38,6 +39,7 @@ class ProfileFragment : Fragment() {
     private lateinit var database: FirebaseDatabase
     private lateinit var storage : FirebaseStorage
     private lateinit var imguri : Uri
+    private lateinit var facebookAccessToken : AccessToken
     private lateinit var UID : String
     //CONTRATTI
     val register = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -57,6 +59,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding=FragmentProfileBinding.inflate(inflater,container,false)
+
         binding.profileShimmer.startShimmer()
         auth = Firebase.auth
         val user = auth.currentUser;
@@ -80,9 +83,9 @@ class ProfileFragment : Fragment() {
         val filename = UID
         val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
         storageReference.putFile(imguri).addOnSuccessListener {
-            Toast.makeText(context, "YES", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Foto uppata", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener{
-            Toast.makeText(context, "NO", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Non uppata la foto", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -105,35 +108,56 @@ class ProfileFragment : Fragment() {
     }
 
     private fun getInfos(usersReference : DatabaseReference, UID : String) {
-            val filename = UID
-            val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
-            val localfile = File.createTempFile("tempImage","jpg")
-            storageReference.getFile(localfile).addOnSuccessListener {
-                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-                val resized = Bitmap.createScaledBitmap(bitmap,400,400,true)
-                binding.imgProfile.setImageBitmap(resized)
-            }.addOnFailureListener{
-                Toast.makeText(context, "Errore nella propic", Toast.LENGTH_SHORT).show()
-            }
+            if(LoginPage.checkFacebookLogin()){
+                facebookAccessToken = AccessToken.getCurrentAccessToken()!!
+                val userId = facebookAccessToken.userId
+                usersReference.child(userId).get().addOnSuccessListener {
+                    val username : CharSequence = it.child("username").value as CharSequence
+                    val binScore : Long= it.child("bin_score").value as Long
+                    val quizScore : Long = it.child("quiz_score").value as Long
+                    val carbonFootprint : Long = it.child("carbon_footprint").value as Long
+                    binding.tvName.text = username
+                    binding.tvQuizscore.text = "Quiz score: $quizScore"
+                    binding.tvTrashscore.text = "Trash bin score: $binScore"
+                    binding.tvCarbon.text = "Carboon footprint: $carbonFootprint"
+                    if(binding.profileShimmer.isShimmerStarted){
+                        binding.profileShimmer.stopShimmer()
+                        binding.profileShimmer.visibility = View.INVISIBLE
+                        binding.profileConstraintLayout.visibility = View.VISIBLE
+                    }
+                }.addOnFailureListener{
+                    Toast.makeText(context, "Error nei dati", Toast.LENGTH_SHORT).show()
+                }
+            }else if (auth.currentUser != null){
+                val filename = UID
+                val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
+                val localfile = File.createTempFile("tempImage","jpg")
+                storageReference.getFile(localfile).addOnSuccessListener {
+                    val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                    val resized = Bitmap.createScaledBitmap(bitmap,400,400,true)
+                    binding.imgProfile.setImageBitmap(resized)
+                }.addOnFailureListener{
+                    Toast.makeText(context, "Errore nella propic", Toast.LENGTH_SHORT).show()
+                }
 
-        usersReference.child(UID).get().addOnSuccessListener {
-            val username : CharSequence = it.child("username").value as CharSequence
-            val binScore : Long= it.child("bin_score").value as Long
-            val quizScore : Long = it.child("quiz_score").value as Long
-            val carbonFootprint : Long = it.child("carbon_footprint").value as Long
-            binding.tvName.text = username
-            binding.tvQuizscore.text = "Quiz score: $quizScore"
-            binding.tvTrashscore.text = "Trash bin score: $binScore"
-            binding.tvCarbon.text = "Carboon footprint: $carbonFootprint"
-            if(binding.profileShimmer.isShimmerStarted){
-                binding.profileShimmer.stopShimmer()
-                binding.profileShimmer.visibility = View.INVISIBLE
-                binding.profileConstraintLayout.visibility = View.VISIBLE
+                usersReference.child(UID).get().addOnSuccessListener {
+                    val username : CharSequence = it.child("username").value as CharSequence
+                    val binScore : Long= it.child("bin_score").value as Long
+                    val quizScore : Long = it.child("quiz_score").value as Long
+                    val carbonFootprint : Long = it.child("carbon_footprint").value as Long
+                    binding.tvName.text = username
+                    binding.tvQuizscore.text = "Quiz score: $quizScore"
+                    binding.tvTrashscore.text = "Trash bin score: $binScore"
+                    binding.tvCarbon.text = "Carboon footprint: $carbonFootprint"
+                    if(binding.profileShimmer.isShimmerStarted){
+                        binding.profileShimmer.stopShimmer()
+                        binding.profileShimmer.visibility = View.INVISIBLE
+                        binding.profileConstraintLayout.visibility = View.VISIBLE
+                    }
+                }.addOnFailureListener{
+                    Toast.makeText(context, "Error nei dati", Toast.LENGTH_SHORT).show()
+                }
             }
-        }.addOnFailureListener{
-            Toast.makeText(context, "Error nei dati", Toast.LENGTH_SHORT).show()
-        }
-
     }
 
 
