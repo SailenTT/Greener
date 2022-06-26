@@ -283,34 +283,11 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
                     //.rotationBy(280F)
                     .setDuration(defaultSpeed)
                     .withEndAction {
-                        if((img_falling_sprite.tag as HashMap<String,Any>)[isFalling]==true&&gameRunning) {
-                            spawnThread.interrupt()
-                            println("game over")
-                            //fermo il cestino
-                            (img_falling_sprite.tag as HashMap<String,Any>)[isFalling] = false
-                            gameRunning=false
-                            //faccio comparire la schermata di fine
-                            img_falling_sprite.setOnTouchListener(null)
-                            binding.txtFinalScore.text = "Hai fatto " + score.toString() + " punti"
-                            score=0
-                            binding.restartGameButton.setOnClickListener { startGame() }
-                            binding.gameOverScreen.visibility = View.VISIBLE
-                            binding.root.removeView(img_falling_sprite)
-                        }
+                        gameOver(img_falling_sprite)
                     }
-                spriteAnimation.setUpdateListener {value->
+                spriteAnimation.setUpdateListener {
                     //controllo se non sta più cadendo
-                    if(gameRunning) {
-                        if ((img_falling_sprite.tag as HashMap<String,Any>)[isFalling]== false) {
-                            objectCatched(img_falling_sprite)
-                        }
-                    }
-                    else{
-                        (img_falling_sprite.tag as HashMap<String,Any>)[isFalling]=false
-                        img_falling_sprite.clearAnimation()
-                        img_falling_sprite.animate().setUpdateListener(null)
-                        binding.root.removeView(img_falling_sprite)
-                    }
+                    spriteStatusCheck(img_falling_sprite)
                 }
 
                 if(score>=10){
@@ -326,35 +303,38 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
 
                 //Thread che rileva la collisione
                 img_falling_sprite.post {
-                    Thread {
-                        //uso il tag per dire se l'oggetto sta cadendo o no
-                        while ((img_falling_sprite.tag as HashMap<String,Any>)[isFalling] == true) {
-                            val id=(img_falling_sprite.tag as HashMap<String,Any>)[wasteType]
-                            //print("y=${img_falling_sprite.y}; height=${img_falling_sprite.height}; linear.y=${binding.linearLayout.y}")
-                            if (img_falling_sprite.y + img_falling_sprite.height >= trashesContainerLayout.y+(trashesContainerLayout.height/8) && img_falling_sprite.y + img_falling_sprite.height <= trashesContainerLayout.y + (trashesContainerLayout.height / 4)) {
-                                print("id=$id")
-                                if ((img_falling_sprite.x >= paperBinContainer.x && img_falling_sprite.x <= paperBinContainer.x + paperBinContainer.width) || (img_falling_sprite.x + img_falling_sprite.width >= paperBinContainer.x && img_falling_sprite.x + img_falling_sprite.width <= paperBinContainer.x + paperBinContainer.width)) {
-                                    if(id==0) {
-                                        (img_falling_sprite.tag as HashMap<String, Any>)[isFalling] = false
-                                    }
-                                    //TODO mettere la roba per il rifiuto sbagliato
-                                }
-                                if ((img_falling_sprite.x >= plasticBinContainer.x && img_falling_sprite.x <= plasticBinContainer.x + plasticBinContainer.width) || (img_falling_sprite.x + img_falling_sprite.width >= plasticBinContainer.x && img_falling_sprite.x + img_falling_sprite.width <= plasticBinContainer.x + plasticBinContainer.width)) {
-                                    if(id==1) {
-                                        (img_falling_sprite.tag as HashMap<String, Any>)[isFalling] = false
-                                    }
-                                }
-                                if ((img_falling_sprite.x >= organicBinContainer.x && img_falling_sprite.x <= organicBinContainer.x + organicBinContainer.width) || (img_falling_sprite.x + img_falling_sprite.width >= organicBinContainer.x && img_falling_sprite.x + img_falling_sprite.width <= organicBinContainer.x + organicBinContainer.width)) {
-                                    if(id==2) {
-                                        (img_falling_sprite.tag as HashMap<String, Any>)[isFalling] = false
-                                    }
-                                }
-                            }
-                        }
-                    }.start()
+                    checkSpriteCollision(img_falling_sprite)
                 }
             }
 
+        }
+    }
+
+
+    fun checkSpriteCollision(img_falling_sprite: ImageView){
+        Thread {
+            //uso il tag per dire se l'oggetto sta cadendo o no
+            while ((img_falling_sprite.tag as HashMap<String,Any>)[isFalling] == true) {
+                val id=(img_falling_sprite.tag as HashMap<String,Any>)[wasteType]
+                //print("y=${img_falling_sprite.y}; height=${img_falling_sprite.height}; linear.y=${binding.linearLayout.y}")
+                if (img_falling_sprite.y + img_falling_sprite.height >= trashesContainerLayout.y+(trashesContainerLayout.height/8) && img_falling_sprite.y + img_falling_sprite.height <= trashesContainerLayout.y + (trashesContainerLayout.height / 4)) {
+                    (img_falling_sprite.tag as HashMap<String, Any>)[isFalling] = false
+                }
+            }
+        }.start()
+    }
+
+    fun spriteStatusCheck(img_falling_sprite: ImageView){
+        if(gameRunning) {
+            if ((img_falling_sprite.tag as HashMap<String,Any>)[isFalling]== false) {
+                objectCatched(img_falling_sprite)
+            }
+        }
+        else{
+            (img_falling_sprite.tag as HashMap<String,Any>)[isFalling]=false
+            img_falling_sprite.clearAnimation()
+            img_falling_sprite.animate().setUpdateListener(null)
+            binding.root.removeView(img_falling_sprite)
         }
     }
 
@@ -362,10 +342,54 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
         val animation=img_falling_sprite.animate()
         img_falling_sprite.clearAnimation()
         animation.setUpdateListener(null)
-        score++
-        binding.txtScore.text = score.toString()
 
-        //lottie.playAnimation()
+        var correctBin=false
+
+        val id=(img_falling_sprite.tag as HashMap<String,Any>)[wasteType] as Int
+
+        when(id){
+            0-> {
+                if ((img_falling_sprite.x >= paperBinContainer.x && img_falling_sprite.x <= paperBinContainer.x + paperBinContainer.width) || (img_falling_sprite.x + img_falling_sprite.width >= paperBinContainer.x && img_falling_sprite.x + img_falling_sprite.width <= paperBinContainer.x + paperBinContainer.width)) {
+                    correctBin = true
+                    binding.paperTrashIcon.animate()
+                        .rotation(360F)
+                        .setDuration(450)
+                        .start()
+
+                    animation
+                        .translationX(paperBinContainer.x + (paperBinContainer.width / 2) - (img_falling_sprite.width / 2))
+                }
+            }
+            1-> {
+                if ((img_falling_sprite.x >= plasticBinContainer.x && img_falling_sprite.x <= plasticBinContainer.x + plasticBinContainer.width) || (img_falling_sprite.x + img_falling_sprite.width >= plasticBinContainer.x && img_falling_sprite.x + img_falling_sprite.width <= plasticBinContainer.x + plasticBinContainer.width)) {
+                    correctBin = true
+                    binding.plasticTrashIcon.animate()
+                        .rotation(360F)
+                        .setDuration(450)
+                        .start()
+
+                    animation
+                        .translationX(plasticBinContainer.x + (plasticBinContainer.width / 2) - (img_falling_sprite.width / 2))
+                }
+            }
+            2-> {
+                if ((img_falling_sprite.x >= organicBinContainer.x && img_falling_sprite.x <= organicBinContainer.x + organicBinContainer.width) || (img_falling_sprite.x + img_falling_sprite.width >= organicBinContainer.x && img_falling_sprite.x + img_falling_sprite.width <= organicBinContainer.x + organicBinContainer.width)) {
+                    correctBin=true
+                    binding.organicTrashIcon.animate()
+                        .rotation(360F)
+                        .setDuration(450)
+                        .start()
+
+                    animation
+                        .translationX(organicBinContainer.x + (organicBinContainer.width / 2) - (img_falling_sprite.width / 2))
+                }
+            }
+        }
+
+        if(correctBin){
+            score++
+            binding.txtScore.text = score.toString()
+        }
 
         animation
             .alpha(1f)
@@ -373,38 +397,28 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
             .translationY(trashesContainerLayout.y + img_falling_sprite.height)
             .withEndAction {
                 binding.root.removeView(img_falling_sprite)
+                if(!correctBin){
+                    gameOver(img_falling_sprite)
+                }
             }
-
-        when((img_falling_sprite.tag as HashMap<String,Any>)[wasteType]){
-            0->{
-                binding.paperTrashIcon.animate()
-                    .rotation(360F)
-                    .setDuration(450)
-                    .start()
-
-                animation
-                    .translationX(paperBinContainer.x + (paperBinContainer.width / 2) - (img_falling_sprite.width / 2))
-            }
-            1->{
-                binding.plasticTrashIcon.animate()
-                    .rotation(360F)
-                    .setDuration(450)
-                    .start()
-
-                animation
-                    .translationX(plasticBinContainer.x + (plasticBinContainer.width / 2) - (img_falling_sprite.width / 2))
-            }
-            2->{
-                binding.organicTrashIcon.animate()
-                    .rotation(360F)
-                    .setDuration(450)
-                    .start()
-
-                animation
-                    .translationX(organicBinContainer.x + (organicBinContainer.width / 2) - (img_falling_sprite.width / 2))
-            }
-        }
 
         animation.start()
+    }
+
+    fun gameOver(img_falling_sprite: ImageView){
+        if(gameRunning) {
+            spawnThread.interrupt()
+            println("game over")
+            //fermo il cestino
+            (img_falling_sprite.tag as HashMap<String,Any>)[isFalling] = false
+            gameRunning=false
+            //faccio comparire la schermata di fine
+            img_falling_sprite.setOnTouchListener(null)
+            binding.txtFinalScore.text = "Hai fatto " + score.toString() + " punti"
+            score=0
+            binding.restartGameButton.setOnClickListener { startGame() }
+            binding.gameOverScreen.visibility = View.VISIBLE
+            binding.root.removeView(img_falling_sprite)
+        }
     }
 }

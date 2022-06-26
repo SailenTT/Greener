@@ -48,7 +48,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
     private val defaultSpeed=2100L
     private val minimumSpeed=1300L
     private val defaultInclination=300
-    private val maxXInclination=800
+    private val maxXInclination=900
     private var firstStart=true
     private var gameRunning=false
     private val spawnDelay=1000L
@@ -289,7 +289,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
                 val binY=trashBinTopLayer.y
                 val binX=trashBinContainer.x+((trashBinContainer.width-trashBinBottomLayer.width)/2).toFloat()
                 //TODO mettere che se il rifiuto cade oltre la metà del bordo del cestino, rimbalza in alto
-                if (img_falling_sprite.y + img_falling_sprite.height >=binY+img_falling_sprite.height/7 && img_falling_sprite.y + img_falling_sprite.height <= binY+ (trashBinBottomLayer.height / 2)) {
+                if (img_falling_sprite.y + img_falling_sprite.height >=binY+img_falling_sprite.height/6 && img_falling_sprite.y + img_falling_sprite.height <= binY+ (trashBinBottomLayer.height / 2)) {
                     if ((img_falling_sprite.x >= binX && img_falling_sprite.x <= binX + trashBinTopLayer.width) || (img_falling_sprite.x + img_falling_sprite.width >= binX && img_falling_sprite.x + img_falling_sprite.width <= binX + trashBinTopLayer.width)) {
                         //controllo se la pallina è caduta bene o in caso contrario, la faccio rimbalzare di nuovo
                         (img_falling_sprite.tag as HashMap<String,Any>)[isFalling] = false
@@ -307,19 +307,20 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
         }
 
         var ballXMovement=(img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection] as Float
-        ballXMovement=-ballXMovement
+        var newX: Float=img_falling_sprite.x
 
         if(img_falling_sprite.x<trashBinTopLayer.x){
-            ballXMovement=-abs(ballXMovement)
+            ballXMovement=-(abs(ballXMovement))
         }
         else{
             ballXMovement=abs(ballXMovement)
         }
 
+        newX+=ballXMovement
+
         (img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection]=ballXMovement
 
 
-        var newX=img_falling_sprite.x+ballXMovement
         if(newX+img_falling_sprite.width>binding.root.width){
             newX=binding.root.width-img_falling_sprite.width.toFloat()
         }
@@ -416,20 +417,20 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
                 //animation?.cancel()
                 objectCatched(img_falling_sprite)
             }
-            else if ((img_falling_sprite.x + img_falling_sprite.width) > binding.root.width) {
+            else if ((img_falling_sprite.x + img_falling_sprite.width) >= binding.root.width) {
                 img_falling_sprite.x = (binding.root.width - img_falling_sprite.width).toFloat()
 
                 var ballXMovement=(img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection] as Float
                 ballXMovement=-ballXMovement
                 (img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection]=ballXMovement
-                img_falling_sprite.animate().translationX(-ballXMovement)
+                img_falling_sprite.animate().translationX(ballXMovement)
 
-            } else if (img_falling_sprite.x < 0) {
+            } else if (img_falling_sprite.x <= 0) {
                 var ballXMovement=(img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection] as Float
                 ballXMovement=-ballXMovement
                 (img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection]=ballXMovement
 
-                img_falling_sprite.animate().translationX(-ballXMovement)
+                img_falling_sprite.animate().translationX(ballXMovement)
             }
         }
         else{
