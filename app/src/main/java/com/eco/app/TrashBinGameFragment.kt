@@ -60,7 +60,6 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
         //Inflate the binding for this fragment
         binding= FragmentTrashBinGameBinding.inflate(inflater,container,false)
         auth = FirebaseAuth.getInstance()
-        UID = auth.uid!!
         database =
             Firebase.database(RegisterPage.PATHTODB)
         trashBinContainer=binding.trashBinContainer
@@ -446,14 +445,17 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
             //fermo il cestino
             gameRunning=false
             //salvo il max score nel db
-            userReference = database.getReference("Users")
-            userReference.child(UID).child("bin_score").get().addOnSuccessListener { //getto il tuo max score
-                bestTrashScore = it.value.toString()
-                val bestTrashInt = Integer.parseInt(bestTrashScore) //parsing
-                score  = Integer.parseInt(binding.txtScore.text.toString())
-                if(bestTrashInt < score){ //se il tuo max score è piu piccolo, aggiorno il db
-                    Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
-                    userReference.child(UID).child("bin_score").setValue(score)
+            if(auth.currentUser != null){
+                UID = auth.uid!!
+                userReference = database.getReference("Users")
+                userReference.child(UID).child("bin_score").get().addOnSuccessListener { //getto il tuo max score
+                    bestTrashScore = it.value.toString()
+                    val bestTrashInt = Integer.parseInt(bestTrashScore) //parsing
+                    score  = Integer.parseInt(binding.txtScore.text.toString())
+                    if(bestTrashInt < score){ //se il tuo max score è piu piccolo, aggiorno il db
+                        Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
+                        userReference.child(UID).child("bin_score").setValue(score)
+                    }
                 }
             }
             (img_falling_sprite.tag as HashMap<String,Any>)[isFalling]=false

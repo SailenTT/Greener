@@ -38,7 +38,6 @@ class GrowingTreeFragment : Fragment(),SensorEventListener {
             Toast.makeText(context, "Il tuo device non ha un sensore per contare i passi", Toast.LENGTH_SHORT).show()
         }else{
             sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
-
         }
     }
 
@@ -49,7 +48,7 @@ class GrowingTreeFragment : Fragment(),SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-       if(running){
+        if(running){
            Toast.makeText(context, "running", Toast.LENGTH_SHORT).show()
            //totalSteps = event!!.values[0]
            //val currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()

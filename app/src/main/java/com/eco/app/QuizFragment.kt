@@ -56,7 +56,6 @@ class QuizFragment : Fragment() {
         database =
             Firebase.database(RegisterPage.PATHTODB)
         auth = FirebaseAuth.getInstance()
-        UID = auth.uid!!
 
         //getto i button in un array per comodità
         buttons = getButtons()
@@ -190,12 +189,15 @@ class QuizFragment : Fragment() {
         } else {
             quizQuestionsNumber--
             if (quizQuestionsNumber == 0) { //se sei a fine quiz
-                userReference = database.getReference("Users")
-                userReference.child(UID).child("quiz_score").get().addOnSuccessListener { //getto il tuo max questions corrette
-                    bestQuizScore = it.value.toString()
-                    val bestQuizInt = Integer.parseInt(bestQuizScore) //parsing
-                    if(bestQuizInt < correct_replies){ //se il tuo max score è piu piccolo, aggiorno il db
-                        userReference.child(UID).child("quiz_score").setValue(correct_replies)
+                if(auth.currentUser != null){
+                    UID = auth.uid!!
+                    userReference = database.getReference("Users")
+                    userReference.child(UID).child("quiz_score").get().addOnSuccessListener { //getto il tuo max questions corrette
+                        bestQuizScore = it.value.toString()
+                        val bestQuizInt = Integer.parseInt(bestQuizScore) //parsing
+                        if(bestQuizInt < correct_replies){ //se il tuo max score è piu piccolo, aggiorno il db
+                            userReference.child(UID).child("quiz_score").setValue(correct_replies)
+                        }
                     }
                 }
                 replaceFragment(resultFragment)

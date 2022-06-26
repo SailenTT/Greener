@@ -115,6 +115,7 @@ class ProfileFragment : Fragment() {
             }.addOnFailureListener{
                 Toast.makeText(context, "Errore nella propic", Toast.LENGTH_SHORT).show()
             }
+
         usersReference.child(UID).get().addOnSuccessListener {
             val username : CharSequence = it.child("username").value as CharSequence
             val binScore : Long= it.child("bin_score").value as Long

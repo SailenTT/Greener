@@ -1,6 +1,7 @@
 package com.eco.app
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -11,6 +12,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import java.io.File
 
 
 //TODO eliminare questa activity (perché è stata sostituita dal suo fragment)
@@ -47,7 +50,7 @@ class RegisterPage : AppCompatActivity() {
 
     }
 
-    fun createAccount() {
+    private fun createAccount() {
         if(auth.currentUser==null){
             val name = binding.edtNome.text.toString()
             val email = binding.edtEmail.text.toString()
@@ -69,13 +72,14 @@ class RegisterPage : AppCompatActivity() {
 
             auth.createUserWithEmailAndPassword(email, psw).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "Utente registrato correttamente", Toast.LENGTH_SHORT)
-                        .show()
+                    //Toast.makeText(this, "Utente registrato correttamente", Toast.LENGTH_SHORT)
+                     //   .show()
                     val userUid = task.result.user!!.uid
                     val usersReference = database.getReference("Users")
                     usersReference.child(userUid).child("username").setValue(name)
                     usersReference.child(userUid).child("quiz_score").setValue(0)
                     usersReference.child(userUid).child("bin_score").setValue(0)
+                   // uploadStandardPropic(userUid)
                 } else {
                     Toast.makeText(this, "Errore nella registrazione", Toast.LENGTH_SHORT).show()
                 }
@@ -85,4 +89,16 @@ class RegisterPage : AppCompatActivity() {
             Log.d("Register","GIA LOGGATO")
         }
     }
+   /* private fun uploadStandardPropic(UID: String){
+        val filename = UID
+        val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
+        val file =Uri.parse("res/drawable/logo_app.png")
+        storageReference.putFile(file).addOnSuccessListener {
+            Toast.makeText(this, "uppata immagine", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener{
+            Toast.makeText(this, "immagine non uppata", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    */
 }
