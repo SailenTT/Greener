@@ -181,22 +181,24 @@ class LoginPage : AppCompatActivity() {
     //POI LI RIFACCIAMO
     //funzione per gestire il login con google(firebase)
     fun loginWithGoogle(){
-        oneTapClient.beginSignIn(signInRequest)
-            .addOnSuccessListener(this) { result ->
-                try {
-                    startIntentSenderForResult(
-                        result.pendingIntent.intentSender, REQ_ONE_TAP,
-                        null, 0, 0, 0, null)
-                } catch (e: IntentSender.SendIntentException) {
-                    Toast.makeText(this,"Error nel caricamento del login", Toast.LENGTH_SHORT).show()
-                    Log.e(TAG, "Couldn't start One Tap UI: ${e.localizedMessage}")
+        val isLoggedIn = LoginPage.checkFacebookLogin()
+        if(!isLoggedIn){
+            oneTapClient.beginSignIn(signInRequest)
+                .addOnSuccessListener(this) { result ->
+                    try {
+                        startIntentSenderForResult(
+                            result.pendingIntent.intentSender, REQ_ONE_TAP,
+                            null, 0, 0, 0, null)
+                    } catch (e: IntentSender.SendIntentException) {
+                        Toast.makeText(this,"Error nel caricamento del login", Toast.LENGTH_SHORT).show()
+                        Log.e(TAG, "Couldn't start One Tap UI: ${e.localizedMessage}")
+                    }
                 }
-            }
-            .addOnFailureListener(this) { e ->
-                // Error loading both signin and signup
-                Log.d(TAG, e.localizedMessage)
-            }
-
+                .addOnFailureListener(this) { e ->
+                    // Error loading both signin and signup
+                    Log.d(TAG, e.localizedMessage)
+                }
+        }
     }
 
     private fun handleFacebookAccessToken(token: AccessToken) {

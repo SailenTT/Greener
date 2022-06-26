@@ -188,26 +188,32 @@ class LoginFragment : Fragment() {
     //funzione per gestire il login con google(firebase)
     fun loginWithGoogle(){
         //creo una progressBar per mostrare il caricamento
-        val progressBar=binding.progressBar
-        progressBar.visibility=View.VISIBLE
+        val isLoggedIn = LoginPage.checkFacebookLogin()
+        if(!isLoggedIn){
+            val progressBar=binding.progressBar
+            progressBar.visibility=View.VISIBLE
 
-        binding.loginPageContainer.alpha=0.7f
+            binding.loginPageContainer.alpha=0.7f
 
-        oneTapClient.beginSignIn(signInRequest)
-            .addOnSuccessListener(requireActivity()) { result ->
-                try {
-                    startIntentSenderForResult(
-                        result.pendingIntent.intentSender, REQ_ONE_TAP,
-                        null, 0, 0, 0, null)
-                } catch (e: IntentSender.SendIntentException) {
-                    Toast.makeText(requireContext(),"Error nel caricamento del login", Toast.LENGTH_SHORT).show()
-                    Log.e(ContentValues.TAG, "Couldn't start One Tap UI: ${e.localizedMessage}")
+            oneTapClient.beginSignIn(signInRequest)
+                .addOnSuccessListener(requireActivity()) { result ->
+                    try {
+                        startIntentSenderForResult(
+                            result.pendingIntent.intentSender, REQ_ONE_TAP,
+                            null, 0, 0, 0, null)
+                    } catch (e: IntentSender.SendIntentException) {
+                        Toast.makeText(requireContext(),"Error nel caricamento del login", Toast.LENGTH_SHORT).show()
+                        Log.e(ContentValues.TAG, "Couldn't start One Tap UI: ${e.localizedMessage}")
+                    }
                 }
-            }
-            .addOnFailureListener(requireActivity()) { e ->
-                // Error loading both signin and signup
-                Log.d(ContentValues.TAG, e.localizedMessage)
-            }
+                .addOnFailureListener(requireActivity()) { e ->
+                    // Error loading both signin and signup
+                    Log.d(ContentValues.TAG, e.localizedMessage)
+                }
+        }else{
+            Toast.makeText(context, "Sei già loggato con facebook", Toast.LENGTH_SHORT).show()
+        }
+
 
     }
 
