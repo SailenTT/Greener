@@ -1,6 +1,5 @@
 package com.eco.app
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,11 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.eco.app.databinding.FragmentQuizBinding
+import com.facebook.AccessToken
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
@@ -28,6 +27,8 @@ class QuizFragment : Fragment() {
     private lateinit var binding: FragmentQuizBinding
     private lateinit var database: FirebaseDatabase
     private lateinit var buttons: Array<Button?>
+    private  var facebookAccessToken : AccessToken? = null
+    private var isLoggedInFacebook by Delegates.notNull<Boolean>()
     private lateinit var txt_question: TextView
     private lateinit var reply: String
     private lateinit var correctreply: String
@@ -50,7 +51,8 @@ class QuizFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentQuizBinding.inflate(inflater, container, false)
-
+        facebookAccessToken = AccessToken.getCurrentAccessToken()
+        isLoggedInFacebook = facebookAccessToken != null && !facebookAccessToken!!.isExpired
         binding.quizShimmer.startShimmer()
 
         database =
@@ -199,6 +201,17 @@ class QuizFragment : Fragment() {
                             userReference.child(UID).child("quiz_score").setValue(correct_replies)
                         }
                     }
+                }else if(isLoggedInFacebook){
+                    Toast.makeText(context, "Query con fb", Toast.LENGTH_SHORT).show()
+                    val userId = facebookAccessToken!!.userId
+                    userReference = database.getReference("Users")
+                    userReference.child(userId).child("quiz_score").get().addOnSuccessListener { //getto il tuo max questions corrette
+                        bestQuizScore = it.value.toString()
+                        val bestQuizInt = Integer.parseInt(bestQuizScore) //parsing
+                        if(bestQuizInt < correct_replies){ //se il tuo max score è piu piccolo, aggiorno il db
+                            userReference.child(userId).child("quiz_score").setValue(correct_replies)
+                        }
+                    }
                 }
                 replaceFragment(resultFragment)
             }
@@ -214,6 +227,8 @@ class QuizFragment : Fragment() {
         //sostituisco la vecchia transaction con la navigation ui
         findNavController().navigate(QuizFragmentDirections.actionQuizFragmentToQuizResultFragment())
     }
+
+
 
     fun getButtons(): Array<Button?> {
         val array: Array<Button?> = Array(4) { null }

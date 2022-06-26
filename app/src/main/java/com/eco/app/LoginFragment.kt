@@ -138,43 +138,49 @@ class LoginFragment : Fragment() {
     //POI LI RIFACCIAMO
     //funzione per il login dell'utente
     fun loginUser(){
-        val email=binding.edtEmail.text.toString()
-        val pswd=binding.edtPsw.text.toString()
+        val isLoggedIn = LoginPage.checkFacebookLogin()
+        if(!isLoggedIn){
+            val email=binding.edtEmail.text.toString()
+            val pswd=binding.edtPsw.text.toString()
 
 
-        if (email.equals("")) {
-            binding.edtEmail.setError("Check mail")
-            return
-        }
+            if (email.equals("")) {
+                binding.edtEmail.setError("Check mail")
+                return
+            }
 
-        if (pswd.equals("")) {
-            binding.edtPsw.setError("Check password")
-            return
-        }
+            if (pswd.equals("")) {
+                binding.edtPsw.setError("Check password")
+                return
+            }
 
-        else {
-            auth.signInWithEmailAndPassword(email, pswd)
-                .addOnCompleteListener(requireActivity()) { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(ContentValues.TAG, "signInWithEmail:success")
-                        val user = auth.currentUser
-                        val uid = auth.uid
-                        if (uid != null) {
-                            UID = uid //todo verificare che funzioni
+            else {
+                auth.signInWithEmailAndPassword(email, pswd)
+                    .addOnCompleteListener(requireActivity()) { task ->
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(ContentValues.TAG, "signInWithEmail:success")
+                            val user = auth.currentUser
+                            val uid = auth.uid
+                            //TODO Load main dashboard
+                            if (uid != null) {
+                                UID = uid
+                            }
+                            val intent = Intent(context,DebugActivity::class.java)
+                            startActivity(intent)
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(ContentValues.TAG, "signInWithEmail:failure", task.exception)
+                            Toast.makeText(
+                                requireContext(), "Authentication failed.",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
-                        goBackToHomepage()
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(ContentValues.TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(
-                            requireContext(), "Authentication failed.",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
-                }
+            }
+        }else{
+            Toast.makeText(context, "Sei già loggato con facebook", Toast.LENGTH_SHORT).show()
         }
-
     }
 
     //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE

@@ -48,43 +48,49 @@ class RegisterFragment : Fragment() {
     }
 
     fun createAccount() {
-        if(auth.currentUser==null){
-            val name = binding.edtNome.text.toString()
-            val email = binding.edtEmail.text.toString()
-            val psw = binding.edtPsw.text.toString()
+        var isLoggedIn = LoginPage.checkFacebookLogin()
+        if(!isLoggedIn){
+            if(auth.currentUser==null){
+                val name = binding.edtNome.text.toString()
+                val email = binding.edtEmail.text.toString()
+                val psw = binding.edtPsw.text.toString()
 
-            if (name.equals("")) {
-                binding.edtNome.setError("Check name")
-                return
-            }
-            if (email.equals("")) {
-                binding.edtEmail.setError("Check mail")
-                return
-            }
-
-            if (psw.equals("")) {
-                binding.edtPsw.setError("Check password")
-                return
-            }
-
-            auth.createUserWithEmailAndPassword(email, psw).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(requireContext(), "Utente registrato correttamente", Toast.LENGTH_SHORT)
-                        .show()
-                    val userUid = task.result.user!!.uid
-                    val usersReference = database.getReference("Users")
-                    usersReference.child(userUid).child("username").setValue(name)
-                    usersReference.child(userUid).child("quiz_score").setValue(0)
-                    usersReference.child(userUid).child("bin_score").setValue(0)
-                    usersReference.child(userUid).child("carbon_footprint").setValue(0)
-                } else {
-                    Toast.makeText(requireContext(), "Errore nella registrazione", Toast.LENGTH_SHORT).show()
+                if (name.equals("")) {
+                    binding.edtNome.setError("Check name")
+                    return
                 }
+                if (email.equals("")) {
+                    binding.edtEmail.setError("Check mail")
+                    return
+                }
+
+                if (psw.equals("")) {
+                    binding.edtPsw.setError("Check password")
+                    return
+                }
+
+                auth.createUserWithEmailAndPassword(email, psw).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(requireContext(), "Utente registrato correttamente", Toast.LENGTH_SHORT)
+                            .show()
+                        val userUid = task.result.user!!.uid
+                        val usersReference = database.getReference("Users")
+                        usersReference.child(userUid).child("username").setValue(name)
+                        usersReference.child(userUid).child("quiz_score").setValue(0)
+                        usersReference.child(userUid).child("bin_score").setValue(0)
+                        usersReference.child(userUid).child("carbon_footprint").setValue(0)
+                    } else {
+                        Toast.makeText(requireContext(), "Errore nella registrazione", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }else{
+                Toast.makeText(requireContext(), "Sei gia loggato", Toast.LENGTH_SHORT).show()
+                Log.d("Register","GIA LOGGATO")
             }
         }else{
-            Toast.makeText(requireContext(), "Sei gia loggato", Toast.LENGTH_SHORT).show()
-            Log.d("Register","GIA LOGGATO")
+            Toast.makeText(context, "Sei già loggato con facebook", Toast.LENGTH_SHORT).show()
         }
     }
+
 
 }

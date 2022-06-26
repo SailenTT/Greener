@@ -31,13 +31,18 @@ class LoginPage : AppCompatActivity() {
     private lateinit var oneTapClient: SignInClient
     private lateinit var signInRequest: BeginSignInRequest
     private lateinit var callbackManager: CallbackManager
-
     private val REQ_ONE_TAP = 2
     /*variabile UID utile da portare in giro, settato al momento del login
       per query
      */
     companion object{
         var UID = ""
+
+        fun checkFacebookLogin(): Boolean{
+            val facebookAccessToken = AccessToken.getCurrentAccessToken()
+            val isLoggedIn = facebookAccessToken != null && !facebookAccessToken!!.isExpired
+            return isLoggedIn
+        }
     }
 
     //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE
@@ -49,6 +54,12 @@ class LoginPage : AppCompatActivity() {
         setContentView(binding.root)
         database = Firebase.database(RegisterPage.PATHTODB)
         callbackManager = CallbackManager.Factory.create()
+
+
+
+
+
+
 
         //assegno l'oggetto grafico della UI alla variabile
         val txtSignUp = binding.txtSignUp
@@ -119,44 +130,50 @@ class LoginPage : AppCompatActivity() {
     //POI LI RIFACCIAMO
     //funzione per il login dell'utente
     fun loginUser(){
-        val email=binding.edtEmail.text.toString()
-        val pswd=binding.edtPsw.text.toString()
+        var isLoggedIn = checkFacebookLogin()
+        if(!isLoggedIn){
+            val email=binding.edtEmail.text.toString()
+            val pswd=binding.edtPsw.text.toString()
 
 
-        if (email.equals("")) {
-            binding.edtEmail.setError("Check mail")
-            return
-        }
+            if (email.equals("")) {
+                binding.edtEmail.setError("Check mail")
+                return
+            }
 
-        if (pswd.equals("")) {
-            binding.edtPsw.setError("Check password")
-            return
-        }
+            if (pswd.equals("")) {
+                binding.edtPsw.setError("Check password")
+                return
+            }
 
-        else {
-            auth.signInWithEmailAndPassword(email, pswd)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithEmail:success")
-                        val user = auth.currentUser
-                        val uid = auth.uid
-                        //TODO Load main dashboard
-                        if (uid != null) {
-                            UID = uid
+            else {
+                auth.signInWithEmailAndPassword(email, pswd)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success")
+                            val user = auth.currentUser
+                            val uid = auth.uid
+                            //TODO Load main dashboard
+                            if (uid != null) {
+                                UID = uid
+                            }
+                            val intent = Intent(this,DebugActivity::class.java)
+                            startActivity(intent)
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.exception)
+                            Toast.makeText(
+                                baseContext, "Authentication failed.",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
-                        val intent = Intent(this,DebugActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(
-                            baseContext, "Authentication failed.",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
-                }
+            }
+        }else{
+            Toast.makeText(this, "Sei già loggato con facebook", Toast.LENGTH_SHORT).show()
         }
+
 
     }
 
@@ -274,4 +291,8 @@ class LoginPage : AppCompatActivity() {
         }
     }
 
+
+
+
 }
+
