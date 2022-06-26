@@ -51,10 +51,11 @@ class LoginFragment : Fragment() {
     private lateinit var loginPageContainer: RelativeLayout
     private val REQ_ONE_TAP = 2
     private var showOneTapUI = true
+
     /*variabile UID utile da portare in giro, settato al momento del login
       per query
      */
-    companion object{
+    companion object {
         var UID = ""
     }
 
@@ -63,10 +64,10 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding=FragmentLoginBinding.inflate(inflater,container,false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        loginPageContainer=binding.loginPageContainer
-        progressBar=binding.progressBar
+        loginPageContainer = binding.loginPageContainer
+        progressBar = binding.progressBar
         database = Firebase.database(RegisterPage.PATHTODB)
         callbackManager = CallbackManager.Factory.create()
 
@@ -79,10 +80,11 @@ class LoginFragment : Fragment() {
         }
 
         //metodo onClick del btnLogin
-        binding.btnLogin.setOnClickListener{
+        binding.btnLogin.setOnClickListener {
             loginUser()
         }
-        binding.btnLoginFacebook.background=AppCompatResources.getDrawable(requireContext(),R.drawable.btn_rounded_green_bg)
+        binding.btnLoginFacebook.background =
+            AppCompatResources.getDrawable(requireContext(), R.drawable.btn_rounded_green_bg)
 
         binding.btnLoginFacebook.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
@@ -90,6 +92,7 @@ class LoginFragment : Fragment() {
                     Log.d(ContentValues.TAG, "facebook:onSuccess$result")
                     handleFacebookAccessToken(result.accessToken)
                 }
+
                 override fun onCancel() {
                     Log.d(ContentValues.TAG, "facebook:onCancel")
                 }
@@ -104,11 +107,11 @@ class LoginFragment : Fragment() {
             })
 
         //metodo onClick del btnLoginGoogle
-        binding.btnLoginGoogle.setOnClickListener{
+        binding.btnLoginGoogle.setOnClickListener {
             loginWithGoogle()
         }
 
-        auth= Firebase.auth
+        auth = Firebase.auth
         //activity.this in alternativa
         oneTapClient = Identity.getSignInClient(requireContext())
         signInRequest = BeginSignInRequest.builder()
@@ -119,7 +122,8 @@ class LoginFragment : Fragment() {
                     .setServerClientId(getString(R.string.google_server_client_id))
                     // Only show accounts previously used to sign in.
                     .setFilterByAuthorizedAccounts(false)
-                    .build())
+                    .build()
+            )
             .setAutoSelectEnabled(true)
             .build()
 
@@ -129,7 +133,7 @@ class LoginFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        if(auth.currentUser!=null){
+        if (auth.currentUser != null) {
             goBackToHomepage()
         }
     }
@@ -138,11 +142,10 @@ class LoginFragment : Fragment() {
     //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE
     //POI LI RIFACCIAMO
     //funzione per il login dell'utente
-    fun loginUser(){
-        val isLoggedIn = LoginPage.checkFacebookLogin()
-        if(!isLoggedIn){
-            val email=binding.edtEmail.text.toString()
-            val pswd=binding.edtPsw.text.toString()
+    fun loginUser() {
+        if (auth.currentUser == null) {
+            val email = binding.edtEmail.text.toString()
+            val pswd = binding.edtPsw.text.toString()
 
 
             if (email.equals("")) {
@@ -153,9 +156,7 @@ class LoginFragment : Fragment() {
             if (pswd.equals("")) {
                 binding.edtPsw.setError("Check password")
                 return
-            }
-
-            else {
+            } else {
                 auth.signInWithEmailAndPassword(email, pswd)
                     .addOnCompleteListener(requireActivity()) { task ->
                         if (task.isSuccessful) {
@@ -167,7 +168,7 @@ class LoginFragment : Fragment() {
                             if (uid != null) {
                                 UID = uid
                             }
-                            val intent = Intent(context,DebugActivity::class.java)
+                            val intent = Intent(context, DebugActivity::class.java)
                             startActivity(intent)
                         } else {
                             // If sign in fails, display a message to the user.
@@ -180,30 +181,36 @@ class LoginFragment : Fragment() {
                     }
             }
         }else{
-            Toast.makeText(context, "Sei già loggato con facebook", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Sei già loggato", Toast.LENGTH_SHORT).show()
         }
+
     }
 
     //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE
     //POI LI RIFACCIAMO
     //funzione per gestire il login con google(firebase)
-    fun loginWithGoogle(){
+    fun loginWithGoogle() {
         //creo una progressBar per mostrare il caricamento
         val isLoggedIn = LoginPage.checkFacebookLogin()
-        if(!isLoggedIn){
-            val progressBar=binding.progressBar
-            progressBar.visibility=View.VISIBLE
+        if (!isLoggedIn) {
+            val progressBar = binding.progressBar
+            progressBar.visibility = View.VISIBLE
 
-            binding.loginPageContainer.alpha=0.7f
+            binding.loginPageContainer.alpha = 0.7f
 
             oneTapClient.beginSignIn(signInRequest)
                 .addOnSuccessListener(requireActivity()) { result ->
                     try {
                         startIntentSenderForResult(
                             result.pendingIntent.intentSender, REQ_ONE_TAP,
-                            null, 0, 0, 0, null)
+                            null, 0, 0, 0, null
+                        )
                     } catch (e: IntentSender.SendIntentException) {
-                        Toast.makeText(requireContext(),"Error nel caricamento del login", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Error nel caricamento del login",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         Log.e(ContentValues.TAG, "Couldn't start One Tap UI: ${e.localizedMessage}")
                     }
                 }
@@ -211,7 +218,7 @@ class LoginFragment : Fragment() {
                     // Error loading both signin and signup
                     Log.d(ContentValues.TAG, e.localizedMessage)
                 }
-        }else{
+        } else {
             Toast.makeText(context, "Sei già loggato con facebook", Toast.LENGTH_SHORT).show()
         }
 
@@ -224,23 +231,25 @@ class LoginFragment : Fragment() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                   //Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
                     // Sign in success
                     Log.d(ContentValues.TAG, "signInWithCredential:success")
-                    val userid = token.userId //non uso auth.uid perchè quello cambia, questo no
+                    //val userid = token.userId //non uso auth.uid perchè quello cambia, questo no
+                    val userid = auth.uid!!
                     val bundle = Bundle()
                     bundle.putString("fields", "id, email, first_name, last_name, gender,age_range")
-                    val request = GraphRequest.newMeRequest(token){ fbObject, response ->
+                    val request = GraphRequest.newMeRequest(token) { fbObject, response ->
                         try {
                             val firstName = fbObject?.getString("first_name")
                             val lastName = fbObject?.getString("last_name")
                             val usersReference = database.getReference("Users")
-                            usersReference.child(userid).child("username").setValue(firstName.toString())
+                            usersReference.child(userid).child("username")
+                                .setValue(firstName.toString())
                             usersReference.child(userid).child("quiz_score").setValue(0)
                             usersReference.child(userid).child("bin_score").setValue(0)
                             usersReference.child(userid).child("carbon_footprint").setValue(0)
 
-                        }catch (e: JSONException){
+                        } catch (e: JSONException) {
                             e.printStackTrace()
                         }
                     }
@@ -248,7 +257,7 @@ class LoginFragment : Fragment() {
                     request.executeAsync()
 
                     //TODO redirectare l'utente alla pagina main e qui mettere finish() inoltre togliere dal backstack
-                    val intent = Intent(context,HomeWindow::class.java)
+                    val intent = Intent(context, HomeWindow::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     //startActivity(intent)
                 } else {
@@ -273,8 +282,8 @@ class LoginFragment : Fragment() {
                 val googleCredential = oneTapClient.getSignInCredentialFromIntent(data)
                 val idToken = googleCredential.googleIdToken
 
-                progressBar.visibility=View.GONE
-                loginPageContainer.alpha=1f
+                progressBar.visibility = View.GONE
+                loginPageContainer.alpha = 1f
 
                 when {
                     idToken != null -> {
@@ -291,7 +300,11 @@ class LoginFragment : Fragment() {
                                     goBackToHomepage()
                                 } else {
                                     // If sign in fails, display a message to the user.
-                                    Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
+                                    Log.w(
+                                        ContentValues.TAG,
+                                        "signInWithCredential:failure",
+                                        task.exception
+                                    )
                                     Toast.makeText(
                                         requireContext(),
                                         "Utente non registrato",
@@ -314,8 +327,7 @@ class LoginFragment : Fragment() {
     }
 
 
-
-    fun goBackToHomepage(){
+    fun goBackToHomepage() {
         //ricreo il menù delle opzioni
         requireActivity().invalidateOptionsMenu()
         findNavController().popBackStack()

@@ -129,11 +129,10 @@ class LoginPage : AppCompatActivity() {
     //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE
     //POI LI RIFACCIAMO
     //funzione per il login dell'utente
-    fun loginUser(){
-        var isLoggedIn = checkFacebookLogin()
-        if(!isLoggedIn){
-            val email=binding.edtEmail.text.toString()
-            val pswd=binding.edtPsw.text.toString()
+    fun loginUser() {
+        if(auth.currentUser == null){
+            val email = binding.edtEmail.text.toString()
+            val pswd = binding.edtPsw.text.toString()
 
 
             if (email.equals("")) {
@@ -144,9 +143,7 @@ class LoginPage : AppCompatActivity() {
             if (pswd.equals("")) {
                 binding.edtPsw.setError("Check password")
                 return
-            }
-
-            else {
+            } else {
                 auth.signInWithEmailAndPassword(email, pswd)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
@@ -158,7 +155,7 @@ class LoginPage : AppCompatActivity() {
                             if (uid != null) {
                                 UID = uid
                             }
-                            val intent = Intent(this,DebugActivity::class.java)
+                            val intent = Intent(this, DebugActivity::class.java)
                             startActivity(intent)
                         } else {
                             // If sign in fails, display a message to the user.
@@ -171,8 +168,9 @@ class LoginPage : AppCompatActivity() {
                     }
             }
         }else{
-            Toast.makeText(this, "Sei già loggato con facebook", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Sei già loggato", Toast.LENGTH_SHORT).show()
         }
+
 
 
     }

@@ -27,8 +27,6 @@ class QuizFragment : Fragment() {
     private lateinit var binding: FragmentQuizBinding
     private lateinit var database: FirebaseDatabase
     private lateinit var buttons: Array<Button?>
-    private lateinit var facebookAccessToken : AccessToken
-    private var isLoggedInFacebook by Delegates.notNull<Boolean>()
     private lateinit var txt_question: TextView
     private lateinit var reply: String
     private lateinit var correctreply: String
@@ -190,6 +188,7 @@ class QuizFragment : Fragment() {
             quizQuestionsNumber--
             if (quizQuestionsNumber == 0) { //se sei a fine quiz
                 if(auth.currentUser != null){
+                    Log.d("okokok", auth.currentUser!!.uid)
                     UID = auth.uid!!
                     userReference = database.getReference("Users")
                     userReference.child(UID).child("quiz_score").get().addOnSuccessListener { //getto il tuo max questions corrette
@@ -197,17 +196,6 @@ class QuizFragment : Fragment() {
                         val bestQuizInt = Integer.parseInt(bestQuizScore) //parsing
                         if(bestQuizInt < correct_replies){ //se il tuo max score è piu piccolo, aggiorno il db
                             userReference.child(UID).child("quiz_score").setValue(correct_replies)
-                        }
-                    }
-                }else if(LoginPage.checkFacebookLogin()){
-                    facebookAccessToken = AccessToken.getCurrentAccessToken()!!
-                    val userId = facebookAccessToken!!.userId
-                    userReference = database.getReference("Users")
-                    userReference.child(userId).child("quiz_score").get().addOnSuccessListener { //getto il tuo max questions corrette
-                        bestQuizScore = it.value.toString()
-                        val bestQuizInt = Integer.parseInt(bestQuizScore) //parsing
-                        if(bestQuizInt < correct_replies){ //se il tuo max score è piu piccolo, aggiorno il db
-                            userReference.child(userId).child("quiz_score").setValue(correct_replies)
                         }
                     }
                 }

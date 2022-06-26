@@ -49,8 +49,6 @@ class RegisterFragment : Fragment() {
     }
 
     fun createAccount() {
-        var isLoggedIn = LoginPage.checkFacebookLogin()
-        if(!isLoggedIn){
             if(auth.currentUser==null){
                 val name = binding.edtNome.text.toString()
                 val email = binding.edtEmail.text.toString()
@@ -90,9 +88,6 @@ class RegisterFragment : Fragment() {
                 Toast.makeText(requireContext(), "Sei gia loggato", Toast.LENGTH_SHORT).show()
                 Log.d("Register","GIA LOGGATO")
             }
-        }else{
-            Toast.makeText(context, "Sei già loggato con facebook", Toast.LENGTH_SHORT).show()
-        }
     }
     fun uploadToStorageDefaultProfilePic(UID : String){
         val uri = Uri.parse("android.resource://" + context!!.packageName.toString() + "/drawable/pollo_mangiato")
