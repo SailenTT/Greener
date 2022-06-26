@@ -13,6 +13,7 @@ import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.eco.app.databinding.FragmentTrashBinGameBinding
+import com.facebook.AccessToken
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -37,6 +38,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
     private lateinit var database: FirebaseDatabase
     private lateinit var auth: FirebaseAuth
     private lateinit var UID : String
+    private lateinit var facebookAccessToken: AccessToken
     private lateinit var bestTrashScore : String
     private lateinit var userReference : DatabaseReference
     private var xStart= 0.0F
@@ -455,6 +457,19 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
                     if(bestTrashInt < score){ //se il tuo max score è piu piccolo, aggiorno il db
                         Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
                         userReference.child(UID).child("bin_score").setValue(score)
+                    }
+                }
+            }else if(LoginPage.checkFacebookLogin()){
+                facebookAccessToken = AccessToken.getCurrentAccessToken()!!
+                val userId = facebookAccessToken.userId
+                userReference = database.getReference("Users")
+                userReference.child(userId).child("bin_score").get().addOnSuccessListener { //getto il tuo max score
+                    bestTrashScore = it.value.toString()
+                    val bestTrashInt = Integer.parseInt(bestTrashScore) //parsing
+                    score  = Integer.parseInt(binding.txtScore.text.toString())
+                    if(bestTrashInt < score){ //se il tuo max score è piu piccolo, aggiorno il db
+                        Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
+                        userReference.child(userId).child("bin_score").setValue(score)
                     }
                 }
             }

@@ -27,7 +27,7 @@ class QuizFragment : Fragment() {
     private lateinit var binding: FragmentQuizBinding
     private lateinit var database: FirebaseDatabase
     private lateinit var buttons: Array<Button?>
-    private  var facebookAccessToken : AccessToken? = null
+    private lateinit var facebookAccessToken : AccessToken
     private var isLoggedInFacebook by Delegates.notNull<Boolean>()
     private lateinit var txt_question: TextView
     private lateinit var reply: String
@@ -51,8 +51,6 @@ class QuizFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentQuizBinding.inflate(inflater, container, false)
-        facebookAccessToken = AccessToken.getCurrentAccessToken()
-        isLoggedInFacebook = facebookAccessToken != null && !facebookAccessToken!!.isExpired
         binding.quizShimmer.startShimmer()
 
         database =
@@ -201,8 +199,8 @@ class QuizFragment : Fragment() {
                             userReference.child(UID).child("quiz_score").setValue(correct_replies)
                         }
                     }
-                }else if(isLoggedInFacebook){
-                    Toast.makeText(context, "Query con fb", Toast.LENGTH_SHORT).show()
+                }else if(LoginPage.checkFacebookLogin()){
+                    facebookAccessToken = AccessToken.getCurrentAccessToken()!!
                     val userId = facebookAccessToken!!.userId
                     userReference = database.getReference("Users")
                     userReference.child(userId).child("quiz_score").get().addOnSuccessListener { //getto il tuo max questions corrette
