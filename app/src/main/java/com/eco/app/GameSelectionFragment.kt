@@ -56,7 +56,7 @@ class GameSelectionFragment : Fragment() {
         binding.growingTreeGameName.setOnClickListener {
             navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToGrowingTreeFragment())
         }
-        binding.garbageSorterGameImg.setOnClickListener {
+        binding.growingTreeGameImg.setOnClickListener {
             navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToGrowingTreeFragment())
         }
 

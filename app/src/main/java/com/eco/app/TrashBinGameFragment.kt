@@ -272,8 +272,6 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
                 img_falling_sprite.tag=map
 
                 checkSpriteCollision(img_falling_sprite)
-
-
             }
 
         }
@@ -284,10 +282,8 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
         Thread {
             //uso il tag per dire se l'oggetto sta cadendo o no
             while ((img_falling_sprite.tag as HashMap<String,Any>)[isFalling] == true) {
-                //println("y palla=${img_falling_sprite.y}; x palla=${img_falling_sprite.x}")
                 val binY=trashBinTopLayer.y
                 val binX=trashBinContainer.x+((trashBinContainer.width-trashBinBottomLayer.width)/2).toFloat()
-                //TODO mettere che se il rifiuto cade oltre la metà del bordo del cestino, rimbalza in alto
                 if (img_falling_sprite.y + img_falling_sprite.height >=binY+img_falling_sprite.height/6 && img_falling_sprite.y + img_falling_sprite.height <= binY+ (trashBinBottomLayer.height / 2)) {
                     if ((img_falling_sprite.x >= binX && img_falling_sprite.x <= binX + trashBinTopLayer.width) || (img_falling_sprite.x + img_falling_sprite.width >= binX && img_falling_sprite.x + img_falling_sprite.width <= binX + trashBinTopLayer.width)) {
                         //controllo se la pallina è caduta bene o in caso contrario, la faccio rimbalzare di nuovo
