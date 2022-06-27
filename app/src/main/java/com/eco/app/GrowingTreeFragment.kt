@@ -1,27 +1,34 @@
 package com.eco.app
 
+import android.Manifest
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.content.Context
+import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.eco.app.databinding.FragmentGrowingTreeBinding
+import kotlin.properties.Delegates
 
 class GrowingTreeFragment : Fragment(),SensorEventListener {
     private lateinit var binding: FragmentGrowingTreeBinding
     private var sensorManager : SensorManager? = null
     private var running : Boolean = false
-    private var totalSteps : Float= 0f
+    private var steps : Int = 0
+    private var totalSteps by Delegates.notNull<Int>()
     private var previousTotalSteps : Float = 0f
     private lateinit var wateringCan: LottieAnimationView
     private var startX: Float = 0F
@@ -35,6 +42,19 @@ class GrowingTreeFragment : Fragment(),SensorEventListener {
     ): View {
         binding=FragmentGrowingTreeBinding.inflate(inflater,container,false)
         sensorManager = activity?.getSystemService(Context.SENSOR_SERVICE) as SensorManager //getto il sensore
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { //richiesta permesso
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACTIVITY_RECOGNITION),
+                101
+            )
+        }
+
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACTIVITY_RECOGNITION)
+            != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(requireContext(), "Permission not granted for the tracking", Toast.LENGTH_SHORT).show()
+        }
 
         wateringCan=binding.wateringCan
 
@@ -116,9 +136,33 @@ class GrowingTreeFragment : Fragment(),SensorEventListener {
            Toast.makeText(context, "running", Toast.LENGTH_SHORT).show()
            //totalSteps = event!!.values[0]
            //val currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
-           binding.totalSteps.text = event!!.values[0].toString()
+           //binding.totalSteps.text = event!!.values[0].toString()
+            steps = event!!.values[0].toInt()
+            totalSteps = getSteps()
+            totalSteps += steps
+            saveSteps(totalSteps)
+
        }
     }
 
+    private fun getSteps() : Int {
+      val sharedPreferences = activity!!.getSharedPreferences("trackingPrefs", Context.MODE_PRIVATE)
+      val totalsteps = sharedPreferences!!.getInt("steps",0)
+      return totalsteps
+    }
+
+    private fun saveSteps(steps : Int) {
+        val sharedPreferences =
+            activity?.getSharedPreferences("trackingPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences?.edit()
+        editor?.apply {
+            putInt("steps",steps );
+        }?.apply()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Toast.makeText(requireContext(), "Hai fatto "+totalSteps+"passi", Toast.LENGTH_SHORT).show()
+    }
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {}
 }

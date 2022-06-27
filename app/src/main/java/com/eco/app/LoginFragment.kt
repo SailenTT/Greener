@@ -241,6 +241,7 @@ class LoginFragment : Fragment() {
                         try {
                             val firstName = fbObject?.getString("first_name")
                             val lastName = fbObject?.getString("last_name")
+
                             val usersReference = database.getReference("Users")
                             usersReference.child(userid).child("username")
                                 .setValue(firstName.toString())
@@ -258,7 +259,7 @@ class LoginFragment : Fragment() {
                     //TODO redirectare l'utente alla pagina main e qui mettere finish() inoltre togliere dal backstack
                     val intent = Intent(context, HomeWindow::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    //startActivity(intent)
+                    startActivity(intent)
                 } else {
                     // Sign in fail
                     Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
