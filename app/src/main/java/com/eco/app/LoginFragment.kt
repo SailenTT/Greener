@@ -191,8 +191,8 @@ class LoginFragment : Fragment() {
     //funzione per gestire il login con google(firebase)
     fun loginWithGoogle() {
         //creo una progressBar per mostrare il caricamento
-        val isLoggedIn = LoginPage.checkFacebookLogin()
-        if (!isLoggedIn) {
+        if (auth.currentUser == null) {
+
             val progressBar = binding.progressBar
             progressBar.visibility = View.VISIBLE
 
@@ -219,9 +219,8 @@ class LoginFragment : Fragment() {
                     Log.d(ContentValues.TAG, e.localizedMessage)
                 }
         } else {
-            Toast.makeText(context, "Sei già loggato con facebook", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Sei già loggato", Toast.LENGTH_SHORT).show()
         }
-
 
     }
 

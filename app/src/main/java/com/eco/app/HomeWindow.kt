@@ -2,6 +2,8 @@ package com.eco.app
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -23,6 +26,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import java.io.File
 import java.util.*
 
 class HomeWindow : AppCompatActivity() {
@@ -35,13 +40,7 @@ class HomeWindow : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var currentUser: FirebaseUser
     private var logoutActionId: Int?=null
-    //COSTANTI
-    //placeholders, li useremo per costruire la ui
-    companion object{
-        val CARTA = "carta"
-        val PLASTICA = "plastica"
-        val VETRO = "vetro"
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeWindowBinding.inflate(layoutInflater)
@@ -73,6 +72,19 @@ class HomeWindow : AppCompatActivity() {
 
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 val lottie=drawer.findViewById<LottieAnimationView>(R.id.lottie_stock_profile_animation)
+                if(Firebase.auth.currentUser!=null){ //se sei loggato, setta immagine nel drawer ( se la hai )
+                    val filename = Firebase.auth.currentUser!!.uid
+                    val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com")
+                        .getReference("propics/$filename")
+                    val localfile = File.createTempFile("tempImage", "jpg")
+                    storageReference.getFile(localfile).addOnSuccessListener {
+                        val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                        val resized = Bitmap.createScaledBitmap(bitmap, 400, 400, true)
+                        lottie.setImageBitmap(resized)
+                    }.addOnFailureListener {
+                        Toast.makeText(baseContext, "Errore nella propic", Toast.LENGTH_SHORT).show()
+                    }
+                }
                 if(lottie.visibility==View.VISIBLE) {
                     lottie.progress = 0f
                 }

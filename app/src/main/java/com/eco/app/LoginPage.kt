@@ -178,17 +178,18 @@ class LoginPage : AppCompatActivity() {
     //COMMENTI GIUSTO PER AVERE UN MINIMO DI ORDINE NEL CODICE
     //POI LI RIFACCIAMO
     //funzione per gestire il login con google(firebase)
-    fun loginWithGoogle(){
-        val isLoggedIn = LoginPage.checkFacebookLogin()
-        if(!isLoggedIn){
+    fun loginWithGoogle() {
+        if(auth.currentUser == null){
             oneTapClient.beginSignIn(signInRequest)
                 .addOnSuccessListener(this) { result ->
                     try {
                         startIntentSenderForResult(
                             result.pendingIntent.intentSender, REQ_ONE_TAP,
-                            null, 0, 0, 0, null)
+                            null, 0, 0, 0, null
+                        )
                     } catch (e: IntentSender.SendIntentException) {
-                        Toast.makeText(this,"Error nel caricamento del login", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Error nel caricamento del login", Toast.LENGTH_SHORT)
+                            .show()
                         Log.e(TAG, "Couldn't start One Tap UI: ${e.localizedMessage}")
                     }
                 }
@@ -196,6 +197,8 @@ class LoginPage : AppCompatActivity() {
                     // Error loading both signin and signup
                     Log.d(TAG, e.localizedMessage)
                 }
+        }else{
+            Toast.makeText(this, "Sei giò loggato", Toast.LENGTH_SHORT).show()
         }
     }
 
