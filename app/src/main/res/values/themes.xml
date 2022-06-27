@@ -11,6 +11,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Main" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="android:screenOrientation">portrait</item>
         <item name="android:fontFamily">@font/roboto</item>
         <item name="fontFamily">@font/roboto</item>
         <!-- Primary brand color. -->

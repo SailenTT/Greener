@@ -86,7 +86,12 @@ class HomeWindow : AppCompatActivity() {
                     }
                 }
                 if(lottie.visibility==View.VISIBLE) {
-                    lottie.progress = 0f
+                    if(slideOffset>=0.75f&&!lottie.isAnimating){
+                        lottie.playAnimation()
+                    }
+                    else {
+                        lottie.progress = 0f
+                    }
                 }
             }
 
