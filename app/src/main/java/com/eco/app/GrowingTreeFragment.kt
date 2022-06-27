@@ -137,10 +137,10 @@ class GrowingTreeFragment : Fragment(),SensorEventListener {
            //totalSteps = event!!.values[0]
            //val currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
            //binding.totalSteps.text = event!!.values[0].toString()
-            steps = event!!.values[0].toInt()
-            totalSteps = getSteps()
-            totalSteps += steps
-            saveSteps(totalSteps)
+            steps = event!!.values[0].toInt() //steps nella sessione
+            totalSteps = getSteps() //getto gli steps totali
+            totalSteps += steps //aggiungo quelli fatti mo
+            saveSteps(totalSteps) //li salvo
 
        }
     }
@@ -162,7 +162,7 @@ class GrowingTreeFragment : Fragment(),SensorEventListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        Toast.makeText(requireContext(), "Hai fatto "+totalSteps+"passi", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireContext(), "Hai fatto "+totalSteps+"passi", Toast.LENGTH_SHORT).show()
     }
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {}
 }
