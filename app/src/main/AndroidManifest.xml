@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.eco.app">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -14,9 +14,6 @@
         android:theme="@style/Theme.Main">
         <activity
             android:name=".ProfileFragment"
-            android:exported="false" />
-        <activity
-            android:name=".Leaderboard"
             android:exported="false" />
         <activity
             android:name=".First_Activity"

@@ -32,31 +32,19 @@ class GameSelectionFragment : Fragment() {
 
         val navController=findNavController()
 
-        binding.trashBinGameName.setOnClickListener {
+        binding.trashBinPlayBtn.setOnClickListener {
              navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToTrashBinGame())
         }
-        binding.trashBingGameImg.setOnClickListener{
-            navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToTrashBinGame())
-        }
 
-        binding.garbageSorterGameName.setOnClickListener {
-            navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToGarbageSorterGame())
-        }
-        binding.garbageSorterGameImg.setOnClickListener {
+        binding.garbageSorterPlayBtn.setOnClickListener {
             navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToGarbageSorterGame())
         }
 
-        binding.quizGameName.setOnClickListener {
-            navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToQuizFragment())
-        }
-        binding.quizGameImg.setOnClickListener {
+        binding.quizPlayBtn.setOnClickListener {
             navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToQuizFragment())
         }
 
-        binding.growingTreeGameName.setOnClickListener {
-            navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToGrowingTreeFragment())
-        }
-        binding.growingTreeGameImg.setOnClickListener {
+        binding.growingTreePlayBtn.setOnClickListener {
             navController.navigate(GameSelectionFragmentDirections.actionGameSelectionFragmentToGrowingTreeFragment())
         }
 

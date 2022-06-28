@@ -55,11 +55,6 @@ class DebugActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.btnLeaderboard.setOnClickListener {
-            val intent = Intent(this,Leaderboard::class.java)
-            startActivity(intent)
-        }
-
     }
     override fun onStart() {
         super.onStart()

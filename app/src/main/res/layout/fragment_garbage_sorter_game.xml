@@ -66,6 +66,17 @@
                 android:layout_alignParentBottom="true"
                 android:src="@drawable/paper_bin_back_layer" />
 
+            <TextView
+                android:id="@+id/paper_trash_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/paper_bin_back_layer"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="41dp"
+                android:text="Carta"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
             <ImageView
                 android:id="@+id/paper_bin_front_layer"
                 android:layout_width="120dp"
@@ -83,17 +94,6 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
                         android:src="@drawable/ic_paper_waste" />-->
-
-            <TextView
-                android:id="@+id/paper_trash_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:text="Carta"
-                android:textColor="@color/white"
-                android:textSize="17sp" />
 
             <!--<ImageView
                     android:id="@+id/plastic_bin_lid"
@@ -129,6 +129,17 @@
                 android:layout_toEndOf="@id/paper_bin_back_layer"
                 android:src="@drawable/plastic_bin_back_layer" />
 
+            <TextView
+                android:id="@+id/plastic_trash_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_alignTop="@id/plastic_bin_back_layer"
+                android:text="Plastica"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
             <ImageView
                 android:id="@+id/plastic_bin_front_layer"
                 android:layout_width="120dp"
@@ -138,16 +149,6 @@
                 android:layout_toEndOf="@id/paper_bin_back_layer"
                 android:src="@drawable/plastic_bin_front_layer" />
 
-            <TextView
-                android:id="@+id/plastic_trash_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:text="Plastica"
-                android:textColor="@color/white"
-                android:textSize="17sp" />
-
             <ImageView
                 android:id="@+id/organic_bin_back_layer"
                 android:layout_width="120dp"
@@ -156,6 +157,18 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:src="@drawable/organic_bin_back_layer" />
+
+            <TextView
+                android:id="@+id/organic_trash_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_alignTop="@id/organic_bin_back_layer"
+                android:text="Organico"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/organic_bin_front_layer"
@@ -200,15 +213,6 @@
                         android:layout_marginTop="30dp"
                         android:src="@drawable/ic_food_waste" />-->
 
-            <TextView
-                android:id="@+id/organic_trash_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:text="Organico"
-                android:textColor="@color/white"
-                android:textSize="17sp" />
             <!--android:layout_alignTop="@id/organic_bin_lid"-->
 
         </RelativeLayout>

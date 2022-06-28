@@ -18,10 +18,10 @@
     <string name="btn_R2">R2</string>
     <string name="btn_R3">R3</string>
     <string name="btn_R4">R4</string>
-    <string name="trash_bin_game_name">Non sporcare l\'ambiente</string>
+    <string name="trash_bin_game_name">Proteggi l\'ambiente</string>
     <string name="garbage_sorter_game_name">Dividi i rifiuti</string>
     <string name="quiz_game_name">Quiz</string>
-    <string name="growing_tree_game_name">Fai crescere il tuo albero</string>
+    <string name="growing_tree_game_name">Cresci il tuo albero</string>
     <string name="quiz_result_nav_name">Risultato</string>
     <string name="title_activity_dacancellare">dacancellare</string>
     <!-- Strings used for fragments for navigation -->
@@ -32,4 +32,5 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="play_now_button">Gioca Ora</string>
 </resources>

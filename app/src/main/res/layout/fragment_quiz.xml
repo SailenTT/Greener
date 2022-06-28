@@ -40,7 +40,7 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/trashes_container"
+            android:id="@+id/answers_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/question_container"
@@ -50,7 +50,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="110dp"
             android:clipToPadding="false"
             android:outlineProvider="bounds"
             android:orientation="vertical">

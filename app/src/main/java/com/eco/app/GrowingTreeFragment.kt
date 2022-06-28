@@ -34,9 +34,10 @@ class GrowingTreeFragment : Fragment(),SensorEventListener {
     private var startX: Float = 0F
     private var startY: Float = 0F
     private val minFrame=23
+    val LAST_FRAME_STEPS=55000
 
     //TODO salvare il progresso di questo gioco nel db di firebase
-
+    //TODO mettere il punteggio del gioco nel db di firebase
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
