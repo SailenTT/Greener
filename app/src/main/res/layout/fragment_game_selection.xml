@@ -17,6 +17,7 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
+            android:transitionName="@string/trash_bin_game_transition"
             android:id="@+id/trash_bin_game_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -35,21 +36,21 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="168dp"
+                    android:layout_height="172dp"
                     android:padding="6dp"
                     android:scaleType="fitCenter"
-                    android:layout_marginBottom="5dp"
-                    android:src="@drawable/ic_trash_bin_game_icon" />
+                    android:layout_marginBottom="4dp"
+                    android:src="@drawable/ic_trash_bin_game_icon"
+                    android:background="@drawable/trash_bin_card_background" />
 
-                <com.google.android.material.divider.MaterialDivider
+                <!--<com.google.android.material.divider.MaterialDivider
                     android:layout_width="match_parent"
                     app:dividerColor="@color/grey"
                     app:dividerInsetStart="8dp"
                     app:dividerInsetEnd="8dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content" />-->
 
                 <LinearLayout
-                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -66,7 +67,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/trash_bin_play_btn"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
@@ -74,6 +75,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="13dp"
                         android:layout_marginBottom="12dp"
+                        android:gravity="center"
                         android:background="@drawable/green_btn_card"
                         android:text="@string/play_now_button"
                         android:textColor="@color/white" />
@@ -82,6 +84,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:transitionName="@string/garbage_sorter_game_transition"
             android:id="@+id/garbage_sorter_game_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -100,21 +103,21 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="168dp"
+                    android:layout_height="172dp"
                     android:padding="6dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="4dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/garbage_sorter_game_icon" />
+                    android:src="@drawable/garbage_sorter_game_icon"
+                    android:background="@drawable/garbage_sorter_card_background"/>
 
-                <com.google.android.material.divider.MaterialDivider
+                <!--<com.google.android.material.divider.MaterialDivider
                     android:layout_width="match_parent"
                     app:dividerColor="@color/grey"
                     app:dividerInsetStart="8dp"
                     app:dividerInsetEnd="8dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content" />-->
 
                 <LinearLayout
-                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -131,7 +134,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/garbage_sorter_play_btn"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
@@ -139,6 +142,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="12dp"
+                        android:gravity="center"
                         android:background="@drawable/green_btn_card"
                         android:text="@string/play_now_button"
                         android:textColor="@color/white" />
@@ -155,6 +159,7 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
+            android:transitionName="@string/quiz_game_transition"
             android:id="@+id/quiz_game_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -173,21 +178,21 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="168dp"
+                    android:layout_height="172dp"
                     android:scaleType="fitCenter"
                     android:padding="6dp"
                     android:src="@drawable/quiz_game_icon"
-                    android:layout_marginBottom="5dp"/>
+                    android:background="@drawable/quiz_card_background"
+                    android:layout_marginBottom="4dp"/>
 
-                <com.google.android.material.divider.MaterialDivider
+                <!--<com.google.android.material.divider.MaterialDivider
                     android:layout_width="match_parent"
                     app:dividerColor="@color/grey"
                     app:dividerInsetStart="8dp"
                     app:dividerInsetEnd="8dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content" />-->
 
                 <LinearLayout
-                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -204,7 +209,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/quiz_play_btn"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
@@ -212,6 +217,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="12dp"
+                        android:gravity="center"
                         android:background="@drawable/green_btn_card"
                         android:text="@string/play_now_button"
                         android:textColor="@color/white" />
@@ -220,6 +226,8 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
+            android:transitionName="@string/growing_tree_game_transition"
+            android:id="@+id/growing_tree_game_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
@@ -237,21 +245,21 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="168dp"
+                    android:layout_height="172dp"
                     android:scaleType="fitCenter"
                     android:padding="6dp"
-                    android:layout_marginBottom="5dp"
-                    android:src="@drawable/ic_growing_tree_game_icon" />
+                    android:layout_marginBottom="4dp"
+                    android:src="@drawable/ic_growing_tree_game_icon"
+                    android:background="@drawable/growing_tree_card_background"/>
 
-                <com.google.android.material.divider.MaterialDivider
+                <!--<com.google.android.material.divider.MaterialDivider
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:dividerColor="@color/grey"
                     app:dividerInsetStart="8dp"
-                    app:dividerInsetEnd="8dp"/>
+                    app:dividerInsetEnd="8dp"/>-->
 
                 <LinearLayout
-                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -268,9 +276,10 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/growing_tree_play_btn"
                         android:layout_width="match_parent"
+                        android:gravity="center"
                         android:layout_height="30dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"

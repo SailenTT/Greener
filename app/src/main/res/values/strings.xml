@@ -32,5 +32,10 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="play_now_button">Gioca Ora</string>
+    <string name="play_now_button">GIOCA ORA</string>
+    <string name="trash_bin_game_transition">trash_bin_game_transition</string>
+    <string name="growing_tree_game_transition">growing_tree_game_transition</string>
+    <string name="quiz_game_transition">quiz_game_transition</string>
+    <string name="garbage_sorter_game_transition">garbage_sorter_game_transition</string>
+    <string name="game_over">Game Over</string>
 </resources>

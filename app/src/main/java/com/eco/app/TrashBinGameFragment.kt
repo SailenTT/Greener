@@ -6,14 +6,13 @@ import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.eco.app.databinding.FragmentTrashBinGameBinding
 import com.facebook.AccessToken
+import com.google.android.material.transition.MaterialContainerTransform
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -55,9 +54,11 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
     private lateinit var spawnThread: Thread;
     private lateinit var trashBinBottomLayer: ImageView
     private lateinit var trashBinTopLayer: ImageView
+    private var gameOverScreen: RelativeLayout?=null
     //TODO aggiungere la possibilità di mettere in pausa il gioco
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        sharedElementEnterTransition = MaterialContainerTransform()
         //Inflate the binding for this fragment
         binding= FragmentTrashBinGameBinding.inflate(inflater,container,false)
         auth = FirebaseAuth.getInstance()
@@ -106,7 +107,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
 
     fun startGame() {
         binding.startGameInstructionsContainer.visibility=View.INVISIBLE
-        binding.gameOverScreen.visibility = View.INVISIBLE
+        gameOverScreen?.visibility=View.INVISIBLE
         //Toast.makeText(context,"Gioco Startato",Toast.LENGTH_SHORT).show()
         binding.txtScore.text = 0.toString()
         score=0
@@ -460,10 +461,13 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
             (img_falling_sprite.tag as HashMap<String,Any>)[isFalling]=false
             //faccio comparire la schermata di fine
             trashBinContainer.setOnTouchListener(null)
-            binding.txtFinalScore.text = "Hai fatto " + score.toString() + " punti"
+            gameOverScreen=binding.gameOverStub.inflate() as RelativeLayout
+            gameOverScreen!!.findViewById<TextView>(R.id.txt_final_score).text= "Hai fatto " + score.toString() + " punti"
+            //binding.txtFinalScore.text = "Hai fatto " + score.toString() + " punti"
             score=0
-            binding.restartGameButton.setOnClickListener { startGame() }
-            binding.gameOverScreen.visibility = View.VISIBLE
+            gameOverScreen!!.findViewById<ImageButton>(R.id.restart_game_button).setOnClickListener { startGame() }
+            //binding.restartGameButton.setOnClickListener { startGame() }
+            //binding.gameOverScreen.visibility = View.VISIBLE
             binding.root.removeView(img_falling_sprite)
             //TODO se l'utente non è loggato far comparire il tasto per loggare
         }
