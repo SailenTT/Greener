@@ -127,6 +127,8 @@
                 android:layout_width="120dp"
                 android:layout_height="165dp"
                 android:layout_alignParentBottom="true"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="7dp"
                 android:layout_toStartOf="@id/organic_bin_back_layer"
                 android:layout_toEndOf="@id/paper_bin_back_layer"
                 android:src="@drawable/plastic_bin_back_layer" />
