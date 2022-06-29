@@ -4,6 +4,7 @@ import android.Manifest
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -23,13 +24,8 @@ import com.airbnb.lottie.LottieAnimationView
 import com.eco.app.databinding.FragmentGrowingTreeBinding
 import kotlin.properties.Delegates
 
-class GrowingTreeFragment : Fragment(),SensorEventListener {
+class GrowingTreeFragment : Fragment() {
     private lateinit var binding: FragmentGrowingTreeBinding
-    private var sensorManager : SensorManager? = null
-    private var running : Boolean = false
-    private var steps : Int = 0
-    private var totalSteps by Delegates.notNull<Int>()
-    private var previousTotalSteps : Float = 0f
     private lateinit var wateringCan: LottieAnimationView
     private var startX: Float = 0F
     private var startY: Float = 0F
@@ -44,7 +40,6 @@ class GrowingTreeFragment : Fragment(),SensorEventListener {
         savedInstanceState: Bundle?
     ): View {
         binding=FragmentGrowingTreeBinding.inflate(inflater,container,false)
-        sensorManager = activity?.getSystemService(Context.SENSOR_SERVICE) as SensorManager //getto il sensore
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { //richiesta permesso
             ActivityCompat.requestPermissions(
@@ -76,6 +71,16 @@ class GrowingTreeFragment : Fragment(),SensorEventListener {
         })
 
         wateringCan.setOnTouchListener { v, event ->touchListener(v,event)  }
+
+        binding.button2.setOnClickListener {
+            val intent = Intent(context,StepService::class.java)
+            activity!!.startService(intent)
+        }
+
+        binding.button3.setOnClickListener{
+            val intent = Intent(context,StepService::class.java)
+            activity!!.stopService(intent)
+        }
 
         return binding.root
     }
@@ -115,57 +120,4 @@ class GrowingTreeFragment : Fragment(),SensorEventListener {
         }
         return true
     }
-
-
-    override fun onResume() {
-        super.onResume()
-        running = true
-        val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) //getto il sensore di tipo contapassi
-        if(stepSensor == null){ //se null, il device proprio non ha il sensore
-            Toast.makeText(context, "Il tuo device non ha un sensore per contare i passi", Toast.LENGTH_SHORT).show()
-        }else{
-            sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        running = false
-        sensorManager?.unregisterListener(this) //non registra piu eventi il sensore quando l'activity va in pause
-    }
-
-    override fun onSensorChanged(event: SensorEvent?) {
-        if(running){
-           Toast.makeText(context, "running", Toast.LENGTH_SHORT).show()
-           //totalSteps = event!!.values[0]
-           //val currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
-           //binding.totalSteps.text = event!!.values[0].toString()
-            steps = event!!.values[0].toInt() //steps nella sessione
-            totalSteps = getSteps() //getto gli steps totali
-            totalSteps += steps //aggiungo quelli fatti mo
-            saveSteps(totalSteps) //li salvo
-
-       }
-    }
-
-    private fun getSteps() : Int {
-      val sharedPreferences = activity!!.getSharedPreferences("trackingPrefs", Context.MODE_PRIVATE)
-      val totalsteps = sharedPreferences!!.getInt("steps",0)
-      return totalsteps
-    }
-
-    private fun saveSteps(steps : Int) {
-        val sharedPreferences =
-            activity?.getSharedPreferences("trackingPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences?.edit()
-        editor?.apply {
-            putInt("steps",steps );
-        }?.apply()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        //Toast.makeText(requireContext(), "Hai fatto "+totalSteps+"passi", Toast.LENGTH_SHORT).show()
-    }
-    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {}
 }
