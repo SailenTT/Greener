@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="430dp"
+    android:layout_centerVertical="true"
+    android:elevation="1dp"
+    style="@style/roundedCorners">
+
+    <!--TODO cristian DN deve rifare la UI perché io e lo stile siamo su due mondi diversi-->
+    <!--ti ho lasciato un immagine carina già tagliata da me, se vuoi usala-->
+    <ImageView
+        android:id="@+id/walking_image_1"
+        android:layout_width="wrap_content"
+        android:layout_height="360dp"
+        android:src="@drawable/walking"
+        android:layout_margin="6dp"
+        style="@style/roundedCorners"/>
+
+    <TextView
+        android:layout_below="@id/walking_image_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:text="Cammina per far cresce l'albero"/>
+
+</RelativeLayout>

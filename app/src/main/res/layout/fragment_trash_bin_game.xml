@@ -54,34 +54,34 @@
             android:layout_marginBottom="5dp">
 
             <ImageView
-                android:id="@+id/trash_bin"
+                android:id="@+id/trash_bin_back_layer"
                 android:layout_width="wrap_content"
-                android:layout_height="110dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:cropToPadding="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/drawable_recycle_bin" />
-
-
-            <ImageView
-                android:id="@+id/trash_bin_top_layer"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_above="@id/trash_bin"
                 android:layout_centerHorizontal="true"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/drawable_recycle_bin_top_layer" />
+                android:src="@drawable/drawable_recycle_bin_back" />
+
+            <ImageView
+                android:id="@+id/trash_bin_front_layer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:cropToPadding="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/drawable_recycle_bin_front" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottie"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_below="@id/trash_bin_top_layer"
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:layout_alignTop="@id/trash_bin_front_layer"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="18dp"
+                android:layout_marginBottom="4dp"
                 android:background="@android:color/transparent"
                 app:lottie_autoPlay="false"
                 app:lottie_loop="false"

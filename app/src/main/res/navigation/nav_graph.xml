@@ -81,7 +81,7 @@
         tools:layout="@layout/fragment_calendar"/>
 
     <fragment
-        android:id="@id/CalculatorFragment"
+        android:id="@+id/CalculatorFragment"
         android:name="com.eco.app.CalculatorFragment"
         android:label="Carbon Footprint"
         tools:layout="@layout/fragment_calculator"/>

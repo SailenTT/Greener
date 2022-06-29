@@ -338,13 +338,17 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
 
         var binId=0
 
-        if ((img_falling_sprite.x >= paperBinFrontLayer.x && img_falling_sprite.x <= paperBinFrontLayer.x + paperBinFrontLayer.width) || (img_falling_sprite.x + img_falling_sprite.width >= paperBinFrontLayer.x && img_falling_sprite.x + img_falling_sprite.width <= paperBinFrontLayer.x + paperBinFrontLayer.width)) {
+        if ((//img_falling_sprite.x >= paperBinFrontLayer.x &&
+                    img_falling_sprite.x+img_falling_sprite.width/3*2 <= paperBinFrontLayer.x + paperBinFrontLayer.width))// || (img_falling_sprite.x + img_falling_sprite.width >= paperBinFrontLayer.x && img_falling_sprite.x + img_falling_sprite.width/3*2 <= paperBinFrontLayer.x + paperBinFrontLayer.width)) {
+        {
             binId = 0
         }
-        else if ((img_falling_sprite.x >= plasticBinFrontLayer.x && img_falling_sprite.x <= plasticBinFrontLayer.x + plasticBinFrontLayer.width) || (img_falling_sprite.x + img_falling_sprite.width >= plasticBinFrontLayer.x && img_falling_sprite.x + img_falling_sprite.width <= plasticBinFrontLayer.x + plasticBinFrontLayer.width)) {
+        else if ((img_falling_sprite.x+img_falling_sprite.width >= plasticBinFrontLayer.x && img_falling_sprite.x+img_falling_sprite.width/3*2 <= plasticBinFrontLayer.x + plasticBinFrontLayer.width)) //|| (img_falling_sprite.x + img_falling_sprite.width >= plasticBinFrontLayer.x && img_falling_sprite.x + img_falling_sprite.width/3*2 <= plasticBinFrontLayer.x + plasticBinFrontLayer.width)) {
+        {
             binId=1
         }
-        else if ((img_falling_sprite.x >= organicBinFrontLayer.x && img_falling_sprite.x <= organicBinFrontLayer.x + organicBinFrontLayer.width) || (img_falling_sprite.x + img_falling_sprite.width >= organicBinFrontLayer.x && img_falling_sprite.x + img_falling_sprite.width <= organicBinFrontLayer.x + organicBinFrontLayer.width)) {
+        else //if ((img_falling_sprite.x >= organicBinFrontLayer.x && img_falling_sprite.x <= organicBinFrontLayer.x + organicBinFrontLayer.width) || (img_falling_sprite.x + img_falling_sprite.width/3*2 >= organicBinFrontLayer.x && img_falling_sprite.x + img_falling_sprite.width <= organicBinFrontLayer.x + organicBinFrontLayer.width)) {
+        {
             binId=2
         }
 
@@ -410,7 +414,12 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
             gameRunning=false
             //faccio comparire la schermata di fine
             img_falling_sprite.setOnTouchListener(null)
-            gameOverScreen=binding.gameOverStub.inflate() as RelativeLayout
+            if(gameOverScreen==null) {
+                gameOverScreen = binding.gameOverStub.inflate() as RelativeLayout
+            }
+            else {
+                gameOverScreen!!.visibility = View.VISIBLE
+            }
             gameOverScreen!!.findViewById<TextView>(R.id.txt_final_score).text = "Hai fatto " + score.toString() + " punti"
             score=0
             gameOverScreen!!.findViewById<ImageButton>(R.id.restart_game_button).setOnClickListener { startGame() }
