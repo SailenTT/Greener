@@ -82,7 +82,7 @@ class HomeWindow : AppCompatActivity() {
                         val resized = Bitmap.createScaledBitmap(bitmap, 400, 400, true)
                         lottie.setImageBitmap(resized)
                     }.addOnFailureListener {
-                        Toast.makeText(baseContext, "Errore nella propic", Toast.LENGTH_SHORT).show()
+                       // Toast.makeText(baseContext, "Errore nella propic", Toast.LENGTH_SHORT).show()
                     }
                 }
                 if(lottie.visibility==View.VISIBLE) {
