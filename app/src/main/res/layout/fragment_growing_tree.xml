@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:transitionName="@string/growing_tree_game_transition"
     tools:context=".GrowingTreeFragment">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/growing_tree_wallpaper" />
+        android:src="@drawable/growing_tree_game_background" />
 
     <TextView
         android:id="@+id/total_steps"

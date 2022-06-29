@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.eco.app.databinding.FragmentGrowingTreeBinding
+import com.google.android.material.transition.MaterialContainerTransform
 import kotlin.properties.Delegates
 
 class GrowingTreeFragment : Fragment() {
@@ -39,6 +40,8 @@ class GrowingTreeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        sharedElementEnterTransition = MaterialContainerTransform()
+
         binding=FragmentGrowingTreeBinding.inflate(inflater,container,false)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { //richiesta permesso

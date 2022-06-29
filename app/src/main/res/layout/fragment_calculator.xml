@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A9BCDF"
+    android:background="@color/colo1"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CalculatorFragment">
 
@@ -14,25 +14,33 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!--RL padre e contenitore Journey Mode-->
+        <!--RL padre-->
         <RelativeLayout
             android:id="@+id/RL_Padre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#A9BCDF"
+            android:background="@color/colo2"
             android:elevation="8dp">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/img1footprint"
+            <!--RL contenitore Journey Mode-->
+            <RelativeLayout
+                android:id="@+id/RL_journeyMode"
                 android:layout_width="match_parent"
-                android:scaleType="centerCrop"
-                android:layout_height="250dp"
-                android:layout_marginTop="0dp"
-                android:elevation="8dp"
-                app:shapeAppearanceOverlay="@style/roundedCorners"
-                app:srcCompat="@drawable/bg_footprint" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/txb_background"
+                android:backgroundTint="#A9BCDF">
 
-            <TextView
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/img1footprint"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_marginTop="0dp"
+                    android:elevation="8dp"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/roundedCorners"
+                    app:srcCompat="@drawable/bg_footprint" />
+
+                <TextView
                 android:id="@+id/txt_journeyMode"
                 android:layout_width="270dp"
                 android:layout_height="50dp"
@@ -43,7 +51,7 @@
                 android:textSize="35sp"
                 android:textStyle="bold" />
 
-            <TextView
+                <TextView
                 android:id="@+id/txt_info1"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
@@ -53,211 +61,212 @@
                 android:textSize="17sp"
                 android:textStyle="normal" />
 
-            <RelativeLayout
-                android:id="@+id/RLgenerale"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_info1"
-                android:layout_margin="10dp"
-                android:background="@drawable/txb_background">
-
-                <!--RL che contiene la gridV-->
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    android:background="@drawable/txb_background"
-                    android:elevation="8dp">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_info1"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/txb_background">
 
-                    <GridLayout
-                        android:layout_width="380dp"
-                        android:layout_height="270dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="20dp"
-                        android:columnCount="3"
-                        android:rowCount="2">
+                    <!--RL che contiene la gridV-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:background="@drawable/txb_background"
+                        android:elevation="8dp">
 
-                        <!--CARD auto-->
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/cvAuto"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_rowWeight="1"
-                            android:layout_columnWeight="1"
-                            android:layout_margin="5dp"
-                            android:checkable="true"
-                            android:clickable="true"
-                            android:focusable="true"
-                            app:cardBackgroundColor="@color/yellowPlastica"
-                            app:cardCornerRadius="25dp"
-                            app:cardElevation="3dp">
+                        <GridLayout
+                            android:layout_width="380dp"
+                            android:layout_height="270dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_margin="20dp"
+                            android:columnCount="3"
+                            android:rowCount="2">
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                            <!--CARD auto-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/cvAuto"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_rowWeight="1"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="5dp"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                app:cardBackgroundColor="@color/yellowPlastica"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="3dp">
 
-                                <ImageView
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:layout_centerInParent="true"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/car_footprint" />
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
 
-                            </RelativeLayout>
+                                    <ImageView
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
+                                        android:layout_centerInParent="true"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/car_footprint" />
 
-                        </com.google.android.material.card.MaterialCardView>
+                                </RelativeLayout>
 
-                        <!--CARD bus-->
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/cvBus"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_rowWeight="1"
-                            android:layout_columnWeight="1"
-                            android:layout_margin="5dp"
-                            android:checkable="true"
-                            android:clickable="true"
-                            android:focusable="true"
-                            app:cardBackgroundColor="#BBE0F8"
-                            app:cardCornerRadius="25dp"
-                            app:cardElevation="3dp">
+                            </com.google.android.material.card.MaterialCardView>
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                            <!--CARD bus-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/cvBus"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_rowWeight="1"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="5dp"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                app:cardBackgroundColor="#BBE0F8"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="3dp">
 
-                                <ImageView
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:layout_centerInParent="true"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/bus_footprint" />
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
 
-                            </RelativeLayout>
+                                    <ImageView
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
+                                        android:layout_centerInParent="true"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/bus_footprint" />
 
-                        </com.google.android.material.card.MaterialCardView>
+                                </RelativeLayout>
 
-                        <!--CARD treno-->
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/cvTrain"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_rowWeight="1"
-                            android:layout_columnWeight="1"
-                            android:layout_margin="5dp"
-                            android:checkable="true"
-                            android:clickable="true"
-                            android:focusable="true"
-                            app:cardBackgroundColor="#D9E0EE"
-                            app:cardCornerRadius="25dp"
-                            app:cardElevation="3dp">
+                            </com.google.android.material.card.MaterialCardView>
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                            <!--CARD treno-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/cvTrain"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_rowWeight="1"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="5dp"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                app:cardBackgroundColor="#D9E0EE"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="3dp">
 
-                                <ImageView
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:layout_centerInParent="true"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/train_footprint" />
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
 
-                            </RelativeLayout>
+                                    <ImageView
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
+                                        android:layout_centerInParent="true"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/train_footprint" />
 
-                        </com.google.android.material.card.MaterialCardView>
+                                </RelativeLayout>
 
-                        <!--CARD taxi-->
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/cvTaxi"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_rowWeight="1"
-                            android:layout_columnWeight="1"
-                            android:layout_margin="5dp"
-                            android:checkable="true"
-                            android:clickable="true"
-                            android:focusable="true"
-                            app:cardBackgroundColor="#D9EDF2"
-                            app:cardCornerRadius="25dp"
-                            app:cardElevation="3dp">
+                            </com.google.android.material.card.MaterialCardView>
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                            <!--CARD taxi-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/cvTaxi"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_rowWeight="1"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="5dp"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                app:cardBackgroundColor="#D9EDF2"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="3dp">
 
-                                <ImageView
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:layout_centerInParent="true"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/taxi_footprint" />
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
 
-                            </RelativeLayout>
+                                    <ImageView
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
+                                        android:layout_centerInParent="true"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/taxi_footprint" />
 
-                        </com.google.android.material.card.MaterialCardView>
+                                </RelativeLayout>
 
-                        <!--CARD moto-->
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/cvMoto"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_rowWeight="1"
-                            android:layout_columnWeight="1"
-                            android:layout_margin="5dp"
-                            android:checkable="true"
-                            android:clickable="true"
-                            android:focusable="true"
-                            app:cardBackgroundColor="#BAC7BE"
-                            app:cardCornerRadius="25dp"
-                            app:cardElevation="3dp">
+                            </com.google.android.material.card.MaterialCardView>
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                            <!--CARD moto-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/cvMoto"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_rowWeight="1"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="5dp"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                app:cardBackgroundColor="#BAC7BE"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="3dp">
 
-                                <ImageView
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:layout_centerInParent="true"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/moto_footprint" />
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
 
-                            </RelativeLayout>
+                                    <ImageView
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
+                                        android:layout_centerInParent="true"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/moto_footprint" />
 
-                        </com.google.android.material.card.MaterialCardView>
+                                </RelativeLayout>
 
-                        <!--CARD a piedi-->
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/cvWalk"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_rowWeight="1"
-                            android:layout_columnWeight="1"
-                            android:layout_margin="5dp"
-                            android:checkable="true"
-                            android:clickable="true"
-                            android:focusable="true"
-                            app:cardBackgroundColor="#ECF4FA"
-                            app:cardCornerRadius="25dp"
-                            app:cardElevation="3dp">
+                            </com.google.android.material.card.MaterialCardView>
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                            <!--CARD a piedi-->
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/cvWalk"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_rowWeight="1"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="5dp"
+                                android:checkable="true"
+                                android:clickable="true"
+                                android:focusable="true"
+                                app:cardBackgroundColor="#ECF4FA"
+                                app:cardCornerRadius="25dp"
+                                app:cardElevation="3dp">
 
-                                <ImageView
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:layout_centerInParent="true"
-                                    android:scaleType="centerCrop"
-                                    android:src="@drawable/walk_footprint" />
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
 
-                            </RelativeLayout>
+                                    <ImageView
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
+                                        android:layout_centerInParent="true"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/walk_footprint" />
 
-                        </com.google.android.material.card.MaterialCardView>
+                                </RelativeLayout>
 
-                    </GridLayout>
+                            </com.google.android.material.card.MaterialCardView>
+
+                        </GridLayout>
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
 
@@ -269,8 +278,8 @@
                 android:id="@+id/Rl_journeyTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
-                android:layout_below="@id/RLgenerale"
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/RL_journeyMode"
                 android:background="@drawable/txb_background"
                 android:backgroundTint="#344779">
 
@@ -332,7 +341,7 @@
                 android:id="@+id/RL_voli"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="15dp"
                 android:layout_below="@id/Rl_journeyTime"
                 android:background="@drawable/txb_background"
                 android:backgroundTint="#7E9E9A">
@@ -632,7 +641,7 @@
                 android:id="@+id/RL_foodTracking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="15dp"
                 android:layout_below="@id/RL_voli"
                 android:background="@drawable/txb_background"
                 android:backgroundTint="#E1AE6D">
@@ -687,13 +696,13 @@
 
                         <ImageView
                             android:id="@+id/img_meatplus"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
                             android:layout_centerInParent="true"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/volo_uno" />
+                            android:src="@drawable/meatplus_footprint" />
 
                         <LinearLayout
                             android:layout_width="210dp"
@@ -732,7 +741,8 @@
                             android:layout_height="wrap_content"
                             android:button="@drawable/image_checkbox"
                             android:layout_margin="10dp"
-                            android:layout_gravity="center"/>
+                            android:layout_gravity="center"
+                            android:elevation="8dp"/>
 
                     </LinearLayout>
 
@@ -746,13 +756,13 @@
 
                         <ImageView
                             android:id="@+id/img_meat"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
                             android:layout_centerInParent="true"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/volo_uno" />
+                            android:src="@drawable/meat_footprint" />
 
                         <LinearLayout
                             android:layout_width="210dp"
@@ -791,7 +801,8 @@
                             android:layout_height="wrap_content"
                             android:button="@drawable/image_checkbox"
                             android:layout_margin="10dp"
-                            android:layout_gravity="center"/>
+                            android:layout_gravity="center"
+                            android:elevation="8dp"/>
                         <!--dare margin, ingrandire e cercare come roundare -->
 
                     </LinearLayout>
@@ -806,13 +817,13 @@
 
                         <ImageView
                             android:id="@+id/img_meatlow"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
                             android:layout_centerInParent="true"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/volo_uno" />
+                            android:src="@drawable/meatminus_footprint" />
 
                         <LinearLayout
                             android:layout_width="210dp"
@@ -851,8 +862,8 @@
                             android:layout_height="wrap_content"
                             android:button="@drawable/image_checkbox"
                             android:layout_margin="10dp"
-                            android:layout_gravity="center"/>
-                        <!--dare margin, ingrandire e cercare come roundare -->
+                            android:layout_gravity="center"
+                            android:elevation="8dp"/>
 
                     </LinearLayout>
 
@@ -866,13 +877,13 @@
 
                         <ImageView
                             android:id="@+id/img_fish"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
                             android:layout_centerInParent="true"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/volo_uno" />
+                            android:src="@drawable/fish_footprint" />
 
                         <LinearLayout
                             android:layout_width="210dp"
@@ -911,8 +922,8 @@
                             android:layout_height="wrap_content"
                             android:button="@drawable/image_checkbox"
                             android:layout_margin="10dp"
-                            android:layout_gravity="center"/>
-                        <!--dare margin, ingrandire e cercare come roundare -->
+                            android:layout_gravity="center"
+                            android:elevation="8dp"/>
 
                     </LinearLayout>
 
@@ -926,13 +937,13 @@
 
                         <ImageView
                             android:id="@+id/img_veget"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
                             android:layout_centerInParent="true"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/volo_uno" />
+                            android:src="@drawable/vegetarian_footprint" />
 
                         <LinearLayout
                             android:layout_width="210dp"
@@ -971,8 +982,8 @@
                             android:layout_height="wrap_content"
                             android:button="@drawable/image_checkbox"
                             android:layout_margin="10dp"
-                            android:layout_gravity="center"/>
-                        <!--dare margin, ingrandire e cercare come roundare -->
+                            android:layout_gravity="center"
+                            android:elevation="8dp"/>
 
                     </LinearLayout>
 
@@ -986,13 +997,13 @@
 
                         <ImageView
                             android:id="@+id/img_veggy"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
                             android:layout_centerInParent="true"
                             android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/volo_uno" />
+                            android:src="@drawable/veggy_footprint" />
 
                         <LinearLayout
                             android:layout_width="210dp"
@@ -1031,17 +1042,15 @@
                             android:layout_height="wrap_content"
                             android:button="@drawable/image_checkbox"
                             android:layout_margin="10dp"
-                            android:layout_gravity="center"/>
-                        <!--dare margin, ingrandire e cercare come roundare -->
+                            android:layout_gravity="center"
+                            android:elevation="8dp"/>
 
                     </LinearLayout>
 
                 </RelativeLayout>
 
             </RelativeLayout>
-
-            <!--TODO trovare la distanza giusta tra le varie schermate
-            TODO cercare di tagliare fuori la prima dal relative generale-->
+            <!--fine RL food tracking-->
 
             <!--<Button
                 android:id="@+id/btn_prova"

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:transitionName="@string/quiz_game_transition"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
@@ -11,15 +12,21 @@
         android:clipToPadding="false"
         android:visibility="invisible">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/quiz_game_background"
+            android:scaleType="centerCrop"/>
+
         <RelativeLayout
             android:id="@+id/question_container"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:clipToPadding="false"
-            android:background="@drawable/layer_rectangle_circular_bottom" >
+            android:background="@drawable/layer_rectangle_circular_bottom"
+            android:clipToPadding="false">
 
 
             <TextView
@@ -31,15 +38,16 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="35dp"
-                android:paddingTop="10dp"
                 android:gravity="center"
                 android:paddingStart="5dp"
+                android:paddingTop="10dp"
                 android:paddingEnd="5dp"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
         </RelativeLayout>
 
         <LinearLayout
+            android:gravity="center"
             android:id="@+id/answers_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,11 +57,11 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="110dp"
             android:clipToPadding="false"
-            android:outlineProvider="bounds"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:outlineProvider="bounds">
 
             <Button
                 android:id="@+id/btn_r1"

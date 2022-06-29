@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.eco.app.databinding.FragmentQuizBinding
 import com.facebook.AccessToken
+import com.google.android.material.transition.MaterialContainerTransform
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
@@ -47,6 +48,7 @@ class QuizFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        sharedElementEnterTransition = MaterialContainerTransform()
         // Inflate the layout for this fragment
         binding = FragmentQuizBinding.inflate(inflater, container, false)
         binding.quizShimmer.startShimmer()

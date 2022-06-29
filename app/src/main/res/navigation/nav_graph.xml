@@ -13,32 +13,16 @@
 
         <action
             android:id="@+id/action_GameSelectionFragment_to_TrashBinGame"
-            app:destination="@id/TrashBinGameFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:destination="@id/TrashBinGameFragment"/>
         <action
             android:id="@+id/action_GameSelectionFragment_to_GarbageSorterGame"
-            app:destination="@+id/GarbageSorterGameFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:destination="@+id/GarbageSorterGameFragment"/>
         <action
             android:id="@+id/action_GameSelectionFragment_to_QuizFragment"
-            app:destination="@+id/QuizGameFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:destination="@+id/QuizGameFragment"/>
         <action
             android:id="@+id/action_GameSelectionFragment_to_GrowingTreeFragment"
-            app:destination="@+id/GrowingTreeGameFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:destination="@+id/GrowingTreeGameFragment"/>
 
     </fragment>
 

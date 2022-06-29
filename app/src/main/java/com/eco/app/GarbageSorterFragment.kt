@@ -7,11 +7,14 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.eco.app.databinding.FragmentGarbageSorterGameBinding
+import com.google.android.material.transition.MaterialContainerTransform
 import kotlin.random.Random
 
 
@@ -36,6 +39,7 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
     private var numberOfPaperWasteIcons=0
     private var numberOfPlasticWasteIcons=0
     private var numberOfOrganicWasteIcons=0
+    private var gameOverScreen: RelativeLayout?=null
     val prePathToPaperIcon: String="paper_waste_"
     val prePathToPlasticIcon: String="plastic_waste_"
     val prePathToOrganicIcon: String="organic_waste_"
@@ -45,6 +49,8 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        sharedElementEnterTransition = MaterialContainerTransform()
+
         binding= FragmentGarbageSorterGameBinding.inflate(layoutInflater,container,false)
 
         paperBinFrontLayer=binding.paperBinFrontLayer
@@ -87,7 +93,7 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
 
     fun startGame() {
         binding.startGameInstructionsContainer.visibility=View.INVISIBLE
-        binding.gameOverScreen.visibility = View.INVISIBLE
+        gameOverScreen?.visibility=View.INVISIBLE
         //Toast.makeText(context,"Gioco Startato",Toast.LENGTH_SHORT).show()
         binding.txtScore.text = 0.toString()
         score=0
@@ -404,10 +410,10 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
             gameRunning=false
             //faccio comparire la schermata di fine
             img_falling_sprite.setOnTouchListener(null)
-            binding.txtFinalScore.text = "Hai fatto " + score.toString() + " punti"
+            gameOverScreen=binding.gameOverStub.inflate() as RelativeLayout
+            gameOverScreen!!.findViewById<TextView>(R.id.txt_final_score).text = "Hai fatto " + score.toString() + " punti"
             score=0
-            binding.restartGameButton.setOnClickListener { startGame() }
-            binding.gameOverScreen.visibility = View.VISIBLE
+            gameOverScreen!!.findViewById<ImageButton>(R.id.restart_game_button).setOnClickListener { startGame() }
             binding.root.removeView(img_falling_sprite)
         }
     }
