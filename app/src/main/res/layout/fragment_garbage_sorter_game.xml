@@ -61,27 +61,28 @@
             <ImageView
                 android:id="@+id/paper_bin_back_layer"
                 android:layout_width="120dp"
-                android:layout_height="159dp"
-                android:layout_marginStart="5dp"
+                android:layout_height="165dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
+                android:layout_marginStart="5dp"
                 android:src="@drawable/paper_bin_back_layer" />
 
             <TextView
                 android:id="@+id/paper_trash_text"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/paper_bin_back_layer"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="41dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="13dp"
                 android:text="Carta"
+                android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/paper_bin_front_layer"
                 android:layout_width="120dp"
-                android:layout_height="105dp"
+                android:layout_height="88dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="5dp"
@@ -124,28 +125,33 @@
             <ImageView
                 android:id="@+id/plastic_bin_back_layer"
                 android:layout_width="120dp"
-                android:layout_height="159dp"
+                android:layout_height="165dp"
                 android:layout_alignParentBottom="true"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="7dp"
                 android:layout_toStartOf="@id/organic_bin_back_layer"
                 android:layout_toEndOf="@id/paper_bin_back_layer"
                 android:src="@drawable/plastic_bin_back_layer" />
 
             <TextView
                 android:id="@+id/plastic_trash_text"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
                 android:layout_alignTop="@id/plastic_bin_back_layer"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="13dp"
                 android:text="Plastica"
+                android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/plastic_bin_front_layer"
                 android:layout_width="120dp"
-                android:layout_height="105dp"
+                android:layout_height="88dp"
                 android:layout_alignParentBottom="true"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="7dp"
                 android:layout_toStartOf="@id/organic_bin_back_layer"
                 android:layout_toEndOf="@id/paper_bin_back_layer"
                 android:src="@drawable/plastic_bin_front_layer" />
@@ -153,20 +159,21 @@
             <ImageView
                 android:id="@+id/organic_bin_back_layer"
                 android:layout_width="120dp"
-                android:layout_height="159dp"
-                android:layout_marginEnd="5dp"
+                android:layout_height="165dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
+                android:layout_marginEnd="5dp"
                 android:src="@drawable/organic_bin_back_layer" />
 
             <TextView
                 android:id="@+id/organic_trash_text"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="10dp"
                 android:layout_alignTop="@id/organic_bin_back_layer"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="22dp"
+                android:textAlignment="center"
                 android:text="Organico"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -174,10 +181,10 @@
             <ImageView
                 android:id="@+id/organic_bin_front_layer"
                 android:layout_width="120dp"
-                android:layout_height="105dp"
-                android:layout_marginEnd="5dp"
+                android:layout_height="88dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
+                android:layout_marginEnd="5dp"
                 android:src="@drawable/organic_bin_front_layer" />
 
             <!--<ImageView
