@@ -14,32 +14,23 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/lead_position"
+                android:id="@+id/tv_leadPosition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="3dp"
                 android:text="#N" />
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="3dp"
-                tools:srcCompat="@tools:sample/avatars" />
-
             <TextView
-                android:id="@+id/lead_quiz"
+                android:id="@+id/tv_Username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="3dp"
-                android:text="Quiz score: 222" />
+                android:text="nickname" />
 
             <TextView
-                android:id="@+id/lead_bin"
+                android:id="@+id/tv_ScoreLeaderboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="3dp"
-                android:text="Trash bin score: 222" />
+                android:text="Score:222" />
 
         </TableRow>
 

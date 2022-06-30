@@ -29,13 +29,19 @@ class LeaderboardAdapter(private val dataSet: ArrayList<LeaderBoardRow>, private
     }
 
     inner class LeaderboardViewHolder(val binding : LeaderboardRowBinding): RecyclerView.ViewHolder(binding.root){
-        var quiz_score = binding.leadQuiz
+        /*var quiz_score = binding.leadQuiz
         var bin_score = binding.leadBin
-        var position = binding.leadPosition
+
+         */
+        var position = binding.tvLeadPosition
+        var username = binding.tvUsername
+        var score = binding.tvScoreLeaderboard
         fun initialize(item : LeaderBoardRow, action:OnItemClicked){
-            quiz_score.text = "Quiz score: "+item.quiz_score.toString()
-            bin_score.text = "TrasBin score: "+item.trashbin_score.toString()
-            position.text = item.position.toString()
+            position.text = item.position.toString()+" "
+            username.text = item.username+" "
+            score.text = item.score.toString()+" "
+           // quiz_score.text = "Quiz score: "+item.quiz_score.toString()
+           // bin_score.text = "TrasBin score: "+item.trashbin_score.toString()
             itemView.setOnClickListener{
                 action.onItemClick(item,absoluteAdapterPosition)
             }

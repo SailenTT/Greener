@@ -70,11 +70,15 @@ class LeaderboardFragment : Fragment(),LeaderboardAdapter.OnItemClicked {
                 for (i in snapshot.children){
                     val quizScore = i.child("quiz_score").getValue(Long::class.java)!!.toInt()
                     val trashScore = i.child("bin_score").getValue(Long::class.java)!!.toInt()
-                    val leaderboardrow = LeaderBoardRow(pos,quizScore,trashScore)
+                    val divideScore = i.child("divide_score").getValue(Long::class.java)!!.toInt()
+                    val carbonFoot = i.child("carbon_footprint").getValue(Long::class.java)!!.toInt()
+                    val score = quizScore+trashScore+divideScore+carbonFoot
+                    val username = i.child("username").getValue(String::class.java)!!
+                    val leaderboardrow = LeaderBoardRow(pos,username,score)
                     pos++
                     array.add(leaderboardrow) //TODO sorting array
-                    //sortArray()
                 }
+                sortArray(array)
                 val recyclerview = binding.leaderboardRecycler
                 recyclerview.layoutManager = LinearLayoutManager(requireContext())
                 //riempio la recycler
@@ -96,5 +100,14 @@ class LeaderboardFragment : Fragment(),LeaderboardAdapter.OnItemClicked {
 
 
     }
+
+    private fun sortArray(array: ArrayList<LeaderBoardRow>) {
+        array.sortByDescending { l1 -> l1.score }
+        for(i in array.indices){
+            array[i].position = i+1
+        }
+    }
+
+
 
 }
