@@ -1,25 +1,32 @@
 package com.eco.app
 
 import android.animation.Animator
-import android.media.Image
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.eco.app.databinding.FragmentGarbageSorterGameBinding
 import com.google.android.material.transition.MaterialContainerTransform
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlin.random.Random
 
 
 class GarbageSorterFragment : Fragment(), View.OnTouchListener{
     private lateinit var binding : FragmentGarbageSorterGameBinding
+    private lateinit var auth: FirebaseAuth
+    private lateinit var database: FirebaseDatabase
+    private lateinit var UID : String
+    private lateinit var bestDivideScore : String
+    private lateinit var userReference : DatabaseReference
     private var xStart= 0.0F
     private var score=0
     private var gameRunning=false
@@ -50,7 +57,9 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
         savedInstanceState: Bundle?
     ): View {
         sharedElementEnterTransition = MaterialContainerTransform()
-
+        auth = FirebaseAuth.getInstance()
+        database =
+            Firebase.database(RegisterPage.PATHTODB)
         binding= FragmentGarbageSorterGameBinding.inflate(layoutInflater,container,false)
 
         paperBinFrontLayer=binding.paperBinFrontLayer
@@ -412,6 +421,21 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
             //fermo il cestino
             (img_falling_sprite.tag as HashMap<String,Any>)[isFalling] = false
             gameRunning=false
+            //salvo il max score nel db
+            if(auth.currentUser != null){
+                auth.uid?.let { Log.d("okokok", it) }
+                UID = auth.uid!!
+                userReference = database.getReference("Users")
+                userReference.child(UID).child("divide_score").get().addOnSuccessListener { //getto il tuo max score
+                    bestDivideScore = it.value.toString()
+                    val bestDivideInt = Integer.parseInt(bestDivideScore) //parsing
+                    score  = Integer.parseInt(binding.txtScore.text.toString())
+                    if(bestDivideInt < score){ //se il tuo max score è piu piccolo, aggiorno il db
+                        //Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
+                        userReference.child(UID).child("divide_score").setValue(score)
+                    }
+                }
+            }
             //faccio comparire la schermata di fine
             img_falling_sprite.setOnTouchListener(null)
             if(gameOverScreen==null) {

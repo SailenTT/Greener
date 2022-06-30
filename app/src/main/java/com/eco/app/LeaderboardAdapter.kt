@@ -35,6 +35,7 @@ class LeaderboardAdapter(private val dataSet: ArrayList<LeaderBoardRow>, private
         fun initialize(item : LeaderBoardRow, action:OnItemClicked){
             quiz_score.text = "Quiz score: "+item.quiz_score.toString()
             bin_score.text = "TrasBin score: "+item.trashbin_score.toString()
+            position.text = item.position.toString()
             itemView.setOnClickListener{
                 action.onItemClick(item,absoluteAdapterPosition)
             }

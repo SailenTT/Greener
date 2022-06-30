@@ -40,7 +40,7 @@ class LeaderboardFragment : Fragment(),LeaderboardAdapter.OnItemClicked {
         val imageView = ImageView(requireContext())
         imageView.setImageResource(R.drawable.arrow1)
         //creazione dell'oggetto per riempire la riga
-        val leaderboardrowelement = LeaderBoardRow(100,200)
+        //val leaderboardrowelement = LeaderBoardRow(100,200)
         //debug ne ho messi 10 per vedere
        /* for(i in 0..10){
             array.add(i,leaderboardrowelement)
@@ -57,30 +57,23 @@ class LeaderboardFragment : Fragment(),LeaderboardAdapter.OnItemClicked {
     }
 
     override fun onItemClick(item: LeaderBoardRow, position: Int) {
-        //TODO mettere negli extra dell'intent l'uid del profilo cliccato
+        //TODO mettere negli extra dell'intent l'uid del profilo cliccato e scegliere se visualizzare profilo
        // val intent = Intent(requireContext(),ProfileActivity::class.java)
         //startActivity(intent)
     }
 
     fun setLeaderboard(array : ArrayList<LeaderBoardRow>){
         userReference = database.getReference("Users")
-        /*userReference.get().addOnSuccessListener { snapshot ->
-                Toast.makeText(context, "ciao", Toast.LENGTH_SHORT).show()
-
-        }.addOnFailureListener{
-            Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
-        }
-
-         */
         getUsersDataListener = userReference.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
+                var pos = 1
                 for (i in snapshot.children){
                     val quizScore = i.child("quiz_score").getValue(Long::class.java)!!.toInt()
                     val trashScore = i.child("bin_score").getValue(Long::class.java)!!.toInt()
-                    Toast.makeText(context, "$quizScore", Toast.LENGTH_SHORT).show()
-                    val leaderboardrow = LeaderBoardRow(quizScore,trashScore)
-                    array.add(leaderboardrow)
-
+                    val leaderboardrow = LeaderBoardRow(pos,quizScore,trashScore)
+                    pos++
+                    array.add(leaderboardrow) //TODO sorting array
+                    //sortArray()
                 }
                 val recyclerview = binding.leaderboardRecycler
                 recyclerview.layoutManager = LinearLayoutManager(requireContext())

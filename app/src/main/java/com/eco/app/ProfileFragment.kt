@@ -124,10 +124,12 @@ class ProfileFragment : Fragment() {
                 val binScore: Long = it.child("bin_score").value as Long
                 val quizScore: Long = it.child("quiz_score").value as Long
                 val carbonFootprint: Long = it.child("carbon_footprint").value as Long
+                val divideScore : Long = it.child("divide_score").value as Long
                 binding.tvName.text = username
                 binding.tvQuizscore.text = "Quiz score: $quizScore"
                 binding.tvTrashscore.text = "Trash bin score: $binScore"
                 binding.tvCarbon.text = "Carboon footprint: $carbonFootprint"
+                binding.tvDividescore.text="Divide Score: $divideScore"
                 if (binding.profileShimmer.isShimmerStarted) {
                     binding.profileShimmer.stopShimmer()
                     binding.profileShimmer.visibility = View.INVISIBLE

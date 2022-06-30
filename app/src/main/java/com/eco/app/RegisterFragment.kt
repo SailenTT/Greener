@@ -76,6 +76,7 @@ class RegisterFragment : Fragment() {
                         usersReference.child(userUid).child("username").setValue(name)
                         usersReference.child(userUid).child("quiz_score").setValue(0)
                         usersReference.child(userUid).child("bin_score").setValue(0)
+                        usersReference.child(userUid).child("divide_score").setValue(0)
                         usersReference.child(userUid).child("carbon_footprint").setValue(0)
                         uploadToStorageDefaultProfilePic(userUid)
 
