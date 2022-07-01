@@ -9,32 +9,38 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:src="@drawable/trash_day_icon"/>
+
         <!--RL testo-->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:background="@color/colo1">
 
             <TextView
                 android:id="@+id/txt_popup1"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="10dp"
-                android:text="Benvenuto nella schermata per popolare il tuo calendario!"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:padding="6dp"
+                android:text="Inizia subito a popolare il tuo calendario!"
                 android:textAlignment="center"
-                android:textSize="18sp"
+                android:textSize="23sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="90dp"
-                android:text="di seguito troverai un form, in cui dovrai selezionare per ogni giorno il rifiuto che bisogna mettere fuori nel tuo comune."
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_popup1"
+                android:layout_alignParentBottom="true"
+                android:padding="7dp"
+                android:text="Compila il form selezionando, per ogni giorno, il rifiuto che bisogna mettere fuori nel tuo comune."
                 android:textAlignment="center"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:textStyle="italic" />
 
         </RelativeLayout>
