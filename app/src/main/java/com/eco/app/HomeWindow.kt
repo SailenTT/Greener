@@ -15,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.airbnb.lottie.LottieAnimationView
 import com.eco.app.databinding.ActivityHomeWindowBinding
+import com.facebook.AccessToken
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseUser
@@ -163,6 +164,9 @@ class HomeWindow : AppCompatActivity() {
                                 super.onDismissed(transientBottomBar, event)
                                 if(event==Snackbar.Callback.DISMISS_EVENT_TIMEOUT){
                                     Firebase.auth.signOut()
+                                    if(isLoggedInWithFacebook()){
+                                        com.facebook.login.LoginManager.getInstance().logOut();
+                                    }
                                     invalidateOptionsMenu()
                                 }
                             }
@@ -182,6 +186,10 @@ class HomeWindow : AppCompatActivity() {
             }
             navView.menu.add(0,R.id.login_fragment,1,getString(R.string.login_menu_item)).setIcon(R.drawable.ic_login)
         }
+    }
+    fun isLoggedInWithFacebook(): Boolean {
+        val accessToken = AccessToken.getCurrentAccessToken()
+        return accessToken != null
     }
 
 }

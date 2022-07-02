@@ -236,29 +236,30 @@ class LoginFragment : Fragment() {
                     // Sign in success
                     Log.d(ContentValues.TAG, "signInWithCredential:success")
                     //val userid = token.userId //non uso auth.uid perchè quello cambia, questo no
-                    val userid = auth.uid!!
-                    val bundle = Bundle()
-                    bundle.putString("fields", "id, email, first_name, last_name, gender,age_range")
-                    val request = GraphRequest.newMeRequest(token) { fbObject, response ->
-                        try {
-                            val firstName = fbObject?.getString("first_name")
-                            val lastName = fbObject?.getString("last_name")
+                    if(task.getResult().additionalUserInfo?.isNewUser == true){
+                        val bundle = Bundle()
+                        bundle.putString("fields", "id, email, first_name, last_name, gender,age_range")
+                        val request = GraphRequest.newMeRequest(token) { fbObject, response ->
+                            try {
+                                val userid = auth.uid!!
+                                val firstName = fbObject?.getString("first_name")
+                                val lastName = fbObject?.getString("last_name")
 
-                            val usersReference = database.getReference("Users")
-                            usersReference.child(userid).child("username")
-                                .setValue(firstName.toString())
-                            usersReference.child(userid).child("quiz_score").setValue(0)
-                            usersReference.child(userid).child("bin_score").setValue(0)
-                            usersReference.child(userid).child("carbon_footprint").setValue(0)
-                            usersReference.child(userid).child("divide_score").setValue(0)
-                            uploadToStorageDefaultProfilePic(userid)
-                        } catch (e: JSONException) {
-                            e.printStackTrace()
+                                val usersReference = database.getReference("Users")
+                                usersReference.child(userid).child("username")
+                                    .setValue(firstName.toString())
+                                usersReference.child(userid).child("quiz_score").setValue(0)
+                                usersReference.child(userid).child("bin_score").setValue(0)
+                                usersReference.child(userid).child("carbon_footprint").setValue(0)
+                                usersReference.child(userid).child("divide_score").setValue(0)
+                                uploadToStorageDefaultProfilePic(userid)
+                            } catch (e: JSONException) {
+                                e.printStackTrace()
+                            }
                         }
+                        request.parameters = bundle
+                        request.executeAsync()
                     }
-                    request.parameters = bundle
-                    request.executeAsync()
-
                     //TODO redirectare l'utente alla pagina main e qui mettere finish() inoltre togliere dal backstack
                     val intent = Intent(requireContext(), HomeWindow::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
