@@ -76,11 +76,6 @@ class GrowingTreeFragment : Fragment() {
         wateringCan.setOnTouchListener { v, event ->touchListener(v,event)  }
 
 
-        binding.button3.setOnClickListener{
-            val intent = Intent(context,StepService::class.java)
-            activity!!.stopService(intent)
-        }
-
         startStepService()
 
         return binding.root

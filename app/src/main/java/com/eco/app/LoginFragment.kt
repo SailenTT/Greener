@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Intent
 import android.content.IntentSender
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -36,6 +37,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import org.json.JSONException
 
 
@@ -248,7 +250,8 @@ class LoginFragment : Fragment() {
                             usersReference.child(userid).child("quiz_score").setValue(0)
                             usersReference.child(userid).child("bin_score").setValue(0)
                             usersReference.child(userid).child("carbon_footprint").setValue(0)
-
+                            usersReference.child(userid).child("divide_score").setValue(0)
+                            uploadToStorageDefaultProfilePic(userid)
                         } catch (e: JSONException) {
                             e.printStackTrace()
                         }
@@ -257,7 +260,7 @@ class LoginFragment : Fragment() {
                     request.executeAsync()
 
                     //TODO redirectare l'utente alla pagina main e qui mettere finish() inoltre togliere dal backstack
-                    val intent = Intent(context, HomeWindow::class.java)
+                    val intent = Intent(requireContext(), HomeWindow::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
                 } else {
@@ -333,6 +336,17 @@ class LoginFragment : Fragment() {
         findNavController().popBackStack()
         //findNavController().navigate(LoginFragmentDirections.actionFromLoginBackToHome())
     }
+    fun uploadToStorageDefaultProfilePic(UID : String){
+        val uri = Uri.parse("android.resource://" + context!!.packageName.toString() + "/drawable/pollo_mangiato")
+        val filename = UID
+        val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
+        storageReference.putFile(uri).addOnSuccessListener {
+            Toast.makeText(context, "Foto uppata", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener{
+            Toast.makeText(context, "Non uppata la foto", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     override fun onPause() {
         super.onPause()
