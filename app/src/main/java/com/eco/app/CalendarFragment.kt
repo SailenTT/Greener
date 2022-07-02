@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import com.eco.app.databinding.FragmentCalendarBinding
 import com.eco.app.databinding.FragmentPopupBinding
@@ -31,13 +32,25 @@ class CalendarFragment : Fragment() {
     private lateinit var day7 : TextView
     private lateinit var mese : TextView
     private lateinit var btnData : Button
+    private lateinit var bottomSliderContainer : RelativeLayout
+    private lateinit var doubleArrowIcon: ImageView
+    private var dpi: Float=0f
     private var dialogBuilder: AlertDialog.Builder? = null
     private var dialog: AlertDialog? = null
+    private lateinit var calendarDays: List<TextView>
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         //Inflate the binding for this fragment
         binding= FragmentCalendarBinding.inflate(inflater,container,false)
+
+        calendarDays= listOf(binding.day1Rifiuto,binding.day2Rifiuto,binding.day3Rifiuto,binding.day4Rifiuto,binding.day5Rifiuto,binding.day6Rifiuto,binding.day7Rifiuto)
+
+        doubleArrowIcon=binding.doubleArrowWidget
+
+        bottomSliderContainer=binding.bottomSliderContainer
+
+        dpi=resources.displayMetrics.density
 
         day = binding.txtDay1
         day2 = binding.txtDay2
@@ -175,8 +188,10 @@ class CalendarFragment : Fragment() {
         val cD5 : View = binding.circleD5
         val cD6 : View = binding.circleD6
         val cD7 : View = binding.circleD7
+        val cDs = listOf(cD1 as ImageView, cD2 as ImageView, cD3 as ImageView, cD4 as ImageView, cD5 as ImageView, cD6 as ImageView, cD7 as ImageView)
 
-        if (binding.day1Rifiuto.text.equals("Vetro")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
+        //TODO cambiare sta roba
+        /*if (binding.day1Rifiuto.text.equals("Vetro")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
         else if(binding.day1Rifiuto.text.equals("Carta")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#32A4F4")))}
         else if(binding.day1Rifiuto.text.equals("Umido")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#695206")))}
         else if(binding.day1Rifiuto.text.equals("Plastica")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EBDC37")))}
@@ -230,7 +245,29 @@ class CalendarFragment : Fragment() {
         else if(binding.day7Rifiuto.text.equals("Plastica")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EBDC37")))}
         else if(binding.day7Rifiuto.text.equals("Ingombranti")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d64d2e")))}
         else if(binding.day7Rifiuto.text.equals("Indifferenziato")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#a8a8a8")))}
-        else if(binding.day7Rifiuto.text.equals("--")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}
+        else if(binding.day7Rifiuto.text.equals("--")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}*/
+        for(i in 0..6){
+            when(calendarDays[i].text){
+                "Vetro" -> {
+                    cDs[i].setImageResource(R.drawable.glass_day_icon)
+                }
+                "Carta"->{
+                    cDs[i].setImageResource(R.drawable.paper_day_icon)
+                }
+                "Umido"->{
+                    cDs[i].setImageResource(R.drawable.organic_day_icon)
+                }
+                "Plastica"->{
+                    cDs[i].setImageResource(R.drawable.plastic_day_icon)
+                }
+                "Ingombranti"->{
+                    cDs[i].setImageResource(R.drawable.bulky_day_icon)
+                }
+                "Indifferenziato"->{
+                    cDs[i].setImageResource(R.drawable.indiff_day_icon)
+                }
+            }
+        }
 
     }
     fun saveSharedPref(){
@@ -275,5 +312,43 @@ class CalendarFragment : Fragment() {
             setSharedPref()
             setCircleColor()
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        //setto il container sotto lo schermo così l'utente può tirarlo su premendo
+        binding.doubleArrowWidgetContainer.y=0f
+        if(bottomSliderContainer.y+binding.whitePopulationContainer.y<binding.root.height) {
+            bottomSliderContainer.y+=binding.whitePopulationContainer.height.toFloat()
+            binding.doubleArrowWidgetContainer.rotation=0f
+        }
+
+
+        binding.doubleArrowWidgetContainer.setOnClickListener {
+            if(bottomSliderContainer.y+binding.whitePopulationContainer.y>=binding.root.height) {
+                //slide in alto
+                bottomSliderContainer.animate()
+                    .translationYBy(-binding.whitePopulationContainer.height.toFloat())
+                    .duration = 450
+
+                binding.doubleArrowWidgetContainer.animate()
+                    .translationYBy(5f*dpi)
+
+            }
+            else{
+                //slide in basso
+                bottomSliderContainer.animate()
+                    .translationYBy(binding.whitePopulationContainer.height.toFloat())
+                    .duration = 450
+
+                binding.doubleArrowWidgetContainer.animate()
+                    .translationYBy(-5f*dpi)
+            }
+
+            doubleArrowIcon.animate()
+                .rotationBy(180f)
+                .duration=460
+        }
     }
 }
