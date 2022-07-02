@@ -21,21 +21,32 @@ class StepService : Service() ,SensorEventListener{
     private var running : Boolean = false
     private var steps : Int = 0
     private var totalSteps by Delegates.notNull<Int>()
+    private val ACTION_STOP_LISTEN = "action_stop_listen"
+
     override fun onCreate() {
         super.onCreate()
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager //getto il sensore
 
     }
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if(intent != null && ACTION_STOP_LISTEN.equals(intent.action)){
+            stopForeground(true)
+            stopSelf()
+            return START_NOT_STICKY
+        }
         createNotificationChannel()
         val notificationIntent = Intent(this, GrowingTreeFragment::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
+        val stopself = Intent(this,StepService::class.java).setAction(ACTION_STOP_LISTEN)
+        val stopPending = PendingIntent.getService(this,123,stopself,PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getService(this, 0, notificationIntent, 0)
         val notification = NotificationCompat.Builder(this, "1")
             .setContentTitle("Greener")
             .setContentText("Tracking steps..")
             .setSmallIcon(R.drawable.ic_person)
             .setContentIntent(pendingIntent)
+            .addAction(R.mipmap.ic_launcher,"Stop",stopPending)
             .build()
+
         startForeground(1, notification)
         running = true
         val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) //getto il sensore di tipo contapassi
@@ -44,10 +55,8 @@ class StepService : Service() ,SensorEventListener{
         }else{
             sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
         }
-        Toast.makeText(this, "Service started", Toast.LENGTH_SHORT).show()
+      //  Toast.makeText(this, "Service started", Toast.LENGTH_SHORT).show()
         return super.onStartCommand(intent, flags, startId)
-
-
     }
     override fun onBind(p0: Intent?): IBinder? {
         TODO("Not yet implemented")
@@ -64,7 +73,7 @@ class StepService : Service() ,SensorEventListener{
 
     override fun onDestroy() {
         running = false
-        Toast.makeText(this, "$totalSteps", Toast.LENGTH_SHORT).show()
+       // Toast.makeText(this, "$totalSteps", Toast.LENGTH_SHORT).show()
         super.onDestroy()
     }
 
