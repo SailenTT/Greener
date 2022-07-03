@@ -9,19 +9,17 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.eco.app.databinding.FragmentProfileBinding
-import com.facebook.AccessToken
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -29,7 +27,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import java.io.ByteArrayOutputStream
 import java.io.File
 
 
@@ -39,13 +36,25 @@ class ProfileFragment : Fragment() {
     private lateinit var database: FirebaseDatabase
     private lateinit var imguri : Uri
     private lateinit var UID : String
+    private var loadedProfileLayout: ScrollView?=null
+    private lateinit var propic: ImageView
+    private var firstInfoLoaded=false
+    private var quizGameScore=0L
+    private var trashBinGameScore=0L
+    private var garbageSorterGameScore=0L
+    private var carbonFootprintScore=0L
+    private var username: CharSequence=""
+    private var leaderboardPosition=0
+    private lateinit var profileImg:Bitmap
+
+    //Upload foto
     //CONTRATTI
     val register = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
             //Toast.makeText(requireContext(), "APPOSTO REGISTER LAUNCHER", Toast.LENGTH_SHORT).show()
             imguri = it.data?.data!!
-            val imgBitmap : Bitmap? = context?.let { it1 -> decodeUri(it1,imguri,230) }
-            binding.imgProfile.setImageBitmap(imgBitmap)
+            val profilePicBitmap = requireContext().let { it1 -> decodeUri(it1,imguri,230) }
+            propic.setImageBitmap(profilePicBitmap)
             uploadToStorage(UID)
 
         }
@@ -55,7 +64,7 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding=FragmentProfileBinding.inflate(inflater,container,false)
 
         binding.profileShimmer.startShimmer()
@@ -68,9 +77,6 @@ class ProfileFragment : Fragment() {
         }else{
             UID = user.uid
             getInfos(usersReference,UID)
-            binding.imgProfile.setOnClickListener {
-                checkPermissionForImage()
-            }
         }
 
 
@@ -112,28 +118,39 @@ class ProfileFragment : Fragment() {
                 .getReference("propics/$filename")
             val localfile = File.createTempFile("tempImage", "jpg")
             storageReference.getFile(localfile).addOnSuccessListener {
+                //val resized = decodeUri(requireContext(),Uri.fromFile(localfile),230)
                 val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-                val resized = Bitmap.createScaledBitmap(bitmap, 400, 400, true)
-                binding.imgProfile.setImageBitmap(resized)
+                profileImg = Bitmap.createScaledBitmap(bitmap, 400, 400, true)
+
+                if(firstInfoLoaded){
+                    setUserData()
+                }
+                else{
+                    firstInfoLoaded=true
+                }
+
             }.addOnFailureListener {
+                firstInfoLoaded=true
                 Toast.makeText(context, "Errore nella propic", Toast.LENGTH_SHORT).show()
             }
 
             usersReference.child(UID).get().addOnSuccessListener {
-                val username: CharSequence = it.child("username").value as CharSequence
-                val binScore: Long = it.child("bin_score").value as Long
-                val quizScore: Long = it.child("quiz_score").value as Long
-                val carbonFootprint: Long = it.child("carbon_footprint").value as Long
-                val divideScore : Long = it.child("divide_score").value as Long
-                binding.tvName.text = username
-                binding.tvQuizscore.text = "Quiz score: $quizScore"
-                binding.tvTrashscore.text = "Trash bin score: $binScore"
-                binding.tvCarbon.text = "Carboon footprint: $carbonFootprint"
-                binding.tvDividescore.text="Divide Score: $divideScore"
-                if (binding.profileShimmer.isShimmerStarted) {
-                    binding.profileShimmer.stopShimmer()
-                    binding.profileShimmer.visibility = View.INVISIBLE
-                    binding.profileConstraintLayout.visibility = View.VISIBLE
+                username = it.child("username").value as CharSequence
+                trashBinGameScore = it.child("bin_score").value as Long
+                quizGameScore = it.child("quiz_score").value as Long
+                carbonFootprintScore = it.child("carbon_footprint").value as Long
+                garbageSorterGameScore = it.child("divide_score").value as Long
+
+                if (firstInfoLoaded) {
+                    setUserData()
+                    /*binding.tvName.text = username
+                    binding.tvQuizscore.text = "Quiz score: $quizScore"
+                    binding.tvTrashscore.text = "Trash bin score: $binScore"
+                    binding.tvCarbon.text = "Carboon footprint: $carbonFootprint"
+                    binding.tvDividescore.text="Divide Score: $divideScore"*/
+                }
+                else{
+                    firstInfoLoaded=true
                 }
             }.addOnFailureListener {
                 Toast.makeText(context, "Error nei dati", Toast.LENGTH_SHORT).show()
@@ -170,6 +187,27 @@ class ProfileFragment : Fragment() {
                 changePicDialog.show()
             }
         }
+    }
+
+    private fun setUserData(){
+        binding.profileShimmer.stopShimmer()
+        binding.profileShimmer.visibility = View.INVISIBLE
+
+        loadedProfileLayout=binding.profilePageStub.inflate() as ScrollView
+        propic = loadedProfileLayout!!.findViewById(R.id.img_profile)
+        propic.setImageBitmap(profileImg)
+        propic.setOnClickListener {
+            checkPermissionForImage()
+        }
+        loadedProfileLayout!!.findViewById<TextView>(R.id.tv_nickname).text = username
+        loadedProfileLayout!!.findViewById<TextView>(R.id.tv_quizscore).text =
+            "Quiz score: $quizGameScore"
+        loadedProfileLayout!!.findViewById<TextView>(R.id.tv_trashscore).text =
+            "Trash bin score: $trashBinGameScore"
+        loadedProfileLayout!!.findViewById<TextView>(R.id.tv_carbon).text =
+            "Carboon footprint: $carbonFootprintScore"
+        loadedProfileLayout!!.findViewById<TextView>(R.id.tv_dividescore).text =
+            "Divide Score: $garbageSorterGameScore"
     }
 
     private fun pickImage() {

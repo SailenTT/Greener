@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/profile_relative_layout"
+    android:layout_centerVertical="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners_shape"
+            android:backgroundTint="#E6E8FF">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/top_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="195dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/profile_bg" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="103dp"
+                    android:layout_height="103dp"
+                    android:layout_alignBottom="@id/top_img"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/white"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_account_circle"
+                    app:shapeAppearanceOverlay="@style/Circular" />
+
+                <RelativeLayout
+                    android:id="@+id/user_data_container"
+                    android:layout_below="@id/img_profile"
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:layout_centerHorizontal="true"
+                    android:backgroundTint="@color/white"
+                    android:background="@drawable/rounded_corners_shape"
+                    android:elevation="4dp">
+
+                        <TextView
+                            android:id="@+id/tv_nickname"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginEnd="24dp"
+                            android:gravity="center"
+                            android:text="Name "
+                            android:textColor="@color/black"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/tv_email"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_nickname"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="14dp"
+                            android:layout_marginBottom="8dp"
+                            android:gravity="center"
+                            android:text="Email"
+                            android:textColor="@color/black"
+                            android:textSize="22sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/scores_container"
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/user_data_container"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/rounded_corners_shape"
+                    android:elevation="4dp">
+
+                        <TextView
+                            android:id="@+id/txt_scores_container_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:text="I tuoi punteggi"
+                            android:textColor="@color/black"
+                            android:textSize="23sp" />
+
+                        <TextView
+                            android:id="@+id/tv_quizscore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txt_scores_container_title"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="24dp"
+                            android:text="Quiz score: "
+                            android:textColor="@color/black"
+                            android:textSize="21sp" />
+
+                        <TextView
+                            android:id="@+id/tv_trashscore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_quizscore"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="14dp"
+                            android:layout_marginEnd="24dp"
+                            android:text="Trash Bin Score: "
+                            android:textColor="@color/black"
+                            android:textSize="21sp" />
+
+                        <TextView
+                            android:id="@+id/tv_carbon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_trashscore"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="14dp"
+                            android:layout_marginEnd="24dp"
+                            android:text="Carboon footprint: "
+                            android:textColor="@color/black"
+                            android:textSize="21sp" />
+
+                        <TextView
+                            android:id="@+id/tv_dividescore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_carbon"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="14dp"
+                            android:layout_marginEnd="24dp"
+                            android:layout_marginBottom="20dp"
+                            android:text="Divide score: "
+                            android:textColor="@color/black"
+                            android:textSize="21sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_corners_shape"
+                    android:backgroundTint="@color/white"
+                    android:elevation="4dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_below="@id/scores_container">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="24dp"
+                            android:layout_marginBottom="8dp"
+                            android:gravity="center"
+                            android:text="Sei in posizione 24 nella leaderboard"
+                            android:textColor="@color/black"
+                            android:textSize="22sp" />
+
+                </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>

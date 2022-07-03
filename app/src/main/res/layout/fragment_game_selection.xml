@@ -63,7 +63,7 @@
                         android:paddingStart="2dp"
                         android:paddingEnd="2dp"
                         android:text="@string/trash_bin_game_name"
-                        android:textColor="?android:attr/textColorPrimary"
+                        android:textColor="@android:color/primary_text_light"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -128,7 +128,7 @@
                         android:paddingStart="2dp"
                         android:paddingEnd="2dp"
                         android:text="@string/garbage_sorter_game_name"
-                        android:textColor="?android:attr/textColorPrimary"
+                        android:textColor="@android:color/primary_text_light"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -203,7 +203,7 @@
                         android:paddingStart="2dp"
                         android:paddingEnd="2dp"
                         android:text="@string/quiz_game_name"
-                        android:textColor="?android:attr/textColorPrimary"
+                        android:textColor="@android:color/primary_text_light"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -270,7 +270,7 @@
                         android:paddingStart="2dp"
                         android:paddingEnd="2dp"
                         android:text="@string/growing_tree_game_name"
-                        android:textColor="?android:attr/textColorPrimary"
+                        android:textColor="@android:color/primary_text_light"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 

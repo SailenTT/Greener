@@ -15,9 +15,6 @@
         android:theme="@style/Theme.Main">
         <service android:name=".StepService"/>
         <activity
-            android:name=".ProfileFragment"
-            android:exported="false" />
-        <activity
             android:name=".First_Activity"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -33,10 +30,12 @@
         </activity>
         <activity
             android:name=".DebugActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".HomeWindow"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -47,10 +46,12 @@
 
         <activity
             android:name=".RegisterPage"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LoginPage"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation"

@@ -67,7 +67,7 @@
                 android:id="@+id/btn_r1"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:background="@drawable/btn_rounded"
+                android:background="@drawable/rounded_corners_shape"
                 android:elevation="3dp"
                 android:text="@string/btn_R1" />
 
@@ -76,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/btn_rounded"
+                android:background="@drawable/rounded_corners_shape"
                 android:elevation="3dp"
                 android:text="@string/btn_R2" />
 
@@ -85,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/btn_rounded"
+                android:background="@drawable/rounded_corners_shape"
                 android:elevation="3dp"
                 android:text="@string/btn_R3" />
 
@@ -94,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/btn_rounded"
+                android:background="@drawable/rounded_corners_shape"
                 android:elevation="3dp"
                 android:text="@string/btn_R4" />
         </LinearLayout>

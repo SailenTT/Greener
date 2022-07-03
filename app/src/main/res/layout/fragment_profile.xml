@@ -4,88 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    tools:context=".ProfileFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/profile_constraint_layout"
+    <!-- Metto un view stub per fare in modo che il l'inflate del profilo
+    non ancora visibile venga posticipato-->
+    <ViewStub
+        android:id="@+id/profile_page_stub"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible">
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/img_profile"
-            android:src="@drawable/ic_account_circle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.25"
-            app:shapeAppearanceOverlay="@style/Circular"
-            />
-
-        <TextView
-            android:id="@+id/tv_quizscore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quiz score: "
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.709" />
-
-        <TextView
-            android:id="@+id/tv_trashscore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trash Bin Score: "
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.821" />
-
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name "
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.478"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.584" />
-
-        <TextView
-            android:id="@+id/tv_carbon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:text="Carboon footprint: "
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_trashscore" />
-
-        <TextView
-            android:id="@+id/tv_dividescore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="171dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="182dp"
-            android:layout_marginBottom="16dp"
-            android:text="Divide score: "
-            app:layout_constraintBottom_toTopOf="@+id/tv_quizscore"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout="@layout/loaded_profile_layout"
+        />
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/profile_shimmer"

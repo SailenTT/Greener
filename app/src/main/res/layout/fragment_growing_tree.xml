@@ -40,10 +40,12 @@
             android:src="@drawable/watering_can_image" />-->
 
     <ImageView
+        android:id="@+id/tree_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="2dp"
         android:scaleType="fitCenter"
         android:src="@drawable/growing_tree_frame_0" />
 

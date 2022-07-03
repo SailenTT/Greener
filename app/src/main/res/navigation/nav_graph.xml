@@ -117,5 +117,5 @@
     <fragment android:id="@+id/profile_fragment"
         android:label="@string/profile_page_name"
         android:name="com.eco.app.ProfileFragment"
-        tools:layout="@layout/activity_profile"/>
+        tools:layout="@layout/fragment_profile"/>
 </navigation>

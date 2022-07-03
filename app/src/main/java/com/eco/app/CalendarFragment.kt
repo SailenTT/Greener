@@ -190,7 +190,7 @@ class CalendarFragment : Fragment() {
         val cD7 : View = binding.circleD7
         val cDs = listOf(cD1 as ImageView, cD2 as ImageView, cD3 as ImageView, cD4 as ImageView, cD5 as ImageView, cD6 as ImageView, cD7 as ImageView)
 
-        //TODO cambiare sta roba
+
         /*if (binding.day1Rifiuto.text.equals("Vetro")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
         else if(binding.day1Rifiuto.text.equals("Carta")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#32A4F4")))}
         else if(binding.day1Rifiuto.text.equals("Umido")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#695206")))}
@@ -314,41 +314,41 @@ class CalendarFragment : Fragment() {
         })
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        //setto il container sotto lo schermo così l'utente può tirarlo su premendo
-        binding.doubleArrowWidgetContainer.y=0f
-        if(bottomSliderContainer.y+binding.whitePopulationContainer.y<binding.root.height) {
+        binding.whitePopulationContainer.post{
+            //setto il container sotto lo schermo così l'utente può tirarlo su premendo
+            binding.doubleArrowWidgetContainer.y=0f
             bottomSliderContainer.y+=binding.whitePopulationContainer.height.toFloat()
             binding.doubleArrowWidgetContainer.rotation=0f
-        }
 
 
-        binding.doubleArrowWidgetContainer.setOnClickListener {
-            if(bottomSliderContainer.y+binding.whitePopulationContainer.y>=binding.root.height) {
-                //slide in alto
-                bottomSliderContainer.animate()
-                    .translationYBy(-binding.whitePopulationContainer.height.toFloat())
-                    .duration = 450
+            binding.doubleArrowWidgetContainer.setOnClickListener {
+                if(bottomSliderContainer.y+binding.whitePopulationContainer.y>=binding.root.height) {
+                    //slide in alto
+                    bottomSliderContainer.animate()
+                        .translationYBy(-binding.whitePopulationContainer.height.toFloat())
+                        .duration = 450
 
-                binding.doubleArrowWidgetContainer.animate()
-                    .translationYBy(5f*dpi)
+                    binding.doubleArrowWidgetContainer.animate()
+                        .translationYBy(5f*dpi)
 
+                }
+                else{
+                    //slide in basso
+                    bottomSliderContainer.animate()
+                        .translationYBy(binding.whitePopulationContainer.height.toFloat())
+                        .duration = 450
+
+                    binding.doubleArrowWidgetContainer.animate()
+                        .translationYBy(-5f*dpi)
+                }
+
+                doubleArrowIcon.animate()
+                    .rotationBy(180f)
+                    .duration=460
             }
-            else{
-                //slide in basso
-                bottomSliderContainer.animate()
-                    .translationYBy(binding.whitePopulationContainer.height.toFloat())
-                    .duration = 450
-
-                binding.doubleArrowWidgetContainer.animate()
-                    .translationYBy(-5f*dpi)
-            }
-
-            doubleArrowIcon.animate()
-                .rotationBy(180f)
-                .duration=460
         }
     }
 }

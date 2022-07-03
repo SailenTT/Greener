@@ -19,8 +19,8 @@ import kotlin.properties.Delegates
 class StepService : Service() ,SensorEventListener{
     private var sensorManager : SensorManager? = null
     private var running : Boolean = false
-    private var steps : Int = 0
-    private var totalSteps by Delegates.notNull<Int>()
+    private var steps : Long = 0
+    private var totalSteps by Delegates.notNull<Long>()
     private val ACTION_STOP_LISTEN = "action_stop_listen"
 
     override fun onCreate() {
@@ -84,7 +84,7 @@ class StepService : Service() ,SensorEventListener{
             //totalSteps = event!!.values[0]
             //val currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
             //binding.totalSteps.text = event!!.values[0].toString()
-            steps = event!!.values[0].toInt() //steps nella sessione
+            steps = event!!.values[0].toLong() //steps nella sessione
             totalSteps = getSteps() //getto gli steps totali
             totalSteps += steps //aggiungo quelli fatti mo
             saveSteps(totalSteps) //li salvo
@@ -95,18 +95,19 @@ class StepService : Service() ,SensorEventListener{
 
     }
 
-    private fun getSteps() : Int {
+    private fun getSteps() : Long {
         val sharedPreferences = getSharedPreferences("trackingPrefs", Context.MODE_PRIVATE)
-        val totalsteps = sharedPreferences!!.getInt("steps",0)
-        return totalsteps
+        val steps = sharedPreferences!!.getLong("steps",0)
+        return steps
     }
 
-    private fun saveSteps(steps : Int) {
+    //salvo gli steps nelle shared prefs
+    private fun saveSteps(steps : Long) {
         val sharedPreferences =
             getSharedPreferences("trackingPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences?.edit()
         editor?.apply {
-            putInt("steps",steps );
+            putLong("steps",steps );
         }?.apply()
     }
 

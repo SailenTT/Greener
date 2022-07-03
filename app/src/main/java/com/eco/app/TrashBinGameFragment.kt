@@ -478,4 +478,14 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
             binding.root.removeView(img_falling_sprite)
         }
     }
+
+    //quando la partita è ancora in corso e l'utente torna indietro, fermo il gioco e lo spawn thread
+    override fun onPause() {
+        super.onPause()
+
+        if(gameRunning){
+            gameRunning=false
+            spawnThread.interrupt()
+        }
+    }
 }

@@ -75,6 +75,7 @@ class HomeWindow : AppCompatActivity() {
                         val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
                         val resized = Bitmap.createScaledBitmap(bitmap, 400, 400, true)
                         lottie.setImageBitmap(resized)
+                        //lottie.setImageResource(R.drawable.default_propic)
                     }.addOnFailureListener {
                        // Toast.makeText(baseContext, "Errore nella propic", Toast.LENGTH_SHORT).show()
                     }
