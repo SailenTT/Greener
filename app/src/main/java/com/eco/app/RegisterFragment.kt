@@ -91,7 +91,7 @@ class RegisterFragment : Fragment() {
             }
     }
     fun uploadToStorageDefaultProfilePic(UID : String){
-        val uri = Uri.parse("android.resource://" + context!!.packageName.toString() + "/drawable/pollo_mangiato")
+        val uri = Uri.parse("android.resource://" + context!!.packageName.toString() + "/drawable/default_propic")
         val filename = UID
         val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
         storageReference.putFile(uri).addOnSuccessListener {
