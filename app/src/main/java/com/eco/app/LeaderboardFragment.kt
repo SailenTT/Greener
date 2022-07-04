@@ -40,16 +40,6 @@ class LeaderboardFragment : Fragment(),LeaderboardAdapter.OnItemClicked {
         val imageView = ImageView(requireContext())
         imageView.setImageResource(R.drawable.arrow1)
         //creazione dell'oggetto per riempire la riga
-        //val leaderboardrowelement = LeaderBoardRow(100,200)
-        //debug ne ho messi 10 per vedere
-       /* for(i in 0..10){
-            array.add(i,leaderboardrowelement)
-        }
-
-        */
-
-
-
 
 
 
@@ -106,6 +96,11 @@ class LeaderboardFragment : Fragment(),LeaderboardAdapter.OnItemClicked {
         for(i in array.indices){
             array[i].position = i+1
         }
+    }
+
+    override fun onDestroy() {
+        userReference.removeEventListener(getUsersDataListener)
+        super.onDestroy()
     }
 
 

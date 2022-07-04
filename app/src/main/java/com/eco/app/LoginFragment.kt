@@ -72,6 +72,7 @@ class LoginFragment : Fragment() {
         progressBar = binding.progressBar
         database = Firebase.database(RegisterPage.PATHTODB)
         callbackManager = CallbackManager.Factory.create()
+        auth = Firebase.auth
 
         //assegno l'oggetto grafico della UI alla variabile
         val txtSignUp = binding.txtSignUp
@@ -83,8 +84,13 @@ class LoginFragment : Fragment() {
 
         //metodo onClick del btnLogin
         binding.btnLogin.setOnClickListener {
-            loginUser()
+            if(auth.currentUser == null){
+                loginUser()
+            }else{
+                Toast.makeText(context, "Sei già loggato", Toast.LENGTH_SHORT).show()
+            }
         }
+
         binding.btnLoginFacebook.background =
             AppCompatResources.getDrawable(requireContext(), R.drawable.btn_rounded_green_bg)
 
@@ -113,7 +119,7 @@ class LoginFragment : Fragment() {
             loginWithGoogle()
         }
 
-        auth = Firebase.auth
+
         //activity.this in alternativa
         oneTapClient = Identity.getSignInClient(requireContext())
         signInRequest = BeginSignInRequest.builder()
@@ -235,7 +241,6 @@ class LoginFragment : Fragment() {
                     //Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
                     // Sign in success
                     Log.d(ContentValues.TAG, "signInWithCredential:success")
-                    //val userid = token.userId //non uso auth.uid perchè quello cambia, questo no
                     if(task.getResult().additionalUserInfo?.isNewUser == true){
                         val bundle = Bundle()
                         bundle.putString("fields", "id, email, first_name, last_name, gender,age_range")

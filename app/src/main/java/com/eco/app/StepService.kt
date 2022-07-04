@@ -34,26 +34,26 @@ class StepService : Service() ,SensorEventListener{
             stopSelf()
             return START_NOT_STICKY
         }
-        createNotificationChannel()
-        val notificationIntent = Intent(this, GrowingTreeFragment::class.java)
-        val stopself = Intent(this,StepService::class.java).setAction(ACTION_STOP_LISTEN)
-        val stopPending = PendingIntent.getService(this,123,stopself,PendingIntent.FLAG_UPDATE_CURRENT)
-        val pendingIntent = PendingIntent.getService(this, 0, notificationIntent, 0)
-        val notification = NotificationCompat.Builder(this, "1")
-            .setContentTitle("Greener")
-            .setContentText("Tracking steps..")
-            .setSmallIcon(R.drawable.ic_person)
-            .setContentIntent(pendingIntent)
-            .addAction(R.mipmap.ic_launcher,"Stop",stopPending)
-            .build()
-
-        startForeground(1, notification)
         running = true
         val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) //getto il sensore di tipo contapassi
         if(stepSensor == null){ //se null, il device proprio non ha il sensore
             Toast.makeText(this, "Il tuo device non ha un sensore per contare i passi", Toast.LENGTH_SHORT).show()
         }else{
             sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
+            createNotificationChannel()
+            val notificationIntent = Intent(this, GrowingTreeFragment::class.java)
+            val stopself = Intent(this,StepService::class.java).setAction(ACTION_STOP_LISTEN)
+            val stopPending = PendingIntent.getService(this,123,stopself,PendingIntent.FLAG_UPDATE_CURRENT)
+            val pendingIntent = PendingIntent.getService(this, 0, notificationIntent, 0)
+            val notification = NotificationCompat.Builder(this, "1")
+                .setContentTitle("Greener")
+                .setContentText("Tracking steps..")
+                .setSmallIcon(R.drawable.ic_person)
+                .setContentIntent(pendingIntent)
+                .addAction(R.mipmap.ic_launcher,"Stop",stopPending)
+                .build()
+
+            startForeground(1, notification)
         }
       //  Toast.makeText(this, "Service started", Toast.LENGTH_SHORT).show()
         return super.onStartCommand(intent, flags, startId)
