@@ -14,6 +14,7 @@ import android.os.IBinder
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import kotlin.properties.Delegates
 
 class StepService : Service() ,SensorEventListener{
@@ -23,6 +24,9 @@ class StepService : Service() ,SensorEventListener{
     private var totalSteps by Delegates.notNull<Long>()
     private val ACTION_STOP_LISTEN = "action_stop_listen"
 
+    companion object{
+
+    }
     override fun onCreate() {
         super.onCreate()
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager //getto il sensore
@@ -70,6 +74,8 @@ class StepService : Service() ,SensorEventListener{
         }
 
     }
+
+
 
     override fun onDestroy() {
         running = false

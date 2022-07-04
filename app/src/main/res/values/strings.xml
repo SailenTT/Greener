@@ -41,4 +41,6 @@
     <string name="on_boarding_1">Tieni traccia del tuo impatto sul nostro ecosistema</string>
     <string name="on_boarding_2">Gioca ai nostri minigiochi e competi nella classifica per arrivare primo</string>
     <string name="on_boarding_3">Compila il calendario in base alle esigenze del tuo comune, e tieni traccia di quando portare fuori un certo tipo di spazzatura</string>
+    <string name="calendar_notification_title">Reminder spazzatura</string>
+    <string name="calendar_notification_body">Oggi devi buttare: </string>
 </resources>

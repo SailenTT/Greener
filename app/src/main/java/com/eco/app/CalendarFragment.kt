@@ -1,19 +1,28 @@
 package com.eco.app
 
-import android.app.AlertDialog
+import android.app.*
 import android.content.Context
+import android.content.Context.ALARM_SERVICE
+import android.content.Context.NOTIFICATION_SERVICE
+import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import com.eco.app.databinding.FragmentCalendarBinding
 import com.eco.app.databinding.FragmentPopupBinding
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.internal.InternalTokenProvider
+import com.google.firebase.ktx.Firebase
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,6 +32,11 @@ class CalendarFragment : Fragment() {
 
     val currentDateTimeString = DateFormat.getDateTimeInstance().format(Date())
     private lateinit var binding : FragmentCalendarBinding
+    private lateinit var calendar : Calendar
+    private lateinit var alarmManager : AlarmManager
+    private val SHARED_PREFS = "sharedPrefsCalendar"
+    private lateinit var  sharedPref : SharedPreferences
+    private lateinit var editor : SharedPreferences.Editor
     private lateinit var day : TextView
     private lateinit var day2 : TextView
     private lateinit var day3 : TextView
@@ -32,8 +46,11 @@ class CalendarFragment : Fragment() {
     private lateinit var day7 : TextView
     private lateinit var mese : TextView
     private lateinit var btnData : Button
+    private lateinit var switch : Switch
     private lateinit var bottomSliderContainer : RelativeLayout
     private lateinit var doubleArrowIcon: ImageView
+    private lateinit var pendingIntent : PendingIntent
+
     private var dpi: Float=0f
     private var dialogBuilder: AlertDialog.Builder? = null
     private var dialog: AlertDialog? = null
@@ -61,11 +78,49 @@ class CalendarFragment : Fragment() {
         day7 = binding.txtDay7
         mese = binding.txtMese
         btnData = binding.btnDataCalendar
+        switch = binding.notificationSwitch
+
+        sharedPref = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)!!
+         editor = sharedPref.edit()
+
 
         setMonth()
         setWeekDays()
         setSharedPref()
         setCircleColor()
+        createNotificationChannel()
+
+        switch.isChecked = false //valore iniziale dello switch, sarà off
+        editor.putString("isChecked","false")
+
+        if(sharedPref.getString("isChecked","0") == "true"){
+            switch.isChecked = true
+        }else{
+            switch.isChecked = false
+        }
+
+
+
+        switch.setOnCheckedChangeListener { _, isChecked ->
+            if(Firebase.auth.currentUser != null){
+                if(isChecked){ //registra gli eventi dello switch, capisco se lo ha lasciato on o off, cosi quando riapre la activity lo ritrova come prima
+                    editor.putString("isChecked","true")
+                    editor.commit()
+                    scheduleNotifications()
+                    Toast.makeText(context, "Notifiche attivate", Toast.LENGTH_SHORT).show()
+                }else{
+                    editor.putString("isChecked","false")
+                    editor.commit()
+                    unScheduleNotifications()
+                }
+            }else{
+                Toast.makeText(context, "Devi essere loggato", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        scheduleNotifications()
+
 
         btnData.setOnClickListener(View.OnClickListener {
 
@@ -81,6 +136,61 @@ class CalendarFragment : Fragment() {
 
         return binding.root
     }
+
+    private fun unScheduleNotifications() {
+        alarmManager = context!!.getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context,NotificationCalendar::class.java)
+
+        pendingIntent = PendingIntent.getBroadcast(context,0,intent,0)
+
+        alarmManager.cancel(pendingIntent)
+        Toast.makeText(context, "Notifiche disabilitate", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun scheduleNotifications(){
+
+        calendar = Calendar.getInstance() //getto istanza del calendario
+        calendar[Calendar.HOUR_OF_DAY] = 12  //setto orario,minuti secondi e millisecondi di quando deve arrivare la notifica
+        calendar[Calendar.MINUTE] = 0
+        calendar[Calendar.SECOND] = 0
+        calendar[Calendar.MILLISECOND] = 0
+
+        alarmManager = context!!.getSystemService(ALARM_SERVICE) as AlarmManager //getto il servizio di alarm manager
+        val intent = Intent(context,NotificationCalendar::class.java).apply {
+            putExtra("CalendarTitle",R.string.calendar_notification_title)
+            putExtra("CalendarBody",R.string.calendar_notification_body)
+        }//creo un intent per reindirizzarlo al receiver
+
+        pendingIntent = PendingIntent.getBroadcast(context,0,intent,0) //pendingIntent dato che non viene eseguito subito, notificationCalendar è un receiver
+
+        alarmManager.setRepeating( //uso alarmmanager per settare i parametri
+            AlarmManager.RTC_WAKEUP,calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,pendingIntent
+        )
+        Toast.makeText(context, "Alarm settato", Toast.LENGTH_SHORT)
+
+
+
+    }
+
+    private fun createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "CalendarNotificationChannel1"
+            val descriptionText = "Questo è il canale per le notifiche riguardo a cosa portare fuori e quando"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel("notificationCalendarChannel", name, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system
+            val notificationManager: NotificationManager =
+                context!!.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+
 
     fun setMonth(){
         //setto il mese
@@ -110,8 +220,9 @@ class CalendarFragment : Fragment() {
         day6.setText(listaGiorni[5])
         day7.setText(listaGiorni[6])
     }
+
+
     fun setSharedPref(){
-        val SHARED_PREFS = "sharedPrefsCalendar"
 
         val rifiutoD1 : TextView = binding.day1Rifiuto
         val rifiutoD2 : TextView = binding.day2Rifiuto
@@ -121,9 +232,8 @@ class CalendarFragment : Fragment() {
         val rifiutoD6 : TextView = binding.day6Rifiuto
         val rifiutoD7 : TextView = binding.day7Rifiuto
 
-        val sharedPref = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
         if (day.text.toString().contains("lunedì")) {
-            rifiutoD1.setText(sharedPref!!.getString("lunedi",""))
+            rifiutoD1.setText(sharedPref.getString("lunedi",""))
             rifiutoD2.setText(sharedPref.getString("martedi",""))
             rifiutoD3.setText(sharedPref.getString("mercoledi",""))
             rifiutoD4.setText(sharedPref.getString("giovedi",""))
@@ -131,7 +241,7 @@ class CalendarFragment : Fragment() {
             rifiutoD6.setText(sharedPref.getString("sabato",""))
             rifiutoD7.setText(sharedPref.getString("domenica",""))
         } else if (day.text.toString().contains("martedì")){
-            rifiutoD1.setText(sharedPref!!.getString("martedi",""))
+            rifiutoD1.setText(sharedPref.getString("martedi",""))
             rifiutoD2.setText(sharedPref.getString("mercoledi",""))
             rifiutoD3.setText(sharedPref.getString("giovedi",""))
             rifiutoD4.setText(sharedPref.getString("venerdi",""))
@@ -139,7 +249,7 @@ class CalendarFragment : Fragment() {
             rifiutoD6.setText(sharedPref.getString("domenica",""))
             rifiutoD7.setText(sharedPref.getString("lunedi",""))
         } else if (day.text.toString().contains("mercoledì")){
-            rifiutoD1.setText(sharedPref!!.getString("mercoledi",""))
+            rifiutoD1.setText(sharedPref.getString("mercoledi",""))
             rifiutoD2.setText(sharedPref.getString("giovedi",""))
             rifiutoD3.setText(sharedPref.getString("venerdi",""))
             rifiutoD4.setText(sharedPref.getString("sabato",""))
@@ -147,7 +257,7 @@ class CalendarFragment : Fragment() {
             rifiutoD6.setText(sharedPref.getString("lunedi",""))
             rifiutoD7.setText(sharedPref.getString("martedi",""))
         } else if (day.text.toString().contains("giovedì")){
-            rifiutoD1.setText(sharedPref!!.getString("giovedi",""))
+            rifiutoD1.setText(sharedPref.getString("giovedi",""))
             rifiutoD2.setText(sharedPref.getString("venerdi",""))
             rifiutoD3.setText(sharedPref.getString("sabato",""))
             rifiutoD4.setText(sharedPref.getString("domenica",""))
@@ -155,7 +265,7 @@ class CalendarFragment : Fragment() {
             rifiutoD6.setText(sharedPref.getString("martedi",""))
             rifiutoD7.setText(sharedPref.getString("mercoledi",""))
         } else if (day.text.toString().contains("venerdi")){
-            rifiutoD1.setText(sharedPref!!.getString("venerdi",""))
+            rifiutoD1.setText(sharedPref.getString("venerdi",""))
             rifiutoD2.setText(sharedPref.getString("sabato",""))
             rifiutoD3.setText(sharedPref.getString("domenica",""))
             rifiutoD4.setText(sharedPref.getString("lunedi",""))
@@ -163,7 +273,7 @@ class CalendarFragment : Fragment() {
             rifiutoD6.setText(sharedPref.getString("mercoledi",""))
             rifiutoD7.setText(sharedPref.getString("giovedi",""))
         } else if (day.text.toString().contains("sabato")){
-            rifiutoD1.setText(sharedPref!!.getString("sabato",""))
+            rifiutoD1.setText(sharedPref.getString("sabato",""))
             rifiutoD2.setText(sharedPref.getString("domenica",""))
             rifiutoD3.setText(sharedPref.getString("lunedi",""))
             rifiutoD4.setText(sharedPref.getString("martedi",""))
@@ -171,7 +281,7 @@ class CalendarFragment : Fragment() {
             rifiutoD6.setText(sharedPref.getString("giovedi",""))
             rifiutoD7.setText(sharedPref.getString("venerdi",""))
         } else {
-            rifiutoD1.setText(sharedPref!!.getString("domenica",""))
+            rifiutoD1.setText(sharedPref.getString("domenica",""))
             rifiutoD2.setText(sharedPref.getString("lunedi",""))
             rifiutoD3.setText(sharedPref.getString("martedi",""))
             rifiutoD4.setText(sharedPref.getString("mercoledi",""))
@@ -270,6 +380,8 @@ class CalendarFragment : Fragment() {
         }
 
     }
+
+
     fun saveSharedPref(){
 
         val SHARED_PREFS = "sharedPrefsCalendar"

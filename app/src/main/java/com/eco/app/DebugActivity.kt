@@ -31,7 +31,6 @@ class DebugActivity : AppCompatActivity() {
         analytics = Firebase.analytics
         //Obtain the Firebase auth
         auth = Firebase.auth;
-
         binding = ActivityDebugBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

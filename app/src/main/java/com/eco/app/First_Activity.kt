@@ -1,5 +1,4 @@
 package com.eco.app
-
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -29,6 +28,8 @@ class First_Activity : AppCompatActivity() {
         //btnDeb = binding.btnDebugFirst
         txtWho = binding.txtWho
 
+
+
         btnLog.setOnClickListener(View.OnClickListener {
             val intent= Intent(this,LoginPage::class.java)
             startActivity(intent)
@@ -49,4 +50,7 @@ class First_Activity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+
+
 }
