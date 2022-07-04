@@ -38,4 +38,7 @@
     <string name="quiz_game_transition">quiz_game_transition</string>
     <string name="garbage_sorter_game_transition">garbage_sorter_game_transition</string>
     <string name="game_over">Game Over</string>
+    <string name="on_boarding_1">Tieni traccia del tuo impatto sul nostro ecosistema</string>
+    <string name="on_boarding_2">Gioca ai nostri minigiochi e competi nella classifica per arrivare primo</string>
+    <string name="on_boarding_3">Compila il calendario in base alle esigenze del tuo comune, e tieni traccia di quando portare fuori un certo tipo di spazzatura</string>
 </resources>

@@ -18,11 +18,11 @@
             android:id="@+id/img2footprint"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:scaleType="centerCrop"
-            android:elevation="8dp"
             android:layout_marginTop="0dp"
+            android:elevation="8dp"
+            android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/roundedCorners"
-            app:srcCompat="@drawable/road_bg_footprint"/>
+            app:srcCompat="@drawable/road_bg_footprint" />
 
         <TextView
             android:id="@+id/txt_journeyTime"
