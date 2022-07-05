@@ -34,7 +34,7 @@ class CalendarFragment : Fragment() {
     private lateinit var binding : FragmentCalendarBinding
     private lateinit var calendar : Calendar
     private lateinit var alarmManager : AlarmManager
-    private val SHARED_PREFS = "sharedPrefsCalendar"
+
     private lateinit var  sharedPref : SharedPreferences
     private lateinit var editor : SharedPreferences.Editor
     private lateinit var day : TextView
@@ -50,6 +50,10 @@ class CalendarFragment : Fragment() {
     private lateinit var bottomSliderContainer : RelativeLayout
     private lateinit var doubleArrowIcon: ImageView
     private lateinit var pendingIntent : PendingIntent
+
+    companion object{
+        const val SHARED_PREFS = "sharedPrefsCalendar"
+    }
 
     private var dpi: Float=0f
     private var dialogBuilder: AlertDialog.Builder? = null
@@ -81,7 +85,7 @@ class CalendarFragment : Fragment() {
         switch = binding.notificationSwitch
 
         sharedPref = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)!!
-         editor = sharedPref.edit()
+        editor = sharedPref.edit()
 
 
         setMonth()
@@ -95,6 +99,7 @@ class CalendarFragment : Fragment() {
 
         if(sharedPref.getString("isChecked","0") == "true"){
             switch.isChecked = true
+            scheduleNotifications()
         }else{
             switch.isChecked = false
         }
@@ -102,25 +107,22 @@ class CalendarFragment : Fragment() {
 
 
         switch.setOnCheckedChangeListener { _, isChecked ->
-            if(Firebase.auth.currentUser != null){
+            //if(Firebase.auth.currentUser != null){
                 if(isChecked){ //registra gli eventi dello switch, capisco se lo ha lasciato on o off, cosi quando riapre la activity lo ritrova come prima
                     editor.putString("isChecked","true")
                     editor.commit()
                     scheduleNotifications()
-                    Toast.makeText(context, "Notifiche attivate", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Notifiche attivate", Toast.LENGTH_SHORT).show()
                 }else{
                     editor.putString("isChecked","false")
                     editor.commit()
                     unScheduleNotifications()
                 }
-            }else{
-                Toast.makeText(context, "Devi essere loggato", Toast.LENGTH_SHORT).show()
-            }
+            //}else{
+              //  Toast.makeText(context, "Devi essere loggato", Toast.LENGTH_SHORT).show()
+           // }
 
         }
-
-        scheduleNotifications()
-
 
         btnData.setOnClickListener(View.OnClickListener {
 
@@ -144,22 +146,20 @@ class CalendarFragment : Fragment() {
         pendingIntent = PendingIntent.getBroadcast(context,0,intent,0)
 
         alarmManager.cancel(pendingIntent)
-        Toast.makeText(context, "Notifiche disabilitate", Toast.LENGTH_SHORT).show()
+       // Toast.makeText(context, "Notifiche disabilitate", Toast.LENGTH_SHORT).show()
     }
 
     private fun scheduleNotifications(){
 
         calendar = Calendar.getInstance() //getto istanza del calendario
-        calendar[Calendar.HOUR_OF_DAY] = 12  //setto orario,minuti secondi e millisecondi di quando deve arrivare la notifica
-        calendar[Calendar.MINUTE] = 0
+        calendar[Calendar.HOUR_OF_DAY] = 15  //setto orario,minuti secondi e millisecondi di quando deve arrivare la notifica
+        calendar[Calendar.MINUTE] = 15
         calendar[Calendar.SECOND] = 0
         calendar[Calendar.MILLISECOND] = 0
 
         alarmManager = context!!.getSystemService(ALARM_SERVICE) as AlarmManager //getto il servizio di alarm manager
-        val intent = Intent(context,NotificationCalendar::class.java).apply {
-            putExtra("CalendarTitle",R.string.calendar_notification_title)
-            putExtra("CalendarBody",R.string.calendar_notification_body)
-        }//creo un intent per reindirizzarlo al receiver
+        val intent = Intent(context,NotificationCalendar::class.java)
+        //creo un intent per reindirizzarlo al receiver
 
         pendingIntent = PendingIntent.getBroadcast(context,0,intent,0) //pendingIntent dato che non viene eseguito subito, notificationCalendar è un receiver
 
@@ -167,7 +167,7 @@ class CalendarFragment : Fragment() {
             AlarmManager.RTC_WAKEUP,calendar.timeInMillis,
             AlarmManager.INTERVAL_DAY,pendingIntent
         )
-        Toast.makeText(context, "Alarm settato", Toast.LENGTH_SHORT)
+        //Toast.makeText(context, "Alarm settato", Toast.LENGTH_SHORT)
 
 
 
@@ -220,6 +220,8 @@ class CalendarFragment : Fragment() {
         day6.setText(listaGiorni[5])
         day7.setText(listaGiorni[6])
     }
+
+
 
 
     fun setSharedPref(){
