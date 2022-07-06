@@ -32,7 +32,7 @@ class GrowingTreeFragment : Fragment() {
     private val minFrame=23
     companion object{
         const val treeImgPrefix="growing_tree_frame_"
-        val stepsLevels= listOf(0L,4615L,9230L,13845L,18460L,23075L,27690L,32305L,36920L,41535L,46150L,50765L,55380L,60000L)
+        val stepsLevels= listOf(0L,5000L,10000L,15000L,20000L,25000L,30000L,35000L,40000L,45000L,50000L,55000L,60000L,65000L)
         /*private val STEPS_LEVEL_1=4615
         private val STEPS_LEVEL_2=9230
         private val STEPS_LEVEL_3=13845
@@ -134,9 +134,8 @@ class GrowingTreeFragment : Fragment() {
 
         var uri="@drawable/$treeImgPrefix$tree_frame"
         var imgRes=resources.getIdentifier(uri,null,requireActivity().packageName)
-        //TODO quando avrò tutti i frame sistemare questa parte
         if(imgRes==0){
-            uri="@drawable/$treeImgPrefix"+8
+            uri="@drawable/$treeImgPrefix${stepsLevels.size-1}"
             imgRes=resources.getIdentifier(uri,null,requireActivity().packageName)
         }
         val newImg=ResourcesCompat.getDrawable(resources,imgRes,null)
