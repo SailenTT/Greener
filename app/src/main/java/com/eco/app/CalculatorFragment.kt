@@ -358,8 +358,9 @@ class CalculatorFragment : Fragment() {
             sumTotale *= 3.5
         }
 
-        //println(sumTotale)
-        //Snackbar.make(it, "$ore $minuti totale", Snackbar.LENGTH_LONG).show()
+        //ora aggiungo la parte di your flight
+
+
         return sumTotale.toDouble()
     }
 
