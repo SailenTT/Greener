@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/GameSelectionFragment"
-        android:name="com.eco.app.GameSelectionFragment"
+        android:name="com.eco.app.games.GameSelectionFragment"
         android:label="Seleziona un gioco"
         tools:layout="@layout/fragment_game_selection">
 
@@ -28,20 +28,20 @@
 
     <fragment
         android:id="@+id/TrashBinGameFragment"
-        android:name="com.eco.app.TrashBinGameFragment"
+        android:name="com.eco.app.games.TrashBinGameFragment"
         android:label="@string/trash_bin_game_name"
         tools:layout="@layout/fragment_trash_bin_game">
     </fragment>
 
     <fragment
         android:id="@+id/GarbageSorterGameFragment"
-        android:name="com.eco.app.GarbageSorterFragment"
+        android:name="com.eco.app.games.GarbageSorterFragment"
         android:label="@string/garbage_sorter_game_name"
         tools:layout="@layout/fragment_garbage_sorter_game"/>
 
     <fragment
         android:id="@+id/QuizGameFragment"
-        android:name="com.eco.app.QuizFragment"
+        android:name="com.eco.app.games.QuizFragment"
         android:label="@string/quiz_game_name"
         tools:layout="@layout/fragment_quiz">
 
@@ -55,7 +55,7 @@
 
     <fragment
         android:id="@+id/QuizResultFragment"
-        android:name="com.eco.app.ResultQuizFragment"
+        android:name="com.eco.app.games.ResultQuizFragment"
         android:label="@string/quiz_result_nav_name"
         tools:layout="@layout/fragment_result_quiz">
 
@@ -70,24 +70,24 @@
 
     <fragment
         android:id="@+id/GrowingTreeGameFragment"
-        android:name="com.eco.app.GrowingTreeFragment"
+        android:name="com.eco.app.games.GrowingTreeFragment"
         android:label="@string/growing_tree_game_name"
         tools:layout="@layout/fragment_growing_tree"/>
 
     <fragment
         android:id="@+id/CalendarFragment"
-        android:name="com.eco.app.CalendarFragment"
+        android:name="com.eco.app.calendar.CalendarFragment"
         android:label="Calendario"
         tools:layout="@layout/fragment_calendar"/>
 
     <fragment
         android:id="@+id/CalculatorFragment"
-        android:name="com.eco.app.CalculatorFragment"
+        android:name="com.eco.app.carbonfootprint.CalculatorFragment"
         android:label="Carbon Footprint"
         tools:layout="@layout/fragment_calculator"/>
 
     <fragment android:id="@+id/login_fragment"
-        android:name="com.eco.app.LoginFragment"
+        android:name="com.eco.app.profile.LoginFragment"
         android:label="Login"
         tools:layout="@layout/activity_login_page">
         <action
@@ -101,12 +101,12 @@
     </fragment>
 
     <fragment android:id="@+id/leaderboard_fragment"
-        android:name="com.eco.app.LeaderboardFragment"
+        android:name="com.eco.app.profile.LeaderboardFragment"
         android:label="Leaderboard"
         tools:layout="@layout/fragment_leaderboard"/>
 
     <fragment android:id="@+id/register_fragment"
-        android:name="com.eco.app.RegisterFragment"
+        android:name="com.eco.app.profile.RegisterFragment"
         android:label="Registrazione"
         tools:layout="@layout/fragment_register">
 
@@ -116,6 +116,6 @@
 
     <fragment android:id="@+id/profile_fragment"
         android:label="@string/profile_page_name"
-        android:name="com.eco.app.ProfileFragment"
+        android:name="com.eco.app.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
 </navigation>
