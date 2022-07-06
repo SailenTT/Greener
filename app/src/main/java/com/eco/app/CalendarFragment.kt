@@ -152,8 +152,8 @@ class CalendarFragment : Fragment() {
     private fun scheduleNotifications(){
 
         calendar = Calendar.getInstance() //getto istanza del calendario
-        calendar[Calendar.HOUR_OF_DAY] = 15  //setto orario,minuti secondi e millisecondi di quando deve arrivare la notifica
-        calendar[Calendar.MINUTE] = 15
+        calendar[Calendar.HOUR_OF_DAY] = 16  //setto orario,minuti secondi e millisecondi di quando deve arrivare la notifica
+        calendar[Calendar.MINUTE] = 0
         calendar[Calendar.SECOND] = 0
         calendar[Calendar.MILLISECOND] = 0
 

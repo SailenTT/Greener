@@ -1,5 +1,6 @@
 package com.eco.app
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,10 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.eco.app.databinding.FragmentQuizBinding
-import com.facebook.AccessToken
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -96,6 +95,7 @@ class QuizFragment : Fragment() {
             txt_question.text = question.question//random question
             correctreply = question.listofrisp[0]
             for (i in 0..3) {
+                buttonsArray[i]?.setBackgroundColor(Color.WHITE)
                 buttonsArray[randomlistButtons.get(i)]?.setText(question.listofrisp[i])
                 buttonsArray[i]?.setOnClickListener {
                     reply = buttonsArray[i]?.text.toString()
@@ -179,7 +179,7 @@ class QuizFragment : Fragment() {
 
     fun checkreply(reply: String, correctReply: String, position: Int){
         if (reply == correctReply) {
-            buttons[position]?.setBackgroundColor(R.color.green2) //TODO aiuto non mi resetta il color
+            buttons[position]?.setBackgroundColor(Color.GREEN) //TODO aiuto non mi resetta il color
             correct_replies++
             quizQuestionsNumber--
             if (quizQuestionsNumber == 0) {
@@ -188,9 +188,9 @@ class QuizFragment : Fragment() {
             setQuiz(txt_question, buttons)
         } else {
             quizQuestionsNumber--
+            buttons[position]?.setBackgroundColor(Color.RED)
             if (quizQuestionsNumber == 0) { //se sei a fine quiz
                 if(auth.currentUser != null){
-                    Log.d("okokok", auth.currentUser!!.uid)
                     UID = auth.uid!!
                     userReference = database.getReference("Users")
                     userReference.child(UID).child("quiz_score").get().addOnSuccessListener { //getto il tuo max questions corrette
