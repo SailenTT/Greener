@@ -321,9 +321,10 @@ class CalculatorFragment : Fragment() {
 
         //funzione di prova per vedere se prende i valori correttamente
         //TODO poi toglierla e inserire i dati nel calcolo finale
-        btnNextJT.setOnClickListener{
+        btnNextFT.setOnClickListener{
 
             var sum = calcolaCO2()
+            Bundle().putDouble("risultato", sum)
 
             Snackbar.make(it, "$sum totale", Snackbar.LENGTH_LONG).show()
         }
@@ -357,7 +358,29 @@ class CalculatorFragment : Fragment() {
         }
 
         //ora aggiungo la parte di your flight
+        sumTotale += (ticketShort * 15.0) + (ticketMedium * 20.0) + (ticketLong * 25.0)
 
+        //infine aggiungo la parte del food tracking
+        when (whoIsChecked) {
+            0 -> {
+                sumTotale += 10.0
+            }
+            1 -> {
+                sumTotale += 8.0
+            }
+            2 -> {
+                sumTotale += 6.0
+            }
+            3 -> {
+                sumTotale += 4.0
+            }
+            4 -> {
+                sumTotale += 3.0
+            }
+            5 -> {
+                sumTotale += 2.0
+            }
+        }
 
         return sumTotale.toDouble()
     }
