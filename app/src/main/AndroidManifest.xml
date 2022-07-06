@@ -15,13 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Main">
         <service
-            android:name=".StepService"/>
+            android:name=".games.StepService"/>
         <activity
-            android:name=".First_Activity"
+            android:name=".start.First_Activity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".IntroductorActivity"
+            android:name=".start.IntroductorActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DebugActivity"
+            android:name=".start.DebugActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
@@ -47,15 +47,15 @@
             android:value="@string/facebook_client_token" />
 
         <activity
-            android:name=".RegisterPage"
+            android:name=".profile.RegisterPage"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".LoginPage"
+            android:name=".profile.LoginPage"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".start.MainActivity"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait" />
@@ -64,7 +64,7 @@
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />
         <receiver
-            android:name=".NotificationCalendar"
+            android:name=".calendar.NotificationCalendar"
             android:enabled="true"/>
     </application>
 

@@ -15,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.airbnb.lottie.LottieAnimationView
 import com.eco.app.databinding.ActivityHomeWindowBinding
+import com.eco.app.games.ResultQuizFragmentDirections
 import com.facebook.AccessToken
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
