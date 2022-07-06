@@ -2,16 +2,17 @@ package com.eco.app.games
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.eco.app.profile.RegisterPage
 import com.eco.app.databinding.FragmentQuizBinding
+import com.eco.app.profile.RegisterPage
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -100,7 +101,7 @@ class QuizFragment : Fragment() {
                 buttonsArray[randomlistButtons.get(i)]?.setText(question.listofrisp[i])
                 buttonsArray[i]?.setOnClickListener {
                     reply = buttonsArray[i]?.text.toString()
-                    checkreply(reply, correctreply, i)
+                    checkreply(reply, correctreply, i, buttonsArray)
                 }
             }
             if(binding.quizShimmer.isShimmerStarted) {
@@ -178,7 +179,7 @@ class QuizFragment : Fragment() {
         })*/
     }
 
-    fun checkreply(reply: String, correctReply: String, position: Int){
+    fun checkreply(reply: String, correctReply: String, position: Int, buttonsArray: Array<Button?>){
         if (reply == correctReply) {
             buttons[position]?.setBackgroundColor(Color.GREEN) //TODO aiuto non mi resetta il color
             correct_replies++
@@ -186,7 +187,13 @@ class QuizFragment : Fragment() {
             if (quizQuestionsNumber == 0) {
                 replaceFragment(resultFragment)
             }
-            setQuiz(txt_question, buttons)
+            for(i in 0..3){
+                buttonsArray[i]?.setOnClickListener { null }
+            }
+            val handler = Handler()
+            handler.postDelayed(Runnable {
+                setQuiz(txt_question, buttons)
+            }, 1000)
         } else {
             quizQuestionsNumber--
             buttons[position]?.setBackgroundColor(Color.RED)
@@ -204,7 +211,14 @@ class QuizFragment : Fragment() {
                 }
                 replaceFragment(resultFragment)
             }
-            setQuiz(txt_question, buttons)
+            for(i in 0..3){
+                buttonsArray[i]?.setOnClickListener { null }
+            }
+            val handler = Handler()
+            handler.postDelayed(Runnable {
+                setQuiz(txt_question, buttons)
+            }, 1000)
+
         }
     }
 
