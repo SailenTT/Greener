@@ -8,6 +8,7 @@ import android.view.View.inflate
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TimePicker
+import androidx.navigation.fragment.findNavController
 import com.eco.app.R
 import com.eco.app.databinding.ActivityDebugBinding.inflate
 import com.eco.app.databinding.ActivityFirstBinding.inflate
@@ -42,6 +43,10 @@ class JourneyTime : Fragment() {
         timePick.setIs24HourView(true)
         timePick.hour = 0
         timePick.minute = 0
+
+        btnNextJT.setOnClickListener {
+            findNavController().navigate(JourneyTimeDirections.fromPage1ToPage2())
+        }
 
         return binding.root
     }

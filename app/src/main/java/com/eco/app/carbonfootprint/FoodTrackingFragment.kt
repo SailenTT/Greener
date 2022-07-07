@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
+import androidx.navigation.fragment.findNavController
 import com.eco.app.R
 import com.eco.app.databinding.FragmentFoodTrackingBinding
 import com.eco.app.databinding.FragmentYourFlightsBinding
@@ -125,6 +126,10 @@ class FoodTracking : Fragment() {
                 checkFish.isChecked = false
                 checkVeget.isChecked = false
             }
+        }
+
+        btnNextFT.setOnClickListener {
+            findNavController().navigate(FoodTrackingDirections.fromPage3ToResultPage())
         }
 
         return binding.root
