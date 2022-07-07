@@ -5,56 +5,156 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.CheckBox
 import com.eco.app.R
+import com.eco.app.databinding.FragmentFoodTrackingBinding
+import com.eco.app.databinding.FragmentYourFlightsBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FoodTracking.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FoodTracking : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    var whoIsChecked = 0 //var che tiene conto di quale checkbox è true
+
+    var FoodTrackingScore = 0 //variabile che tiene conto del punteggio dell'utente nella pagina "Food Tracking";
+    //anche per questo, il punteggio va in base a che dieta (mediamente) segue l'utente. anche qui abbiamo una divisione in scala decrescente:
+    //10 punti a carnePlus
+    //8 punti a carneMedia
+    //6 punti a carneLow
+    //4 punti a pescetarian
+    //3 punti a vetetarian
+    //2 punti a veggy
+    //il punteggio è basato su quanto la tua dieta possa produrre CO2 (con allevamenti, produzione etc)
+
+    private lateinit var binding: FragmentFoodTrackingBinding
+
+    private lateinit var checkMeatPlus : CheckBox
+    private lateinit var checkMeat : CheckBox
+    private lateinit var checkMeatLow : CheckBox
+    private lateinit var checkFish : CheckBox
+    private lateinit var checkVeget : CheckBox
+    private lateinit var checkVeggy : CheckBox
+
+    private lateinit var btnPrevFT : Button
+    private lateinit var btnNextFT : Button
+
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_food_tracking, container, false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        binding = FragmentFoodTrackingBinding.inflate(inflater, container, false)
+
+        checkMeatPlus = binding.checkMeatplus
+        checkMeat = binding.checkMeat
+        checkMeatLow = binding.checkMeatlow
+        checkFish = binding.checkFish
+        checkVeget = binding.checkVeget
+        checkVeggy = binding.checkVeggy
+
+        btnPrevFT = binding.btnPrevFT
+        btnNextFT = binding.btnNextFT
+
+        checkMeatPlus.setOnClickListener {
+            if (checkMeatPlus.isChecked) {
+                //se la checkbox è selezionata salvo in whoIsChecked (0 la prima, ..., 5 l'ultima)
+                //dopo setto tutte le altre false in modo tale che solo una possa essere selezionabile
+                whoIsChecked = 0
+                FoodTrackingScore += 10
+                checkMeat.isChecked = false
+                checkMeatLow.isChecked = false
+                checkFish.isChecked = false
+                checkVeget.isChecked = false
+                checkVeggy.isChecked = false
+            }
+        }
+
+        checkMeat.setOnClickListener {
+            if (checkMeat.isChecked) {
+                whoIsChecked = 1
+                FoodTrackingScore += 8
+                checkMeatPlus.isChecked = false
+                checkMeatLow.isChecked = false
+                checkFish.isChecked = false
+                checkVeget.isChecked = false
+                checkVeggy.isChecked = false
+            }
+        }
+
+        checkMeatLow.setOnClickListener {
+            if (checkMeatLow.isChecked) {
+                whoIsChecked = 2
+                FoodTrackingScore += 6
+                checkMeatPlus.isChecked = false
+                checkMeat.isChecked = false
+                checkFish.isChecked = false
+                checkVeget.isChecked = false
+                checkVeggy.isChecked = false
+            }
+        }
+
+        checkFish.setOnClickListener {
+            if (checkFish.isChecked) {
+                whoIsChecked = 3
+                FoodTrackingScore += 4
+                checkMeatPlus.isChecked = false
+                checkMeat.isChecked = false
+                checkMeatLow.isChecked = false
+                checkVeget.isChecked = false
+                checkVeggy.isChecked = false
+            }
+        }
+
+        checkVeget.setOnClickListener {
+            if (checkVeget.isChecked) {
+                whoIsChecked = 4
+                FoodTrackingScore += 3
+                checkMeatPlus.isChecked = false
+                checkMeat.isChecked = false
+                checkMeatLow.isChecked = false
+                checkFish.isChecked = false
+                checkVeggy.isChecked = false
+            }
+        }
+
+        checkVeggy.setOnClickListener {
+            if (checkVeggy.isChecked) {
+                whoIsChecked = 5
+                FoodTrackingScore += 2
+                checkMeatPlus.isChecked = false
+                checkMeat.isChecked = false
+                checkMeatLow.isChecked = false
+                checkFish.isChecked = false
+                checkVeget.isChecked = false
+            }
+        }
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FoodTracking.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FoodTracking().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    fun calcola() : Double {
+
+        var sumTotale : Double = 0.0
+
+        when (whoIsChecked) {
+            0 -> {
+                sumTotale += 10.0
             }
+            1 -> {
+                sumTotale += 8.0
+            }
+            2 -> {
+                sumTotale += 6.0
+            }
+            3 -> {
+                sumTotale += 4.0
+            }
+            4 -> {
+                sumTotale += 3.0
+            }
+            5 -> {
+                sumTotale += 2.0
+            }
+        }
+
+        return sumTotale
     }
 }

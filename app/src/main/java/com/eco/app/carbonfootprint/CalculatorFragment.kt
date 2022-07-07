@@ -27,22 +27,22 @@ class CalculatorFragment : Fragment() {
     //8 = bus (vale lo stesso concetto, più passeggeri si porta più si inquina)
     //10 = treno (valore massimo al mezzo che trasporta più persone (escluso aereo perchè ha una sezione propria))
 
-    var JourneyTime = 0 //variabile che conterrà quanto tempo l'utente ha passato in viaggio su uno dei mezzi scelti
+    // JourneyTime = 0 //variabile che conterrà quanto tempo l'utente ha passato in viaggio su uno dei mezzi scelti
     //verrà usato come moltiplicatore in scaglioni
 
-    var ticketShort = 0 //contatore ticket S
+    //var ticketShort = 0 //contatore ticket S
     //tenendo conto che il treno prima ha preso il punteggio massimo a 10
     //per ogni biglietto corto vengono aggiunti 15 punti (30 per andata e ritorno)
 
-    var ticketMedium = 0 //contatore ticket M
+    //var ticketMedium = 0 //contatore ticket M
     //per ogni biglietto medio vengono aggiunti 20 punti (40 per andata e ritorno)
 
-    var ticketLong = 0 //contatore ticket L
+    //var ticketLong = 0 //contatore ticket L
     //per ogni biglietto lungo vengono aggiunti 25 punti (50 per andata e ritorno)
 
-    var whoIsChecked = 0 //var che tiene conto di quale checkbox è true
+    //var whoIsChecked = 0 //var che tiene conto di quale checkbox è true
 
-    var FoodTrackingScore = 0 //variabile che tiene conto del punteggio dell'utente nella pagina "Food Tracking";
+    //var FoodTrackingScore = 0 //variabile che tiene conto del punteggio dell'utente nella pagina "Food Tracking";
     //anche per questo, il punteggio va in base a che dieta (mediamente) segue l'utente. anche qui abbiamo una divisione in scala decrescente:
     //10 punti a carnePlus
     //8 punti a carneMedia
@@ -64,10 +64,11 @@ class CalculatorFragment : Fragment() {
     private lateinit var btnNextJM : Button
 
     //VAR "Journey Time"
-    private lateinit var timePick : TimePicker
-    private lateinit var btnPrevJT : Button
-    private lateinit var btnNextJT : Button
+    //private lateinit var timePick : TimePicker
+    //private lateinit var btnPrevJT : Button
+    //private lateinit var btnNextJT : Button
 
+    /*
     //VAR "Your Flights"
     private  lateinit var btnminusShort : Button
     private  lateinit var txtvalShort : TextView
@@ -79,8 +80,9 @@ class CalculatorFragment : Fragment() {
     private  lateinit var txtvalLong : TextView
     private  lateinit var btnplusLong : Button
     private lateinit var btnPrevYF : Button
-    private lateinit var btnNextYF : Button
+    private lateinit var btnNextYF : Button*/
 
+    /*
     //VAR "Food Tracking"
     private lateinit var checkMeatPlus : CheckBox
     private lateinit var checkMeat : CheckBox
@@ -89,7 +91,7 @@ class CalculatorFragment : Fragment() {
     private lateinit var checkVeget : CheckBox
     private lateinit var checkVeggy : CheckBox
     private lateinit var btnPrevFT : Button
-    private lateinit var btnNextFT : Button
+    private lateinit var btnNextFT : Button*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -106,10 +108,11 @@ class CalculatorFragment : Fragment() {
         btnNextJM = binding.btnNextJM
 
         //BINDING "Journey Time"
-        timePick = binding.timePicker
-        btnPrevJT = binding.btnPrevJT
-        btnNextJT = binding.btnNextJT
+        //timePick = binding.timePicker
+        //btnPrevJT = binding.btnPrevJT
+        //btnNextJT = binding.btnNextJT
 
+        /*
         //BINDING "Your Flights"
         btnminusShort = binding.btnMinusCorto
         txtvalShort = binding.txtNticketCorto
@@ -121,8 +124,9 @@ class CalculatorFragment : Fragment() {
         txtvalLong = binding.txtNticketLungo
         btnplusLong = binding.btnPlusLungo
         btnPrevYF = binding.btnPrevYF
-        btnNextYF = binding.btnNextYF
+        btnNextYF = binding.btnNextYF*/
 
+        /*
         //BINDING "Food Tracking"
         checkMeatPlus = binding.checkMeatplus
         checkMeat = binding.checkMeat
@@ -131,11 +135,11 @@ class CalculatorFragment : Fragment() {
         checkVeget = binding.checkVeget
         checkVeggy = binding.checkVeggy
         btnPrevFT = binding.btnPrevFT
-        btnNextFT = binding.btnNextFT
+        btnNextFT = binding.btnNextFT*/
 
-        btnNextFT.setOnClickListener {
-            findNavController().navigate(CalculatorFragmentDirections.fromPage0ToPage1())
-        }
+        //btnNextFT.setOnClickListener {
+        //findNavController().navigate(CalculatorFragmentDirections.fromPage0ToPage1())
+        //}
 
         //Listener per settare checked le varie card presenti nella GridView
         cardAuto.setOnClickListener {
@@ -199,11 +203,11 @@ class CalculatorFragment : Fragment() {
         }
 
         //setto property per il timePicker della sezione "Journey Mode"
-        timePick.setIs24HourView(true)
-        timePick.hour = 0
-        timePick.minute = 0
+        //timePick.setIs24HourView(true)
+        //timePick.hour = 0
+        //timePick.minute = 0
 
-
+        /*
         //Listener dei btn per la sezione "VOLI"
         btnminusShort.setOnClickListener {
             ticketShort--
@@ -247,8 +251,9 @@ class CalculatorFragment : Fragment() {
         btnplusLong.setOnClickListener {
             ticketLong++
             txtvalLong.text = ticketLong.toString()
-        }
+        }*/
 
+        /*
         //Listener per le checkbox del "food tracker"
         checkMeatPlus.setOnClickListener {
             if (checkMeatPlus.isChecked) {
@@ -322,16 +327,16 @@ class CalculatorFragment : Fragment() {
                 checkFish.isChecked = false
                 checkVeget.isChecked = false
             }
-        }
+        }*/
 
         //funzione di prova per vedere se prende i valori correttamente
         //TODO poi toglierla e inserire i dati nel calcolo finale
-        btnNextFT.setOnClickListener{
+        btnNextJM.setOnClickListener{
 
             var sum = calcolaCO2()
-            Bundle().putDouble("risultato", sum)
-
-            Snackbar.make(it, "$sum totale", Snackbar.LENGTH_LONG).show()
+            findNavController().navigate(CalculatorFragmentDirections.fromPage0ToPage1())
+            //Bundle().putDouble("risultato", sum)
+            //Snackbar.make(it, "$sum totale", Snackbar.LENGTH_LONG).show()
         }
 
         return binding.root
@@ -343,7 +348,7 @@ class CalculatorFragment : Fragment() {
         //per prima cosa aggiungo il punteggio del "Journey Mode"
         sumTotale += JourneyModeScore
 
-        //ora aggiungo il moltiplicatore dato dal "Journey time"
+        /*
         var ore = timePick.hour
         var minuti = timePick.minute
 
@@ -360,11 +365,12 @@ class CalculatorFragment : Fragment() {
         }
         else { //scaglione massimo
             sumTotale *= 3.5
-        }
+        }*/
 
         //ora aggiungo la parte di your flight
-        sumTotale += (ticketShort * 15.0) + (ticketMedium * 20.0) + (ticketLong * 25.0)
+        //sumTotale += (ticketShort * 15.0) + (ticketMedium * 20.0) + (ticketLong * 25.0)
 
+        /*
         //infine aggiungo la parte del food tracking
         when (whoIsChecked) {
             0 -> {
@@ -385,9 +391,8 @@ class CalculatorFragment : Fragment() {
             5 -> {
                 sumTotale += 2.0
             }
-        }
-
-        return sumTotale.toDouble()
+        }*/
+        return sumTotale
     }
 
 }
