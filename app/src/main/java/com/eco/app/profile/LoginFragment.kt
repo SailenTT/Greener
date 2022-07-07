@@ -243,7 +243,7 @@ class LoginFragment : Fragment() {
                             try {
                                 val userid = auth.uid!!
                                 val firstName = fbObject?.getString("first_name")
-                                val email =fbObject?.getString("enail")
+                             //   val email =fbObject?.getString("enail")
                                 val lastName = fbObject?.getString("last_name")
 
                                 val usersReference = database.getReference("Users")
@@ -253,7 +253,7 @@ class LoginFragment : Fragment() {
                                 usersReference.child(userid).child("bin_score").setValue(0)
                                 usersReference.child(userid).child("carbon_footprint").setValue(0)
                                 usersReference.child(userid).child("divide_score").setValue(0)
-                                usersReference.child(userid).child("email").setValue(email)
+                             //   usersReference.child(userid).child("email").setValue(email)
                                 uploadToStorageDefaultProfilePic(userid)
                             } catch (e: JSONException) {
                                 e.printStackTrace()
@@ -340,7 +340,7 @@ class LoginFragment : Fragment() {
         //findNavController().navigate(LoginFragmentDirections.actionFromLoginBackToHome())
     }
     fun uploadToStorageDefaultProfilePic(UID : String){
-        val uri = Uri.parse("android.resource://" + context!!.packageName.toString() + "/drawable/pollo_mangiato")
+        val uri = Uri.parse("android.resource://" + requireContext().packageName.toString() + "/drawable/pollo_mangiato")
         val filename = UID
         val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
         storageReference.putFile(uri).addOnSuccessListener {

@@ -32,11 +32,13 @@ class QuizFragment : Fragment() {
     private lateinit var txt_question: TextView
     private lateinit var reply: String
     private lateinit var correctreply: String
+    private var randomQuestion by Delegates.notNull<Int>()
     private lateinit var getQuizDataListener: ValueEventListener
     private lateinit var quizReference: DatabaseReference
     private lateinit var userReference : DatabaseReference
     private var quizQuestionsNumber: Int = 10
     var quizList = arrayListOf<Question>()
+    var questionNoRipetitions= arrayListOf<Int>()
     val resultFragment = ResultQuizFragment()
 
 
@@ -72,7 +74,12 @@ class QuizFragment : Fragment() {
 
     fun setQuiz(txt_question: TextView, buttonsArray: Array<Button?>) {
         //questo range del random si può mettere in base al contenuto dello snapshot?
-        val randomQuestion = Random.nextInt(10)
+        randomQuestion = Random.nextInt(10)
+        questionNoRipetitions.add(randomQuestion)
+            while (!questionNoRipetitions.contains(randomQuestion))
+                randomQuestion = Random.nextInt(10)
+
+        Log.d("QUESTIONS",questionNoRipetitions.toString())
         val randomlistButtons = (0..3).shuffled().take(4)
         quizReference = database.getReference("Quiz")
         //TODO chiamare una sola volta questo e salvare tutti i valori
@@ -90,10 +97,11 @@ class QuizFragment : Fragment() {
                 rispList.add(risp3!!)
                 val questionObject = Question(questionInDb, rispList)
                 quizList.add(questionObject)
-                Log.d("QUESTIONS", questionObject.toString())
+             //   Log.d("QUESTIONS", questionObject.toString())
             }
             val question = quizList[randomQuestion]
-            Log.d("QUESTIONS", question.toString())
+
+           // Log.d("QUESTIONS", question.toString())
             txt_question.text = question.question//random question
             correctreply = question.listofrisp[0]
             for (i in 0..3) {
@@ -186,6 +194,7 @@ class QuizFragment : Fragment() {
             quizQuestionsNumber--
             if (quizQuestionsNumber == 0) {
                 replaceFragment(resultFragment)
+                questionNoRipetitions.clear()
             }
             for(i in 0..3){
                 buttonsArray[i]?.setOnClickListener { null }
@@ -217,7 +226,7 @@ class QuizFragment : Fragment() {
             val handler = Handler()
             handler.postDelayed(Runnable {
                 setQuiz(txt_question, buttons)
-            }, 1000)
+            }, 500)
 
         }
     }
