@@ -295,61 +295,7 @@ class CalendarFragment : Fragment() {
         val cDs = listOf(cD1 as ImageView, cD2 as ImageView, cD3 as ImageView, cD4 as ImageView, cD5 as ImageView, cD6 as ImageView, cD7 as ImageView)
 
 
-        /*if (binding.day1Rifiuto.text.equals("Vetro")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
-        else if(binding.day1Rifiuto.text.equals("Carta")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#32A4F4")))}
-        else if(binding.day1Rifiuto.text.equals("Umido")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#695206")))}
-        else if(binding.day1Rifiuto.text.equals("Plastica")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EBDC37")))}
-        else if(binding.day1Rifiuto.text.equals("Ingombranti")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d64d2e")))}
-        else if(binding.day1Rifiuto.text.equals("Indifferenziato")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#a8a8a8")))}
-        else if(binding.day1Rifiuto.text.equals("--")){ cD1.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}
 
-        if (binding.day2Rifiuto.text.equals("Vetro")){ cD2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
-        else if(binding.day2Rifiuto.text.equals("Carta")){ cD2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#32A4F4")))}
-        else if(binding.day2Rifiuto.text.equals("Umido")){ cD2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#695206")))}
-        else if(binding.day2Rifiuto.text.equals("Plastica")){ cD2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EBDC37")))}
-        else if(binding.day2Rifiuto.text.equals("Ingombranti")){ cD2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d64d2e")))}
-        else if(binding.day2Rifiuto.text.equals("Indifferenziato")){ cD2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#a8a8a8")))}
-        else if(binding.day2Rifiuto.text.equals("--")){ cD2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}
-
-        if (binding.day3Rifiuto.text.equals("Vetro")){ cD3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
-        else if(binding.day3Rifiuto.text.equals("Carta")){ cD3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#32A4F4")))}
-        else if(binding.day3Rifiuto.text.equals("Umido")){ cD3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#695206")))}
-        else if(binding.day3Rifiuto.text.equals("Plastica")){ cD3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EBDC37")))}
-        else if(binding.day3Rifiuto.text.equals("Ingombranti")){ cD3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d64d2e")))}
-        else if(binding.day3Rifiuto.text.equals("Indifferenziato")){ cD3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#a8a8a8")))}
-        else if(binding.day3Rifiuto.text.equals("--")){ cD3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}
-
-        if (binding.day4Rifiuto.text.equals("Vetro")){ cD4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
-        else if(binding.day4Rifiuto.text.equals("Carta")){ cD4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#32A4F4")))}
-        else if(binding.day4Rifiuto.text.equals("Umido")){ cD4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#695206")))}
-        else if(binding.day4Rifiuto.text.equals("Plastica")){ cD4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EBDC37")))}
-        else if(binding.day4Rifiuto.text.equals("Ingombranti")){ cD4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d64d2e")))}
-        else if(binding.day4Rifiuto.text.equals("Indifferenziato")){ cD4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#a8a8a8")))}
-        else if(binding.day4Rifiuto.text.equals("--")){ cD4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}
-
-        if (binding.day5Rifiuto.text.equals("Vetro")){ cD5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
-        else if(binding.day5Rifiuto.text.equals("Carta")){ cD5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#32A4F4")))}
-        else if(binding.day5Rifiuto.text.equals("Umido")){ cD5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#695206")))}
-        else if(binding.day5Rifiuto.text.equals("Plastica")){ cD5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EBDC37")))}
-        else if(binding.day5Rifiuto.text.equals("Ingombranti")){ cD5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d64d2e")))}
-        else if(binding.day5Rifiuto.text.equals("Indifferenziato")){ cD5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#a8a8a8")))}
-        else if(binding.day5Rifiuto.text.equals("--")){ cD5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}
-
-        if (binding.day6Rifiuto.text.equals("Vetro")){ cD6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
-        else if(binding.day6Rifiuto.text.equals("Carta")){ cD6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#32A4F4")))}
-        else if(binding.day6Rifiuto.text.equals("Umido")){ cD6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#695206")))}
-        else if(binding.day6Rifiuto.text.equals("Plastica")){ cD6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EBDC37")))}
-        else if(binding.day6Rifiuto.text.equals("Ingombranti")){ cD6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d64d2e")))}
-        else if(binding.day6Rifiuto.text.equals("Indifferenziato")){ cD6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#a8a8a8")))}
-        else if(binding.day6Rifiuto.text.equals("--")){ cD6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}
-
-        if (binding.day7Rifiuto.text.equals("Vetro")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#47844E")))}
-        else if(binding.day7Rifiuto.text.equals("Carta")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#32A4F4")))}
-        else if(binding.day7Rifiuto.text.equals("Umido")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#695206")))}
-        else if(binding.day7Rifiuto.text.equals("Plastica")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EBDC37")))}
-        else if(binding.day7Rifiuto.text.equals("Ingombranti")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#d64d2e")))}
-        else if(binding.day7Rifiuto.text.equals("Indifferenziato")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#a8a8a8")))}
-        else if(binding.day7Rifiuto.text.equals("--")){ cD7.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#eaeaea")))}*/
         for(i in 0..6){
             when(calendarDays[i].text){
                 "Vetro" -> {
@@ -374,7 +320,6 @@ class CalendarFragment : Fragment() {
         }
 
     }
-
 
     fun saveSharedPref(){
 

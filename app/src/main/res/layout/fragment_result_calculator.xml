@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".carbonfootprint.ResultCalculator">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/txb_background"
+            android:backgroundTint="#0D647C">
+
+            <TextView
+                android:id="@+id/txt_info1"
+                android:layout_width="350dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="Il tuo carbon footprint mensile medio è di"
+                android:textSize="17sp"
+                android:textStyle="italic" />
+
+            <!--LL informazioni calcolo-->
+            <LinearLayout
+                android:id="@+id/LLinfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_info1"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_resShow"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="-15dp"
+                    android:gravity="center"
+                    android:text="808"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="Kg"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="@string/co2"
+                    android:textColor="#39B590"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!--RL bianco-->
+            <RelativeLayout
+                android:id="@+id/RL_gridView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/LLinfo"
+                android:layout_margin="20dp"
+                android:background="@drawable/txb_background"
+                android:elevation="8dp">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtinfo2"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center"
+                            android:text="Qui puoi vedere le tue emissioni a confronto con la media globale"
+                            android:textStyle="italic" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <!--RL cerchio AVG-->
+                            <RelativeLayout
+                                android:id="@+id/circle_AVG"
+                                android:layout_width="120dp"
+                                android:layout_height="120dp"
+                                android:layout_below="@id/txtinfo2"
+                                android:layout_margin="20dp"
+                                android:background="@drawable/circle"
+                                android:backgroundTint="#39B590"
+                                android:elevation="8dp">
+
+                                <TextView
+                                    android:id="@+id/txt_numAVG"
+                                    android:layout_width="100dp"
+                                    android:layout_height="40dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="15dp"
+                                    android:gravity="center"
+                                    android:text="432"
+                                    android:textSize="25sp"
+                                    android:textStyle="bold|italic" />
+
+                                <TextView
+                                    android:id="@+id/txt_infoAVG"
+                                    android:layout_width="100dp"
+                                    android:layout_height="20dp"
+                                    android:layout_below="@id/txt_numAVG"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:text="kgs of"
+                                    android:textStyle="italic" />
+
+                                <TextView
+                                    android:layout_width="100dp"
+                                    android:layout_height="30dp"
+                                    android:layout_below="@id/txt_infoAVG"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:text="@string/co2"
+                                    android:textStyle="italic" />
+
+                            </RelativeLayout>
+
+                            <!--RL cerchio personale-->
+                            <RelativeLayout
+                                android:layout_width="180dp"
+                                android:layout_height="180dp"
+                                android:background="@drawable/circle"
+                                android:backgroundTint="#3F51B5"
+                                android:elevation="8dp">
+
+                                <TextView
+                                    android:id="@+id/txt_numPER"
+                                    android:layout_width="100dp"
+                                    android:layout_height="40dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="35dp"
+                                    android:gravity="center"
+                                    android:text="808"
+                                    android:textSize="28sp"
+                                    android:textStyle="bold|italic" />
+
+                                <TextView
+                                    android:id="@+id/txt_infoPER"
+                                    android:layout_width="100dp"
+                                    android:layout_height="25dp"
+                                    android:layout_below="@id/txt_numPER"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:text="kgs of"
+                                    android:textSize="18dp"
+                                    android:textStyle="italic" />
+
+                                <TextView
+                                    android:layout_width="100dp"
+                                    android:layout_height="30dp"
+                                    android:layout_below="@id/txt_infoPER"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:text="@string/co2"
+                                    android:textSize="18dp"
+                                    android:textStyle="italic" />
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="120dp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="10dp"
+                                android:textAlignment="center"
+                                android:layout_marginLeft="42dp"
+                                android:text="MEDIA GLOBALE"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="10dp"
+                                android:textAlignment="center"
+                                android:layout_marginLeft="56dp"
+                                android:text="TU"
+                                android:textStyle="bold"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view_day1"
+                            android:layout_width="100dp"
+                            android:layout_height="2dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/black" />
+
+                        <RelativeLayout
+                            android:layout_width="300dp"
+                            android:layout_height="100dp"
+                            android:layout_margin="40dp"
+                            android:background="@drawable/txb_background"
+                            android:backgroundTint="@color/colo1"
+                            android:elevation="8dp">
+
+                            <TextView
+                                android:id="@+id/txt_tips"
+                                android:layout_width="150dp"
+                                android:layout_height="40dp"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center"
+                                android:text="Come migliorare"
+                                android:textStyle="bold|italic"
+                                android:textSize="15dp"/>
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_alignRight="@id/txt_tips"
+                                android:layout_marginRight="-12dp"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/lightbulb"/>
+
+                            <TextView
+                                android:id="@+id/txt_tipsUtente"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_tips"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:textStyle="italic"
+                                android:text="Spegni il motore al semaforo Spegni il motore al semaforo Spegni il motore al semaforo Spegni il motore al semaforo" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </ScrollView>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+        <!--fine RL Journey Mode-->
+
+    </LinearLayout>
+
+</ScrollView>
