@@ -113,11 +113,12 @@ class GrowingTreeFragment : Fragment() {
         val sharedPref=requireContext().getSharedPreferences("trackingPrefs",Context.MODE_PRIVATE)
         totalSteps= sharedPref.getLong("steps",0L)
 
-        println(totalSteps)
         var tree_frame= (stepsLevels.size-1)/2
-        //TODO vedere se sta roba va
         if(totalSteps>= stepsLevels[stepsLevels.size-1]){
            tree_frame= stepsLevels.size-1
+            totalSteps=stepsLevels[stepsLevels.size-1]
+            requireContext().getSharedPreferences("trackingPrefs",Context.MODE_PRIVATE).edit()
+                .putLong("steps",totalSteps).commit()
         }
         else{
             while(!(totalSteps>= stepsLevels[tree_frame]&&totalSteps<= stepsLevels[tree_frame+1])){

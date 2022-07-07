@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/detersivo" android:height="70dp" android:width="70dp"/>
+    <item android:drawable="@drawable/detersivo" android:height="76dp" android:width="76dp"/>
 </layer-list>

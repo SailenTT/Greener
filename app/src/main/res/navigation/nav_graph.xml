@@ -81,10 +81,70 @@
         tools:layout="@layout/fragment_calendar"/>
 
     <fragment
-        android:id="@+id/CalculatorFragment"
+        android:id="@+id/CalculatorFragmentPage0"
         android:name="com.eco.app.carbonfootprint.CalculatorFragment"
-        android:label="Carbon Footprint"
-        tools:layout="@layout/fragment_calculator"/>
+        android:label="@string/carboon_footprint_name"
+        tools:layout="@layout/fragment_calculator">
+
+        <action android:id="@+id/fromPage0_to_Page1"
+            app:destination="@id/CalculatorFragmentPage1"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/CalculatorFragmentPage1"
+        android:name="com.eco.app.carbonfootprint.JourneyTime"
+        android:label="@string/carboon_footprint_name"
+        tools:layout="@layout/fragment_journey_time">
+
+        <action android:id="@+id/fromPage1_to_Page2"
+            app:destination="@id/CalculatorFragmentPage2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/CalculatorFragmentPage2"
+        android:name="com.eco.app.carbonfootprint.YourFlights"
+        android:label="@string/carboon_footprint_name"
+        tools:layout="@layout/fragment_your_flights">
+
+        <action android:id="@+id/fromPage2_to_Page3"
+            app:destination="@id/CalculatorFragmentPage3"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/CalculatorFragmentPage3"
+        android:name="com.eco.app.carbonfootprint.FoodTracking"
+        android:label="@string/carboon_footprint_name"
+        tools:layout="@layout/fragment_food_tracking">
+
+        <action android:id="@+id/fromPage3_to_ResultPage"
+            app:destination="@id/CalculatorFragmentResult"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/CalculatorFragmentResult"
+        android:name="com.eco.app.carbonfootprint.ResultCalculator"
+        android:label="@string/carboon_footprint_name"
+        tools:layout="@layout/fragment_result_calculator"/>
 
     <fragment android:id="@+id/login_fragment"
         android:name="com.eco.app.profile.LoginFragment"

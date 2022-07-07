@@ -9,8 +9,7 @@
         android:id="@+id/quiz_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:visibility="invisible">
+        android:clipToPadding="false">
 
         <ImageView
             android:layout_width="match_parent"
@@ -31,6 +30,7 @@
 
             <TextView
                 android:id="@+id/tv_question"
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -48,6 +48,7 @@
 
         <LinearLayout
             android:gravity="center"
+            android:visibility="invisible"
             android:id="@+id/answers_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

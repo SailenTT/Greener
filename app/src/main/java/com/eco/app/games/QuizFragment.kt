@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.eco.app.databinding.FragmentQuizBinding
@@ -37,6 +38,9 @@ class QuizFragment : Fragment() {
     private lateinit var quizReference: DatabaseReference
     private lateinit var userReference : DatabaseReference
     private var quizQuestionsNumber: Int = 10
+    val white_button_bg="@drawable/rounded_corners_shape"
+    val wrong_answer_bg="@drawable/rounded_corners_red_bg_shape"
+    val right_answer_bg="@drawable/rounded_corners_green_bg_shape"
     var quizList = arrayListOf<Question>()
     var questionNoRipetitions= arrayListOf<Int>()
     val resultFragment = ResultQuizFragment()
@@ -105,7 +109,8 @@ class QuizFragment : Fragment() {
             txt_question.text = question.question//random question
             correctreply = question.listofrisp[0]
             for (i in 0..3) {
-                buttonsArray[i]?.setBackgroundColor(Color.WHITE)
+                val imgRes=resources.getIdentifier(white_button_bg, null, requireActivity().packageName)
+                buttonsArray[i]?.background=ResourcesCompat.getDrawable(resources, imgRes, null)
                 buttonsArray[randomlistButtons.get(i)]?.setText(question.listofrisp[i])
                 buttonsArray[i]?.setOnClickListener {
                     reply = buttonsArray[i]?.text.toString()
@@ -114,8 +119,9 @@ class QuizFragment : Fragment() {
             }
             if(binding.quizShimmer.isShimmerStarted) {
                 binding.quizShimmer.stopShimmer()
-                binding.quizShimmer.visibility = View.INVISIBLE
-                binding.quizConstraintLayout.visibility = View.VISIBLE
+                binding.quizShimmer.visibility = View.GONE
+                binding.tvQuestion.visibility=View.VISIBLE
+                binding.answersContainer.visibility=View.VISIBLE
 
                 /*val metrics = requireContext().resources.displayMetrics
                 //binding.questionContainer.layoutParams.height=0
@@ -189,7 +195,8 @@ class QuizFragment : Fragment() {
 
     fun checkreply(reply: String, correctReply: String, position: Int, buttonsArray: Array<Button?>){
         if (reply == correctReply) {
-            buttons[position]?.setBackgroundColor(Color.GREEN) //TODO aiuto non mi resetta il color
+            val imgRes=resources.getIdentifier(right_answer_bg, null, requireActivity().packageName)
+            buttons[position]?.background=ResourcesCompat.getDrawable(resources,imgRes,null)
             correct_replies++
             quizQuestionsNumber--
             if (quizQuestionsNumber == 0) {
@@ -205,7 +212,8 @@ class QuizFragment : Fragment() {
             }, 1000)
         } else {
             quizQuestionsNumber--
-            buttons[position]?.setBackgroundColor(Color.RED)
+            val imgRes=resources.getIdentifier(wrong_answer_bg, null, requireActivity().packageName)
+            buttons[position]?.background=ResourcesCompat.getDrawable(resources,imgRes,null)
             if (quizQuestionsNumber == 0) { //se sei a fine quiz
                 if(auth.currentUser != null){
                     UID = auth.uid!!
@@ -221,7 +229,7 @@ class QuizFragment : Fragment() {
                 replaceFragment(resultFragment)
             }
             for(i in 0..3){
-                buttonsArray[i]?.setOnClickListener { null }
+                buttonsArray[i]?.setOnClickListener(null)
             }
             val handler = Handler()
             handler.postDelayed(Runnable {

@@ -1,6 +1,7 @@
 package com.eco.app.games
 
 import android.animation.Animator
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -33,7 +34,7 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
     private var score=0
     private var gameRunning=false
     private var firstStart=true
-    private val defaultSpeed=2250L
+    private val defaultSpeed=2500L
     private val minimumSpeed=1850L
     private val spawnDelay=2000L
     private val minimumSpawnDelay=900L
@@ -296,7 +297,7 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
                     }
 
                 if (score >= 10) {
-                    val currentSpeed = defaultSpeed - (score * 5)
+                    val currentSpeed = defaultSpeed - (score * 8)
                     if (currentSpeed >= minimumSpeed) {
                         spriteAnimation.duration = currentSpeed
                     } else {

@@ -2,20 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/leaderboard_relativelayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profile.Leaderboard">
+    tools:context=".profile.LeaderboardFragment">
 
     <RelativeLayout
-        android:id="@+id/leaderboard_relativelayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible">
+        android:visibility="visible"
+        android:layout_marginBottom="8dp"
+        android:paddingBottom="6dp"
+        android:background="@drawable/txb_background"
+        android:backgroundTint="#ffdf7d">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/top_img"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignParentTop="true"
+            android:elevation="8dp"
+            android:scaleType="fitXY"
+            app:shapeAppearanceOverlay="@style/roundedCorners"
+            app:srcCompat="@drawable/leaderboard_top_img" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/leaderboard_recycler"
+            android:layout_below="@id/top_img"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/bachecha_shape"
+            android:paddingStart="19dp"
+            android:paddingEnd="19dp"
+            android:paddingTop="21dp"
+            android:paddingBottom="5dp"/>
 
     </RelativeLayout>
 
@@ -39,6 +63,5 @@
             <include layout="@layout/leaderboard_placeholder_screen" />
         </com.facebook.shimmer.ShimmerFrameLayout>
     </RelativeLayout>
-
 
 </RelativeLayout>

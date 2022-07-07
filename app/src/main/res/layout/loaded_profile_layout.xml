@@ -8,7 +8,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners_shape"
+            android:backgroundTint="#E6E8FF">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/top_img"

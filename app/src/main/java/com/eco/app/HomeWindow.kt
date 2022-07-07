@@ -50,7 +50,7 @@ class HomeWindow : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         //Inserisco gli elementi base della navigation UI
-        appBarConfiguration= AppBarConfiguration(setOf(R.id.GameSelectionFragment,R.id.CalendarFragment,R.id.CalculatorFragment),drawer)
+        appBarConfiguration= AppBarConfiguration(setOf(R.id.GameSelectionFragment,R.id.CalendarFragment,R.id.CalculatorFragmentPage0),drawer)
 
         setupActionBarWithNavController(navController,appBarConfiguration)
 

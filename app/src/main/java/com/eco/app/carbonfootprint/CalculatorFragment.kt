@@ -10,6 +10,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.TimePicker
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.eco.app.databinding.FragmentCalculatorBinding
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.snackbar.Snackbar
@@ -131,6 +132,10 @@ class CalculatorFragment : Fragment() {
         checkVeggy = binding.checkVeggy
         btnPrevFT = binding.btnPrevFT
         btnNextFT = binding.btnNextFT
+
+        btnNextFT.setOnClickListener {
+            findNavController().navigate(CalculatorFragmentDirections.fromPage0ToPage1())
+        }
 
         //Listener per settare checked le varie card presenti nella GridView
         cardAuto.setOnClickListener {
