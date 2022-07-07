@@ -45,6 +45,7 @@ class ProfileFragment : Fragment() {
     private var garbageSorterGameScore=0L
     private var carbonFootprintScore=0L
     private var username: CharSequence=""
+    private var email: CharSequence=""
     private var leaderboardPosition=0
     private lateinit var profileImg:Bitmap
 
@@ -137,6 +138,7 @@ class ProfileFragment : Fragment() {
 
             usersReference.child(UID).get().addOnSuccessListener {
                 username = it.child("username").value as CharSequence
+                email = it.child("email").value as CharSequence
                 trashBinGameScore = it.child("bin_score").value as Long
                 quizGameScore = it.child("quiz_score").value as Long
                 carbonFootprintScore = it.child("carbon_footprint").value as Long
@@ -209,6 +211,8 @@ class ProfileFragment : Fragment() {
             "Carboon footprint: $carbonFootprintScore"
         loadedProfileLayout!!.findViewById<TextView>(R.id.tv_dividescore).text =
             "Divide Score: $garbageSorterGameScore"
+        loadedProfileLayout!!.findViewById<TextView>(R.id.tv_email).text =
+            email.toString()
     }
 
     private fun pickImage() {

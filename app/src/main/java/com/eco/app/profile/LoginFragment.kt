@@ -243,6 +243,7 @@ class LoginFragment : Fragment() {
                             try {
                                 val userid = auth.uid!!
                                 val firstName = fbObject?.getString("first_name")
+                                val email =fbObject?.getString("enail")
                                 val lastName = fbObject?.getString("last_name")
 
                                 val usersReference = database.getReference("Users")
@@ -252,6 +253,7 @@ class LoginFragment : Fragment() {
                                 usersReference.child(userid).child("bin_score").setValue(0)
                                 usersReference.child(userid).child("carbon_footprint").setValue(0)
                                 usersReference.child(userid).child("divide_score").setValue(0)
+                                usersReference.child(userid).child("email").setValue(email)
                                 uploadToStorageDefaultProfilePic(userid)
                             } catch (e: JSONException) {
                                 e.printStackTrace()
