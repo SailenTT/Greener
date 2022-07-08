@@ -171,7 +171,7 @@ class LoginFragment : Fragment() {
                             if (uid != null) {
                                 UID = uid
                             }
-                            val intent = Intent(context, DebugActivity::class.java)
+                            val intent = Intent(context, HomeWindow::class.java)
                             startActivity(intent)
                         } else {
                             // If sign in fails, display a message to the user.

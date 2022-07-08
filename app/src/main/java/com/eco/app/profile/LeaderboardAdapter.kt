@@ -35,6 +35,7 @@ class LeaderboardAdapter(private val dataSet: ArrayList<LeaderBoardRow>, private
         var position = binding.tvLeadPosition
         var username = binding.tvUsername
         var score = binding.tvScoreLeaderboard
+        var propic = binding.leaderboardProfileImg
         fun initialize(item : LeaderBoardRow, action: OnItemClicked){
             position.text = item.position.toString()+" "
             username.text = item.username+" "

@@ -37,21 +37,22 @@ class NotificationCalendar : BroadcastReceiver() {
         calendar = Calendar.getInstance()
 
         when(calendar.get(Calendar.DAY_OF_WEEK)){
-            Calendar.MONDAY -> what = lunedi
-            Calendar.TUESDAY -> what = martedi
-            Calendar.WEDNESDAY -> what = mercoledi
-            Calendar.THURSDAY -> what = giovedi
-            Calendar.FRIDAY -> what = venerdi
-            Calendar.SATURDAY -> what = sabato
-            Calendar.SUNDAY -> what = domenica
+            Calendar.MONDAY -> what = martedi
+            Calendar.TUESDAY -> what = mercoledi
+            Calendar.WEDNESDAY -> what = giovedi
+            Calendar.THURSDAY -> what = venerdi
+            Calendar.FRIDAY -> what = sabato
+            Calendar.SATURDAY -> what = domenica
+            Calendar.SUNDAY -> what = lunedi
         }
 
-
-        val notification = NotificationCompat.Builder(context, channelID)
-            .setSmallIcon(R.drawable.ic_person)
-            .setContentTitle(context.resources.getString(R.string.calendar_notification_title))
-            .setContentText(context.resources.getString(R.string.calendar_notification_body)+" "+what)
+        if (!what.equals("--")){
+            val notification = NotificationCompat.Builder(context, channelID)
+                .setSmallIcon(R.drawable.ic_person)
+                .setContentTitle(context.resources.getString(R.string.calendar_notification_title))
+                .setContentText(context.resources.getString(R.string.calendar_notification_body)+" "+what)
             val manager = NotificationManagerCompat.from(context)
             manager.notify(notificationID,notification.build())
+        }
     }
 }
