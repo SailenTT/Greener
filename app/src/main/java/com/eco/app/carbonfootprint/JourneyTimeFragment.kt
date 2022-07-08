@@ -25,7 +25,6 @@ class JourneyTime : Fragment() {
 
     //VAR "Journey Time"
     private lateinit var timePick : TimePicker
-    private lateinit var btnPrevJT : Button
     private lateinit var btnNextJT : Button
 
     override fun onCreateView(
@@ -34,7 +33,6 @@ class JourneyTime : Fragment() {
         binding = FragmentJourneyTimeBinding.inflate(inflater, container, false)
 
         timePick = binding.timePicker
-        btnPrevJT = binding.btnPrevJT
         btnNextJT = binding.btnNextJT
 
         //setto property per il timePicker della sezione "Journey Mode"
