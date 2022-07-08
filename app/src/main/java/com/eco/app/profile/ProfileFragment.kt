@@ -3,12 +3,15 @@ package com.eco.app.profile
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.InputType
+import android.text.method.HideReturnsTransformationMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,8 +22,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
+import com.eco.app.HomeWindow
 import com.eco.app.R
 import com.eco.app.databinding.FragmentProfileBinding
+import com.facebook.internal.instrument.InstrumentData
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -39,6 +45,7 @@ class ProfileFragment : Fragment() {
     private lateinit var UID : String
     private var loadedProfileLayout: ScrollView?=null
     private lateinit var propic: ImageView
+    private lateinit var deleteAccountButton : Button
     private var firstInfoLoaded=false
     private var quizGameScore=0L
     private var trashBinGameScore=0L
@@ -80,7 +87,6 @@ class ProfileFragment : Fragment() {
             UID = user.uid
             getInfos(usersReference,UID)
         }
-
 
         return binding.root
     }
@@ -202,6 +208,11 @@ class ProfileFragment : Fragment() {
         propic.setOnClickListener {
             checkPermissionForImage()
         }
+        deleteAccountButton = loadedProfileLayout!!.findViewById<Button>(R.id.btn_delete_account)
+        deleteAccountButton.setOnClickListener {
+            deleteDialog()
+        }
+
         loadedProfileLayout!!.findViewById<TextView>(R.id.tv_nickname).text = username
         loadedProfileLayout!!.findViewById<TextView>(R.id.tv_quizscore).text =
             "Quiz score: $quizGameScore"
@@ -213,6 +224,71 @@ class ProfileFragment : Fragment() {
             "Divide Score: $garbageSorterGameScore"
         loadedProfileLayout!!.findViewById<TextView>(R.id.tv_email).text =
             email.toString()
+    }
+
+    private fun deleteDialog(){
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        with(alertDialogBuilder){
+            setTitle("Cancellazione account")
+            setMessage("Stai per cancellare il tuo account, perdendo tutti i tuoi dati, sei sicuro?")
+            setPositiveButton("Si"){dialogInterface,_ ->
+                //Toast.makeText(requireContext(), "Ok ti cancello", Toast.LENGTH_SHORT).show()
+                deleteUser()
+                dialogInterface.dismiss()
+            }
+            setNegativeButton("No"){dialogInterface,_ ->
+                //Toast.makeText(requireContext(), "Non ti cancello", Toast.LENGTH_SHORT).show()
+                dialogInterface.dismiss()
+            }
+        }
+        alertDialogBuilder.show()
+    }
+    private fun deleteUser() {
+        val user = Firebase.auth.currentUser
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        with(alertDialogBuilder) {
+            setTitle("Inserisci la tua password")
+        }
+        val input = EditText(requireContext())
+        with(input) {
+            setHint("Password")
+            inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+            transformationMethod = HideReturnsTransformationMethod.getInstance()
+        }
+        alertDialogBuilder.setView(input)
+
+        alertDialogBuilder.setPositiveButton("OK") { dialogInterface, _ ->
+            val pwd = input.text.toString()
+            val credential = EmailAuthProvider.getCredential(user!!.email.toString(), pwd)
+            user!!.reauthenticate(credential)
+                .addOnSuccessListener {
+                    //Toast.makeText(requireContext(), "Allright", Toast.LENGTH_SHORT).show()
+                    user.delete().addOnSuccessListener {
+                        Toast.makeText(
+                            requireContext(),
+                            "Cancellato correttamente",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        FirebaseAuth.getInstance().signOut()
+                        val intent = Intent(requireContext(),HomeWindow::class.java)
+                        startActivity(intent)
+                    }
+                        .addOnFailureListener {
+                            Toast.makeText(
+                                requireContext(),
+                                "Errore nella cancellazione",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "Oh hell no", Toast.LENGTH_SHORT).show()
+                }
+
+        }.setNegativeButton("Annulla") { dialogInterface, _ ->
+            dialogInterface.dismiss()
+        }
+        alertDialogBuilder.show()
     }
 
     private fun pickImage() {

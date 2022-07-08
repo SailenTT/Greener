@@ -340,13 +340,13 @@ class LoginFragment : Fragment() {
         //findNavController().navigate(LoginFragmentDirections.actionFromLoginBackToHome())
     }
     fun uploadToStorageDefaultProfilePic(UID : String){
-        val uri = Uri.parse("android.resource://" + requireContext().packageName.toString() + "/drawable/pollo_mangiato")
+        val uri = Uri.parse("android.resource://" + requireContext().packageName.toString() + "/drawable/default_propic")
         val filename = UID
         val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
         storageReference.putFile(uri).addOnSuccessListener {
-            Toast.makeText(context, "Foto uppata", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(context, "Foto uppata", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener{
-            Toast.makeText(context, "Non uppata la foto", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Errore con la foto", Toast.LENGTH_SHORT).show()
         }
     }
 

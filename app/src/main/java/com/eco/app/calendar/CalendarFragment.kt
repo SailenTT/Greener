@@ -144,14 +144,14 @@ class CalendarFragment : Fragment() {
     private fun scheduleNotifications(){
 
         calendar = Calendar.getInstance() //getto istanza del calendario
-        calendar[Calendar.HOUR_OF_DAY] = 13  //setto orario,minuti secondi e millisecondi di quando deve arrivare la notifica
-        calendar[Calendar.MINUTE] = 47
-        calendar[Calendar.SECOND] = 30
+        calendar[Calendar.HOUR_OF_DAY] = 12 //setto orario,minuti secondi e millisecondi di quando deve arrivare la notifica
+        calendar[Calendar.MINUTE] = 0
+        calendar[Calendar.SECOND] = 0
         calendar[Calendar.MILLISECOND] = 0
 
         alarmManager = context!!.getSystemService(ALARM_SERVICE) as AlarmManager //getto il servizio di alarm manager
         val intent = Intent(context, NotificationCalendar::class.java)
-        intent.putExtra("day",calendar[Calendar.DAY_OF_WEEK])
+        //intent.putExtra("day",calendar[Calendar.DAY_OF_WEEK])
         //creo un intent per reindirizzarlo al receiver
 
         pendingIntent = PendingIntent.getBroadcast(context,0,intent,0) //pendingIntent dato che non viene eseguito subito, notificationCalendar è un receiver
