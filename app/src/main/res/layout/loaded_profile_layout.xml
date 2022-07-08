@@ -103,10 +103,10 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
+                            android:layout_marginTop="4dp"
                             android:gravity="center"
                             android:paddingStart="6dp"
                             android:paddingEnd="6dp"
-                            android:layout_marginTop="4dp"
                             android:text="I tuoi punteggi"
                             android:textColor="@color/black"
                             android:textSize="22sp" />
@@ -131,8 +131,8 @@
                             android:layout_below="@id/tv_quizscore"
                             android:layout_marginTop="4dp"
                             app:dividerColor="@color/grey"
-                            app:dividerInsetStart="18dp"
-                            app:dividerInsetEnd="18dp"/>
+                            app:dividerInsetEnd="18dp"
+                            app:dividerInsetStart="18dp" />
 
                         <TextView
                             android:id="@+id/tv_trashscore"
@@ -154,8 +154,8 @@
                             android:layout_below="@id/tv_trashscore"
                             android:layout_marginTop="4dp"
                             app:dividerColor="@color/grey"
-                            app:dividerInsetStart="18dp"
-                            app:dividerInsetEnd="18dp"/>
+                            app:dividerInsetEnd="18dp"
+                            app:dividerInsetStart="18dp" />
 
                         <TextView
                             android:id="@+id/tv_carbon"
@@ -177,8 +177,8 @@
                             android:layout_below="@id/tv_carbon"
                             android:layout_marginTop="4dp"
                             app:dividerColor="@color/grey"
-                            app:dividerInsetStart="18dp"
-                            app:dividerInsetEnd="18dp"/>
+                            app:dividerInsetEnd="18dp"
+                            app:dividerInsetStart="18dp" />
 
                         <TextView
                             android:id="@+id/tv_dividescore"
@@ -189,10 +189,35 @@
                             android:layout_marginStart="24dp"
                             android:layout_marginTop="6dp"
                             android:layout_marginEnd="24dp"
-                            android:layout_marginBottom="12dp"
                             android:text="Divide score: "
                             android:textColor="@color/black"
                             android:textSize="20sp" />
+
+                        <com.google.android.material.divider.MaterialDivider
+                            android:id="@+id/divide_divider"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_dividescore"
+                            android:layout_marginTop="4dp"
+                            app:dividerColor="@color/grey"
+                            app:dividerInsetEnd="18dp"
+                            app:dividerInsetStart="18dp" />
+
+                        <TextView
+                            android:id="@+id/tv_growingtree"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/divide_divider"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginEnd="24dp"
+                            android:layout_marginBottom="12dp"
+                            android:text="Growing tree score: "
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
+
+
                 </RelativeLayout>
 
                 <TextView

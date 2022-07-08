@@ -25,8 +25,11 @@ import androidx.fragment.app.Fragment
 import com.eco.app.HomeWindow
 import com.eco.app.R
 import com.eco.app.databinding.FragmentProfileBinding
+import com.facebook.AccessToken
 import com.facebook.internal.instrument.InstrumentData
 import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FacebookAuthCredential
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -38,6 +41,7 @@ import java.io.File
 
 
 class ProfileFragment : Fragment() {
+    private var facebookAccessToken: AccessToken? = null
     private lateinit var binding: FragmentProfileBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
@@ -53,6 +57,7 @@ class ProfileFragment : Fragment() {
     private var carbonFootprintScore=0L
     private var username: CharSequence=""
     private var email: CharSequence=""
+    private var growingTreeScore =0L
     private var leaderboardPosition=0
     private lateinit var profileImg:Bitmap
 
@@ -75,7 +80,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding=FragmentProfileBinding.inflate(inflater,container,false)
-
+        facebookAccessToken = AccessToken?.getCurrentAccessToken()
         binding.profileShimmer.startShimmer()
         auth = Firebase.auth
         val user = auth.currentUser;
@@ -149,6 +154,7 @@ class ProfileFragment : Fragment() {
                 quizGameScore = it.child("quiz_score").value as Long
                 carbonFootprintScore = it.child("carbon_footprint").value as Long
                 garbageSorterGameScore = it.child("divide_score").value as Long
+                growingTreeScore = it.child("growing_tree").value as Long
 
                 if (firstInfoLoaded) {
                     setUserData()
@@ -221,9 +227,19 @@ class ProfileFragment : Fragment() {
         loadedProfileLayout!!.findViewById<TextView>(R.id.tv_carbon).text =
             "Carboon footprint: $carbonFootprintScore"
         loadedProfileLayout!!.findViewById<TextView>(R.id.tv_dividescore).text =
-            "Divide Score: $garbageSorterGameScore"
+            "Divide score: $garbageSorterGameScore"
+        if(growingTreeScore == 0L){
+            loadedProfileLayout!!.findViewById<TextView>(R.id.tv_growingtree).text =
+                "Growing tree score: ???"
+        }else{
+            loadedProfileLayout!!.findViewById<TextView>(R.id.tv_growingtree).text =
+                "Growing tree score: $growingTreeScore"
+        }
         loadedProfileLayout!!.findViewById<TextView>(R.id.tv_email).text =
             email.toString()
+
+
+
     }
 
     private fun deleteDialog(){
@@ -233,6 +249,9 @@ class ProfileFragment : Fragment() {
             setMessage("Stai per cancellare il tuo account, perdendo tutti i tuoi dati, sei sicuro?")
             setPositiveButton("Si"){dialogInterface,_ ->
                 //Toast.makeText(requireContext(), "Ok ti cancello", Toast.LENGTH_SHORT).show()
+                if(facebookAccessToken != null){
+                    val token = FacebookAuthProvider.getCredential(facebookAccessToken.toString()) //todo sistemare mail nel profilo cosi da poterlo cancellare qui
+                }
                 deleteUser()
                 dialogInterface.dismiss()
             }
