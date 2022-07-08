@@ -7,7 +7,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="imagesReadMe/logoApp.png" alt="Logo" width="300">
+    <img src="imagesReadMe/logoApp.png" align="center" alt="Logo" width="300">
   </a>
 
   <h3 align="center">Greener</h3>
@@ -46,7 +46,7 @@ Thanks to the "Leaderboard" section you can also compare your scores with all th
 <br>
 <br>
 <br>
-<img src="imagesReadMe/Galaxy Note 20 Ultra.png" alt="Logo" style="display:block" width="700">
+<img src="imagesReadMe/Galaxy Note 20 Ultra.png" alt="Logo" align="center" style="display:block" width="700">
 
 
 
