@@ -30,25 +30,25 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<img src="imagesReadMe/Galaxy S21 Ultra.png" alt="Logo" align="center" style="display:block" width="700">
+<div align="center">
+  <img src="imagesReadMe/Galaxy S21 Ultra.png" alt="Logo" style="display:block" width="700">
 
-Greener is a project born and developed by 3 students attending the University of Insubria.
-The idea comes from the common thought that, nowadays, there are more and more ways not to pollute or at least limit a part of it, but there are still people who, for one reason or another, find it hard to do their part.
+  Greener is a project born and developed by 3 students attending the University of Insubria.
+  The idea comes from the common thought that, nowadays, there are more and more ways not to pollute or at least limit a part of it, but there are still people who, for one reason or another, find it hard to do their part.
 
-This is where Greener comes in! the app, with its simplicity and intuitiveness, will allow the user to use it quickly and easily.
-But what does the app allow to do?
-* Learn (even while having fun) what the green world is: through mini-games and quizzes with a green and eco background.
-* Help you in the waste sorting! thanks to the calendar and its notifications, you will always be updated on the waste to throw away.
-* Test yourself; with its simplified Carbon Footprint, it will tell you how low or high your ecological footprint is.
-* And more (which we will let you discover..)
+  This is where Greener comes in! the app, with its simplicity and intuitiveness, will allow the user to use it quickly and easily. 
+  But what does the app allow to do?
+  * Learn (even while having fun) what the green world is: through mini-games and quizzes with a green and eco background.
+  * Help you in the waste sorting! thanks to the calendar and its notifications, you will always be updated on the waste to throw away.
+  * Test yourself; with its simplified Carbon Footprint, it will tell you how low or high your ecological footprint is.
+  * And more (which we will let you discover..)
 
-Thanks to the "Leaderboard" section you can also compare your scores with all the other users who choose to become part of the "Greener" world!.
-<br>
-<br>
-<br>
-<img src="imagesReadMe/Galaxy Note 20 Ultra.png" alt="Logo" align="center" style="display:block" width="700">
-
-
+  Thanks to the "Leaderboard" section you can also compare your scores with all the other users who choose to become part of the "Greener" world!.
+  <br>
+  <br>
+  <br>
+  <img src="imagesReadMe/Galaxy Note 20 Ultra.png" alt="Logo" style="display:block" width="700">
+</div>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
