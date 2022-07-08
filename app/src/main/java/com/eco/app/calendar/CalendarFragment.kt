@@ -42,6 +42,9 @@ class CalendarFragment : Fragment() {
     private lateinit var bottomSliderContainer : RelativeLayout
     private lateinit var doubleArrowIcon: ImageView
     private lateinit var pendingIntent : PendingIntent
+    private val daysList=listOf("lunedì","martedì","mercoledì","giovedì","venerdì","sabato","domenica")
+    private val daysListSharedPrefsForm= listOf("lunedi","martedi","mercoledi","giovedi","venerdi","sabato","domenica")
+    private val wastesList= mutableListOf<TextView>()
 
     companion object{
         const val SHARED_PREFS = "sharedPrefsCalendar"
@@ -72,6 +75,7 @@ class CalendarFragment : Fragment() {
         day5 = binding.txtDay5
         day6 = binding.txtDay6
         day7 = binding.txtDay7
+
         mese = binding.txtMese
         btnData = binding.btnDataCalendar
         switch = binding.notificationSwitch
@@ -197,7 +201,7 @@ class CalendarFragment : Fragment() {
         val listaGiorni = ArrayList<String>()
         val cal= Calendar.getInstance()
         //definisco pattern per come visualizzare la data (in questo caso "giorno numero")
-        val dateFormat= SimpleDateFormat("EEEE") //dd
+        val dateFormat= SimpleDateFormat("EEEE dd") //dd
 
         for (i in 0..6) {
             val date = cal.time
@@ -219,143 +223,32 @@ class CalendarFragment : Fragment() {
 
     fun setSharedPref(){
 
-        val rifiutoD1 : TextView = binding.day1Rifiuto
-        val rifiutoD2 : TextView = binding.day2Rifiuto
-        val rifiutoD3 : TextView = binding.day3Rifiuto
-        val rifiutoD4 : TextView = binding.day4Rifiuto
-        val rifiutoD5 : TextView = binding.day5Rifiuto
-        val rifiutoD6 : TextView = binding.day6Rifiuto
-        val rifiutoD7 : TextView = binding.day7Rifiuto
+        wastesList.add(0,binding.day1Rifiuto)
+        wastesList.add(1,binding.day2Rifiuto)
+        wastesList.add(2,binding.day3Rifiuto)
+        wastesList.add(3,binding.day4Rifiuto)
+        wastesList.add(4,binding.day5Rifiuto)
+        wastesList.add(5,binding.day6Rifiuto)
+        wastesList.add(6,binding.day7Rifiuto)
 
-
-
-        //TODO se vuoi rimettere i numeri vai alla riga 200 e metti (EEEE dd)
-        //però se vuoi di nuovo i numeri devi trovare un modo per mettere il contains qui
-        //perchè day (con il numero) sarebbe "martedi 10"
-        when (day.text) {
-            "lunedì" -> {
-                rifiutoD1.text = sharedPref.getString("lunedi","")
-                rifiutoD2.text = sharedPref.getString("martedi","")
-                rifiutoD3.text = sharedPref.getString("mercoledi","")
-                rifiutoD4.text = sharedPref.getString("giovedi","")
-                rifiutoD5.text = sharedPref.getString("venerdi","")
-                rifiutoD6.text = sharedPref.getString("sabato","")
-                rifiutoD7.text = sharedPref.getString("domenica","")
+        var i=0
+        while(i <daysList.size) {
+            if (day.text.toString().contains(daysList[i])) {
+                break
             }
-            "martedì" -> {
-                rifiutoD1.text = sharedPref.getString("martedi","")
-                rifiutoD2.text = sharedPref.getString("mercoledi","")
-                rifiutoD3.text = sharedPref.getString("giovedi","")
-                rifiutoD4.text = sharedPref.getString("venerdi","")
-                rifiutoD5.text = sharedPref.getString("sabato","")
-                rifiutoD6.text = sharedPref.getString("domenica","")
-                rifiutoD7.text = sharedPref.getString("lunedi","")
-            }
-            "mercoledì" -> {
-                rifiutoD1.text = sharedPref.getString("mercoledi","")
-                rifiutoD2.text = sharedPref.getString("giovedi","")
-                rifiutoD3.text = sharedPref.getString("venerdi","")
-                rifiutoD4.text = sharedPref.getString("sabato","")
-                rifiutoD5.text = sharedPref.getString("domenica","")
-                rifiutoD6.text = sharedPref.getString("lunedi","")
-                rifiutoD7.text = sharedPref.getString("martedi","")
-            }
-            "giovedì" -> {
-                rifiutoD1.text = sharedPref.getString("giovedi","")
-                rifiutoD2.text = sharedPref.getString("venerdi","")
-                rifiutoD3.text = sharedPref.getString("sabato","")
-                rifiutoD4.text = sharedPref.getString("domenica","")
-                rifiutoD5.text = sharedPref.getString("lunedi","")
-                rifiutoD6.text = sharedPref.getString("martedi","")
-                rifiutoD7.text = sharedPref.getString("mercoledi","")
-            }
-            "venerdì" -> {
-                rifiutoD1.text = sharedPref.getString("venerdi","")
-                rifiutoD2.text = sharedPref.getString("sabato","")
-                rifiutoD3.text = sharedPref.getString("domenica","")
-                rifiutoD4.text = sharedPref.getString("lunedi","")
-                rifiutoD5.text = sharedPref.getString("martedi","")
-                rifiutoD6.text = sharedPref.getString("mercoledi","")
-                rifiutoD7.text = sharedPref.getString("giovedi","")
-            }
-            "sabato" -> {
-                rifiutoD1.text = sharedPref.getString("sabato","")
-                rifiutoD2.text = sharedPref.getString("domenica","")
-                rifiutoD3.text = sharedPref.getString("lunedi","")
-                rifiutoD4.text = sharedPref.getString("martedi","")
-                rifiutoD5.text = sharedPref.getString("mercoledi","")
-                rifiutoD6.text = sharedPref.getString("giovedi","")
-                rifiutoD7.text = sharedPref.getString("venerdi","")
-            }
-            "domenica" -> {
-                rifiutoD1.text = sharedPref.getString("domenica","")
-                rifiutoD2.text = sharedPref.getString("lunedi","")
-                rifiutoD3.text = sharedPref.getString("martedi","")
-                rifiutoD4.text = sharedPref.getString("mercoledi","")
-                rifiutoD5.text = sharedPref.getString("giovedi","")
-                rifiutoD6.text = sharedPref.getString("venerdi","")
-                rifiutoD7.text = sharedPref.getString("sabato","")
+            else {
+                i++
             }
         }
 
-
-        /*if (day.text.toString().contains("lunedì")) {
-            rifiutoD1.setText(sharedPref.getString("lunedi",""))
-            rifiutoD2.setText(sharedPref.getString("martedi",""))
-            rifiutoD3.setText(sharedPref.getString("mercoledi",""))
-            rifiutoD4.setText(sharedPref.getString("giovedi",""))
-            rifiutoD5.setText(sharedPref.getString("venerdi",""))
-            rifiutoD6.setText(sharedPref.getString("sabato",""))
-            rifiutoD7.setText(sharedPref.getString("domenica",""))
-        } else if (day.text.toString().contains("martedì")){
-            rifiutoD1.setText(sharedPref.getString("martedi",""))
-            rifiutoD2.setText(sharedPref.getString("mercoledi",""))
-            rifiutoD3.setText(sharedPref.getString("giovedi",""))
-            rifiutoD4.setText(sharedPref.getString("venerdi",""))
-            rifiutoD5.setText(sharedPref.getString("sabato",""))
-            rifiutoD6.setText(sharedPref.getString("domenica",""))
-            rifiutoD7.setText(sharedPref.getString("lunedi",""))
-        } else if (day.text.toString().contains("mercoledì")){
-            rifiutoD1.setText(sharedPref.getString("mercoledi",""))
-            rifiutoD2.setText(sharedPref.getString("giovedi",""))
-            rifiutoD3.setText(sharedPref.getString("venerdi",""))
-            rifiutoD4.setText(sharedPref.getString("sabato",""))
-            rifiutoD5.setText(sharedPref.getString("domenica",""))
-            rifiutoD6.setText(sharedPref.getString("lunedi",""))
-            rifiutoD7.setText(sharedPref.getString("martedi",""))
-        } else if (day.text.toString().contains("giovedì")){
-            rifiutoD1.setText(sharedPref.getString("giovedi",""))
-            rifiutoD2.setText(sharedPref.getString("venerdi",""))
-            rifiutoD3.setText(sharedPref.getString("sabato",""))
-            rifiutoD4.setText(sharedPref.getString("domenica",""))
-            rifiutoD5.setText(sharedPref.getString("lunedi",""))
-            rifiutoD6.setText(sharedPref.getString("martedi",""))
-            rifiutoD7.setText(sharedPref.getString("mercoledi",""))
-        } else if (day.text.toString().contains("venerdi")){
-            rifiutoD1.setText(sharedPref.getString("venerdi",""))
-            rifiutoD2.setText(sharedPref.getString("sabato",""))
-            rifiutoD3.setText(sharedPref.getString("domenica",""))
-            rifiutoD4.setText(sharedPref.getString("lunedi",""))
-            rifiutoD5.setText(sharedPref.getString("martedi",""))
-            rifiutoD6.setText(sharedPref.getString("mercoledi",""))
-            rifiutoD7.setText(sharedPref.getString("giovedi",""))
-        } else if (day.text.toString().contains("sabato")){
-            rifiutoD1.setText(sharedPref.getString("sabato",""))
-            rifiutoD2.setText(sharedPref.getString("domenica",""))
-            rifiutoD3.setText(sharedPref.getString("lunedi",""))
-            rifiutoD4.setText(sharedPref.getString("martedi",""))
-            rifiutoD5.setText(sharedPref.getString("mercoledi",""))
-            rifiutoD6.setText(sharedPref.getString("giovedi",""))
-            rifiutoD7.setText(sharedPref.getString("venerdi",""))
-        } else {
-            rifiutoD1.setText(sharedPref.getString("domenica",""))
-            rifiutoD2.setText(sharedPref.getString("lunedi",""))
-            rifiutoD3.setText(sharedPref.getString("martedi",""))
-            rifiutoD4.setText(sharedPref.getString("mercoledi",""))
-            rifiutoD5.setText(sharedPref.getString("giovedi",""))
-            rifiutoD6.setText(sharedPref.getString("venerdi",""))
-            rifiutoD7.setText(sharedPref.getString("sabato",""))
-        }*/
+        for(j in 0 until wastesList.size) {
+            wastesList[j].text= sharedPref.getString(daysListSharedPrefsForm[i],"")
+            println(sharedPref.getString(daysListSharedPrefsForm[i],""))
+            i++
+            if(i==daysList.size){
+                i=0
+            }
+        }
     }
     fun setCircleColor() {
         val cD1 : View = binding.circleD1
@@ -369,7 +262,7 @@ class CalendarFragment : Fragment() {
 
 
 
-        for(i in 0..6){
+        for(i in calendarDays.indices){
             when(calendarDays[i].text){
                 "Vetro" -> {
                     cDs[i].setImageResource(R.drawable.glass_day_icon)
@@ -388,6 +281,9 @@ class CalendarFragment : Fragment() {
                 }
                 "Indifferenziato"->{
                     cDs[i].setImageResource(R.drawable.indiff_day_icon)
+                }
+                "--"->{
+                    cDs[i].setImageDrawable(null)
                 }
             }
         }
@@ -435,6 +331,8 @@ class CalendarFragment : Fragment() {
             dialog?.dismiss()
             setSharedPref()
             setCircleColor()
+
+            changeSliderMenuPosition()
         })
     }
 
@@ -449,30 +347,34 @@ class CalendarFragment : Fragment() {
 
 
             binding.doubleArrowWidgetContainer.setOnClickListener {
-                if(bottomSliderContainer.y+binding.whitePopulationContainer.y>=binding.root.height) {
-                    //slide in alto
-                    bottomSliderContainer.animate()
-                        .translationYBy(-binding.whitePopulationContainer.height.toFloat())
-                        .duration = 450
-
-                    binding.doubleArrowWidgetContainer.animate()
-                        .translationYBy(5f*dpi)
-
-                }
-                else{
-                    //slide in basso
-                    bottomSliderContainer.animate()
-                        .translationYBy(binding.whitePopulationContainer.height.toFloat())
-                        .duration = 450
-
-                    binding.doubleArrowWidgetContainer.animate()
-                        .translationYBy(-5f*dpi)
-                }
-
-                doubleArrowIcon.animate()
-                    .rotationBy(180f)
-                    .duration=460
+                changeSliderMenuPosition()
             }
         }
+    }
+
+    fun changeSliderMenuPosition(){
+        if(bottomSliderContainer.y+binding.whitePopulationContainer.y>=binding.root.height) {
+            //slide in alto
+            bottomSliderContainer.animate()
+                .translationYBy(-binding.whitePopulationContainer.height.toFloat())
+                .duration = 450
+
+            binding.doubleArrowWidgetContainer.animate()
+                .translationYBy(5f*dpi)
+
+        }
+        else{
+            //slide in basso
+            bottomSliderContainer.animate()
+                .translationYBy(binding.whitePopulationContainer.height.toFloat())
+                .duration = 450
+
+            binding.doubleArrowWidgetContainer.animate()
+                .translationYBy(-5f*dpi)
+        }
+
+        doubleArrowIcon.animate()
+            .rotationBy(180f)
+            .duration=460
     }
 }
