@@ -55,21 +55,31 @@
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:layout_marginStart="24dp"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="4dp"
                             android:layout_marginEnd="24dp"
                             android:gravity="center"
                             android:text="Name "
                             android:textColor="@color/black"
                             android:textSize="21sp" />
 
+                        <com.google.android.material.divider.MaterialDivider
+                            android:id="@+id/nickame_divider"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_nickname"
+                            android:layout_marginTop="6dp"
+                            app:dividerColor="@color/grey"
+                            app:dividerInsetEnd="18dp"
+                            app:dividerInsetStart="18dp" />
+
                         <TextView
                             android:id="@+id/tv_email"
                             android:layout_width="300dp"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/tv_nickname"
+                            android:layout_below="@id/nickame_divider"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="14dp"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginBottom="6dp"
                             android:gravity="center"
                             android:text="Email"
                             android:textColor="@color/black"
@@ -94,7 +104,9 @@
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
                             android:gravity="center"
-                            android:padding="6dp"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:layout_marginTop="4dp"
                             android:text="I tuoi punteggi"
                             android:textColor="@color/black"
                             android:textSize="22sp" />
@@ -106,77 +118,117 @@
                             android:layout_below="@id/txt_scores_container_title"
                             android:layout_alignParentStart="true"
                             android:layout_marginStart="24dp"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="8dp"
                             android:layout_marginEnd="24dp"
                             android:text="Quiz score: "
                             android:textColor="@color/black"
                             android:textSize="20sp" />
 
+                        <com.google.android.material.divider.MaterialDivider
+                            android:id="@+id/quiz_divider"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_quizscore"
+                            android:layout_marginTop="4dp"
+                            app:dividerColor="@color/grey"
+                            app:dividerInsetStart="18dp"
+                            app:dividerInsetEnd="18dp"/>
+
                         <TextView
                             android:id="@+id/tv_trashscore"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/tv_quizscore"
+                            android:layout_below="@id/quiz_divider"
                             android:layout_alignParentStart="true"
                             android:layout_marginStart="24dp"
-                            android:layout_marginTop="14dp"
+                            android:layout_marginTop="6dp"
                             android:layout_marginEnd="24dp"
                             android:text="Trash Bin Score: "
                             android:textColor="@color/black"
                             android:textSize="20sp" />
 
+                        <com.google.android.material.divider.MaterialDivider
+                            android:id="@+id/trashscore_divider"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_trashscore"
+                            android:layout_marginTop="4dp"
+                            app:dividerColor="@color/grey"
+                            app:dividerInsetStart="18dp"
+                            app:dividerInsetEnd="18dp"/>
+
                         <TextView
                             android:id="@+id/tv_carbon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/tv_trashscore"
+                            android:layout_below="@id/trashscore_divider"
                             android:layout_alignParentStart="true"
                             android:layout_marginStart="24dp"
-                            android:layout_marginTop="14dp"
+                            android:layout_marginTop="6dp"
                             android:layout_marginEnd="24dp"
                             android:text="Carboon footprint: "
                             android:textColor="@color/black"
                             android:textSize="20sp" />
 
+                        <com.google.android.material.divider.MaterialDivider
+                            android:id="@+id/carbon_divider"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_carbon"
+                            android:layout_marginTop="4dp"
+                            app:dividerColor="@color/grey"
+                            app:dividerInsetStart="18dp"
+                            app:dividerInsetEnd="18dp"/>
+
                         <TextView
                             android:id="@+id/tv_dividescore"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/tv_carbon"
+                            android:layout_below="@id/carbon_divider"
                             android:layout_alignParentStart="true"
                             android:layout_marginStart="24dp"
-                            android:layout_marginTop="14dp"
+                            android:layout_marginTop="6dp"
                             android:layout_marginEnd="24dp"
-                            android:layout_marginBottom="20dp"
+                            android:layout_marginBottom="12dp"
                             android:text="Divide score: "
                             android:textColor="@color/black"
                             android:textSize="20sp" />
                 </RelativeLayout>
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/txt_leaderboard_position"
                     android:layout_width="360dp"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/scores_container"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="24dp"
                     android:background="@drawable/rounded_corners_shape"
                     android:backgroundTint="@color/white"
                     android:elevation="4dp"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Sei in posizione 24 nella leaderboard"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <!-- TODO aggiungere script-->
+                <Button
+                    android:id="@+id/btn_delete_account"
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_leaderboard_position"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_below="@id/scores_container">
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/rounded_corners_shape"
+                    android:backgroundTint="@color/red"
+                    android:gravity="center"
+                    android:text="Elimina Account"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="24dp"
-                            android:layout_marginBottom="8dp"
-                            android:gravity="center"
-                            android:text="Sei in posizione 24 nella leaderboard"
-                            android:textColor="@color/black"
-                            android:textSize="20sp" />
-
-                </RelativeLayout>
 
         </RelativeLayout>
 

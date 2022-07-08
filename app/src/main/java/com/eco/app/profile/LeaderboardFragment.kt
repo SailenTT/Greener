@@ -80,6 +80,15 @@ class LeaderboardFragment : Fragment(), LeaderboardAdapter.OnItemClicked {
                 //riempio la recycler
                 val adapter = LeaderboardAdapter(array,this@LeaderboardFragment)
                 recyclerview.adapter = adapter
+
+                /* Questa roba non va perché andrebbe usato un listener :// vedere se ne vale la pena
+                //uso il post per fare in modo che il codice venga eseguito una volta che la recycler è stata riempita
+                //altrimenti potrei ottenere un null pointer
+                recyclerview.post {
+                    //prendo l'ultimo elemento nell'adapter view e gli tolgo il margin bottom
+                    val lastItem = recyclerview.getChildAt(adapter.itemCount - 1)
+                    (lastItem.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin = 0
+                }*/
                 if(binding.leaderboardShimmer.isShimmerStarted){
                     binding.leaderboardShimmer.stopShimmer()
                     binding.leaderboardShimmer.visibility = View.INVISIBLE

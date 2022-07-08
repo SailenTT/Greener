@@ -1,6 +1,5 @@
 package com.eco.app.games
 
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log

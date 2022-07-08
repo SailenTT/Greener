@@ -19,7 +19,11 @@ class LeaderboardAdapter(private val dataSet: ArrayList<LeaderBoardRow>, private
         val trashBinScore = dataSet[position].trashbin_score
         val profileImage = dataSet[position].profile_image
 */
-        holder.initialize(dataSet.get(position),clickListener)
+        var lastElement=false
+        if(position==dataSet.size-1){
+            lastElement=true
+        }
+        holder.initialize(dataSet.get(position),clickListener,lastElement)
     }
 
 
@@ -36,7 +40,7 @@ class LeaderboardAdapter(private val dataSet: ArrayList<LeaderBoardRow>, private
         var username = binding.tvUsername
         var score = binding.tvScoreLeaderboard
         var propic = binding.leaderboardProfileImg
-        fun initialize(item : LeaderBoardRow, action: OnItemClicked){
+        fun initialize(item : LeaderBoardRow, action: OnItemClicked, lastElement: Boolean){
             position.text = item.position.toString()+" "
             username.text = item.username+" "
             score.text = item.score.toString()+" "
@@ -44,6 +48,10 @@ class LeaderboardAdapter(private val dataSet: ArrayList<LeaderBoardRow>, private
            // bin_score.text = "TrasBin score: "+item.trashbin_score.toString()
             itemView.setOnClickListener{
                 action.onItemClick(item,absoluteAdapterPosition)
+            }
+
+            if(lastElement){
+                (itemView.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin=0
             }
         }
     }

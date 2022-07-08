@@ -18,6 +18,7 @@
     <color name="yellow1"> #F4F7AA</color>
     <color name="blue2">#7A8BF4</color>
     <color name="green2">#DDEEDF</color>
+    <color name="red">#ffff0000</color>
 
     <!--palette colori per rifiuti-->
     <color name="greenVetro">#47844E</color>
