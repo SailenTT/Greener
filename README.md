@@ -13,66 +13,42 @@
   <h3 align="center">Greener</h3>
 
   <p align="center">
-    A green app to keep u motivated and updated about your green side! minigames, eco-calendar and a semplificated carbon footprint and more!
+    A green app to keep you motivated and updated about your green side! minigames, eco-calendar, a semplificated carbon footprint and more!
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/SailenTT/ProgettoDispositiviMobili"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://github.com/SailenTT/ProgettoDispositiviMobili">View Demo</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
+    <a href="https://github.com/SailenTT/ProgettoDispositiviMobili/issues">Report Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
-    <br><br><br>
-    <img src="imagesReadMe/Galaxy S21 Ultra.png" alt="Logo" style="display:block" width="700">
+    <a href="https://github.com/SailenTT/ProgettoDispositiviMobili/issues">Request Feature</a>
   </p>
 </div>
-
-
-
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
-
 
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<img src="imagesReadMe/Galaxy S21 Ultra.png" alt="Logo" style="display:block" width="700">
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+Greener is a project born and developed by 3 students attending the University of Insubria.
+The idea comes from the common thought that, nowadays, there are more and more ways not to pollute or at least limit a part of it, but there are still people who, for one reason or another, find it hard to do their part.
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
+This is where Greener comes in! the app, with its simplicity and intuitiveness, will allow the user to use it quickly and easily.
+But what does the app allow to do?
+* Learn (even while having fun) what the green world is: through mini-games and quizzes with a green and eco background.
+* Help you in the waste sorting! thanks to the calendar and its notifications, you will always be updated on the waste to throw away.
+* Test yourself; with its simplified Carbon Footprint, it will tell you how low or high your ecological footprint is.
+* And more (which we will let you discover..)
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
+Thanks to the "Leaderboard" section you can also compare your scores with all the other users who choose to become part of the "Greener" world!.
+<br>
+<br>
+<br>
+<img src="imagesReadMe/Galaxy Note 20 Ultra.png" alt="Logo" style="display:block" width="700">
 
-Use the `BLANK_README.md` to get started.
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
