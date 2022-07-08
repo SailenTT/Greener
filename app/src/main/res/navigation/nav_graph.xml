@@ -106,6 +106,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="sumJourneyMode"
+            app:argType="float" />
     </fragment>
 
     <fragment
@@ -120,6 +123,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="sumJourneyTime"
+            app:argType="float" />
     </fragment>
 
     <fragment
@@ -134,13 +140,20 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="sumYourFlights"
+            app:argType="float" />
     </fragment>
 
     <fragment
         android:id="@+id/CalculatorFragmentResult"
         android:name="com.eco.app.carbonfootprint.ResultCalculator"
         android:label="@string/carboon_footprint_name"
-        tools:layout="@layout/fragment_result_calculator"/>
+        tools:layout="@layout/fragment_result_calculator">
+        <argument
+            android:name="sumFoodTracking"
+            app:argType="float" />
+    </fragment>
 
     <fragment android:id="@+id/login_fragment"
         android:name="com.eco.app.profile.LoginFragment"
