@@ -81,11 +81,12 @@ class LoginPage : AppCompatActivity() {
 
         binding.btnLoginFacebook.background=getDrawable(R.drawable.btn_rounded_green_bg)
         FacebookSdk.sdkInitialize(this)
+        binding.btnLoginFacebook.setReadPermissions(listOf("email","public_profile","user_gender","user_birthday"))
         binding.btnLoginFacebook.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
-                override fun onSuccess(loginResult: LoginResult) {
-                    Log.d(TAG, "facebook:onSuccess$loginResult")
-                    handleFacebookAccessToken(loginResult.accessToken)
+                override fun onSuccess(result: LoginResult) {
+                    Log.d(TAG, "facebook:onSuccess$result")
+                    handleFacebookAccessToken(result.accessToken)
                 }
                 override fun onCancel() {
                     Log.d(TAG, "facebook:onCancel")
@@ -215,27 +216,34 @@ class LoginPage : AppCompatActivity() {
                     // Sign in success
                     Log.d(TAG, "signInWithCredential:success")
                     val userid = token.userId //non uso auth.uid perchè quello cambia, questo no
-                    val bundle = Bundle()
+                    /*val bundle = Bundle()
                     bundle.putString("fields", "id, email, first_name, last_name, gender,age_range")
+
+                     */
                     val request = GraphRequest.newMeRequest(token){fbObject, response ->
                         try {
                             val firstName = fbObject?.getString("first_name")
+                            Toast.makeText(baseContext, "$firstName", Toast.LENGTH_SHORT).show()
                             val lastName = fbObject?.getString("last_name")
+                            val email = fbObject?.getString("email")
+
 
                             val usersReference = database.getReference("Users")
                             usersReference.child(userid).child("username").setValue(firstName.toString())
                             usersReference.child(userid).child("quiz_score").setValue(0)
                             usersReference.child(userid).child("bin_score").setValue(0)
                             usersReference.child(userid).child("carbon_footprint").setValue(0)
-
+                            usersReference.child(userid).child("email").setValue(email.toString())
+                            Toast.makeText(baseContext, "$email", Toast.LENGTH_SHORT).show()
                         }catch (e: JSONException){
                             e.printStackTrace()
                         }
                     }
-                    request.parameters = bundle
+                    val parameters = Bundle()
+                    parameters.putString("fields","id,email,birthday,gender,name")
+                    request.parameters = parameters
                     request.executeAsync()
 
-                    //TODO redirectare l'utente alla pagina main e qui mettere finish() inoltre togliere dal backstack
                     val intent = Intent(this, HomeWindow::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     //startActivity(intent)
