@@ -7,7 +7,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="imagesReadMe/logo_app.png" alt="Logo" width="400">
   </a>
 
   <h3 align="center">Best-README-Template</h3>
@@ -23,7 +23,8 @@
     <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
     ·
     <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
-    <img src="imagesReadMe/Galaxy S21 Ultra.png" alt="Logo" style="display:block">
+    <br><br><br>
+    <img src="imagesReadMe/Galaxy S21 Ultra.png" alt="Logo" style="display:block" width="700">
   </p>
 </div>
 
