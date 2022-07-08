@@ -252,6 +252,7 @@ class LoginFragment : Fragment() {
                                 usersReference.child(userid).child("bin_score").setValue(0)
                                 usersReference.child(userid).child("carbon_footprint").setValue(0)
                                 usersReference.child(userid).child("divide_score").setValue(0)
+                                usersReference.child(userid).child("growing_tree").setValue(0)
                                 usersReference.child(userid).child("email").setValue(email)
                                 uploadToStorageDefaultProfilePic(userid)
                             } catch (e: JSONException) {
@@ -261,7 +262,6 @@ class LoginFragment : Fragment() {
                         request.parameters = bundle
                         request.executeAsync()
                     }
-                    //TODO redirectare l'utente alla pagina main e qui mettere finish() inoltre togliere dal backstack
                     val intent = Intent(requireContext(), HomeWindow::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
