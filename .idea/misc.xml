@@ -11,7 +11,6 @@
         <entry key="..\:/Users/carca/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/drawable/ic_drawable_psw.xml" value="0.1635" />
         <entry key="..\:/Users/carca/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/drawable/ic_logout.xml" value="0.1265" />
         <entry key="..\:/Users/carca/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/drawable/ic_person.xml" value="0.1155" />
-        <entry key="..\:/Users/carca/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/drawable/rounded_corners_green_bg_shape.xml" value="0.184" />
         <entry key="..\:/Users/carca/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/layout/activity_debug.xml" value="0.25" />
         <entry key="..\:/Users/carca/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/layout/activity_first.xml" value="0.33" />
         <entry key="..\:/Users/carca/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/layout/activity_home_window.xml" value="0.33" />
@@ -48,6 +47,15 @@
         <entry key="..\:/Users/carca/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/menu/bottom_navigation_bar_menu.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/carca/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/menu/drawer_menu.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/carca/Desktop/ProgettoDispositiviMobili/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/crist/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/layout/activity_home_window.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/crist/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/layout/activity_introductor.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/crist/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/layout/fragment_calculator.xml" value="0.199203187250996" />
+        <entry key="..\:/Users/crist/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/layout/fragment_calendar.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/crist/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/layout/fragment_food_tracking.xml" value="0.2604166666666667" />
+        <entry key="..\:/Users/crist/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/layout/fragment_journey_time.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/crist/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/layout/fragment_popup.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/crist/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/layout/fragment_result_calculator.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/crist/AndroidStudioProjects/ProgettoDispositiviMobili/app/src/main/res/layout/fragment_your_flights.xml" value="0.2604166666666667" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/btn_background.xml" value="0.6" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/drawable_btn_icon.xml" value="0.12" />
         <entry key="..\:/Users/crist/OneDrive/Documenti/GitHub/ProgettoDispositiviMobili/app/src/main/res/drawable/drawable_btn_icon_facebook.xml" value="0.128" />

@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.eco.app.R
 import com.eco.app.databinding.FragmentFoodTrackingBinding
 import com.eco.app.databinding.FragmentYourFlightsBinding
 
 class FoodTracking : Fragment() {
+
+    private val args : FoodTrackingArgs by navArgs()
 
     var whoIsChecked = 0 //var che tiene conto di quale checkbox è true
 
@@ -129,34 +132,35 @@ class FoodTracking : Fragment() {
         }
 
         btnNextFT.setOnClickListener {
-            findNavController().navigate(FoodTrackingDirections.fromPage3ToResultPage())
+            var sum = calcola()
+            findNavController().navigate(FoodTrackingDirections.fromPage3ToResultPage(sum))
         }
 
         return binding.root
     }
 
-    fun calcola() : Double {
+    fun calcola() : Float {
 
-        var sumTotale : Double = 0.0
+        var sumTotale : Float = args.sumYourFlights
 
         when (whoIsChecked) {
             0 -> {
-                sumTotale += 10.0
+                sumTotale += 10.0F
             }
             1 -> {
-                sumTotale += 8.0
+                sumTotale += 8.0F
             }
             2 -> {
-                sumTotale += 6.0
+                sumTotale += 6.0F
             }
             3 -> {
-                sumTotale += 4.0
+                sumTotale += 4.0F
             }
             4 -> {
-                sumTotale += 3.0
+                sumTotale += 3.0F
             }
             5 -> {
-                sumTotale += 2.0
+                sumTotale += 2.0F
             }
         }
 

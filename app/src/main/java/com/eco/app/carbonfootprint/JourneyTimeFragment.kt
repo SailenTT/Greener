@@ -7,8 +7,10 @@ import android.view.View
 import android.view.View.inflate
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.TimePicker
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.eco.app.R
 import com.eco.app.databinding.ActivityDebugBinding.inflate
 import com.eco.app.databinding.ActivityFirstBinding.inflate
@@ -17,12 +19,8 @@ import com.eco.app.databinding.FragmentJourneyTimeBinding
 
 class JourneyTime : Fragment() {
 
-    /*override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
+    private val args : JourneyTimeArgs by navArgs()
 
-        }
-    }*/
     private lateinit var binding: FragmentJourneyTimeBinding
 
     //VAR "Journey Time"
@@ -45,15 +43,16 @@ class JourneyTime : Fragment() {
         timePick.minute = 0
 
         btnNextJT.setOnClickListener {
-            findNavController().navigate(JourneyTimeDirections.fromPage1ToPage2())
+            var sum = calcola()
+            findNavController().navigate(JourneyTimeDirections.fromPage1ToPage2(sum))
         }
 
         return binding.root
     }
 
-    fun calcola() : Double {
+    fun calcola() : Float {
 
-        var sumTotale : Double = 0.0
+        var sumTotale = args.sumJourneyMode
 
         //ora aggiungo il moltiplicatore dato dal "Journey time"
         var ore = timePick.hour
@@ -64,14 +63,14 @@ class JourneyTime : Fragment() {
         }
 
         if(ore <= 2) { // scaglione basso
-            sumTotale *= 1.5
+            sumTotale *= 1.5F
 
         }
         else if (ore in 3..5) { // scaglione intermedio
-            sumTotale *= 2.5
+            sumTotale *= 2.5F
         }
         else { //scaglione massimo
-            sumTotale *= 3.5
+            sumTotale *= 3.5F
         }
         return sumTotale
     }

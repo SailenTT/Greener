@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.eco.app.R
 import com.eco.app.databinding.FragmentYourFlightsBinding
 
 
 class YourFlights : Fragment() {
+
+    private val args : YourFlightsArgs by navArgs()
 
     var ticketShort = 0 //contatore ticket S
     //tenendo conto che il treno prima ha preso il punteggio massimo a 10
@@ -107,17 +110,17 @@ class YourFlights : Fragment() {
         }
 
         btnNextYF.setOnClickListener {
-            findNavController().navigate(YourFlightsDirections.fromPage2ToPage3())
+            var sum = calcola()
+            findNavController().navigate(YourFlightsDirections.fromPage2ToPage3(sum))
         }
 
         return binding.root
     }
 
-    fun calcola() : Double {
+    fun calcola() : Float {
+        var sumTotale : Float = args.sumJourneyTime
 
-        var sumTotale : Double = 0.0
-
-        sumTotale += (ticketShort * 15.0) + (ticketMedium * 20.0) + (ticketLong * 25.0)
+        sumTotale += (ticketShort * 15.0F) + (ticketMedium * 20.0F) + (ticketLong * 25.0F)
 
         return sumTotale
     }

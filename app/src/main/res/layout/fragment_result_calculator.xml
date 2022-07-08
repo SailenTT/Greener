@@ -153,6 +153,7 @@
 
                             <!--RL cerchio personale-->
                             <RelativeLayout
+                                android:id="@+id/cirlceUtente"
                                 android:layout_width="160dp"
                                 android:layout_height="160dp"
                                 android:background="@drawable/circle"
