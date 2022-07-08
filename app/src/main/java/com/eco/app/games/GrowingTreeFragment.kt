@@ -5,6 +5,7 @@ import android.animation.Animator
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,6 +30,9 @@ class GrowingTreeFragment : Fragment() {
     private var startY: Float = 0F
     private var totalSteps : Long=0
     private val minFrame=23
+    private var stepsUpdated=false
+    private val fruitsList= listOf<Array<Any>>()
+    private
     companion object{
         const val treeImgPrefix="growing_tree_frame_"
         val stepsLevels= listOf(0L,5000L,10000L,15000L,20000L,25000L,30000L,35000L,40000L,45000L,50000L,55000L,60000L,65000L)
@@ -121,6 +125,7 @@ class GrowingTreeFragment : Fragment() {
                 .putLong("steps",totalSteps).commit()
         }
         else{
+            //uso la ricerca binario per trovare il frame dell'albero
             while(!(totalSteps>= stepsLevels[tree_frame]&&totalSteps<= stepsLevels[tree_frame+1])){
                 if (totalSteps< stepsLevels[tree_frame]) {
                     tree_frame/=2
@@ -167,12 +172,36 @@ class GrowingTreeFragment : Fragment() {
 
                     if (!wateringCan.isAnimating) {
                         wateringCan.playAnimation()
+                        wateringCan.addAnimatorUpdateListener {
+                            Thread {
+                                Thread.sleep(1000)
+
+                                val rect1 =
+                                    Rect(wateringCan.left, wateringCan.top, wateringCan.right, wateringCan.bottom)
+                                val rect2 = Rect(treeImg.left, treeImg.top, treeImg.right, treeImg.bottom)
+
+                                //aumento il numero di passi totali ogni secondo che l'albero viene annaffiato
+
+                                if (rect1.intersect(rect2)) {
+                                    totalSteps++
+                                    stepsUpdated=true
+                                }
+                            }.start()
+                        }
                     }
                 }
                 return true
             }
             MotionEvent.ACTION_UP-> {
                 //resetto la posizione dell'oggetto
+                wateringCan.removeAllUpdateListeners()
+                //se i passi sono aumentati perché l'utente ha annaffiato l'albero, li salvo nelle shared prefs
+                if(stepsUpdated) {
+                    requireContext().getSharedPreferences("trackingPrefs", Context.MODE_PRIVATE)
+                        .edit()
+                        .putLong("steps", totalSteps).commit()
+                    stepsUpdated=false
+                }
                 wateringCan.cancelAnimation()
                 wateringCan.setMinFrame(0)
                 wateringCan.progress=0F

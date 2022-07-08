@@ -1,8 +1,8 @@
 package com.eco.app.games
 
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -59,7 +59,6 @@ class QuizFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentQuizBinding.inflate(inflater, container, false)
         binding.quizShimmer.startShimmer()
-
         database =
             Firebase.database(RegisterPage.PATHTODB)
         auth = FirebaseAuth.getInstance()
@@ -206,8 +205,7 @@ class QuizFragment : Fragment() {
             for(i in 0..3){
                 buttonsArray[i]?.setOnClickListener { null }
             }
-            val handler = Handler()
-            handler.postDelayed(Runnable {
+            Handler(Looper.getMainLooper()).postDelayed(Runnable {
                 setQuiz(txt_question, buttons)
             }, 1000)
         } else {
@@ -231,8 +229,8 @@ class QuizFragment : Fragment() {
             for(i in 0..3){
                 buttonsArray[i]?.setOnClickListener(null)
             }
-            val handler = Handler()
-            handler.postDelayed(Runnable {
+
+            Handler(Looper.getMainLooper()).postDelayed(Runnable {
                 setQuiz(txt_question, buttons)
             }, 500)
 
