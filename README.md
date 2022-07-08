@@ -38,10 +38,10 @@
 
   This is where Greener comes in! the app, with its simplicity and intuitiveness, will allow the user to use it quickly and easily. 
   But what does the app allow to do?
-  * Learn (even while having fun) what the green world is: through mini-games and quizzes with a green and eco background.
-  * Help you in the waste sorting! thanks to the calendar and its notifications, you will always be updated on the waste to throw away.
-  * Test yourself; with its simplified Carbon Footprint, it will tell you how low or high your ecological footprint is.
-  * And more (which we will let you discover..)
+  - Learn (even while having fun) what the green world is: through mini-games and quizzes with a green and eco background.
+  - Help you in the waste sorting! thanks to the calendar and its notifications, you will always be updated on the waste to throw away.
+  - Test yourself; with its simplified Carbon Footprint, it will tell you how low or high your ecological footprint is.
+  - And more (which we will let you discover..)
 
   Thanks to the "Leaderboard" section you can also compare your scores with all the other users who choose to become part of the "Greener" world!.
   <br>
