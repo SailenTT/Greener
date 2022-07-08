@@ -7,13 +7,13 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="imagesReadMe/logo_app.png" alt="Logo" width="400">
+    <img src="imagesReadMe/logoApp.png" alt="Logo" width="300">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">Greener</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    A green app to keep u motivated and updated about your green side! minigames, eco-calendar and a semplificated carbon footprint and more!
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
