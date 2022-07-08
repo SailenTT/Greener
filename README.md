@@ -7,7 +7,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="imagesReadMe/logoApp.png" align="center" alt="Logo" width="300">
+    <img src="imagesReadMe/logoApp.png" alt="Logo" width="300">
   </a>
 
   <h3 align="center">Greener</h3>
@@ -30,7 +30,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<img src="imagesReadMe/Galaxy S21 Ultra.png" alt="Logo" style="display:block" width="700">
+<img src="imagesReadMe/Galaxy S21 Ultra.png" alt="Logo" align="center" style="display:block" width="700">
 
 Greener is a project born and developed by 3 students attending the University of Insubria.
 The idea comes from the common thought that, nowadays, there are more and more ways not to pollute or at least limit a part of it, but there are still people who, for one reason or another, find it hard to do their part.
