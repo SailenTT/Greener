@@ -38,7 +38,6 @@ class FoodTracking : Fragment() {
     private lateinit var checkVeget : CheckBox
     private lateinit var checkVeggy : CheckBox
 
-    private lateinit var btnPrevFT : Button
     private lateinit var btnNextFT : Button
 
 
@@ -54,7 +53,6 @@ class FoodTracking : Fragment() {
         checkVeget = binding.checkVeget
         checkVeggy = binding.checkVeggy
 
-        btnPrevFT = binding.btnPrevFT
         btnNextFT = binding.btnNextFT
 
         checkMeatPlus.setOnClickListener {

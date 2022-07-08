@@ -21,16 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <!--<Button
-        android:id="@+id/btn_debug_first"
-        android:layout_width="160dp"
-        android:layout_height="50dp"
-        android:text="SCHERMATA DEBUG"
-        app:layout_constraintBottom_toTopOf="@+id/slogan"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="290dp"/>-->
+
     <Button
         android:id="@+id/btn_go_to_homepage"
         android:layout_width="170dp"
@@ -42,14 +33,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/btn_rounded_green_bg"
-        android:layout_marginTop="290dp"/>
+        android:layout_marginTop="300dp"/>
 
     <ImageView
         android:id="@+id/slogan"
         android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         android:layout_below="@id/logo"
-        android:layout_marginTop="290dp"
+        android:layout_marginTop="500dp"
         android:elevation="2dp"
         android:src="@drawable/slogan_verde"
         app:flow_horizontalAlign="center"
@@ -63,17 +54,19 @@
     <TextView
         android:id="@+id/textView4"
         android:layout_width="350dp"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:text="Green is for Hope just as Gray is for Death"
+        android:layout_marginTop="150dp"
         android:textAlignment="center"
-        android:textSize="18sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="-90dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textStyle="italic|bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo" />
 
+    <!--
     <Button
         android:id="@+id/btn_firstLogin"
         android:layout_width="160dp"
@@ -103,19 +96,7 @@
         android:textStyle="bold"
         android:text="SIGNUP"
         android:textColor="@color/white"
-        android:layout_marginBottom="100dp"/>
+        android:layout_marginBottom="100dp"/> -->
 
-    <TextView
-        android:id="@+id/txt_who"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:text="WHO WE ARE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/slogan"
-        app:flow_horizontalAlign="center"
-        android:textAlignment="center"
-        android:layout_marginTop="70dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

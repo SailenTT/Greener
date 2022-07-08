@@ -3,28 +3,35 @@ package com.eco.app.carbonfootprint
 import android.R
 import android.app.ActionBar
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.eco.app.databinding.FragmentResultCalculatorBinding
+import java.util.*
+import kotlin.random.Random.Default.nextInt
 
 
 class ResultCalculator : Fragment() {
 
     private val args : ResultCalculatorArgs by navArgs()
 
-    val Tips = Array<String>(10) { "Spegni il motore al semaforo se è rosso"; "Diminuisci l'uso di plastica in casa"; "Cambia stile di alimentazione: prova con meno carne e più pesce"; "Prendi l'aereo solo se è strettamente necessario, bisogna preferire le altre alternative";"Riduci l'uso di imballaggi e gli oggetti monouso";"Anche se costano qualcosina in più, preferisci sempre gli elettrodomestici di classe A o A+";"Limita al prettamente necessario l'uso dei riscaldamenti";"Fai la raccolta differenziata (il nostro calendario può aiutarti!)";"Scegli prodotti di bellezza ecosostenibili!";"Lo sapevi che: Specialmente alcune tipologie di carne, come quelle di manzo e di agnello, emettono quantità ingenti di gas metano?";"scegli sempre (se possibile) un mezzo di trasporto a impatto ridotto: il treno sarebbe sempre da preferire all’aereo!"}
-    val rnds = (0..10).random()
+    val tips = arrayOf<String>("Spegni il motore al semaforo se è rosso","Diminuisci l'uso di plastica in casa","Cambia stile di alimentazione: prova con meno carne e più pesce","Prendi l'aereo solo se è strettamente necessario! bisogna preferire le altre alternative","Riduci l'uso di imballaggi e gli oggetti monouso", "Anche se costano qualcosina in più, preferisci sempre gli elettrodomestici di classe A o A+","Limita al prettamente necessario l'uso dei riscaldamenti", "Fai la raccolta differenziata (il nostro calendario può aiutarti!)", "Lo sapevi che: Specialmente alcune tipologie di carne, come quelle di manzo e di agnello, emettono quantità ingenti di gas metano?", "Scegli prodotti di bellezza ecosostenibili!")
+    val random: Int = Random().nextInt(10)
 
     private lateinit var binding: FragmentResultCalculatorBinding
 
     private lateinit var txt_showResult : TextView
     private lateinit var circleUtente : RelativeLayout
     private lateinit var txt_tipsUtente : TextView
+    private lateinit var txt_numUtente : TextView
+    private lateinit var txtinfoUtente : TextView
+    private lateinit var txtco2Utente : TextView
 
 
     override fun onCreateView(
@@ -35,9 +42,12 @@ class ResultCalculator : Fragment() {
         txt_showResult = binding.txtResShow
         circleUtente = binding.cirlceUtente
         txt_tipsUtente = binding.txtTipsUtente
+        txt_numUtente = binding.txtNumPER
+        txtinfoUtente = binding.txtInfoPER
+        txtco2Utente = binding.co2Utente
 
-        //calcola()
-        //txt_tipsUtente.text = Tips[rnds]
+        calcola()
+        txt_tipsUtente.text = tips[random]
 
 
 
@@ -48,8 +58,8 @@ class ResultCalculator : Fragment() {
         val AVGmondiale = 432 //110
         val punteggio_utente = args.sumFoodTracking //160
 
-        val view: View = binding.cirlceUtente
-        val layoutParams: RelativeLayout.LayoutParams = view.layoutParams as RelativeLayout.LayoutParams
+        //val view: View = binding.cirlceUtente
+        //val layoutParams: RelativeLayout.LayoutParams = view.layoutParams as RelativeLayout.LayoutParams
 
         //AVGmondiale (dato preso da internet) è 432 con punteggio di 60
         //il calcolo funzionerà quindi con un compare del punteggio utente su questo valore;
@@ -71,71 +81,107 @@ class ResultCalculator : Fragment() {
         when {
             punteggio_utente == 0.0F -> {
                 txt_showResult.text = "0"
-                layoutParams.width = 20
-                layoutParams.height = 20
-                view.layoutParams = layoutParams
+                txt_numUtente.text = "0"
+                circleUtente.layoutParams.width = (20 * resources.displayMetrics.density).toInt()
+                circleUtente.layoutParams.height = (20 * resources.displayMetrics.density).toInt()
+                txt_numUtente.textSize = 10F
+                txtinfoUtente.textSize = 8F
+                txtco2Utente.textSize = 8F
             }
             punteggio_utente in 1.0F..10.0F -> {
                 txt_showResult.text = "8"
-                layoutParams.width = 40
-                layoutParams.height = 40
-                view.layoutParams = layoutParams
+                txt_numUtente.text = "8"
+                circleUtente.layoutParams.width = (40 * resources.displayMetrics.density).toInt()
+                circleUtente.layoutParams.height = (40 * resources.displayMetrics.density).toInt()
+                txt_numUtente.textSize = 10F
+                txtinfoUtente.textSize = 8F
+                txtco2Utente.textSize = 8F
+
             }
             punteggio_utente in 11.0F..20.0F -> {
                 txt_showResult.text = "73"
-                layoutParams.width = 50
-                layoutParams.height = 50
-                view.layoutParams = layoutParams
+                txt_numUtente.text = "73"
+                circleUtente.layoutParams.width = (50 * resources.displayMetrics.density).toInt()
+                circleUtente.layoutParams.height = (50 * resources.displayMetrics.density).toInt()
+                txt_numUtente.textSize = 10F
+                txtinfoUtente.textSize = 8F
+                txtco2Utente.textSize = 8F
+
             }
             punteggio_utente in 21.0F..30.0F -> {
                 txt_showResult.text = "176"
-                layoutParams.width = 60
-                layoutParams.height = 60
-                view.layoutParams = layoutParams
+                txt_numUtente.text = "176"
+                circleUtente.layoutParams.width = (60 * resources.displayMetrics.density).toInt()
+                circleUtente.layoutParams.height = (60 * resources.displayMetrics.density).toInt()
+                txt_numUtente.textSize = 11F
+                txtinfoUtente.textSize = 9F
+                txtco2Utente.textSize = 9F
+
             }
             punteggio_utente in 31.0F..40.0F -> {
                 txt_showResult.text = "221"
-                layoutParams.width = 70
-                layoutParams.height = 70
-                view.layoutParams = layoutParams
+                txt_numUtente.text = "221"
+                circleUtente.layoutParams.width = (70 * resources.displayMetrics.density).toInt()
+                circleUtente.layoutParams.height = (70 * resources.displayMetrics.density).toInt()
+                txt_numUtente.textSize = 11F
+                txtinfoUtente.textSize = 9F
+                txtco2Utente.textSize = 9F
+
             }
             punteggio_utente in 41.0F..50.0F -> {
                 txt_showResult.text = "352"
-                layoutParams.width = 100
-                layoutParams.height = 100
-                view.layoutParams = layoutParams
+                txt_numUtente.text = "352"
+                circleUtente.layoutParams.width = (100 * resources.displayMetrics.density).toInt()
+                circleUtente.layoutParams.height = (100 * resources.displayMetrics.density).toInt()
+                txt_numUtente.textSize = 11F
+                txtinfoUtente.textSize = 9F
+                txtco2Utente.textSize = 9F
+
             }
             punteggio_utente in 51.0F..60.0F -> {
                 txt_showResult.text = "432"
-                layoutParams.width = 110
-                layoutParams.height = 110
-                view.layoutParams = layoutParams
+                txt_numUtente.text = "432"
+                circleUtente.layoutParams.width = (110 * resources.displayMetrics.density).toInt()
+                circleUtente.layoutParams.height = (110 * resources.displayMetrics.density).toInt()
+                txtinfoUtente.textSize = 12F
+                txtco2Utente.textSize = 12F
+
             }
             punteggio_utente in 61.0F..70.0F -> {
                 txt_showResult.text = "584"
-                layoutParams.width = 120
-                layoutParams.height = 120
-                view.layoutParams = layoutParams
+                txt_numUtente.text = "584"
+                circleUtente.layoutParams.width = (120 * resources.displayMetrics.density).toInt()
+                circleUtente.layoutParams.height = (120 * resources.displayMetrics.density).toInt()
+                txtinfoUtente.textSize = 12F
+                txtco2Utente.textSize = 12F
+
             }
             punteggio_utente in 71.0F..80.0F -> {
-                txt_showResult.text = "584"
-                layoutParams.width = 140
-                layoutParams.height = 140
-                view.layoutParams = layoutParams
+                txt_showResult.text = "657"
+                txt_numUtente.text = "657"
+                circleUtente.layoutParams.width = (140 * resources.displayMetrics.density).toInt()
+                circleUtente.layoutParams.height = (140 * resources.displayMetrics.density).toInt()
+                txtinfoUtente.textSize = 14F
+                txtco2Utente.textSize = 14F
+
             }
             punteggio_utente in 81.0F..90.0F -> {
-                txt_showResult.text = "584"
-                layoutParams.width = 150
-                layoutParams.height = 150
-                view.layoutParams = layoutParams
+                txt_showResult.text = "749"
+                txt_numUtente.text = "749"
+                circleUtente.layoutParams.width = (150 * resources.displayMetrics.density).toInt()
+                circleUtente.layoutParams.height = (150 * resources.displayMetrics.density).toInt()
+                txtinfoUtente.textSize = 16F
+                txtco2Utente.textSize = 16F
+
             }
             punteggio_utente >= 91.0F -> {
                 txt_showResult.text = "859"
-                layoutParams.width = 160
-                layoutParams.height = 160
-                view.layoutParams = layoutParams
+                txt_numUtente.text = "859"
+                circleUtente.layoutParams.width = (160 * resources.displayMetrics.density).toInt()
+                circleUtente.layoutParams.height = (160 * resources.displayMetrics.density).toInt()
+                txtinfoUtente.textSize = 18F
+                txtco2Utente.textSize = 18F
             }
         }
-
     }
 }

@@ -27,27 +27,6 @@ class First_Activity : AppCompatActivity() {
         binding= ActivityFirstBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        btnLog = binding.btnFirstLogin
-        btnSign = binding.btnFirstSignup
-        //btnDeb = binding.btnDebugFirst
-        txtWho = binding.txtWho
-
-
-
-        btnLog.setOnClickListener(View.OnClickListener {
-            val intent= Intent(this, LoginPage::class.java)
-            startActivity(intent)
-        })
-
-        btnSign.setOnClickListener(View.OnClickListener {
-            val intent=Intent(this, RegisterPage::class.java)
-            startActivity(intent)
-        })
-
-        /*btnDeb.setOnClickListener(View.OnClickListener {
-            val intent=Intent(this,DebugActivity::class.java)
-            startActivity(intent)
-        })*/
         binding.btnGoToHomepage.setOnClickListener {
             val intent=Intent(this, HomeWindow::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)

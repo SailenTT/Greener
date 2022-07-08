@@ -41,7 +41,6 @@ class YourFlights : Fragment() {
     private  lateinit var txtvalLong : TextView
     private  lateinit var btnplusLong : Button
 
-    private lateinit var btnPrevYF : Button
     private lateinit var btnNextYF : Button
 
     override fun onCreateView(
@@ -61,7 +60,6 @@ class YourFlights : Fragment() {
         txtvalLong = binding.txtNticketLungo
         btnplusLong = binding.btnPlusLungo
 
-        btnPrevYF = binding.btnPrevYF
         btnNextYF = binding.btnNextYF
 
         //Listener dei btn per la sezione "VOLI"
