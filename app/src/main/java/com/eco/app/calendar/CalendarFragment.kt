@@ -190,14 +190,14 @@ class CalendarFragment : Fragment() {
         val cal1= Calendar.getInstance()
         //definisco pattern per come visualizzare la data (in questo caso "MESE")
         val df = SimpleDateFormat("MMMM")
-        mese.setText(df.format(cal1.time).uppercase())
+        mese.text = df.format(cal1.time).uppercase()
     }
     fun setWeekDays(){
         //setto i giorni della settimana
         val listaGiorni = ArrayList<String>()
         val cal= Calendar.getInstance()
         //definisco pattern per come visualizzare la data (in questo caso "giorno numero")
-        val dateFormat= SimpleDateFormat("EEEE dd")
+        val dateFormat= SimpleDateFormat("EEEE") //dd
 
         for (i in 0..6) {
             val date = cal.time
@@ -205,13 +205,13 @@ class CalendarFragment : Fragment() {
             cal.add(Calendar.DAY_OF_MONTH, 1)
         }
 
-        day.setText(listaGiorni[0])
-        day2.setText(listaGiorni[1])
-        day3.setText(listaGiorni[2])
-        day4.setText(listaGiorni[3])
-        day5.setText(listaGiorni[4])
-        day6.setText(listaGiorni[5])
-        day7.setText(listaGiorni[6])
+        day.text = listaGiorni[0]
+        day2.text = listaGiorni[1]
+        day3.text = listaGiorni[2]
+        day4.text = listaGiorni[3]
+        day5.text = listaGiorni[4]
+        day6.text = listaGiorni[5]
+        day7.text = listaGiorni[6]
     }
 
 
@@ -227,7 +227,79 @@ class CalendarFragment : Fragment() {
         val rifiutoD6 : TextView = binding.day6Rifiuto
         val rifiutoD7 : TextView = binding.day7Rifiuto
 
-        if (day.text.toString().contains("lunedì")) {
+
+
+        //TODO se vuoi rimettere i numeri vai alla riga 200 e metti (EEEE dd)
+        //però se vuoi di nuovo i numeri devi trovare un modo per mettere il contains qui
+        //perchè day (con il numero) sarebbe "martedi 10"
+        when (day.text) {
+            "lunedì" -> {
+                rifiutoD1.text = sharedPref.getString("lunedi","")
+                rifiutoD2.text = sharedPref.getString("martedi","")
+                rifiutoD3.text = sharedPref.getString("mercoledi","")
+                rifiutoD4.text = sharedPref.getString("giovedi","")
+                rifiutoD5.text = sharedPref.getString("venerdi","")
+                rifiutoD6.text = sharedPref.getString("sabato","")
+                rifiutoD7.text = sharedPref.getString("domenica","")
+            }
+            "martedì" -> {
+                rifiutoD1.text = sharedPref.getString("martedi","")
+                rifiutoD2.text = sharedPref.getString("mercoledi","")
+                rifiutoD3.text = sharedPref.getString("giovedi","")
+                rifiutoD4.text = sharedPref.getString("venerdi","")
+                rifiutoD5.text = sharedPref.getString("sabato","")
+                rifiutoD6.text = sharedPref.getString("domenica","")
+                rifiutoD7.text = sharedPref.getString("lunedi","")
+            }
+            "mercoledì" -> {
+                rifiutoD1.text = sharedPref.getString("mercoledi","")
+                rifiutoD2.text = sharedPref.getString("giovedi","")
+                rifiutoD3.text = sharedPref.getString("venerdi","")
+                rifiutoD4.text = sharedPref.getString("sabato","")
+                rifiutoD5.text = sharedPref.getString("domenica","")
+                rifiutoD6.text = sharedPref.getString("lunedi","")
+                rifiutoD7.text = sharedPref.getString("martedi","")
+            }
+            "giovedì" -> {
+                rifiutoD1.text = sharedPref.getString("giovedi","")
+                rifiutoD2.text = sharedPref.getString("venerdi","")
+                rifiutoD3.text = sharedPref.getString("sabato","")
+                rifiutoD4.text = sharedPref.getString("domenica","")
+                rifiutoD5.text = sharedPref.getString("lunedi","")
+                rifiutoD6.text = sharedPref.getString("martedi","")
+                rifiutoD7.text = sharedPref.getString("mercoledi","")
+            }
+            "venerdì" -> {
+                rifiutoD1.text = sharedPref.getString("venerdi","")
+                rifiutoD2.text = sharedPref.getString("sabato","")
+                rifiutoD3.text = sharedPref.getString("domenica","")
+                rifiutoD4.text = sharedPref.getString("lunedi","")
+                rifiutoD5.text = sharedPref.getString("martedi","")
+                rifiutoD6.text = sharedPref.getString("mercoledi","")
+                rifiutoD7.text = sharedPref.getString("giovedi","")
+            }
+            "sabato" -> {
+                rifiutoD1.text = sharedPref.getString("sabato","")
+                rifiutoD2.text = sharedPref.getString("domenica","")
+                rifiutoD3.text = sharedPref.getString("lunedi","")
+                rifiutoD4.text = sharedPref.getString("martedi","")
+                rifiutoD5.text = sharedPref.getString("mercoledi","")
+                rifiutoD6.text = sharedPref.getString("giovedi","")
+                rifiutoD7.text = sharedPref.getString("venerdi","")
+            }
+            "domenica" -> {
+                rifiutoD1.text = sharedPref.getString("domenica","")
+                rifiutoD2.text = sharedPref.getString("lunedi","")
+                rifiutoD3.text = sharedPref.getString("martedi","")
+                rifiutoD4.text = sharedPref.getString("mercoledi","")
+                rifiutoD5.text = sharedPref.getString("giovedi","")
+                rifiutoD6.text = sharedPref.getString("venerdi","")
+                rifiutoD7.text = sharedPref.getString("sabato","")
+            }
+        }
+
+
+        /*if (day.text.toString().contains("lunedì")) {
             rifiutoD1.setText(sharedPref.getString("lunedi",""))
             rifiutoD2.setText(sharedPref.getString("martedi",""))
             rifiutoD3.setText(sharedPref.getString("mercoledi",""))
@@ -283,7 +355,7 @@ class CalendarFragment : Fragment() {
             rifiutoD5.setText(sharedPref.getString("giovedi",""))
             rifiutoD6.setText(sharedPref.getString("venerdi",""))
             rifiutoD7.setText(sharedPref.getString("sabato",""))
-        }
+        }*/
     }
     fun setCircleColor() {
         val cD1 : View = binding.circleD1
