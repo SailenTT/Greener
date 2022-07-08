@@ -6,7 +6,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/SailenTT/ProgettoDispositiviMobili">
     <img src="imagesReadMe/logoApp.png" alt="Logo" width="300">
   </a>
 
@@ -33,7 +33,7 @@
 <div align="center">
   <img src="imagesReadMe/Galaxy S21 Ultra.png" alt="Logo" style="display:block" width="700">
 
-  Greener is a project born and developed by 3 students attending the University of Insubria.
+  **Greener** is a project born and developed by 3 students attending the University of Insubria.
   The idea comes from the common thought that, nowadays, there are more and more ways not to pollute or at least limit a part of it, but there are still people who, for one reason or another, find it hard to do their part.
 
   This is where Greener comes in! the app, with its simplicity and intuitiveness, will allow the user to use it quickly and easily. 
