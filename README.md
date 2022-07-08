@@ -139,11 +139,11 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTRIBUTORS -->
 ## Contributors
 
-Cristian De Nicola - Mat. 744954 
+Cristian De Nicola - `Mat. 744954`
 
-Cristian Arcadi - Mat.
+Cristian Arcadi - `Mat. 0xxxxx`
 
-`Project Manager` David Poletti - Mat.
+David Poletti - `Mat. 0xxxxx`
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
