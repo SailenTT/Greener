@@ -2,6 +2,8 @@ package com.eco.app.carbonfootprint
 
 import android.R
 import android.app.ActionBar
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -12,6 +14,7 @@ import android.widget.TextView
 import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.eco.app.calendar.CalendarFragment
 import com.eco.app.databinding.FragmentResultCalculatorBinding
 import java.util.*
 import kotlin.random.Random.Default.nextInt
@@ -26,6 +29,9 @@ class ResultCalculator : Fragment() {
 
     private lateinit var binding: FragmentResultCalculatorBinding
 
+    private lateinit var  sharedPref : SharedPreferences
+    private lateinit var editor : SharedPreferences.Editor
+
     private lateinit var txt_showResult : TextView
     private lateinit var circleUtente : RelativeLayout
     private lateinit var txt_tipsUtente : TextView
@@ -33,6 +39,9 @@ class ResultCalculator : Fragment() {
     private lateinit var txtinfoUtente : TextView
     private lateinit var txtco2Utente : TextView
 
+    companion object{
+        const val SHARED_PREFS = "sharedPrefsFootprint"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -46,6 +55,9 @@ class ResultCalculator : Fragment() {
         txtinfoUtente = binding.txtInfoPER
         txtco2Utente = binding.co2Utente
 
+        sharedPref = activity?.getSharedPreferences(CalendarFragment.SHARED_PREFS, Context.MODE_PRIVATE)!!
+        editor = sharedPref.edit()
+
         calcola()
         txt_tipsUtente.text = tips[random]
 
@@ -57,9 +69,6 @@ class ResultCalculator : Fragment() {
     fun calcola() {
         val AVGmondiale = 432 //110
         val punteggio_utente = args.sumFoodTracking //160
-
-        //val view: View = binding.cirlceUtente
-        //val layoutParams: RelativeLayout.LayoutParams = view.layoutParams as RelativeLayout.LayoutParams
 
         //AVGmondiale (dato preso da internet) è 432 con punteggio di 60
         //il calcolo funzionerà quindi con un compare del punteggio utente su questo valore;
@@ -87,6 +96,7 @@ class ResultCalculator : Fragment() {
                 txt_numUtente.textSize = 10F
                 txtinfoUtente.textSize = 8F
                 txtco2Utente.textSize = 8F
+                saveSharedPref(punteggio_utente,circleUtente.layoutParams.width,circleUtente.layoutParams.height, txt_numUtente.textSize, txtinfoUtente.textSize)
             }
             punteggio_utente in 1.0F..10.0F -> {
                 txt_showResult.text = "8"
@@ -96,6 +106,7 @@ class ResultCalculator : Fragment() {
                 txt_numUtente.textSize = 10F
                 txtinfoUtente.textSize = 8F
                 txtco2Utente.textSize = 8F
+                saveSharedPref(punteggio_utente,circleUtente.layoutParams.width,circleUtente.layoutParams.height, txt_numUtente.textSize, txtinfoUtente.textSize)
 
             }
             punteggio_utente in 11.0F..20.0F -> {
@@ -106,6 +117,7 @@ class ResultCalculator : Fragment() {
                 txt_numUtente.textSize = 10F
                 txtinfoUtente.textSize = 8F
                 txtco2Utente.textSize = 8F
+                saveSharedPref(punteggio_utente,circleUtente.layoutParams.width,circleUtente.layoutParams.height, txt_numUtente.textSize, txtinfoUtente.textSize)
 
             }
             punteggio_utente in 21.0F..30.0F -> {
@@ -116,6 +128,7 @@ class ResultCalculator : Fragment() {
                 txt_numUtente.textSize = 11F
                 txtinfoUtente.textSize = 9F
                 txtco2Utente.textSize = 9F
+                saveSharedPref(punteggio_utente,circleUtente.layoutParams.width,circleUtente.layoutParams.height, txt_numUtente.textSize, txtinfoUtente.textSize)
 
             }
             punteggio_utente in 31.0F..40.0F -> {
@@ -126,6 +139,7 @@ class ResultCalculator : Fragment() {
                 txt_numUtente.textSize = 11F
                 txtinfoUtente.textSize = 9F
                 txtco2Utente.textSize = 9F
+                saveSharedPref(punteggio_utente,circleUtente.layoutParams.width,circleUtente.layoutParams.height, txt_numUtente.textSize, txtinfoUtente.textSize)
 
             }
             punteggio_utente in 41.0F..50.0F -> {
@@ -136,6 +150,7 @@ class ResultCalculator : Fragment() {
                 txt_numUtente.textSize = 11F
                 txtinfoUtente.textSize = 9F
                 txtco2Utente.textSize = 9F
+                saveSharedPref(punteggio_utente,circleUtente.layoutParams.width,circleUtente.layoutParams.height, txt_numUtente.textSize, txtinfoUtente.textSize)
 
             }
             punteggio_utente in 51.0F..60.0F -> {
@@ -145,6 +160,7 @@ class ResultCalculator : Fragment() {
                 circleUtente.layoutParams.height = (110 * resources.displayMetrics.density).toInt()
                 txtinfoUtente.textSize = 12F
                 txtco2Utente.textSize = 12F
+                saveSharedPref(punteggio_utente,circleUtente.layoutParams.width,circleUtente.layoutParams.height, txt_numUtente.textSize, txtinfoUtente.textSize)
 
             }
             punteggio_utente in 61.0F..70.0F -> {
@@ -154,6 +170,7 @@ class ResultCalculator : Fragment() {
                 circleUtente.layoutParams.height = (120 * resources.displayMetrics.density).toInt()
                 txtinfoUtente.textSize = 12F
                 txtco2Utente.textSize = 12F
+                saveSharedPref(punteggio_utente,circleUtente.layoutParams.width,circleUtente.layoutParams.height, txt_numUtente.textSize, txtinfoUtente.textSize)
 
             }
             punteggio_utente in 71.0F..80.0F -> {
@@ -163,6 +180,7 @@ class ResultCalculator : Fragment() {
                 circleUtente.layoutParams.height = (140 * resources.displayMetrics.density).toInt()
                 txtinfoUtente.textSize = 14F
                 txtco2Utente.textSize = 14F
+                saveSharedPref(punteggio_utente,circleUtente.layoutParams.width,circleUtente.layoutParams.height, txt_numUtente.textSize, txtinfoUtente.textSize)
 
             }
             punteggio_utente in 81.0F..90.0F -> {
@@ -172,6 +190,7 @@ class ResultCalculator : Fragment() {
                 circleUtente.layoutParams.height = (150 * resources.displayMetrics.density).toInt()
                 txtinfoUtente.textSize = 16F
                 txtco2Utente.textSize = 16F
+                saveSharedPref(punteggio_utente,circleUtente.layoutParams.width,circleUtente.layoutParams.height, txt_numUtente.textSize, txtinfoUtente.textSize)
 
             }
             punteggio_utente >= 91.0F -> {
@@ -181,7 +200,23 @@ class ResultCalculator : Fragment() {
                 circleUtente.layoutParams.height = (160 * resources.displayMetrics.density).toInt()
                 txtinfoUtente.textSize = 18F
                 txtco2Utente.textSize = 18F
+                saveSharedPref(punteggio_utente,circleUtente.layoutParams.width,circleUtente.layoutParams.height, txt_numUtente.textSize, txtinfoUtente.textSize)
             }
         }
+    }
+
+    fun saveSharedPref(punteggio : Float, width : Int, height : Int, scoreSize : Float, textSize : Float) {
+
+        val sharedPref = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
+        val editor = sharedPref?.edit()
+        editor?.apply {
+
+            putFloat("punteggio",punteggio)
+            putInt("width", width)
+            putInt("height", height)
+            putFloat("scoreSize",scoreSize)
+            putFloat("textSize",textSize)
+
+        }?.apply()
     }
 }
