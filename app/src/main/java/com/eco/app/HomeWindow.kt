@@ -6,12 +6,15 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.view.ViewOutlineProvider
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.core.view.children
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.airbnb.lottie.LottieAnimationView
@@ -201,6 +204,7 @@ class HomeWindow : AppCompatActivity() {
         val firstFragmentsList= mutableSetOf(R.id.GameSelectionFragment,R.id.CalendarFragment)
 
         val cfPoints=getSharedPreferences(ResultCalculator.SHARED_PREFS,Context.MODE_PRIVATE).getFloat("punteggio",0F)
+        println("punteggio cf: $cfPoints")
         //se l'utente ha calcolato il punteggio,
         //imposto che il bottone del carbon footprint lo porta alla schermata del punteggio
         if(cfPoints!=0F){

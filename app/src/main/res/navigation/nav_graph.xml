@@ -161,7 +161,7 @@
     <fragment android:id="@+id/login_fragment"
         android:name="com.eco.app.profile.LoginFragment"
         android:label="Login"
-        tools:layout="@layout/activity_login_page">
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_fromLogin_backToHome"
             app:enterAnim="@anim/slide_in_left"

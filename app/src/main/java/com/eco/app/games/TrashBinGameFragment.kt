@@ -11,7 +11,6 @@ import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.eco.app.R
-import com.eco.app.profile.RegisterPage
 import com.eco.app.databinding.FragmentTrashBinGameBinding
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.firebase.auth.FirebaseAuth
@@ -63,7 +62,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
         binding= FragmentTrashBinGameBinding.inflate(inflater,container,false)
         auth = FirebaseAuth.getInstance()
         database =
-            Firebase.database(RegisterPage.PATHTODB)
+            Firebase.database(getString(R.string.path_to_db))
         trashBinContainer=binding.trashBinContainer
         trashBinFrontLayer=binding.trashBinFrontLayer
         trashBinBackLayer=binding.trashBinBackLayer

@@ -68,7 +68,7 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         loginPageContainer = binding.loginPageContainer
         progressBar = binding.progressBar
-        database = Firebase.database(RegisterPage.PATHTODB)
+        database = Firebase.database(getString(R.string.path_to_db))
         auth = Firebase.auth
         FacebookSdk.sdkInitialize(getApplicationContext());
 

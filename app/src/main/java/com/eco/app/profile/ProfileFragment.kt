@@ -82,7 +82,7 @@ class ProfileFragment : Fragment() {
         binding.profileShimmer.startShimmer()
         auth = Firebase.auth
         val user = auth.currentUser;
-        database = Firebase.database(RegisterPage.PATHTODB)
+        database = Firebase.database(getString(R.string.path_to_db))
         usersReference = database.getReference("Users")
         if(user==null){
             Log.i("LoginInfo","Non sei loggato")

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.eco.app.R
 import com.eco.app.databinding.FragmentRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -20,10 +21,6 @@ class RegisterFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
     private lateinit var binding: FragmentRegisterBinding
-
-    companion object{
-        val PATHTODB="https://ecoapp-706b8-default-rtdb.europe-west1.firebasedatabase.app/"
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +36,7 @@ class RegisterFragment : Fragment() {
             findNavController().navigate(RegisterFragmentDirections.actionFromRegisterToLogin())
         }
         auth = FirebaseAuth.getInstance()
-        database = Firebase.database(PATHTODB)
+        database = Firebase.database(getString(R.string.path_to_db))
 
         binding.btnRegister.setOnClickListener {
             createAccount()

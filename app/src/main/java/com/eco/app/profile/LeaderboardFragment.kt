@@ -35,7 +35,7 @@ class LeaderboardFragment : Fragment(), LeaderboardAdapter.OnItemClicked {
         savedInstanceState: Bundle?
     ): View? {
         binding=FragmentLeaderboardBinding.inflate(inflater,container,false)
-        database = Firebase.database(RegisterPage.PATHTODB)
+        database = Firebase.database(getString(R.string.path_to_db))
         binding.leaderboardShimmer.startShimmer()
 
         val array = ArrayList<LeaderBoardRow>()

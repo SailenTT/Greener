@@ -19,8 +19,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
+import com.eco.app.R
 import com.eco.app.databinding.FragmentGrowingTreeBinding
 import com.google.android.material.transition.MaterialContainerTransform
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlin.random.Random
 
 class GrowingTreeFragment : Fragment() {
@@ -38,7 +43,9 @@ class GrowingTreeFragment : Fragment() {
     private val fruitsList= listOf<ImageView>()
     private val fruitHeight=78
     private val fruitWidth=65
+    private var fruitPoints: Int=0
     private val fruitResId="@drawable/tree_fruit_"
+    private var dbScoreReference:DatabaseReference?=null
     companion object{
         const val treeImgPrefix="growing_tree_frame_"
         val stepsLevels= listOf(0L,5000L,10000L,15000L,20000L,25000L,30000L,35000L,40000L,45000L,50000L,55000L,60000L,65000L)
@@ -95,6 +102,18 @@ class GrowingTreeFragment : Fragment() {
 
         wateringCan.setOnTouchListener { v, event ->touchListener(v,event)  }
 
+        //controllo se l'utente è loggato
+
+        if(Firebase.auth.currentUser!=null){
+            dbScoreReference=Firebase.database(getString(R.string.path_to_db))
+                .getReference("Users")
+                .child(Firebase.auth.currentUser!!.uid)
+                .child("growing_tree")
+
+            dbScoreReference?.get()?.addOnSuccessListener {dataSnapshot->
+                fruitPoints=dataSnapshot.value as Int
+            }
+        }
 
         startStepService()
 
@@ -130,6 +149,12 @@ class GrowingTreeFragment : Fragment() {
                         .translationY(0F)
                         .duration=1000
                 }
+                fruitPoints+=fruitsList.size
+
+                dbScoreReference?.setValue(fruitPoints)
+
+
+                treeImg.setOnClickListener(null)
             }
 
         }

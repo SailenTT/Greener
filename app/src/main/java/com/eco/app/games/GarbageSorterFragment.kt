@@ -1,7 +1,6 @@
 package com.eco.app.games
 
 import android.animation.Animator
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import android.widget.*
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.eco.app.R
-import com.eco.app.profile.RegisterPage
 import com.eco.app.databinding.FragmentGarbageSorterGameBinding
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.firebase.auth.FirebaseAuth
@@ -62,7 +60,7 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
         sharedElementEnterTransition = MaterialContainerTransform()
         auth = FirebaseAuth.getInstance()
         database =
-            Firebase.database(RegisterPage.PATHTODB)
+            Firebase.database(getString(R.string.path_to_db))
         binding= FragmentGarbageSorterGameBinding.inflate(layoutInflater,container,false)
 
         paperBinFrontLayer=binding.paperBinFrontLayer

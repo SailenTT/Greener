@@ -64,10 +64,11 @@ class ResultCalculator : Fragment() {
         txt_tipsUtente.text = tips[random]
 
         binding.btnRiprovaTest.setOnClickListener{
-            requireContext().getSharedPreferences(SHARED_PREFS,Context.MODE_PRIVATE).edit().clear().apply()
-
-            (requireActivity() as HomeWindow).setupActionBarDestinations(2)
+            //TODO fixare bug che, se dopo essere tornati indietro si ripreme la bottom bar sul carbon footprint, si ritorna allo score
+            //requireContext().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE).edit().putFloat("punteggio",0F)
+            requireContext().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE).edit().clear().commit()
             findNavController().navigate(ResultCalculatorDirections.actionFromResultBackToStart())
+            (requireActivity() as HomeWindow).setupActionBarDestinations(2)
         }
 
         return binding.root
@@ -76,11 +77,13 @@ class ResultCalculator : Fragment() {
     fun calcola() {
         val AVGmondiale = 432 //110
 
+        var reloadAppBarConfig=false
+
         val prefs= requireContext().getSharedPreferences(SHARED_PREFS,Context.MODE_PRIVATE)
         var punteggio_utente=prefs.getFloat("punteggio",0F)
         if(punteggio_utente==0F) {
             punteggio_utente = args.sumFoodTracking //160
-            (requireActivity() as HomeWindow).setupActionBarDestinations(2)
+            reloadAppBarConfig=true
         }
 
             //AVGmondiale (dato preso da internet) è 432 con punteggio di 60
@@ -260,19 +263,10 @@ class ResultCalculator : Fragment() {
                 )
             }
         }
-        /*else{
-            val width=sharedPref.getInt("width", 0)
-            val height=sharedPref.getInt("height", 0)
-            val scoreSize=sharedPref.getFloat("scoreSize",0F)
-            val textSize=sharedPref.getFloat("textSize",0F)
-            txt_showResult.text = punteggio_utente.toString()
-            txt_numUtente.text = punteggio_utente.toString()
-            circleUtente.layoutParams.width =width
-            circleUtente.layoutParams.height =height
-            txt_numUtente.textSize = scoreSize
-            txtinfoUtente.textSize = textSize
-            txtco2Utente.textSize = textSize
-        }*/
+
+        if (reloadAppBarConfig){
+            (requireActivity() as HomeWindow).setupActionBarDestinations(2)
+        }
     }
 
     fun saveSharedPref(punteggio : Float/*, width : Int, height : Int, scoreSize : Float, textSize : Float*/) {
