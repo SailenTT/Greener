@@ -13,14 +13,14 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.eco.app.HomeWindow
 import com.eco.app.R
 import com.eco.app.databinding.FragmentLoginBinding
-import com.eco.app.start.DebugActivity
 import com.facebook.*
+import com.facebook.FacebookSdk.getApplicationContext
+import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
@@ -34,6 +34,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import org.json.JSONException
+import java.util.*
 
 
 class LoginFragment : Fragment() {
@@ -48,6 +49,9 @@ class LoginFragment : Fragment() {
     private lateinit var loginPageContainer: RelativeLayout
     private val REQ_ONE_TAP = 2
     private var showOneTapUI = true
+    var permissionNeeds: List<String> =
+        Arrays.asList("user_photos", "friends_photos", "email", "user_birthday", "user_friends")
+
 
     /*variabile UID utile da portare in giro, settato al momento del login
       per query
@@ -62,12 +66,11 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
-
         loginPageContainer = binding.loginPageContainer
         progressBar = binding.progressBar
         database = Firebase.database(RegisterPage.PATHTODB)
-        callbackManager = CallbackManager.Factory.create()
         auth = Firebase.auth
+        FacebookSdk.sdkInitialize(getApplicationContext());
 
         //assegno l'oggetto grafico della UI alla variabile
         val txtSignUp = binding.txtSignUp
@@ -80,15 +83,15 @@ class LoginFragment : Fragment() {
         //metodo onClick del btnLogin
         binding.btnLogin.setOnClickListener {
             if(auth.currentUser == null){
+                LoginManager.getInstance().logInWithReadPermissions(this,permissionNeeds)
                 loginUser()
             }else{
                 Toast.makeText(context, "Sei già loggato", Toast.LENGTH_SHORT).show()
             }
         }
-
-        binding.btnLoginFacebook.background =
-            AppCompatResources.getDrawable(requireContext(), R.drawable.btn_rounded_green_bg)
-
+        binding.btnLoginFacebook.setFragment(this)
+        binding.btnLoginFacebook.setReadPermissions(listOf("public_profile","email"))
+        callbackManager = CallbackManager.Factory.create()
         binding.btnLoginFacebook.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult) {
