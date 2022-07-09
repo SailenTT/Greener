@@ -147,7 +147,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Cristian De Nicola - `Mat. 744954`
 
-Cristian Arcadi - `Mat. 0xxxxx`
+Cristian Arcadi - `Mat. 745389`
 
 David Poletti - `Mat. 746597`
 
