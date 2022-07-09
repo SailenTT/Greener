@@ -79,7 +79,7 @@ class RegisterFragment : Fragment() {
                         usersReference.child(userUid).child("divide_score").setValue(0)
                         usersReference.child(userUid).child("carbon_footprint").setValue(0)
                         usersReference.child(userUid).child("email").setValue(email)
-                        usersReference.child(userUid).child("email").setValue(email)
+                        usersReference.child(userUid).child("growing_tree").setValue(0)
                         uploadToStorageDefaultProfilePic(userUid)
 
 

@@ -57,6 +57,7 @@ class ProfileFragment : Fragment() {
     private var growingTreeScore =0L
     private var leaderboardPosition=0
     private lateinit var profileImg:Bitmap
+    private lateinit var usersReference : DatabaseReference
 
     //Upload foto
     //CONTRATTI
@@ -82,7 +83,7 @@ class ProfileFragment : Fragment() {
         auth = Firebase.auth
         val user = auth.currentUser;
         database = Firebase.database(RegisterPage.PATHTODB)
-        val usersReference = database.getReference("Users")
+        usersReference = database.getReference("Users")
         if(user==null){
             Log.i("LoginInfo","Non sei loggato")
         }else{
@@ -261,12 +262,13 @@ class ProfileFragment : Fragment() {
     }
 
     private fun deleteUser() {
-        val token = facebookAccessToken?.token
-        if(token != null){
-            val credential = FacebookAuthProvider.getCredential(token)
+        val facebookToken = facebookAccessToken?.token
+        if(facebookToken != null){
+            val credential = FacebookAuthProvider.getCredential(facebookToken)
             deleteFacebookUser(credential)
         }else{
             val user = Firebase.auth.currentUser
+            val uid = auth.uid!!
             val alertDialogBuilder = AlertDialog.Builder(requireContext())
             with(alertDialogBuilder) {
                 setTitle("Inserisci la tua password")
@@ -286,6 +288,7 @@ class ProfileFragment : Fragment() {
                     .addOnSuccessListener {
                         //Toast.makeText(requireContext(), "Allright", Toast.LENGTH_SHORT).show()
                         user.delete().addOnSuccessListener {
+                            deleteFromDb(uid)
                             Toast.makeText(
                                 requireContext(),
                                 "Account cancellato correttamente",
@@ -317,15 +320,18 @@ class ProfileFragment : Fragment() {
 
     private fun deleteFacebookUser(credential: AuthCredential) {
         val user = Firebase.auth.currentUser
+        val uid = auth.uid!!
         user!!.reauthenticate(credential).addOnSuccessListener {
            // Toast.makeText(requireContext(), "Allright", Toast.LENGTH_SHORT).show()
             user.delete().addOnSuccessListener {
+                deleteFromDb(uid)
                 Toast.makeText(
                     requireContext(),
                     "Account cancellato correttamente",
                     Toast.LENGTH_SHORT
                 ).show()
                 FirebaseAuth.getInstance().signOut()
+                com.facebook.login.LoginManager.getInstance().logOut();
                 val intent = Intent(requireContext(), HomeWindow::class.java)
                 startActivity(intent)
             }.addOnFailureListener {
@@ -335,6 +341,10 @@ class ProfileFragment : Fragment() {
         }.addOnFailureListener {
             Toast.makeText(requireContext(), "Errore nella riautenticazione ", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun deleteFromDb(uid : String) {
+        usersReference.child(uid).removeValue()
     }
 
     private fun pickImage() {
