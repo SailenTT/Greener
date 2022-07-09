@@ -76,7 +76,7 @@ Greener is an Android application developed in Kotlin, with the help of other pr
 <!--To install Greener on your device, you need to install the application from the .apk that you can find in the [release](https://github.com/silenTT/ProgettoDispositiviMobili) section of the repository.-->
 To install Greener on your device, follow these steps to set up the project locally in your pc or in your work environment:
 
-<!--Otherwise if you want to install this project locally in your pc or in your work environment, you have to:->
+<!--Otherwise if you want to install this project locally in your pc or in your work environment, you have to:-->
 
 ### Prerequisites
 
