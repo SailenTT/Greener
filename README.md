@@ -151,8 +151,10 @@ Cristian Arcadi - `Mat. 745389`
 
 David Poletti - `Mat. 746597`
 
-Special Thanks to:
-Alessandro Lorenzo Enrico Sidoti and Giorgio Rigiroli for drawing most of the graphics props
+<h4 align="center">Special Thanks to:</h4>
+<div align="center">
+<a href="https://instagram.com/seed.otee.art">Alessandro Lorenzo Enrico Sidoti</a> and Giorgio Rigiroli for drawing most of the graphics props
+</div>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
