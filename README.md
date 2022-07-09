@@ -151,6 +151,9 @@ Cristian Arcadi - `Mat. 745389`
 
 David Poletti - `Mat. 746597`
 
+Special Thanks to:
+Alessandro Lorenzo Enrico Sidoti and Giorgio Rigiroli for drawing most of the graphics props
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
