@@ -138,7 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/txb_background"
@@ -170,9 +170,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/view_day1"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="12dp"
                         android:text=""
-                        android:textSize="38sp"
+                        android:textSize="35sp"
                         android:textStyle="bold" />
 
                     <!--<View
@@ -237,9 +238,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/view_day2"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginStart="25dp"
                         android:text=""
-                        android:textSize="38sp"
+                        android:textSize="35sp"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -290,9 +292,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/view_day3"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginStart="25dp"
                         android:text=""
-                        android:textSize="38sp"
+                        android:textSize="35sp"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -343,9 +346,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/view_day4"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginStart="25dp"
                         android:text=""
-                        android:textSize="38sp"
+                        android:textSize="35sp"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -396,9 +400,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/view_day5"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginStart="25dp"
                         android:text=""
-                        android:textSize="38sp"
+                        android:textSize="35sp"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -449,9 +454,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/view_day6"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginStart="25dp"
                         android:text=""
-                        android:textSize="38sp"
+                        android:textSize="35sp"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -502,9 +508,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/view_day7"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginStart="25dp"
                         android:text=""
-                        android:textSize="38sp"
+                        android:textSize="35sp"
                         android:textStyle="bold" />
 
                     <ImageView

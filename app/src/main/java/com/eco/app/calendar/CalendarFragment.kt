@@ -166,8 +166,6 @@ class CalendarFragment : Fragment() {
         )
         //Toast.makeText(context, "Alarm settato", Toast.LENGTH_SHORT)
 
-
-
     }
 
     private fun createNotificationChannel() {
@@ -279,7 +277,7 @@ class CalendarFragment : Fragment() {
                 "Ingombranti"->{
                     cDs[i].setImageResource(R.drawable.bulky_day_icon)
                 }
-                "Indifferenziato"->{
+                "Indifferenziata"->{
                     cDs[i].setImageResource(R.drawable.indiff_day_icon)
                 }
                 "--"->{

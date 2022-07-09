@@ -92,7 +92,7 @@ class LeaderboardFragment : Fragment(), LeaderboardAdapter.OnItemClicked {
                 if(binding.leaderboardShimmer.isShimmerStarted){
                     binding.leaderboardShimmer.stopShimmer()
                     binding.leaderboardShimmer.visibility = View.INVISIBLE
-                    binding.leaderboardRelativelayout.visibility = View.VISIBLE
+                    //binding.leaderboardRelativelayout.visibility = View.VISIBLE
                 }
             }
 

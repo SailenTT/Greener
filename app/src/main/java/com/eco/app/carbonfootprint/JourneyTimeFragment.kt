@@ -40,6 +40,10 @@ class JourneyTime : Fragment() {
         timePick.hour = 0
         timePick.minute = 0
 
+        binding.btnBackJT.setOnClickListener{
+            findNavController().navigateUp()
+        }
+
         btnNextJT.setOnClickListener {
             var sum = calcola()
             findNavController().navigate(JourneyTimeDirections.fromPage1ToPage2(sum))

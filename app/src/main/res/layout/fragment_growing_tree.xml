@@ -23,7 +23,8 @@
         android:layout_marginTop="57dp"
         android:layout_marginEnd="66dp"
         android:text="0"
-        android:textSize="34sp" />
+        android:textSize="34sp"
+        android:visibility="invisible"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -47,7 +48,17 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="2dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/growing_tree_frame_0" />
+        android:src="@drawable/growing_tree_frame_13" />
+
+    <RelativeLayout
+        android:id="@+id/fruits_container"
+        android:layout_width="260dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/white"
+        android:layout_alignTop="@id/tree_image_view"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/watering_can_container"
