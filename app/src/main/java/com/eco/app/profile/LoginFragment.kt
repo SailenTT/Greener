@@ -50,7 +50,7 @@ class LoginFragment : Fragment() {
     private val REQ_ONE_TAP = 2
     private var showOneTapUI = true
     var permissionNeeds: List<String> =
-        Arrays.asList("user_photos", "friends_photos", "email", "user_birthday", "user_friends")
+        Arrays.asList( "email", "user_birthday", "user_friends")
 
 
     /*variabile UID utile da portare in giro, settato al momento del login
@@ -116,8 +116,6 @@ class LoginFragment : Fragment() {
         binding.btnLoginGoogle.setOnClickListener {
             loginWithGoogle()
         }
-
-
         //activity.this in alternativa
         oneTapClient = Identity.getSignInClient(requireContext())
         signInRequest = BeginSignInRequest.builder()
