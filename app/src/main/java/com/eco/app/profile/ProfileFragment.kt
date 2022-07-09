@@ -27,10 +27,7 @@ import com.eco.app.R
 import com.eco.app.databinding.FragmentProfileBinding
 import com.facebook.AccessToken
 import com.facebook.internal.instrument.InstrumentData
-import com.google.firebase.auth.EmailAuthProvider
-import com.google.firebase.auth.FacebookAuthCredential
-import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -262,52 +259,82 @@ class ProfileFragment : Fragment() {
         }
         alertDialogBuilder.show()
     }
-    private fun deleteUser() {
-        val user = Firebase.auth.currentUser
-        val alertDialogBuilder = AlertDialog.Builder(requireContext())
-        with(alertDialogBuilder) {
-            setTitle("Inserisci la tua password")
-        }
-        val input = EditText(requireContext())
-        with(input) {
-            setHint("Password")
-            inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
-            transformationMethod = HideReturnsTransformationMethod.getInstance()
-        }
-        alertDialogBuilder.setView(input)
 
-        alertDialogBuilder.setPositiveButton("OK") { dialogInterface, _ ->
-            val pwd = input.text.toString()
-            val credential = EmailAuthProvider.getCredential(user!!.email.toString(), pwd)
-            user!!.reauthenticate(credential)
-                .addOnSuccessListener {
-                    //Toast.makeText(requireContext(), "Allright", Toast.LENGTH_SHORT).show()
-                    user.delete().addOnSuccessListener {
-                        Toast.makeText(
-                            requireContext(),
-                            "Cancellato correttamente",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        FirebaseAuth.getInstance().signOut()
-                        val intent = Intent(requireContext(),HomeWindow::class.java)
-                        startActivity(intent)
-                    }
-                        .addOnFailureListener {
+    private fun deleteUser() {
+        val token = facebookAccessToken?.token
+        if(token != null){
+            val credential = FacebookAuthProvider.getCredential(token)
+            deleteFacebookUser(credential)
+        }else{
+            val user = Firebase.auth.currentUser
+            val alertDialogBuilder = AlertDialog.Builder(requireContext())
+            with(alertDialogBuilder) {
+                setTitle("Inserisci la tua password")
+            }
+            val input = EditText(requireContext())
+            with(input) {
+                setHint("Password")
+                inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+                transformationMethod = HideReturnsTransformationMethod.getInstance()
+            }
+            alertDialogBuilder.setView(input)
+
+            alertDialogBuilder.setPositiveButton("OK") { dialogInterface, _ ->
+                val pwd = input.text.toString()
+                val credential = EmailAuthProvider.getCredential(user!!.email.toString(), pwd)
+                user!!.reauthenticate(credential)
+                    .addOnSuccessListener {
+                        //Toast.makeText(requireContext(), "Allright", Toast.LENGTH_SHORT).show()
+                        user.delete().addOnSuccessListener {
                             Toast.makeText(
                                 requireContext(),
-                                "Errore nella cancellazione",
+                                "Account cancellato correttamente",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            FirebaseAuth.getInstance().signOut()
+                            val intent = Intent(requireContext(),HomeWindow::class.java)
+                            startActivity(intent)
                         }
-                }
-                .addOnFailureListener {
-                    Toast.makeText(requireContext(), "Oh hell no", Toast.LENGTH_SHORT).show()
-                }
+                            .addOnFailureListener {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Errore nella cancellazione",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(requireContext(), "Errore nella riautenticazione", Toast.LENGTH_SHORT).show()
+                    }
 
-        }.setNegativeButton("Annulla") { dialogInterface, _ ->
-            dialogInterface.dismiss()
+            }.setNegativeButton("Annulla") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            alertDialogBuilder.show()
         }
-        alertDialogBuilder.show()
+
+    }
+
+    private fun deleteFacebookUser(credential: AuthCredential) {
+        val user = Firebase.auth.currentUser
+        user!!.reauthenticate(credential).addOnSuccessListener {
+           // Toast.makeText(requireContext(), "Allright", Toast.LENGTH_SHORT).show()
+            user.delete().addOnSuccessListener {
+                Toast.makeText(
+                    requireContext(),
+                    "Account cancellato correttamente",
+                    Toast.LENGTH_SHORT
+                ).show()
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(requireContext(), HomeWindow::class.java)
+                startActivity(intent)
+            }.addOnFailureListener {
+                Toast.makeText(requireContext(), "Errore nella cancellazione", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }.addOnFailureListener {
+            Toast.makeText(requireContext(), "Errore nella riautenticazione ", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun pickImage() {
