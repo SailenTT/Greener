@@ -80,19 +80,23 @@ Otherwise if you want to install this project locally in your pc or in your work
 ### Prerequisites
 
 Here you can read the pre-requirements you must meet in order to run this project locally:
-* AVD (Android Virtual Device) or phisical device with Android API level 21
+* AVD (Android Virtual Device) or phisical device with Android API level 24 (Android 7.0 Nougat)
 
 ### Installation
 
-There an example of the steps ro follow in order to install and build the project on Android studio locally_:
+There an example of the steps to follow in order to install and build the project on Android studio locally_:
 
 1. Clone the repo
    ```sh
    git clone https://github.com/sailenTT/ProgettoDispositiviMobili/
    ```
-2. import "ProgettoDispositiviMobili/" folder in Android Studio
+2. Import "ProgettoDispositiviMobili/" folder in Android Studio
+
+3. Download the file template <a href="https://gist.github.com/SailenTT/cea4c6609c779594f90b707dd8369f1d">secrets.xml</a> and put it into the folder res/values
+
+4. Ask us for the API keys to put inside the file, otherwise you wouldn't be able to use Firebase, Google and Facebook services
    
-3. build project
+3. Build project and enjoy!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -100,9 +104,10 @@ There an example of the steps ro follow in order to install and build the projec
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] pass the exam with this project
+- [ ] Pass the exam with this project
+  [ ] Translate the app in English
 - [ ] Release the open beta
-- [ ] and more to come
+- [ ] and more to come...
 
 See the [open issues](https://github.com/SailenTT/ProgettoDispositiviMobili/issues) for a full list of proposed features (and known issues).
 
