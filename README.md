@@ -105,7 +105,7 @@ There an example of the steps to follow in order to install and build the projec
 ## Roadmap
 
 - [ ] Pass the exam with this project
-  [ ] Translate the app in English
+- [ ] Translate the app in English
 - [ ] Release the open beta
 - [ ] and more to come...
 
@@ -148,7 +148,7 @@ Cristian De Nicola - `Mat. 744954`
 
 Cristian Arcadi - `Mat. 0xxxxx`
 
-David Poletti - `Mat. 0xxxxx`
+David Poletti - `Mat. 746597`
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
