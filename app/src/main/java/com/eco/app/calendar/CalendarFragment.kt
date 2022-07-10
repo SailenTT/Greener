@@ -357,8 +357,8 @@ class CalendarFragment : Fragment() {
                 .translationYBy(-binding.whitePopulationContainer.height.toFloat())
                 .duration = 450
 
-            binding.doubleArrowWidgetContainer.animate()
-                .translationYBy(5f*dpi)
+            /*binding.doubleArrowWidgetContainer.animate()
+                .translationYBy(5f*dpi)*/
 
         }
         else{
@@ -367,12 +367,25 @@ class CalendarFragment : Fragment() {
                 .translationYBy(binding.whitePopulationContainer.height.toFloat())
                 .duration = 450
 
-            binding.doubleArrowWidgetContainer.animate()
-                .translationYBy(-5f*dpi)
+            /*binding.doubleArrowWidgetContainer.animate()
+                .translationYBy(-5f*dpi)*/
         }
 
         doubleArrowIcon.animate()
             .rotationBy(180f)
-            .duration=460
+            .setDuration(460)
+            .withEndAction {
+                binding.doubleArrowWidgetContainer.setOnClickListener {
+                    changeSliderMenuPosition()
+                }
+            }
+
+        binding.doubleArrowWidgetContainer.setOnClickListener(null)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.doubleArrowWidget.y-=3f*dpi
     }
 }

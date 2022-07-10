@@ -228,7 +228,7 @@ class ProfileFragment : Fragment() {
             "Divide score: $garbageSorterGameScore"
         if(growingTreeScore == 0L){
             loadedProfileLayout!!.findViewById<TextView>(R.id.tv_growingtree).text =
-                "Growing tree score: ???"
+                "???"
         }else{
             loadedProfileLayout!!.findViewById<TextView>(R.id.tv_growingtree).text =
                 "Growing tree score: $growingTreeScore"

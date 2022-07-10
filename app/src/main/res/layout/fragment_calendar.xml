@@ -590,7 +590,9 @@
                 android:layout_width="75dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="6dp"
-                android:src="@drawable/ic_baseline_keyboard_double_arrow_up_24"
+                android:scaleX="1.4"
+                android:scaleY="1.6"
+                android:src="@drawable/ic_baseline_arrow_drop_up_24"
                 android:backgroundTint="@color/white"/>
         </LinearLayout>
 

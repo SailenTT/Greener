@@ -37,8 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/white"
-            android:elevation="20dp"
-            app:menu="@menu/bottom_nav_bar_cf_calculator" />
+            android:elevation="20dp" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/home_fragment_container"
