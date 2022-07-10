@@ -10,6 +10,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="greenLogin">#5BB53C</color>
+    <color name="greenClicked">#acd9a0</color>
     <color name="grey">#E1E1E1</color>
     <color name="blueFacebook">#0073DD</color>
     <color name="placeholder_grey">#c6c6c6</color>

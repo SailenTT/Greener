@@ -6,13 +6,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Rect
+import android.media.Image
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -43,9 +48,15 @@ class GrowingTreeFragment : Fragment() {
     private val fruitsList= listOf<ImageView>()
     private val fruitHeight=78
     private val fruitWidth=65
-    private var fruitPoints: Int=0
+    private var shop: RelativeLayout?=null
+    private lateinit var wateringCanText:TextView
+    private lateinit var wateringCanBox: RelativeLayout
+    private lateinit var moneyCount:TextView
+    private var waterLiters: Int=0
+    private var fruitPoints: Long=0
     private val fruitResId="@drawable/tree_fruit_"
     private var dbScoreReference:DatabaseReference?=null
+    private lateinit var shopItemsList: List<String>
     companion object{
         const val treeImgPrefix="growing_tree_frame_"
         val stepsLevels= listOf(0L,5000L,10000L,15000L,20000L,25000L,30000L,35000L,40000L,45000L,50000L,55000L,60000L,65000L)
@@ -61,6 +72,8 @@ class GrowingTreeFragment : Fragment() {
         sharedElementEnterTransition = MaterialContainerTransform()
 
         binding=FragmentGrowingTreeBinding.inflate(inflater,container,false)
+
+        shopItemsList=listOf(getString(R.string.shop_item_0))
 
         return binding.root
     }
@@ -84,15 +97,19 @@ class GrowingTreeFragment : Fragment() {
             Toast.makeText(requireContext(), "Permission not granted for the tracking", Toast.LENGTH_SHORT).show()
         }
 
+        wateringCanText=binding.wateringCanText
+
         wateringCan=binding.wateringCan
 
         wateringCan.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator?) {}
 
             override fun onAnimationEnd(animation: Animator?) {
-                wateringCan.setMinFrame(canMinFrame)
-                wateringCan.progress = 0F
-                wateringCan.playAnimation()
+                if(waterLiters>0) {
+                    wateringCan.setMinFrame(canMinFrame)
+                    wateringCan.progress = 0F
+                    wateringCan.playAnimation()
+                }
             }
 
             override fun onAnimationCancel(animation: Animator?) {}
@@ -100,10 +117,25 @@ class GrowingTreeFragment : Fragment() {
             override fun onAnimationStart(animation: Animator?) {}
         })
 
-        wateringCan.setOnTouchListener { v, event ->touchListener(v,event)  }
+        wateringCanBox=binding.wateringCanBox
+
+        wateringCanBox.setOnTouchListener { v, event ->touchListener(v,event)  }
+
+        binding.shopIcon.setOnClickListener {
+            //TODO aggiungere animazione di comparsa shop
+            if(shop!=null){
+                shop?.visibility=View.VISIBLE
+            }else{
+                shop=binding.shopStub.inflate() as RelativeLayout
+            }
+            shop?.findViewById<ImageView>(R.id.img_close_shop)?.setOnClickListener {
+                shop?.visibility=View.GONE
+            }
+        }
+
+        moneyCount=binding.moneyCount
 
         //controllo se l'utente è loggato
-
         if(Firebase.auth.currentUser!=null){
             dbScoreReference=Firebase.database(getString(R.string.path_to_db))
                 .getReference("Users")
@@ -111,13 +143,14 @@ class GrowingTreeFragment : Fragment() {
                 .child("growing_tree")
 
             dbScoreReference?.get()?.addOnSuccessListener {dataSnapshot->
-                fruitPoints=dataSnapshot.value as Int
+                fruitPoints=dataSnapshot.value as Long
+                moneyCount.text=fruitPoints.toString()
             }
         }
 
         startStepService()
 
-        binding.totalSteps.text=totalSteps.toString()
+        //binding.totalSteps.text=totalSteps.toString()
 
         treeImg=binding.treeImageView
 
@@ -129,12 +162,22 @@ class GrowingTreeFragment : Fragment() {
         val sharedPref=requireContext().getSharedPreferences("trackingPrefs",Context.MODE_PRIVATE)
         totalSteps= sharedPref.getLong("steps",0L)
 
-        var tree_frame= (stepsLevels.size-1)/2
+        if(totalSteps==0L){
+            sharedPref.edit().putInt("waterLiters",50).apply()
+            waterLiters=50
+        }
+        else{
+            waterLiters=sharedPref.getInt("waterLiters",0)
+        }
+        wateringCanText.text="${waterLiters}L"
+
+        var tree_frame= 0
         if(totalSteps>= stepsLevels[stepsLevels.size-1]){
            tree_frame= stepsLevels.size-1
-            totalSteps=stepsLevels[stepsLevels.size-1]
+            totalSteps=stepsLevels[stepsLevels.size-2]
             requireContext().getSharedPreferences("trackingPrefs",Context.MODE_PRIVATE).edit()
                 .putLong("steps",totalSteps).commit()
+
             spawnFruits()
 
             treeImg.setOnClickListener {
@@ -159,15 +202,8 @@ class GrowingTreeFragment : Fragment() {
 
         }
         else{
-            //uso la ricerca binario per trovare il frame dell'albero
             while(!(totalSteps>= stepsLevels[tree_frame]&&totalSteps<= stepsLevels[tree_frame+1])){
-                if (totalSteps< stepsLevels[tree_frame]) {
-                    tree_frame/=2
-                    println("diviso per 2: $tree_frame")
-                }
-                else if (totalSteps> stepsLevels[tree_frame]){
-                    tree_frame=((tree_frame+ stepsLevels.size-1)/2)
-                }
+                tree_frame++
             }
         }
 
@@ -188,7 +224,6 @@ class GrowingTreeFragment : Fragment() {
     }
 
     fun touchListener(v: View, event: MotionEvent): Boolean {
-        //TODO sarebbe meglio sotituire il wateringCan con v
         when(event.action) {
             MotionEvent.ACTION_DOWN->{
                 startX = event.x
@@ -198,29 +233,52 @@ class GrowingTreeFragment : Fragment() {
             MotionEvent.ACTION_MOVE->{
                 val deltaX = event.x - startX
                 val deltaY = event.y - startY
-                wateringCan.x += deltaX
-                wateringCan.y += deltaY
-                if (wateringCan.x >= (binding.wateringCanContainer.x + binding.wateringCanContainer.width)
-                    ||wateringCan.y>= (binding.wateringCanContainer.y + binding.wateringCanContainer.height)
-                    ||wateringCan.y+wateringCan.height<=binding.wateringCanContainer.y){
+                v.x += deltaX
+                v.y += deltaY
+                if (wateringCanBox.x+wateringCan.x >= (binding.wateringCanContainer.x + binding.wateringCanContainer.width)
+                    ||wateringCanBox.y+wateringCan.y>= (binding.wateringCanContainer.y + binding.wateringCanContainer.height)
+                    ||wateringCanBox.y+wateringCan.y+wateringCan.height<=binding.wateringCanContainer.y){
 
-                    if (!wateringCan.isAnimating) {
+                    binding.wateringCanText.visibility=View.VISIBLE
+
+                    if (!wateringCan.isAnimating&&waterLiters>0) {
+                        val handler=Handler(Looper.getMainLooper())
+                        var sleepTime=0L
+
                         wateringCan.playAnimation()
                         wateringCan.addAnimatorUpdateListener {
-                            Thread {
-                                Thread.sleep(1000)
+                            sleepTime+=1000L
+                            handler.postDelayed({
+                                if(wateringCan.isAnimating){
+                                    val rect1 = Rect(wateringCan.left, wateringCan.top, wateringCan.right, wateringCan.bottom)
+                                    val rect2 = Rect(treeImg.left, treeImg.top, treeImg.right, treeImg.bottom)
 
-                                val rect1 =
-                                    Rect(wateringCan.left, wateringCan.top, wateringCan.right, wateringCan.bottom)
-                                val rect2 = Rect(treeImg.left, treeImg.top, treeImg.right, treeImg.bottom)
+                                    //aumento il numero di passi totali ogni secondo che l'albero viene annaffiato
 
-                                //aumento il numero di passi totali ogni secondo che l'albero viene annaffiato
+                                    if (rect1.intersect(rect2)) {
+                                        totalSteps+=75
+                                        stepsUpdated=true
+                                    }
 
-                                if (rect1.intersect(rect2)) {
-                                    totalSteps++
-                                    stepsUpdated=true
+                                    if(waterLiters>0) {
+                                        waterLiters--
+                                        wateringCanText.text = "${waterLiters}L"
+                                    }
+
+                                    requireContext().getSharedPreferences("trackingPrefs",Context.MODE_PRIVATE)
+                                        .edit()
+                                        .putInt("waterLiters",waterLiters).apply()
+
+                                    if(waterLiters==0&&wateringCan.speed>0){
+                                        wateringCan.setMinFrame(0)
+                                        wateringCan.speed=-wateringCan.speed
+
+                                        Toast.makeText(requireContext(),"Acqua finita!",Toast.LENGTH_LONG).show()
+
+                                        wateringCan.removeAllUpdateListeners()
+                                    }
                                 }
-                            }.start()
+                            },sleepTime)
                         }
                     }
                 }
@@ -241,15 +299,18 @@ class GrowingTreeFragment : Fragment() {
                 wateringCan.cancelAnimation()
                 wateringCan.setMinFrame(0)
                 wateringCan.progress=0F
-                wateringCan.animate()
+                wateringCanBox.animate()
                     .translationY(0F)
                     .translationX(0F)
+
+                binding.wateringCanText.visibility=View.INVISIBLE
                 return true
             }
         }
         return true
     }
 
+    //funzione che genera i frutti
     fun spawnFruits(){
         val dp=resources.displayMetrics.density
         val fruitsContainer=binding.fruitsContainer
@@ -293,15 +354,19 @@ class GrowingTreeFragment : Fragment() {
             }
         }
     }
-
+    //metodo per creare l'imageView di un frutto
     fun createFruitView(x:Float,y:Float,width:Int,height:Int,imgNumber:Int){
-        val newFruit=ImageView(requireContext())
-        newFruit.x=x
-        newFruit.y=y
-        newFruit.layoutParams.width=width
-        newFruit.layoutParams.height=height
-        val imgUri=resources.getIdentifier(fruitResId+imgNumber,null,requireActivity().packageName)
-        newFruit.setImageDrawable(ResourcesCompat.getDrawable(resources,imgUri,null))
-        binding.fruitsContainer.addView(newFruit)
+        requireActivity().runOnUiThread {
+            val newFruit = ImageView(requireContext())
+            binding.fruitsContainer.addView(newFruit)
+            newFruit.x = x
+            newFruit.y = y
+            newFruit.layoutParams.width = width
+            newFruit.layoutParams.height = height
+            print(fruitResId+imgNumber)
+            val imgUri =
+                resources.getIdentifier(fruitResId + imgNumber, null, requireActivity().packageName)
+            newFruit.setImageDrawable(ResourcesCompat.getDrawable(resources, imgUri, null))
+        }
     }
 }

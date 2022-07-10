@@ -32,7 +32,7 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
     private var score=0
     private var gameRunning=false
     private var firstStart=true
-    private val defaultSpeed=2500L
+    private val defaultSpeed=2430L
     private val minimumSpeed=1850L
     private val spawnDelay=2000L
     private val minimumSpawnDelay=900L
