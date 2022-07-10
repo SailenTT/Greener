@@ -55,6 +55,10 @@ class FoodTracking : Fragment() {
 
         btnNextFT = binding.btnNextFT
 
+        binding.btnBackFT.setOnClickListener{
+            findNavController().navigateUp()
+        }
+
         checkMeatPlus.setOnClickListener {
             if (checkMeatPlus.isChecked) {
                 //se la checkbox è selezionata salvo in whoIsChecked (0 la prima, ..., 5 l'ultima)

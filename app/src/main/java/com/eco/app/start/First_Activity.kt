@@ -2,13 +2,10 @@ package com.eco.app.start
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.eco.app.HomeWindow
-import com.eco.app.profile.LoginPage
 import com.eco.app.R
-import com.eco.app.profile.RegisterPage
 import com.eco.app.databinding.ActivityFirstBinding
 
 class First_Activity : AppCompatActivity() {

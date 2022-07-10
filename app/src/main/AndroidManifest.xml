@@ -31,10 +31,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".start.DebugActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".HomeWindow"
             android:exported="false"
             android:screenOrientation="portrait"/>
@@ -46,14 +42,6 @@
             android:name="com.facebook.sdk.ClientToken"
             android:value="@string/facebook_client_token" />
 
-        <activity
-            android:name=".profile.RegisterPage"
-            android:exported="false"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".profile.LoginPage"
-            android:exported="false"
-            android:screenOrientation="portrait"/>
         <activity
             android:name=".start.MainActivity"
             android:configChanges="orientation"

@@ -19,8 +19,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
+import com.eco.app.R
 import com.eco.app.databinding.FragmentGrowingTreeBinding
 import com.google.android.material.transition.MaterialContainerTransform
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import kotlin.random.Random
 
 class GrowingTreeFragment : Fragment() {
     private lateinit var binding: FragmentGrowingTreeBinding
@@ -29,26 +35,20 @@ class GrowingTreeFragment : Fragment() {
     private var startX: Float = 0F
     private var startY: Float = 0F
     private var totalSteps : Long=0
-    private val minFrame=23
+    private val canMinFrame=23
     private var stepsUpdated=false
-    private val fruitsList= listOf<Array<Any>>()
-    private
+    private val fruitsMaxResIndex=5
+    private val fruitMaxNumber=9
+    private val fruitMinNumber=5
+    private val fruitsList= listOf<ImageView>()
+    private val fruitHeight=78
+    private val fruitWidth=65
+    private var fruitPoints: Int=0
+    private val fruitResId="@drawable/tree_fruit_"
+    private var dbScoreReference:DatabaseReference?=null
     companion object{
         const val treeImgPrefix="growing_tree_frame_"
         val stepsLevels= listOf(0L,5000L,10000L,15000L,20000L,25000L,30000L,35000L,40000L,45000L,50000L,55000L,60000L,65000L)
-        /*private val STEPS_LEVEL_1=4615
-        private val STEPS_LEVEL_2=9230
-        private val STEPS_LEVEL_3=13845
-        private val STEPS_LEVEL_4=18460
-        private val STEPS_LEVEL_5=23075
-        private val STEPS_LEVEL_6=27690
-        private val STEPS_LEVEL_7=32305
-        private val STEPS_LEVEL_8=36920
-        private val STEPS_LEVEL_9=41535
-        private val STEPS_LEVEL_10=46150
-        private val STEPS_LEVEL_11=50765
-        private val STEPS_LEVEL_12=55380
-        private val STEPS_LEVEL_13=60000*/
     }
 
     //TODO salvare il progresso di questo gioco nel db di firebase
@@ -90,7 +90,7 @@ class GrowingTreeFragment : Fragment() {
             override fun onAnimationRepeat(animation: Animator?) {}
 
             override fun onAnimationEnd(animation: Animator?) {
-                wateringCan.setMinFrame(minFrame)
+                wateringCan.setMinFrame(canMinFrame)
                 wateringCan.progress = 0F
                 wateringCan.playAnimation()
             }
@@ -102,6 +102,18 @@ class GrowingTreeFragment : Fragment() {
 
         wateringCan.setOnTouchListener { v, event ->touchListener(v,event)  }
 
+        //controllo se l'utente è loggato
+
+        if(Firebase.auth.currentUser!=null){
+            dbScoreReference=Firebase.database(getString(R.string.path_to_db))
+                .getReference("Users")
+                .child(Firebase.auth.currentUser!!.uid)
+                .child("growing_tree")
+
+            dbScoreReference?.get()?.addOnSuccessListener {dataSnapshot->
+                fruitPoints=dataSnapshot.value as Int
+            }
+        }
 
         startStepService()
 
@@ -123,6 +135,28 @@ class GrowingTreeFragment : Fragment() {
             totalSteps=stepsLevels[stepsLevels.size-1]
             requireContext().getSharedPreferences("trackingPrefs",Context.MODE_PRIVATE).edit()
                 .putLong("steps",totalSteps).commit()
+            spawnFruits()
+
+            treeImg.setOnClickListener {
+                for(fruit in fruitsList){
+                    val newX=binding.fruitsContainer.x+fruit.x
+                    val newY=binding.fruitsContainer.y+fruit.y
+                    binding.fruitsContainer.removeView(fruit)
+                    binding.root.addView(fruit)
+                    fruit.x=newX
+                    fruit.y=newY
+                    fruit.animate()
+                        .translationY(0F)
+                        .duration=1000
+                }
+                fruitPoints+=fruitsList.size
+
+                dbScoreReference?.setValue(fruitPoints)
+
+
+                treeImg.setOnClickListener(null)
+            }
+
         }
         else{
             //uso la ricerca binario per trovare il frame dell'albero
@@ -195,12 +229,14 @@ class GrowingTreeFragment : Fragment() {
             MotionEvent.ACTION_UP-> {
                 //resetto la posizione dell'oggetto
                 wateringCan.removeAllUpdateListeners()
-                //se i passi sono aumentati perché l'utente ha annaffiato l'albero, li salvo nelle shared prefs
+                //se i passi sono aumentati perché l'utente ha annaffiato l'albero,
+                // li salvo nelle shared prefs e resetto l'albero (perché potrebbe essere cresciuto)
                 if(stepsUpdated) {
                     requireContext().getSharedPreferences("trackingPrefs", Context.MODE_PRIVATE)
                         .edit()
                         .putLong("steps", totalSteps).commit()
                     stepsUpdated=false
+                    setTree()
                 }
                 wateringCan.cancelAnimation()
                 wateringCan.setMinFrame(0)
@@ -212,5 +248,60 @@ class GrowingTreeFragment : Fragment() {
             }
         }
         return true
+    }
+
+    fun spawnFruits(){
+        val dp=resources.displayMetrics.density
+        val fruitsContainer=binding.fruitsContainer
+        val fruitsShPrefs=requireContext().getSharedPreferences("growingTreeFruits",Context.MODE_PRIVATE)
+
+        var currentFruitX=fruitsShPrefs.getFloat("fruit0X",0F)
+        //controllo se esiste già almeno un frutto nelle shared
+        //in caso contrario faccio partire l'algoritmo di spawn dei frutti
+        if(currentFruitX==0F){
+            for(i in 0..fruitMinNumber+Random(fruitMaxNumber-fruitMinNumber).nextInt()){
+                val newFruit=ImageView(requireContext())
+                val x=Random(fruitsContainer.width-newFruit.width).nextFloat()
+                val y=Random(fruitsContainer.height-newFruit.height).nextFloat()
+                val width=(fruitWidth*dp).toInt()
+                val height=(fruitHeight*dp).toInt()
+                val imgNumber=Random(fruitsMaxResIndex).nextInt()
+
+                createFruitView(x,y,width,height,imgNumber)
+
+                fruitsShPrefs.edit()
+                    .putFloat("fruit${i}X",x)
+                    .putFloat("fruit${i}Y",y)
+                    .putInt("fruit${i}W",width)
+                    .putInt("fruit${i}H",height)
+                    .commit()
+            }
+        }
+        else{
+            var i=0
+
+            while(currentFruitX!=0F){
+                val y=fruitsShPrefs.getFloat("fruit${i}Y",0F)
+                val width=fruitsShPrefs.getInt("fruit${i}W",0)
+                val height=fruitsShPrefs.getInt("fruit${i}H",0)
+                val imgNumber=fruitsShPrefs.getInt("fruit${i}Img",0)
+
+                createFruitView(currentFruitX,y,width,height,imgNumber)
+
+                i++
+                currentFruitX=fruitsShPrefs.getFloat("fruit{$i}X",0F)
+            }
+        }
+    }
+
+    fun createFruitView(x:Float,y:Float,width:Int,height:Int,imgNumber:Int){
+        val newFruit=ImageView(requireContext())
+        newFruit.x=x
+        newFruit.y=y
+        newFruit.layoutParams.width=width
+        newFruit.layoutParams.height=height
+        val imgUri=resources.getIdentifier(fruitResId+imgNumber,null,requireActivity().packageName)
+        newFruit.setImageDrawable(ResourcesCompat.getDrawable(resources,imgUri,null))
+        binding.fruitsContainer.addView(newFruit)
     }
 }

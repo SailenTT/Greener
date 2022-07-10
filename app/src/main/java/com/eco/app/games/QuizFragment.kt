@@ -12,8 +12,8 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.eco.app.R
 import com.eco.app.databinding.FragmentQuizBinding
-import com.eco.app.profile.RegisterPage
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -60,7 +60,7 @@ class QuizFragment : Fragment() {
         binding = FragmentQuizBinding.inflate(inflater, container, false)
         binding.quizShimmer.startShimmer()
         database =
-            Firebase.database(RegisterPage.PATHTODB)
+            Firebase.database(getString(R.string.path_to_db))
         auth = FirebaseAuth.getInstance()
 
         //getto i button in un array per comodità

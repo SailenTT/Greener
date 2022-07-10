@@ -62,6 +62,10 @@ class YourFlights : Fragment() {
 
         btnNextYF = binding.btnNextYF
 
+        binding.btnBackYF.setOnClickListener{
+            findNavController().navigateUp()
+        }
+
         //Listener dei btn per la sezione "VOLI"
         btnminusShort.setOnClickListener {
             ticketShort--

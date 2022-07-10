@@ -4,17 +4,11 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.inflate
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import android.widget.TimePicker
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.eco.app.R
-import com.eco.app.databinding.ActivityDebugBinding.inflate
-import com.eco.app.databinding.ActivityFirstBinding.inflate
-import com.eco.app.databinding.FragmentCalculatorBinding
 import com.eco.app.databinding.FragmentJourneyTimeBinding
 
 class JourneyTime : Fragment() {
@@ -39,6 +33,10 @@ class JourneyTime : Fragment() {
         timePick.setIs24HourView(true)
         timePick.hour = 0
         timePick.minute = 0
+
+        binding.btnBackJT.setOnClickListener{
+            findNavController().navigateUp()
+        }
 
         btnNextJT.setOnClickListener {
             var sum = calcola()

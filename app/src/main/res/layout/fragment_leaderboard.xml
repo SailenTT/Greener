@@ -10,7 +10,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
         android:layout_marginBottom="8dp"
         android:paddingBottom="6dp"
         android:background="@drawable/txb_background"
@@ -41,27 +40,29 @@
             android:paddingTop="21dp"
             android:paddingBottom="18.5dp"/>
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/leaderboard_shimmer"
+            android:layout_below="@id/top_img"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:animateLayoutChanges="true"
             app:shimmer_auto_start="true"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="7dp"
+            android:paddingStart="19dp"
+            android:paddingEnd="19dp"
+            android:paddingTop="21dp"
+            android:paddingBottom="18.5dp"
             app:shimmer_duration="700"
             app:shimmer_repeat_mode="restart">
 
             <include layout="@layout/leaderboard_placeholder_screen" />
         </com.facebook.shimmer.ShimmerFrameLayout>
+
     </RelativeLayout>
 
 </RelativeLayout>
