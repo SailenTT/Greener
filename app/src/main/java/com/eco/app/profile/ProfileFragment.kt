@@ -10,6 +10,8 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.InputType
 import android.text.method.HideReturnsTransformationMethod
 import android.util.Log
@@ -22,6 +24,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.eco.app.HomeWindow
 import com.eco.app.R
 import com.eco.app.databinding.FragmentProfileBinding
@@ -46,6 +49,7 @@ class ProfileFragment : Fragment() {
     private lateinit var UID : String
     private var loadedProfileLayout: ScrollView?=null
     private lateinit var propic: ImageView
+    private lateinit var tv_username: TextView
     private lateinit var deleteAccountButton : Button
     private var firstInfoLoaded=false
     private var quizGameScore=0L
@@ -207,11 +211,17 @@ class ProfileFragment : Fragment() {
         binding.profileShimmer.visibility = View.INVISIBLE
 
         loadedProfileLayout=binding.profilePageStub.inflate() as ScrollView
+
         propic = loadedProfileLayout!!.findViewById(R.id.img_profile)
         propic.setImageBitmap(profileImg)
         propic.setOnClickListener {
             checkPermissionForImage()
         }
+        tv_username = loadedProfileLayout!!.findViewById(R.id.tv_nickname)
+        tv_username.setOnClickListener {
+            changeUsernameDialog()
+        }
+
         deleteAccountButton = loadedProfileLayout!!.findViewById<Button>(R.id.btn_delete_account)
         deleteAccountButton.setOnClickListener {
             deleteDialog()
@@ -238,6 +248,50 @@ class ProfileFragment : Fragment() {
 
 
 
+    }
+
+    private fun changeUsernameDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        with(alertDialogBuilder){
+            setTitle("Modifica username")
+            setMessage("Vuoi cambiare username?")
+            setPositiveButton("Si"){dialogInterface,_->
+                changeUsername()
+            }
+            setNegativeButton("No"){dialogInterface,_->
+                dialogInterface.dismiss()
+            }
+            show()
+        }
+    }
+
+    private fun changeUsername() {
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        with(alertDialogBuilder) {
+            setTitle("Inserisci il nuovo username")
+        }
+        val input = EditText(requireContext())
+        with(input) {
+            setHint("Username")
+            inputType = InputType.TYPE_CLASS_TEXT
+        }
+        alertDialogBuilder.setView(input)
+
+        alertDialogBuilder.setPositiveButton("Ok"){dialogInterface,_->
+            val newUsername = input.text.toString()
+            val uid = auth.uid!!
+            usersReference.child(uid).child("username").setValue(newUsername).addOnSuccessListener {
+                Toast.makeText(requireContext(), "Username aggiornato correttamente", Toast.LENGTH_SHORT).show()
+                tv_username.setText(newUsername)
+                tv_username.invalidate()
+            }.addOnFailureListener{
+                Toast.makeText(requireContext(), "Errore dal server", Toast.LENGTH_SHORT).show()
+            }
+        }
+        alertDialogBuilder.setNegativeButton("Cancella"){dialogInterface,_->
+            dialogInterface.dismiss()
+        }
+        alertDialogBuilder.show()
     }
 
     private fun deleteDialog(){
