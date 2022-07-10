@@ -1,5 +1,6 @@
 package com.eco.app.profile
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Intent
@@ -48,7 +49,6 @@ class LoginFragment : Fragment() {
     private lateinit var progressBar: ProgressBar
     private lateinit var loginPageContainer: RelativeLayout
     private val REQ_ONE_TAP = 2
-    private var showOneTapUI = true
     var permissionNeeds: List<String> =
         Arrays.asList( "email", "user_birthday", "user_friends")
 
@@ -246,16 +246,7 @@ class LoginFragment : Fragment() {
                                 val firstName = fbObject?.getString("first_name")
                                 val email =fbObject?.getString("email")
 
-                                val usersReference = database.getReference("Users")
-                                usersReference.child(userid).child("username")
-                                    .setValue(firstName.toString())
-                                usersReference.child(userid).child("quiz_score").setValue(0)
-                                usersReference.child(userid).child("bin_score").setValue(0)
-                                usersReference.child(userid).child("carbon_footprint").setValue(0)
-                                usersReference.child(userid).child("divide_score").setValue(0)
-                                usersReference.child(userid).child("growing_tree").setValue(0)
-                                usersReference.child(userid).child("email").setValue(email)
-                                uploadToStorageDefaultProfilePic(userid)
+                                createUserData(userid, firstName, email)
                             } catch (e: JSONException) {
                                 e.printStackTrace()
                             }
@@ -301,8 +292,21 @@ class LoginFragment : Fragment() {
                                 if (task.isSuccessful) {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(ContentValues.TAG, "signInWithCredential:success")
-                                    val user = auth.currentUser
-                                    //Toast.makeText(requireContext(), "Login Effettuato", Toast.LENGTH_SHORT).show()
+
+                                    //se lo uid dell'utente non esiste, vuol dire che si è appena registrato
+                                    //quindi setto le credenziali base dell'utente
+                                    val dbReference= FirebaseDatabase.getInstance(getString(R.string.path_to_db)).getReference("Users").child(auth.currentUser!!.uid)
+
+                                    dbReference.get().addOnCompleteListener(requireActivity()) { task->
+                                        if(!task.result.exists()) {
+                                            createUserData(
+                                                auth.currentUser!!.uid,
+                                                auth.currentUser!!.displayName,
+                                                auth.currentUser!!.email
+                                            )
+                                        }
+                                    }
+
                                     goBackToHomepage()
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -339,15 +343,29 @@ class LoginFragment : Fragment() {
         findNavController().popBackStack()
         //findNavController().navigate(LoginFragmentDirections.actionFromLoginBackToHome())
     }
+
     fun uploadToStorageDefaultProfilePic(UID : String){
-        val uri = Uri.parse("android.resource://" + requireContext().packageName.toString() + "/drawable/default_propic")
+        val uri = Uri.parse("android.resource://com.eco.app/drawable/default_propic")
         val filename = UID
         val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
         storageReference.putFile(uri).addOnSuccessListener {
            // Toast.makeText(context, "Foto uppata", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener{
-            Toast.makeText(context, "Errore con la foto", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Errore con la foto", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun createUserData(userid : String, firstName : String?, email : String?){
+        val usersReference = database.getReference("Users")
+        usersReference.child(userid).child("username")
+            .setValue(firstName.toString())
+        usersReference.child(userid).child("quiz_score").setValue(0)
+        usersReference.child(userid).child("bin_score").setValue(0)
+        usersReference.child(userid).child("carbon_footprint").setValue(0)
+        usersReference.child(userid).child("divide_score").setValue(0)
+        usersReference.child(userid).child("growing_tree").setValue(0)
+        usersReference.child(userid).child("email").setValue(email)
+        uploadToStorageDefaultProfilePic(userid)
     }
 
 
