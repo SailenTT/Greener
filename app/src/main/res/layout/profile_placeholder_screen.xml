@@ -3,42 +3,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/top_img_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="195dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile_banner" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/top_img_placeholder"
+            android:background="#E6E8FF" />
+
+    </RelativeLayout>
+
     <ImageView
         android:id="@+id/propic_placeholder"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="185dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp"
-        android:background="@color/placeholder_grey"
-        />
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:background="@color/placeholder_grey" />
 
     <LinearLayout
         android:id="@+id/linearlayout_profile_placeholder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/propic_placeholder"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="15dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/username_placeholder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:background="@color/placeholder_grey"
-
             />
 
         <TextView
             android:id="@+id/quiz_placeholder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
             android:background="@color/placeholder_grey"
 
             />
@@ -46,8 +65,8 @@
         <TextView
             android:id="@+id/bin_placeholder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="34dp"
             android:background="@color/placeholder_grey"
 
             />
@@ -55,8 +74,43 @@
         <TextView
             android:id="@+id/carbon_placeholder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/placeholder_grey" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/placeholder_grey" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/placeholder_grey" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/placeholder_grey" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/placeholder_grey" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/placeholder_grey" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="31dp"
             android:background="@color/placeholder_grey" />
 
     </LinearLayout>

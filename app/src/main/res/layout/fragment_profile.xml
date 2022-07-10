@@ -8,6 +8,7 @@
 
     <!-- Metto un view stub per fare in modo che il l'inflate del profilo
     non ancora visibile venga posticipato-->
+    
     <ViewStub
         android:id="@+id/profile_page_stub"
         android:layout_width="match_parent"
