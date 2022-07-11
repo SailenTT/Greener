@@ -2,7 +2,9 @@ package com.eco.app.profile
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -100,7 +102,27 @@ class LeaderboardFragment : Fragment(), LeaderboardAdapter.OnItemClicked {
 
                     }.addOnFailureListener {
                         firstInfoLoaded=true
-                        Toast.makeText(context, "Errore nella propic", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(context, "Errore nella propic", Toast.LENGTH_SHORT).show()
+                        val uri = Uri.parse("android.resource://com.eco.app/drawable/default_propic")
+                        profileImg = MediaStore.Images.Media.getBitmap(requireContext().contentResolver,uri)
+
+                        val leaderboardrow = LeaderBoardRow(profileImg!!,pos,usernameList[pos-1],scoreList[pos-1])
+                        array.add(leaderboardrow)
+                        pos++
+                        //verifico se è l'ultima immagine della lista
+                        if(pos>snapshot.children.count()){
+                            sortArray(array)
+                            val recyclerview = binding.leaderboardRecycler
+                            recyclerview.layoutManager = LinearLayoutManager(requireContext())
+                            //riempio la recycler
+                            val adapter = LeaderboardAdapter(array,this@LeaderboardFragment)
+                            recyclerview.adapter = adapter
+                            if(binding.leaderboardShimmer.isShimmerStarted){
+                                binding.leaderboardShimmer.stopShimmer()
+                                binding.leaderboardShimmer.visibility = View.INVISIBLE
+                                //binding.leaderboardRelativelayout.visibility = View.VISIBLE
+                            }
+                        }
                     }
 
                     /*if(firstInfoLoaded) {
