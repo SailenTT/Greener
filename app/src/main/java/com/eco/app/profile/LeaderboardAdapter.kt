@@ -36,11 +36,13 @@ class LeaderboardAdapter(private val dataSet: ArrayList<LeaderBoardRow>, private
         var bin_score = binding.leadBin
 
          */
+        var profileImg = binding.leaderboardProfileImg
         var position = binding.tvLeadPosition
         var username = binding.tvUsername
         var score = binding.tvScoreLeaderboard
         var propic = binding.leaderboardProfileImg
         fun initialize(item : LeaderBoardRow, action: OnItemClicked, lastElement: Boolean){
+            profileImg.setImageBitmap(item.imgBitmap)
             position.text = item.position.toString()+" "
             username.text = item.username+" "
             score.text = item.score.toString()+" "

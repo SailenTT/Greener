@@ -3,12 +3,10 @@ package com.eco.app.profile
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eco.app.R
@@ -21,12 +19,15 @@ import java.io.File
 
 
 class LeaderboardFragment : Fragment(), LeaderboardAdapter.OnItemClicked {
-    private var profileImg: Bitmap? = null
     private var arrayList = ArrayList<String>()
     private lateinit var binding: FragmentLeaderboardBinding
     private lateinit var database: FirebaseDatabase
     private lateinit var userReference: DatabaseReference
     private lateinit var getUsersDataListener: ValueEventListener
+    private var firstInfoLoaded=false
+    private var scoreList  = mutableListOf<Int>()
+    private var usernameList  = mutableListOf<String>()
+
 
 
     override fun onCreateView(
@@ -62,37 +63,54 @@ class LeaderboardFragment : Fragment(), LeaderboardAdapter.OnItemClicked {
                 for (i in snapshot.children){
                     //SCARICO PROPICS
                     val uid = i.key!!
+                    val localfile = File.createTempFile("leaderboardImage$i", "jpg")
+                    val storageRef = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$uid")
+
+                    var profileImg : Bitmap?
+
                     arrayList.add(uid)
-                    Log.d("WANZA", uid)
                     val quizScore = i.child("quiz_score").getValue(Long::class.java)!!.toInt()
                     val trashScore = i.child("bin_score").getValue(Long::class.java)!!.toInt()
                     val divideScore = i.child("divide_score").getValue(Long::class.java)!!.toInt()
                     val carbonFoot = i.child("carbon_footprint").getValue(Long::class.java)!!.toInt()
-                    val score = quizScore+trashScore+divideScore+carbonFoot
-                    val username = i.child("username").getValue(String::class.java)!!
-                    val leaderboardrow = LeaderBoardRow(pos,username,score)
-                    pos++
-                    array.add(leaderboardrow)
-                }
-                sortArray(array)
-                val recyclerview = binding.leaderboardRecycler
-                recyclerview.layoutManager = LinearLayoutManager(requireContext())
-                //riempio la recycler
-                val adapter = LeaderboardAdapter(array,this@LeaderboardFragment)
-                recyclerview.adapter = adapter
+                    scoreList.add(quizScore+trashScore+divideScore+carbonFoot)
+                    usernameList .add(i.child("username").getValue(String::class.java)!!)
 
-                /* Questa roba non va perché andrebbe usato un listener :// vedere se ne vale la pena
-                //uso il post per fare in modo che il codice venga eseguito una volta che la recycler è stata riempita
-                //altrimenti potrei ottenere un null pointer
-                recyclerview.post {
-                    //prendo l'ultimo elemento nell'adapter view e gli tolgo il margin bottom
-                    val lastItem = recyclerview.getChildAt(adapter.itemCount - 1)
-                    (lastItem.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin = 0
-                }*/
-                if(binding.leaderboardShimmer.isShimmerStarted){
-                    binding.leaderboardShimmer.stopShimmer()
-                    binding.leaderboardShimmer.visibility = View.INVISIBLE
-                    //binding.leaderboardRelativelayout.visibility = View.VISIBLE
+                    storageRef.getFile(localfile).addOnSuccessListener {
+                        val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                        profileImg = Bitmap.createScaledBitmap(bitmap, 400, 400, true)
+
+                        val leaderboardrow = LeaderBoardRow(profileImg!!,pos,usernameList[pos-1],scoreList[pos-1])
+                        array.add(leaderboardrow)
+                        pos++
+                        //verifico se è l'ultima immagine della lista
+                        if(pos>snapshot.children.count()){
+                            sortArray(array)
+                            val recyclerview = binding.leaderboardRecycler
+                            recyclerview.layoutManager = LinearLayoutManager(requireContext())
+                            //riempio la recycler
+                            val adapter = LeaderboardAdapter(array,this@LeaderboardFragment)
+                            recyclerview.adapter = adapter
+                            if(binding.leaderboardShimmer.isShimmerStarted){
+                                binding.leaderboardShimmer.stopShimmer()
+                                binding.leaderboardShimmer.visibility = View.INVISIBLE
+                                //binding.leaderboardRelativelayout.visibility = View.VISIBLE
+                            }
+                        }
+
+                    }.addOnFailureListener {
+                        firstInfoLoaded=true
+                        Toast.makeText(context, "Errore nella propic", Toast.LENGTH_SHORT).show()
+                    }
+
+                    /*if(firstInfoLoaded) {
+                        val leaderboardrow = LeaderBoardRow(profileImg!!,pos,username,score)
+                        array.add(leaderboardrow)
+                        firstInfoLoaded=false
+                    }
+                    else{
+                        firstInfoLoaded=true
+                    }*/
                 }
             }
 
@@ -103,20 +121,6 @@ class LeaderboardFragment : Fragment(), LeaderboardAdapter.OnItemClicked {
         })
 
 
-    }
-
-    private fun downloadPropics(uid : String){
-        val filename = uid
-        val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com")
-            .getReference("propics/$filename")
-        val localfile = File.createTempFile("tempImage", "jpg")
-        storageReference.getFile(localfile).addOnSuccessListener {
-            //val resized = decodeUri(requireContext(),Uri.fromFile(localfile),230)
-            val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-            profileImg = Bitmap.createScaledBitmap(bitmap, 56, 56, true)
-        }.addOnFailureListener {
-            Toast.makeText(context, "Errore nella propic", Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun sortArray(array: ArrayList<LeaderBoardRow>) {

@@ -5,5 +5,5 @@ import android.widget.ImageView
 import com.google.android.material.imageview.ShapeableImageView
 
 //data class per le righe della leaderboard
-data class LeaderBoardRow(var position : Int, val username:String, val score:Int){
+data class LeaderBoardRow(var imgBitmap: Bitmap,var position : Int, val username:String, val score:Int){
 }

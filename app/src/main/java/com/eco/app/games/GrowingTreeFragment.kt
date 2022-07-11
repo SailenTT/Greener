@@ -47,8 +47,8 @@ class GrowingTreeFragment : Fragment() {
     private val fruitMaxNumber=9
     private val fruitMinNumber=5
     private val fruitsList= mutableListOf<ImageView>()
-    private val fruitHeight=78
-    private val fruitWidth=65
+    private val fruitHeight=71
+    private val fruitWidth=58
     private lateinit var fruitsShPrefs: SharedPreferences
     private var shop: RelativeLayout?=null
     private lateinit var wateringCanText:TextView
