@@ -3,15 +3,16 @@ package com.eco.app.profile
 import android.Manifest
 import android.app.Activity
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.provider.MediaStore
 import android.text.InputType
 import android.text.method.HideReturnsTransformationMethod
 import android.util.Log
@@ -24,12 +25,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.eco.app.HomeWindow
 import com.eco.app.R
 import com.eco.app.databinding.FragmentProfileBinding
 import com.facebook.AccessToken
-import com.facebook.internal.instrument.InstrumentData
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -62,6 +61,7 @@ class ProfileFragment : Fragment() {
     private var leaderboardPosition=0
     private lateinit var profileImg:Bitmap
     private lateinit var usersReference : DatabaseReference
+    private var loadDefault = false
 
     //Upload foto
     //CONTRATTI
@@ -126,7 +126,7 @@ class ProfileFragment : Fragment() {
         return BitmapFactory.decodeStream(uri?.let { c.getContentResolver().openInputStream(it) }, null, o2)
     }
 
-    private fun getInfos(usersReference: DatabaseReference, UID: String) {
+    private fun getInfos(usersReference: DatabaseReference, UID: String) { //todo se non ho img settare quella default
         if (auth.currentUser != null) {
             val filename = UID
             val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com")
@@ -136,6 +136,7 @@ class ProfileFragment : Fragment() {
                 //val resized = decodeUri(requireContext(),Uri.fromFile(localfile),230)
                 val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
                 profileImg = Bitmap.createScaledBitmap(bitmap, 400, 400, true)
+                loadDefault=false
                 Log.d("QUERY_GETINFO","IMG PRESA")
                 if(firstInfoLoaded){
                     setUserData()
@@ -146,7 +147,9 @@ class ProfileFragment : Fragment() {
 
             }.addOnFailureListener {
                 firstInfoLoaded=true
-                Toast.makeText(context, "Errore nella propic", Toast.LENGTH_SHORT).show()
+                loadDefault=true
+                setUserData()
+
             }
 
             usersReference.child(UID).get().addOnSuccessListener {
@@ -212,12 +215,17 @@ class ProfileFragment : Fragment() {
         binding.profileShimmer.visibility = View.INVISIBLE
 
         loadedProfileLayout=binding.profilePageStub.inflate() as ScrollView
-
         propic = loadedProfileLayout!!.findViewById(R.id.img_profile)
-        propic.setImageBitmap(profileImg)
-        propic.setOnClickListener {
-            checkPermissionForImage()
+        if(!loadDefault){
+            propic.setImageBitmap(profileImg)
+            propic.setOnClickListener {
+                checkPermissionForImage()
+            }
+        }else{
+            val uri = Uri.parse("android.resource://com.eco.app/drawable/default_propic")
+            propic.setImageURI(uri)
         }
+
         tv_username = loadedProfileLayout!!.findViewById(R.id.tv_nickname)
         tv_username.setOnClickListener {
             changeUsernameDialog()
@@ -316,7 +324,7 @@ class ProfileFragment : Fragment() {
         alertDialogBuilder.show()
     }
 
-    private fun deleteUser() {
+    private fun deleteUser() { //TODO FARE QUELLA DI GOOGLE
         val facebookToken = facebookAccessToken?.token
         if(facebookToken != null){
             val credential = FacebookAuthProvider.getCredential(facebookToken)

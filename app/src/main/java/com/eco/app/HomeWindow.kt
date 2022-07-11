@@ -3,6 +3,7 @@ package com.eco.app
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -210,7 +211,8 @@ class HomeWindow : AppCompatActivity() {
                 lottie.setImageBitmap(resized)
                 lottie.clipToOutline = true
             }.addOnFailureListener {
-                Toast.makeText(baseContext, "Errore nella propic", Toast.LENGTH_SHORT).show()
+                val uri = Uri.parse("android.resource://com.eco.app/drawable/default_propic")
+                lottie.setImageURI(uri)
             }
         }
         else{
