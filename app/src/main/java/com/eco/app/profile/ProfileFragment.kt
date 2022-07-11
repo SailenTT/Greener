@@ -136,7 +136,7 @@ class ProfileFragment : Fragment() {
                 //val resized = decodeUri(requireContext(),Uri.fromFile(localfile),230)
                 val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
                 profileImg = Bitmap.createScaledBitmap(bitmap, 400, 400, true)
-
+                Log.d("QUERY_GETINFO","IMG PRESA")
                 if(firstInfoLoaded){
                     setUserData()
                 }
@@ -160,6 +160,7 @@ class ProfileFragment : Fragment() {
 
                 if (firstInfoLoaded) {
                     setUserData()
+                    Log.d("QUERY_GETINFO","PRESO IL RESTO DEI DATI")
                     /*binding.tvName.text = username
                     binding.tvQuizscore.text = "Quiz score: $quizScore"
                     binding.tvTrashscore.text = "Trash bin score: $binScore"

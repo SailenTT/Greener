@@ -31,8 +31,7 @@ class ResultCalculator : Fragment() {
 
     private lateinit var binding: FragmentResultCalculatorBinding
 
-    private lateinit var  sharedPref : SharedPreferences
-    private lateinit var editor : SharedPreferences.Editor
+
 
     private lateinit var txt_showResult : TextView
     private lateinit var circleUtente : RelativeLayout
@@ -57,8 +56,6 @@ class ResultCalculator : Fragment() {
         txtinfoUtente = binding.txtInfoPER
         txtco2Utente = binding.co2Utente
 
-        sharedPref = activity?.getSharedPreferences(CalendarFragment.SHARED_PREFS, Context.MODE_PRIVATE)!!
-        editor = sharedPref.edit()
 
         calcola()
         txt_tipsUtente.text = tips[random]

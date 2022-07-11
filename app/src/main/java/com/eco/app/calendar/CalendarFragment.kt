@@ -300,7 +300,7 @@ class CalendarFragment : Fragment() {
         var rifiutoSabato : Spinner
         var rifiutoDomenica : Spinner
         var btnPopola : Button
-        var prova : TextView
+
 
         rifiutoLunedi = dialog!!.findViewById(R.id.spin_day1)
         rifiutoMartedi = dialog!!.findViewById(R.id.spin_day2)

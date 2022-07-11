@@ -1,24 +1,19 @@
 package com.eco.app.carbonfootprint
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.CheckBox
-import android.widget.TextView
-import android.widget.TimePicker
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.eco.app.databinding.FragmentCalculatorBinding
 import com.google.android.material.card.MaterialCardView
-import com.google.android.material.snackbar.Snackbar
 
 
 class CalculatorFragment : Fragment() {
 
-    var JourneyModeScore = 0 //variabile che tiene conto del punteggio dell'utente nella pagina "Journey Mode";
+    var journeyModeScore = 0 //variabile che tiene conto del punteggio dell'utente nella pagina "Journey Mode";
     //il punteggio va in base a che mezzo usa l'utente per muoversi, su una scala da 1 a 10. (0 non c'è perchè anche camminando un minimo si inquina)
     //1 = walk
     //3 = moto
@@ -56,60 +51,60 @@ class CalculatorFragment : Fragment() {
         cardAuto.setOnClickListener {
             if (cardAuto.isChecked == false) {
                 cardAuto.isChecked = true
-                JourneyModeScore += 5 //aggiorno valore dello score
+                journeyModeScore += 5 //aggiorno valore dello score
             } else {
                 cardAuto.isChecked = false
-                JourneyModeScore = 0 //nel caso tolga la spunta rimuovo il valore aggiunto
+                journeyModeScore = 0 //nel caso tolga la spunta rimuovo il valore aggiunto
             }
         }
 
         cardBus.setOnClickListener {
             if (cardBus.isChecked == false) {
                 cardBus.isChecked = true
-                JourneyModeScore += 8
+                journeyModeScore += 8
             } else {
                 cardBus.isChecked = false
-                JourneyModeScore = 0
+                journeyModeScore = 0
             }
         }
 
         cardTreno.setOnClickListener {
             if (cardTreno.isChecked == false) {
                 cardTreno.isChecked = true
-                JourneyModeScore += 10
+                journeyModeScore += 10
             } else {
                 cardTreno.isChecked = false
-                JourneyModeScore = 0
+                journeyModeScore = 0
             }
         }
 
         cardTaxi.setOnClickListener {
             if (cardTaxi.isChecked == false) {
                 cardTaxi.isChecked = true
-                JourneyModeScore += 5
+                journeyModeScore += 5
             } else {
                 cardTaxi.isChecked = false
-                JourneyModeScore = 0
+                journeyModeScore = 0
             }
         }
 
         cardMoto.setOnClickListener {
             if (cardMoto.isChecked == false) {
                 cardMoto.isChecked = true
-                JourneyModeScore += 3
+                journeyModeScore += 3
             } else {
                 cardMoto.isChecked = false
-                JourneyModeScore = 0
+                journeyModeScore = 0
             }
         }
 
         cardWalk.setOnClickListener {
             if (cardWalk.isChecked == false) {
                 cardWalk.isChecked = true
-                JourneyModeScore += 1
+                journeyModeScore += 1
             } else {
                 cardWalk.isChecked = false
-                JourneyModeScore = 0
+                journeyModeScore = 0
             }
         }
 
@@ -124,7 +119,7 @@ class CalculatorFragment : Fragment() {
     fun  calcolaCO2(): Float {
         var sumTotale : Float = 0.0F
 
-        sumTotale += JourneyModeScore
+        sumTotale += journeyModeScore
 
         return sumTotale
     }
