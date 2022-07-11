@@ -234,7 +234,7 @@
 
                 </RelativeLayout>
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/txt_leaderboard_position"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -250,14 +250,13 @@
                     android:padding="8dp"
                     android:text="Sei in posizione 24 nella leaderboard"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="20sp" />-->
 
-                <!-- TODO aggiungere script-->
                 <Button
                     android:id="@+id/btn_delete_account"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/txt_leaderboard_position"
+                    android:layout_below="@id/scores_container"
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="14dp"
                     android:layout_marginTop="26dp"

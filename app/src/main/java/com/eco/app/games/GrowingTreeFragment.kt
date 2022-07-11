@@ -4,13 +4,14 @@ import android.Manifest
 import android.animation.Animator
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Rect
-import android.media.Image
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -45,21 +46,22 @@ class GrowingTreeFragment : Fragment() {
     private val fruitsMaxResIndex=5
     private val fruitMaxNumber=9
     private val fruitMinNumber=5
-    private val fruitsList= listOf<ImageView>()
+    private val fruitsList= mutableListOf<ImageView>()
     private val fruitHeight=78
     private val fruitWidth=65
+    private lateinit var fruitsShPrefs: SharedPreferences
     private var shop: RelativeLayout?=null
     private lateinit var wateringCanText:TextView
     private lateinit var wateringCanBox: RelativeLayout
     private lateinit var moneyCount:TextView
     private var waterLiters: Int=0
     private var fruitPoints: Long=0
-    private val fruitResId="@drawable/tree_fruit_"
     private var dbScoreReference:DatabaseReference?=null
     private lateinit var shopItemsList: List<String>
     companion object{
         const val treeImgPrefix="growing_tree_frame_"
         val stepsLevels= listOf(0L,5000L,10000L,15000L,20000L,25000L,30000L,35000L,40000L,45000L,50000L,55000L,60000L,65000L)
+        const val fruitResId="@drawable/tree_fruit_"
     }
 
     //TODO salvare il progresso di questo gioco nel db di firebase
@@ -74,6 +76,8 @@ class GrowingTreeFragment : Fragment() {
         binding=FragmentGrowingTreeBinding.inflate(inflater,container,false)
 
         shopItemsList=listOf(getString(R.string.shop_item_0))
+
+        fruitsShPrefs=requireContext().getSharedPreferences("growingTreeFruits",Context.MODE_PRIVATE)
 
         return binding.root
     }
@@ -131,6 +135,8 @@ class GrowingTreeFragment : Fragment() {
             shop?.findViewById<ImageView>(R.id.img_close_shop)?.setOnClickListener {
                 shop?.visibility=View.GONE
             }
+
+            shop?.bringToFront()
         }
 
         moneyCount=binding.moneyCount
@@ -149,8 +155,6 @@ class GrowingTreeFragment : Fragment() {
         }
 
         startStepService()
-
-        //binding.totalSteps.text=totalSteps.toString()
 
         treeImg=binding.treeImageView
 
@@ -172,6 +176,7 @@ class GrowingTreeFragment : Fragment() {
         wateringCanText.text="${waterLiters}L"
 
         var tree_frame= 0
+
         if(totalSteps>= stepsLevels[stepsLevels.size-1]){
            tree_frame= stepsLevels.size-1
             totalSteps=stepsLevels[stepsLevels.size-2]
@@ -189,13 +194,26 @@ class GrowingTreeFragment : Fragment() {
                     fruit.x=newX
                     fruit.y=newY
                     fruit.animate()
-                        .translationY(0F)
-                        .duration=1000
+                        .translationY(binding.root.height.toFloat())
+                        .setDuration(1000)
+                        .withEndAction {
+                            binding.root.removeView(fruit)
+                            fruitsList.remove(fruit)
+                            fruitsShPrefs.edit()
+                                .remove("fruit${fruitsList.indexOf(fruit)}X")
+                                .remove("fruit${fruitsList.indexOf(fruit)}Y")
+                                .remove("fruit${fruitsList.indexOf(fruit)}W")
+                                .remove("fruit${fruitsList.indexOf(fruit)}H")
+                                .remove("fruit${fruitsList.indexOf(fruit)}Img")
+                                .apply()
+
+                            fruitPoints++
+
+                            if(fruitsList.indexOf(fruit)==fruitsList.size-1){
+                                dbScoreReference?.setValue(fruitPoints)
+                            }
+                        }
                 }
-                fruitPoints+=fruitsList.size
-
-                dbScoreReference?.setValue(fruitPoints)
-
 
                 treeImg.setOnClickListener(null)
             }
@@ -312,30 +330,33 @@ class GrowingTreeFragment : Fragment() {
 
     //funzione che genera i frutti
     fun spawnFruits(){
-        val dp=resources.displayMetrics.density
         val fruitsContainer=binding.fruitsContainer
-        val fruitsShPrefs=requireContext().getSharedPreferences("growingTreeFruits",Context.MODE_PRIVATE)
+        fruitsContainer.visibility=View.VISIBLE
 
         var currentFruitX=fruitsShPrefs.getFloat("fruit0X",0F)
         //controllo se esiste già almeno un frutto nelle shared
         //in caso contrario faccio partire l'algoritmo di spawn dei frutti
         if(currentFruitX==0F){
-            for(i in 0..fruitMinNumber+Random(fruitMaxNumber-fruitMinNumber).nextInt()){
-                val newFruit=ImageView(requireContext())
-                val x=Random(fruitsContainer.width-newFruit.width).nextFloat()
-                val y=Random(fruitsContainer.height-newFruit.height).nextFloat()
-                val width=(fruitWidth*dp).toInt()
-                val height=(fruitHeight*dp).toInt()
-                val imgNumber=Random(fruitsMaxResIndex).nextInt()
+            for(i in 0..fruitMinNumber+(Random.nextInt(fruitMaxNumber-fruitMinNumber))){
+                fruitsContainer.post {
+                    val dp=resources.displayMetrics.density
 
-                createFruitView(x,y,width,height,imgNumber)
+                    val width=(fruitWidth*dp).toInt()
+                    val height=(fruitHeight*dp).toInt()
+                    val x = 0.1F + Random.nextInt(fruitsContainer.width - width).toFloat()
+                    val y = Random.nextInt(fruitsContainer.height - height).toFloat()
+                    val imgNumber = Random.nextInt(fruitsMaxResIndex)
 
-                fruitsShPrefs.edit()
-                    .putFloat("fruit${i}X",x)
-                    .putFloat("fruit${i}Y",y)
-                    .putInt("fruit${i}W",width)
-                    .putInt("fruit${i}H",height)
-                    .commit()
+                    createFruitView(x, y, width, height, imgNumber)
+
+                    fruitsShPrefs.edit()
+                        .putFloat("fruit${i}X",x)
+                        .putFloat("fruit${i}Y",y)
+                        .putInt("fruit${i}W",width)
+                        .putInt("fruit${i}H",height)
+                        .putInt("fruit${i}Img",imgNumber)
+                        .apply()
+                }
             }
         }
         else{
@@ -353,20 +374,23 @@ class GrowingTreeFragment : Fragment() {
                 currentFruitX=fruitsShPrefs.getFloat("fruit{$i}X",0F)
             }
         }
+
+        fruitsContainer.bringToFront()
     }
     //metodo per creare l'imageView di un frutto
     fun createFruitView(x:Float,y:Float,width:Int,height:Int,imgNumber:Int){
-        requireActivity().runOnUiThread {
-            val newFruit = ImageView(requireContext())
-            binding.fruitsContainer.addView(newFruit)
-            newFruit.x = x
-            newFruit.y = y
-            newFruit.layoutParams.width = width
-            newFruit.layoutParams.height = height
-            print(fruitResId+imgNumber)
-            val imgUri =
-                resources.getIdentifier(fruitResId + imgNumber, null, requireActivity().packageName)
-            newFruit.setImageDrawable(ResourcesCompat.getDrawable(resources, imgUri, null))
-        }
+        val newFruit = ImageView(requireContext())
+        binding.fruitsContainer.addView(newFruit)
+        newFruit.x = x
+        newFruit.y = y
+        newFruit.layoutParams.width = width
+        newFruit.layoutParams.height = height
+        Log.d("fruitID",width.toString())
+        Log.d("fruitID",fruitResId+imgNumber)
+        val imgUri = resources.getIdentifier(fruitResId + imgNumber, null, requireActivity().packageName)
+        //val imgUri=resources.getIdentifier("@drawable/tree_frame_1",null,requireActivity().packageName)
+        newFruit.setImageDrawable(ResourcesCompat.getDrawable(resources, imgUri, null))
+
+        fruitsList.add(newFruit)
     }
 }

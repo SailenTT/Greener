@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.view.ViewOutlineProvider
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -69,45 +70,13 @@ class HomeWindow : AppCompatActivity() {
             override fun onDrawerStateChanged(newState: Int) {}
 
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-                val lottie=drawer.findViewById<LottieAnimationView>(R.id.lottie_stock_profile_animation)
-                if(Firebase.auth.currentUser!=null){ //se sei loggato, setta immagine nel drawer ( se la hai )
-                    val filename = Firebase.auth.currentUser!!.uid
-                    val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com")
-                        .getReference("propics/$filename")
-                    val localfile = File.createTempFile("tempImage", "jpg")
-                    storageReference.getFile(localfile).addOnSuccessListener {
-                        val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-                        val resized = Bitmap.createScaledBitmap(bitmap, 400, 400, true)
-                        lottie.setImageBitmap(resized)
-                        lottie.clipToOutline = true
-                    }.addOnFailureListener {
-                       // Toast.makeText(baseContext, "Errore nella propic", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                if(lottie.visibility==View.VISIBLE) {
-                    if(slideOffset>=0.75f&&!lottie.isAnimating){
-                        lottie.playAnimation()
-                    }
-                    else {
-                        lottie.progress = 0f
-                    }
-                }
+                drawerStateChanged()
             }
 
             override fun onDrawerClosed(drawerView: View) {}
 
             override fun onDrawerOpened(drawerView: View) {
-                val lottie=drawer.findViewById<LottieAnimationView>(R.id.lottie_stock_profile_animation)
-                if(lottie.visibility==View.VISIBLE){
-                    //resetto l'animazione
-                    //faccio fermare l'animazione quando arriva all'ultimo frame
-                    lottie.addAnimatorUpdateListener { animation ->
-                        if(animation.animatedFraction==0.99F){
-                            lottie.pauseAnimation()
-                        }
-                    }
-                    lottie.playAnimation()
-                }
+                drawerStateChanged()
             }
         })
 
@@ -225,6 +194,38 @@ class HomeWindow : AppCompatActivity() {
         appBarConfiguration= AppBarConfiguration(firstFragmentsList,drawer)
 
         setupActionBarWithNavController(navController,appBarConfiguration)
+    }
+
+    fun drawerStateChanged(){
+        val lottie=drawer.findViewById<LottieAnimationView>(R.id.lottie_stock_profile_animation)
+
+        if(Firebase.auth.currentUser!=null){ //se sei loggato, setta immagine nel drawer ( se la hai )
+            val filename = Firebase.auth.currentUser!!.uid
+            val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com")
+                .getReference("propics/$filename")
+            val localfile = File.createTempFile("tempImage", "jpg")
+            storageReference.getFile(localfile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                val resized = Bitmap.createScaledBitmap(bitmap, 400, 400, true)
+                lottie.setImageBitmap(resized)
+                lottie.clipToOutline = true
+            }.addOnFailureListener {
+                Toast.makeText(baseContext, "Errore nella propic", Toast.LENGTH_SHORT).show()
+            }
+        }
+        else{
+            if((!lottie.isAnimating)&&lottie.progress!=0.99F) {
+                lottie.setAnimation(R.raw.stock_profile_anim)
+                //resetto l'animazione
+                //faccio fermare l'animazione quando arriva all'ultimo frame
+                lottie.addAnimatorUpdateListener { animation ->
+                    if(animation.animatedFraction==0.99F){
+                        lottie.pauseAnimation()
+                    }
+                }
+                lottie.playAnimation()
+            }
+        }
     }
 }
 

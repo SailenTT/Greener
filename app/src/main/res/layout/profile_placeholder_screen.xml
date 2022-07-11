@@ -101,11 +101,11 @@
             android:layout_marginTop="7dp"
             android:background="@color/placeholder_grey" />
 
-        <TextView
+        <!--<TextView
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:layout_marginTop="40dp"
-            android:background="@color/placeholder_grey" />
+            android:background="@color/placeholder_grey"/>-->
 
         <TextView
             android:layout_width="match_parent"
