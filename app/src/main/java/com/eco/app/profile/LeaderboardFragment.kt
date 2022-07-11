@@ -2,6 +2,7 @@ package com.eco.app.profile
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -104,8 +105,8 @@ class LeaderboardFragment : Fragment(), LeaderboardAdapter.OnItemClicked {
                         firstInfoLoaded=true
                         //Toast.makeText(context, "Errore nella propic", Toast.LENGTH_SHORT).show()
                         val uri = Uri.parse("android.resource://com.eco.app/drawable/default_propic")
-                        profileImg = MediaStore.Images.Media.getBitmap(requireContext().contentResolver,uri)
-
+                        val bitmap_decoder = ImageDecoder.createSource(requireContext().contentResolver,uri)
+                        profileImg = ImageDecoder.decodeBitmap(bitmap_decoder)
                         val leaderboardrow = LeaderBoardRow(profileImg!!,pos,usernameList[pos-1],scoreList[pos-1])
                         array.add(leaderboardrow)
                         pos++
