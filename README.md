@@ -153,7 +153,7 @@ David Poletti - `Mat. 746597`
 
 <h4 align="center">Special Thanks to:</h4>
 <div align="center">
-<a href="https://instagram.com/seed.otee.art">Alessandro Lorenzo Enrico Sidoti</a> and Giorgio Rigiroli for drawing most of the graphics props
+<a href="https://instagram.com/seed.otee.art">Alessandro Lorenzo Enrico Sidoti</a> and <a href="https://giorigiroli.wixsite.com/website">Giorgio Rigiroli</a> for drawing most of the graphics props
 </div>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
