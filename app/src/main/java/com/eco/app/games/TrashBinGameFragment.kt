@@ -76,6 +76,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
         return binding.root
     }
 
+    //on touch del cestino
     override fun onTouch(view: View?, motion: MotionEvent?): Boolean {
         when(motion?.action){
             MotionEvent.ACTION_DOWN->{
@@ -119,6 +120,8 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
 
         gameRunning=true
 
+        //se è la prima partita,
+        //mostra l'icona della manina
         if(firstStart) {
             val lottieSwipeAnimation=binding.lottieSwipeAnimation
             lottieSwipeAnimation.visibility=View.VISIBLE
@@ -194,6 +197,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
                 binding.root.addView(img_falling_sprite)
                 //porto il cestino in primo piano per fare in modo che le palline cadano dentro
 
+                //55 dpi
                 var ballSize=(metrics.density * 55).toInt()
 
                 if(score>=100){
@@ -304,6 +308,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
         var ballXMovement=(img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection] as Float
         var newX: Float=img_falling_sprite.x
 
+        //TODO migliorare questo
         if(img_falling_sprite.x<trashBinBackLayer.x){
             ballXMovement=-(abs(ballXMovement))
         }
@@ -323,7 +328,6 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
             newX=0F
         }
 
-        println("ballXMovement: $ballXMovement")
 
         var animSet=AnimatorSet()
 
@@ -335,6 +339,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
         anim2.duration=currentSpeed/2
 
         animSet.doOnEnd {
+            //la pallina riprende a cadere
             checkSpriteCollision(img_falling_sprite)
             anim2.start()
         }
@@ -356,6 +361,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
         img_falling_sprite.animate().cancel()
 
         val binX=trashBinContainer.x+((trashBinContainer.width-trashBinFrontLayer.width)/2).toFloat()
+        //controllo se la pallina è caduto sul bordo e quindi deve avennire un rimbalzo
         if(img_falling_sprite.x+(img_falling_sprite.width/2+img_falling_sprite.width/8)<=binX||img_falling_sprite.x+(img_falling_sprite.width/2+img_falling_sprite.width/8)>=binX+trashBinBackLayer.width) {
             var ballXMovement=(img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection] as Float
             ballXMovement=-ballXMovement
@@ -402,6 +408,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
         }
     }
 
+    //questo metodo è dentro l'update listener della pallina
     fun spriteStatusCheck(img_falling_sprite: ImageView, animation: ObjectAnimator?){
         if(gameRunning) {
             if ((img_falling_sprite.tag as HashMap<String,Any>)[isFalling] == false) {

@@ -64,8 +64,6 @@ class GrowingTreeFragment : Fragment() {
         const val fruitResId="@drawable/tree_fruit_"
     }
 
-    //TODO salvare il progresso di questo gioco nel db di firebase
-    //TODO mettere il punteggio del gioco nel db di firebase
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -177,51 +175,24 @@ class GrowingTreeFragment : Fragment() {
 
         var tree_frame= 0
 
+        //cheat
+        //totalSteps=65001
+
         if(totalSteps>= stepsLevels[stepsLevels.size-1]){
-           tree_frame= stepsLevels.size-1
+            tree_frame= stepsLevels.size-1
             totalSteps=stepsLevels[stepsLevels.size-2]
             requireContext().getSharedPreferences("trackingPrefs",Context.MODE_PRIVATE).edit()
                 .putLong("steps",totalSteps).commit()
 
             spawnFruits()
-
-            treeImg.setOnClickListener {
-                for(fruit in fruitsList){
-                    val newX=binding.fruitsContainer.x+fruit.x
-                    val newY=binding.fruitsContainer.y+fruit.y
-                    binding.fruitsContainer.removeView(fruit)
-                    binding.root.addView(fruit)
-                    fruit.x=newX
-                    fruit.y=newY
-                    fruit.animate()
-                        .translationY(binding.root.height.toFloat())
-                        .setDuration(1000)
-                        .withEndAction {
-                            binding.root.removeView(fruit)
-                            fruitsList.remove(fruit)
-                            fruitsShPrefs.edit()
-                                .remove("fruit${fruitsList.indexOf(fruit)}X")
-                                .remove("fruit${fruitsList.indexOf(fruit)}Y")
-                                .remove("fruit${fruitsList.indexOf(fruit)}W")
-                                .remove("fruit${fruitsList.indexOf(fruit)}H")
-                                .remove("fruit${fruitsList.indexOf(fruit)}Img")
-                                .apply()
-
-                            fruitPoints++
-
-                            if(fruitsList.indexOf(fruit)==fruitsList.size-1){
-                                dbScoreReference?.setValue(fruitPoints)
-                            }
-                        }
-                }
-
-                treeImg.setOnClickListener(null)
-            }
-
         }
         else{
             while(!(totalSteps>= stepsLevels[tree_frame]&&totalSteps<= stepsLevels[tree_frame+1])){
                 tree_frame++
+            }
+
+            if(fruitsShPrefs.getFloat("fruit0X",0F)!=0F){
+                spawnFruits()
             }
         }
 
@@ -310,7 +281,7 @@ class GrowingTreeFragment : Fragment() {
                 if(stepsUpdated) {
                     requireContext().getSharedPreferences("trackingPrefs", Context.MODE_PRIVATE)
                         .edit()
-                        .putLong("steps", totalSteps).commit()
+                        .putLong("steps", totalSteps).apply()
                     stepsUpdated=false
                     setTree()
                 }
@@ -371,11 +342,49 @@ class GrowingTreeFragment : Fragment() {
                 createFruitView(currentFruitX,y,width,height,imgNumber)
 
                 i++
-                currentFruitX=fruitsShPrefs.getFloat("fruit{$i}X",0F)
+                currentFruitX=fruitsShPrefs.getFloat("fruit"+i+"X",0F)
+                Log.d("fruitX",currentFruitX.toString())
             }
         }
 
-        fruitsContainer.bringToFront()
+        treeImg.setOnClickListener {
+            for (fruit in fruitsList) {
+                val newX = binding.fruitsContainer.x + fruit.x
+                val newY = binding.fruitsContainer.y + fruit.y
+                binding.fruitsContainer.removeView(fruit)
+                binding.root.addView(fruit)
+                fruit.x = newX
+                fruit.y = newY
+                fruit.animate()
+                    .translationY(binding.root.height.toFloat())
+                    .setDuration(1000)
+                    .withEndAction {
+                        binding.root.removeView(fruit)
+                        fruitsList.remove(fruit)
+
+                    /*fruitsShPrefs.edit()
+                        .remove("fruit"+fruitsList.indexOf(fruit)+"X")
+                        .remove("fruit"+fruitsList.indexOf(fruit)+"Y")
+                        .remove("fruit"+fruitsList.indexOf(fruit)+"W")
+                        .remove("fruit"+fruitsList.indexOf(fruit)+"H")
+                        .remove("fruit"+fruitsList.indexOf(fruit)+"Img")
+                        .apply()*/
+
+                        fruitPoints++
+
+                        binding.moneyCount.text = fruitPoints.toString()
+
+                        if (fruitsList.indexOf(fruit) == fruitsList.size - 1) {
+                            dbScoreReference?.setValue(fruitPoints)
+                        }
+                    }
+            }
+
+            fruitsShPrefs.edit().clear().apply()
+            treeImg.setOnClickListener(null)
+
+        }
+
     }
     //metodo per creare l'imageView di un frutto
     fun createFruitView(x:Float,y:Float,width:Int,height:Int,imgNumber:Int){
