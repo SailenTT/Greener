@@ -381,6 +381,15 @@ class ProfileFragment : Fragment() {
 
     }
 
+   /* private fun deleteGoogleUser(){
+        GoogleAuthProvider.getCredential()
+        val user = Firebase.auth.currentUser
+        val uid = auth.uid!!
+
+    }
+    */
+
+
     private fun deleteFacebookUser(credential: AuthCredential) {
         val user = Firebase.auth.currentUser
         val uid = auth.uid!!
