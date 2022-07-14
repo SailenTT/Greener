@@ -78,7 +78,7 @@ class RegisterFragment : Fragment() {
                         usersReference.child(userUid).child("email").setValue(email)
                         usersReference.child(userUid).child("growing_tree").setValue(0)
                         uploadToStorageDefaultProfilePic(userUid)
-
+                        goBackToHomepage()
 
                     } else {
                         Toast.makeText(requireContext(), "Errore nella registrazione", Toast.LENGTH_SHORT).show()
@@ -100,6 +100,11 @@ class RegisterFragment : Fragment() {
             Log.d("STORAGE","FOTO NON UPPATA")
             //Toast.makeText(context, "Non uppata la foto", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun goBackToHomepage() {
+        findNavController().popBackStack()
+        //findNavController().navigate(LoginFragmentDirections.actionFromLoginBackToHome())
     }
 
 
