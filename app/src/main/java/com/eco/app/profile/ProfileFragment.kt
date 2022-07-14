@@ -6,13 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.InputType
 import android.text.method.HideReturnsTransformationMethod
 import android.util.Log
@@ -329,12 +325,11 @@ class ProfileFragment : Fragment() {
         if(facebookToken != null){
             val credential = FacebookAuthProvider.getCredential(facebookToken)
             deleteFacebookUser(credential)
-        }
-        if(!googleToken.equals("")){
+        }else if(!googleToken.equals("")){
             Log.d("TOKEN", googleToken)
             val credential = GoogleAuthProvider.getCredential(LoginFragment.googleIdToken,null)
             deleteGoogleUser(credential)
-        } else{
+        }else{
             val user = Firebase.auth.currentUser
             val uid = auth.uid!!
             val alertDialogBuilder = AlertDialog.Builder(requireContext())
@@ -352,7 +347,8 @@ class ProfileFragment : Fragment() {
             alertDialogBuilder.setPositiveButton("OK") { dialogInterface, _ ->
                 val pwd = input.text.toString()
                 val credential = EmailAuthProvider.getCredential(user!!.email.toString(), pwd)
-                deleteFromDb(uid)
+                val type ="normal"
+                deleteHandler(user,uid,type)
                 user!!.reauthenticate(credential)
                     .addOnSuccessListener {
                         //Toast.makeText(requireContext(), "Allright", Toast.LENGTH_SHORT).show()
@@ -362,9 +358,6 @@ class ProfileFragment : Fragment() {
                                 "Account cancellato correttamente",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            FirebaseAuth.getInstance().signOut()
-                            val intent = Intent(requireContext(),HomeWindow::class.java)
-                            startActivity(intent)
                         }
                             .addOnFailureListener {
                                 Toast.makeText(
@@ -389,14 +382,12 @@ class ProfileFragment : Fragment() {
    private fun deleteGoogleUser(credential: AuthCredential){
        val user = Firebase.auth.currentUser
         val uid = auth.uid!!
+       val type = "Google"
         user!!.reauthenticate(credential).addOnSuccessListener {
             Toast.makeText(requireContext(), "Riautenticato", Toast.LENGTH_SHORT).show()
             user.delete().addOnSuccessListener {
-                deleteFromDb(uid)
+                deleteHandler(user,uid,type)
                 Toast.makeText(requireContext(), "Account cancellato correttamente", Toast.LENGTH_SHORT).show()
-                FirebaseAuth.getInstance().signOut()
-                val intent = Intent(requireContext(), HomeWindow::class.java)
-                startActivity(intent)
             }.addOnFailureListener{
                 Toast.makeText(requireContext(), "Errore nella cancellazione", Toast.LENGTH_SHORT)
                     .show()
@@ -407,43 +398,55 @@ class ProfileFragment : Fragment() {
     }
 
 
-
     private fun deleteFacebookUser(credential: AuthCredential) {
         val user = Firebase.auth.currentUser
         val uid = auth.uid!!
+        val type = "Facebook"
         user!!.reauthenticate(credential).addOnSuccessListener {
-           // Toast.makeText(requireContext(), "Allright", Toast.LENGTH_SHORT).show()
+            // Toast.makeText(requireContext(), "Allright", Toast.LENGTH_SHORT).show()
+            deleteHandler(user, uid, type)
+        }.addOnFailureListener {
+            Toast.makeText(requireContext(), "Errore nella riautenticazione ", Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
+
+    private fun deleteHandler(user: FirebaseUser , uid : String, type:String) {
+        usersReference.child(uid).removeValue()
+        var filename = auth.uid
+        val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
+        storageReference.delete().addOnSuccessListener {
+            Log.d("STORAGE","RIMOSSA IMG ")
             user.delete().addOnSuccessListener {
-                deleteFromDb(uid)
                 Toast.makeText(
                     requireContext(),
                     "Account cancellato correttamente",
                     Toast.LENGTH_SHORT
                 ).show()
-                FirebaseAuth.getInstance().signOut()
-                com.facebook.login.LoginManager.getInstance().logOut();
-                val intent = Intent(requireContext(), HomeWindow::class.java)
-                startActivity(intent)
+                when(type){
+                    "Facebook"->facebookSignOut()
+                    "Google"->signOut()
+                    "normal"->signOut()
+                }
             }.addOnFailureListener {
                 Toast.makeText(requireContext(), "Errore nella cancellazione", Toast.LENGTH_SHORT)
                     .show()
             }
-        }.addOnFailureListener {
-            Toast.makeText(requireContext(), "Errore nella riautenticazione ", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun deleteFromDb(uid : String) {
-        usersReference.child(uid).removeValue()
-       /* var filename = auth.uid
-        val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
-        storageReference.delete().addOnSuccessListener {
-            Log.d("STORAGE","RIMOSSA IMG ")
         }.addOnFailureListener{
             Log.d("STORAGE","IMG NON RIMOSSA ")
         }
+    }
 
-        */
+    private fun signOut(){
+        FirebaseAuth.getInstance().signOut()
+        val intent = Intent(requireContext(),HomeWindow::class.java)
+        startActivity(intent)
+    }
+    private fun facebookSignOut(){
+        FirebaseAuth.getInstance().signOut()
+        com.facebook.login.LoginManager.getInstance().logOut();
+        val intent = Intent(requireContext(), HomeWindow::class.java)
+        startActivity(intent)
     }
 
     private fun pickImage() {
