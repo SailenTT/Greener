@@ -94,9 +94,11 @@ class RegisterFragment : Fragment() {
         val filename = UID
         val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
         storageReference.putFile(uri).addOnSuccessListener {
-            Toast.makeText(context, "Foto uppata", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(context, "Foto uppata", Toast.LENGTH_SHORT).show()
+            Log.d("STORAGE","FOTO UPPATA")
         }.addOnFailureListener{
-            Toast.makeText(context, "Non uppata la foto", Toast.LENGTH_SHORT).show()
+            Log.d("STORAGE","FOTO NON UPPATA")
+            //Toast.makeText(context, "Non uppata la foto", Toast.LENGTH_SHORT).show()
         }
     }
 

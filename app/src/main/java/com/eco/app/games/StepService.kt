@@ -24,9 +24,6 @@ class StepService : Service() ,SensorEventListener{
     private var totalSteps by Delegates.notNull<Long>()
     private val ACTION_STOP_LISTEN = "action_stop_listen"
 
-    companion object{
-
-    }
     override fun onCreate() {
         super.onCreate()
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager //getto il sensore
@@ -72,7 +69,6 @@ class StepService : Service() ,SensorEventListener{
             val manager = getSystemService(NotificationManager::class.java)
             manager!!.createNotificationChannel(serviceChannel)
         }
-
     }
 
 

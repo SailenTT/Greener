@@ -58,6 +58,7 @@ class LoginFragment : Fragment() {
      */
     companion object {
         var UID = ""
+        var googleIdToken=""
     }
 
     override fun onCreateView(
@@ -240,7 +241,7 @@ class LoginFragment : Fragment() {
                     if(task.getResult().additionalUserInfo?.isNewUser == true){
                         val bundle = Bundle()
                         bundle.putString("fields", "id, email, first_name, last_name, gender,age_range")
-                        val request = GraphRequest.newMeRequest(token) { fbObject, response ->
+                        val request = GraphRequest.newMeRequest(token) { fbObject, _ ->
                             try {
                                 val userid = auth.uid!!
                                 val firstName = fbObject?.getString("first_name")
@@ -278,6 +279,8 @@ class LoginFragment : Fragment() {
             REQ_ONE_TAP -> {
                 val googleCredential = oneTapClient.getSignInCredentialFromIntent(data)
                 val idToken = googleCredential.googleIdToken
+                googleIdToken = idToken!!
+
 
                 progressBar.visibility = View.GONE
                 loginPageContainer.alpha = 1f

@@ -72,7 +72,6 @@ class ProfileFragment : Fragment() {
             val profilePicBitmap = requireContext().let { it1 -> decodeUri(it1,imguri,230) }
             propic.setImageBitmap(profilePicBitmap)
             uploadToStorage(UID)
-
         }
     }
     //CONTRATTI
@@ -324,12 +323,18 @@ class ProfileFragment : Fragment() {
         alertDialogBuilder.show()
     }
 
-    private fun deleteUser() { //TODO FARE QUELLA DI GOOGLE
+    private fun deleteUser() {
         val facebookToken = facebookAccessToken?.token
+        val googleToken = LoginFragment.googleIdToken
         if(facebookToken != null){
             val credential = FacebookAuthProvider.getCredential(facebookToken)
             deleteFacebookUser(credential)
-        }else{
+        }
+        if(!googleToken.equals("")){
+            Log.d("TOKEN", googleToken)
+            val credential = GoogleAuthProvider.getCredential(LoginFragment.googleIdToken,null)
+            deleteGoogleUser(credential)
+        } else{
             val user = Firebase.auth.currentUser
             val uid = auth.uid!!
             val alertDialogBuilder = AlertDialog.Builder(requireContext())
@@ -347,11 +352,11 @@ class ProfileFragment : Fragment() {
             alertDialogBuilder.setPositiveButton("OK") { dialogInterface, _ ->
                 val pwd = input.text.toString()
                 val credential = EmailAuthProvider.getCredential(user!!.email.toString(), pwd)
+                deleteFromDb(uid)
                 user!!.reauthenticate(credential)
                     .addOnSuccessListener {
                         //Toast.makeText(requireContext(), "Allright", Toast.LENGTH_SHORT).show()
                         user.delete().addOnSuccessListener {
-                            deleteFromDb(uid)
                             Toast.makeText(
                                 requireContext(),
                                 "Account cancellato correttamente",
@@ -381,13 +386,26 @@ class ProfileFragment : Fragment() {
 
     }
 
-   /* private fun deleteGoogleUser(){
-        GoogleAuthProvider.getCredential()
-        val user = Firebase.auth.currentUser
+   private fun deleteGoogleUser(credential: AuthCredential){
+       val user = Firebase.auth.currentUser
         val uid = auth.uid!!
-
+        user!!.reauthenticate(credential).addOnSuccessListener {
+            Toast.makeText(requireContext(), "Riautenticato", Toast.LENGTH_SHORT).show()
+            user.delete().addOnSuccessListener {
+                deleteFromDb(uid)
+                Toast.makeText(requireContext(), "Account cancellato correttamente", Toast.LENGTH_SHORT).show()
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(requireContext(), HomeWindow::class.java)
+                startActivity(intent)
+            }.addOnFailureListener{
+                Toast.makeText(requireContext(), "Errore nella cancellazione", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }.addOnFailureListener{
+            Toast.makeText(requireContext(), "Non riautenticato", Toast.LENGTH_SHORT).show()
+        }
     }
-    */
+
 
 
     private fun deleteFacebookUser(credential: AuthCredential) {
@@ -417,6 +435,15 @@ class ProfileFragment : Fragment() {
 
     private fun deleteFromDb(uid : String) {
         usersReference.child(uid).removeValue()
+       /* var filename = auth.uid
+        val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
+        storageReference.delete().addOnSuccessListener {
+            Log.d("STORAGE","RIMOSSA IMG ")
+        }.addOnFailureListener{
+            Log.d("STORAGE","IMG NON RIMOSSA ")
+        }
+
+        */
     }
 
     private fun pickImage() {

@@ -34,6 +34,7 @@ import com.google.firebase.storage.FirebaseStorage
 import java.io.File
 
 class HomeWindow : AppCompatActivity() {
+    private var imageloaded = false
     private lateinit var binding : ActivityHomeWindowBinding
     private lateinit var drawer: DrawerLayout
     private lateinit var navHostFragment: NavHostFragment
@@ -199,20 +200,22 @@ class HomeWindow : AppCompatActivity() {
 
     fun drawerStateChanged(){
         val lottie=drawer.findViewById<LottieAnimationView>(R.id.lottie_stock_profile_animation)
-
         if(Firebase.auth.currentUser!=null){ //se sei loggato, setta immagine nel drawer ( se la hai )
-            val filename = Firebase.auth.currentUser!!.uid
-            val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com")
-                .getReference("propics/$filename")
-            val localfile = File.createTempFile("tempImage", "jpg")
-            storageReference.getFile(localfile).addOnSuccessListener {
-                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-                val resized = Bitmap.createScaledBitmap(bitmap, 400, 400, true)
-                lottie.setImageBitmap(resized)
-                lottie.clipToOutline = true
-            }.addOnFailureListener {
-                val uri = Uri.parse("android.resource://com.eco.app/drawable/default_propic")
-                lottie.setImageURI(uri)
+            if(!imageloaded){
+                val filename = Firebase.auth.currentUser!!.uid
+                val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com")
+                    .getReference("propics/$filename")
+                val localfile = File.createTempFile("tempImage", "jpg")
+                storageReference.getFile(localfile).addOnSuccessListener {
+                    val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+                    val resized = Bitmap.createScaledBitmap(bitmap, 400, 400, true)
+                    lottie.setImageBitmap(resized)
+                    lottie.clipToOutline = true
+                }.addOnFailureListener {
+                    val uri = Uri.parse("android.resource://com.eco.app/drawable/default_propic")
+                    lottie.setImageURI(uri)
+                }
+                imageloaded = true
             }
         }
         else{
