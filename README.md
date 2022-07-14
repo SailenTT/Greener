@@ -83,6 +83,7 @@ To install Greener on your device, follow these steps to set up the project loca
 Here you can read the pre-requirements you must meet in order to run this project locally:
 * AVD (Android Virtual Device) or phisical device with Android API level 24 (Android 7.0 Nougat)
 
+<!--
 ### Installation
 
 There an example of the steps to follow in order to install and build the project on Android studio locally_:
@@ -99,13 +100,13 @@ There an example of the steps to follow in order to install and build the projec
    
 3. Build project and enjoy!
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">back to top</a>)</p>-->
 
 
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Pass the exam with this project
+- [x] Pass the exam with this project
 - [ ] Translate the app in English
 - [ ] Release the open beta
 - [ ] and more to come...
@@ -136,7 +137,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the Creative Commons Attribution-NonCommercial-NoDerivs (CC-BY-NC-ND) License. See `LICENSE.md` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
