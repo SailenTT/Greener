@@ -120,16 +120,16 @@ class GarbageSorterFragment : Fragment(), View.OnTouchListener{
             lottieSwipeAnimation.visibility=View.VISIBLE
 
             lottieSwipeAnimation.addAnimatorListener(object : Animator.AnimatorListener {
-                override fun onAnimationStart(p0: Animator?) {
+                override fun onAnimationStart(p0: Animator) {
                     binding.mainContainer.alpha = 0.70F
                     lottieSwipeAnimation.alpha = 1F
                 }
 
-                override fun onAnimationCancel(p0: Animator?) {}
+                override fun onAnimationCancel(p0: Animator) {}
 
-                override fun onAnimationRepeat(p0: Animator?) {}
+                override fun onAnimationRepeat(p0: Animator) {}
 
-                override fun onAnimationEnd(p0: Animator?) {
+                override fun onAnimationEnd(p0: Animator) {
                     lottieSwipeAnimation.visibility = View.INVISIBLE
                     binding.mainContainer.alpha = 1F
 

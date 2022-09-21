@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="275dp"
+    android:layout_height="240dp"
+    android:background="@drawable/rounded_corners_shape"
+    android:backgroundTint="@color/greenLogin"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/ad_text"
+        android:layout_width="250dp"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:text="Vuoi guardare una pubblicità per continuare?"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"/>
+
+    <ProgressBar
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/ad_text"
+        android:id="@+id/progress_bar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:indeterminateTint="@color/white"
+        android:progress="10"
+        />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_play_ad"
+        android:layout_below="@id/progress_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"
+        />
+
+</RelativeLayout>

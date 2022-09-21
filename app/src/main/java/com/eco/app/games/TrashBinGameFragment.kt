@@ -12,6 +12,12 @@ import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.eco.app.R
 import com.eco.app.databinding.FragmentTrashBinGameBinding
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.OnUserEarnedRewardListener
+import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -54,6 +60,12 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
     private lateinit var trashBinFrontLayer: ImageView
     private lateinit var trashBinBackLayer: ImageView
     private var gameOverScreen: RelativeLayout?=null
+    private var mRewardedAd: RewardedAd? = null
+    private var showAdRequest=true
+    private var adSeen=false
+    private var gamePaused=false
+    private final var TAG="TrashBinGameAd"
+
     //TODO aggiungere la possibilità di mettere in pausa il gioco
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -71,7 +83,24 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
             startGame()
         }
 
+        binding.pauseButton.setOnClickListener { btn->
+            onPauseButtonPressed(btn)
+        }
+
         lottieRecycleAnimation=binding.lottie
+
+        var adRequest = AdRequest.Builder().build()
+        RewardedAd.load(requireContext(),"ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                Log.d(TAG, adError.toString())
+                mRewardedAd = null
+            }
+
+            override fun onAdLoaded(rewardedAd: RewardedAd) {
+                Log.d(TAG, "Ad was loaded.")
+                mRewardedAd = rewardedAd
+            }
+        })
 
         return binding.root
     }
@@ -111,6 +140,9 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
         //Toast.makeText(context,"Gioco Startato",Toast.LENGTH_SHORT).show()
         binding.txtScore.text = 0.toString()
         score=0
+        showAdRequest=true
+        adSeen=false
+        gamePaused=false
 
         val layoutParams=(trashBinContainer.layoutParams as RelativeLayout.LayoutParams)
         layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL)
@@ -127,16 +159,16 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
             lottieSwipeAnimation.visibility=View.VISIBLE
 
             lottieSwipeAnimation.addAnimatorListener(object : Animator.AnimatorListener {
-                override fun onAnimationStart(p0: Animator?) {
+                override fun onAnimationStart(p0: Animator) {
                     binding.mainContainer.alpha = 0.70F
                     lottieSwipeAnimation.alpha = 1F
                 }
 
-                override fun onAnimationCancel(p0: Animator?) { }
+                override fun onAnimationCancel(p0: Animator) { }
 
-                override fun onAnimationRepeat(p0: Animator?) { }
+                override fun onAnimationRepeat(p0: Animator) { }
 
-                override fun onAnimationEnd(p0: Animator?) {
+                override fun onAnimationEnd(p0: Animator) {
                     lottieSwipeAnimation.visibility = View.INVISIBLE
                     binding.mainContainer.alpha = 1F
 
@@ -160,17 +192,19 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
             try{
                 Thread.sleep(200)
                 while(gameRunning&&!Thread.currentThread().isInterrupted){
-                    println("spawna il prossimo")
+                    if(!gamePaused){
+                        println("spawna il prossimo")
 
-                    //Fai partire il gioco dopo tot millisecondi
-                    spawnFallingTrash()
-                    var newDelay=spawnDelay-(score*5)
-                    if(newDelay<minimumSpawnDelay){
-                        newDelay=minimumSpawnDelay
-                    }
+                        //Fai partire il gioco dopo tot millisecondi
+                        spawnFallingTrash()
+                        var newDelay=spawnDelay-(score*5)
+                        if(newDelay<minimumSpawnDelay){
+                            newDelay=minimumSpawnDelay
+                        }
 
-                    if(!Thread.currentThread().isInterrupted) {
-                        Thread.sleep(newDelay)
+                        if(!Thread.currentThread().isInterrupted) {
+                            Thread.sleep(newDelay)
+                        }
                     }
 
                 }
@@ -410,6 +444,11 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
 
     //questo metodo è dentro l'update listener della pallina
     fun spriteStatusCheck(img_falling_sprite: ImageView, animation: ObjectAnimator?){
+        while(gamePaused){
+            animation?.pause()
+            //provare con pause listener se non va???
+        }
+        animation?.resume()
         if(gameRunning) {
             if ((img_falling_sprite.tag as HashMap<String,Any>)[isFalling] == false) {
                 //animation?.removeAllUpdateListeners()
@@ -443,8 +482,16 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
         }
     }
 
+    //game over method
     fun spriteFallen(img_falling_sprite: ImageView){
         if((img_falling_sprite.tag as HashMap<String,Any>)[isFalling]==true&&gameRunning) {
+
+            if(showAdRequest) {
+                pauseGame()
+                showAdRequest=false
+                return
+            }
+
             spawnThread.interrupt()
             println("game over")
             //fermo il cestino
@@ -495,5 +542,41 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
             gameRunning=false
             spawnThread.interrupt()
         }
+    }
+
+    fun pauseGame(){
+        gamePaused=true
+    }
+
+    fun resumeGame(){
+        gamePaused=false
+    }
+
+    fun onShowAdClicked(view: View){
+        adSeen = true
+        if (mRewardedAd != null) {
+            mRewardedAd?.show(requireActivity(), OnUserEarnedRewardListener() {
+                fun onUserEarnedReward(rewardItem: RewardItem) {
+                    var rewardAmount = rewardItem.amount
+                    var rewardType = rewardItem.type
+                    Log.d(TAG, "User earned the reward.")
+                    resumeGame()
+                }
+            })
+        } else {
+            Log.d(TAG, "The rewarded ad wasn't ready yet.")
+        }
+    }
+
+    fun onPauseButtonPressed(btn: View){
+        pauseGame()
+        btn.setOnClickListener { onResumeButtonPressed(btn) }
+        (btn as ImageView).setImageResource(R.drawable.ic_play_arrow)
+    }
+
+    fun onResumeButtonPressed(btn: View){
+        resumeGame()
+        btn.setOnClickListener { onPauseButtonPressed(btn) }
+        (btn as ImageView).setImageResource(R.drawable.ic_pause)
     }
 }

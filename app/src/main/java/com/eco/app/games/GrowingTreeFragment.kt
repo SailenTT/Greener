@@ -104,9 +104,9 @@ class GrowingTreeFragment : Fragment() {
         wateringCan=binding.wateringCan
 
         wateringCan.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(animation: Animator?) {}
+            override fun onAnimationRepeat(animation: Animator) {}
 
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 if(waterLiters>0) {
                     wateringCan.setMinFrame(canMinFrame)
                     wateringCan.progress = 0F
@@ -114,9 +114,9 @@ class GrowingTreeFragment : Fragment() {
                 }
             }
 
-            override fun onAnimationCancel(animation: Animator?) {}
+            override fun onAnimationCancel(animation: Animator) {}
 
-            override fun onAnimationStart(animation: Animator?) {}
+            override fun onAnimationStart(animation: Animator) {}
         })
 
         wateringCanBox=binding.wateringCanBox
@@ -209,7 +209,7 @@ class GrowingTreeFragment : Fragment() {
 
     private fun startStepService() {
         val intent = Intent(context, StepService::class.java)
-        activity!!.startService(intent)
+        requireActivity().startService(intent)
     }
 
     fun touchListener(v: View, event: MotionEvent): Boolean {

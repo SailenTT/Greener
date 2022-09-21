@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,12 +17,12 @@ import androidx.fragment.app.Fragment
 import com.eco.app.R
 import com.eco.app.databinding.FragmentCalendarBinding
 import java.text.DateFormat
+import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class CalendarFragment : Fragment() {
-
     val currentDateTimeString = DateFormat.getDateTimeInstance().format(Date())
     private lateinit var binding : FragmentCalendarBinding
     private lateinit var calendar : Calendar
@@ -42,7 +43,9 @@ class CalendarFragment : Fragment() {
     private lateinit var bottomSliderContainer : RelativeLayout
     private lateinit var doubleArrowIcon: ImageView
     private lateinit var pendingIntent : PendingIntent
-    private val daysList=listOf("lunedì","martedì","mercoledì","giovedì","venerdì","sabato","domenica")
+    //TODO prendere i giorni dinamicamente a seconda della lingua del dispositivo
+    //private var daysList=mutableListOf("lunedì","martedì","mercoledì","giovedì","venerdì","sabato","domenica")
+    private lateinit var daysList: List<String>
     private val daysListSharedPrefsForm= listOf("lunedi","martedi","mercoledi","giovedi","venerdi","sabato","domenica")
     private val wastesList= mutableListOf<TextView>()
 
@@ -82,6 +85,9 @@ class CalendarFragment : Fragment() {
 
         sharedPref = activity?.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)!!
         editor = sharedPref.edit()
+
+        var tempList= DateFormatSymbols.getInstance().weekdays
+        daysList= listOf(tempList[Calendar.MONDAY].lowercase(),tempList[Calendar.TUESDAY].lowercase(),tempList[Calendar.WEDNESDAY].lowercase(),tempList[Calendar.THURSDAY].lowercase(),tempList[Calendar.FRIDAY].lowercase(),tempList[Calendar.SATURDAY].lowercase(),tempList[Calendar.SUNDAY].lowercase())
 
 
         setMonth()
@@ -242,8 +248,8 @@ class CalendarFragment : Fragment() {
         for(j in 0 until wastesList.size) {
             wastesList[j].text= sharedPref.getString(daysListSharedPrefsForm[i],"")
             println(sharedPref.getString(daysListSharedPrefsForm[i],""))
-            i++
-            if(i==daysList.size){
+            ++i
+            if(i==daysListSharedPrefsForm.size){
                 i=0
             }
         }
