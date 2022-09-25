@@ -3,18 +3,19 @@ package com.eco.app.games
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.Activity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.*
+import android.view.animation.LinearInterpolator
 import android.widget.*
 import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.eco.app.R
 import com.eco.app.databinding.FragmentTrashBinGameBinding
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.OnUserEarnedRewardListener
+import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardItem
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
@@ -48,6 +49,8 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
     private lateinit var trashBinContainer: RelativeLayout
     private var score=0
     private lateinit var lottieRecycleAnimation: LottieAnimationView
+    private val spriteList: MutableList<ImageView> = mutableListOf()
+
     private val defaultSpeed=2100L
     private val minimumSpeed=1300L
     private val defaultInclination=300
@@ -56,6 +59,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
     private var gameRunning=false
     private val spawnDelay=1000L
     private val minimumSpawnDelay=650L
+
     private lateinit var spawnThread: Thread;
     private lateinit var trashBinFrontLayer: ImageView
     private lateinit var trashBinBackLayer: ImageView
@@ -64,6 +68,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
     private var showAdRequest=true
     private var adSeen=false
     private var gamePaused=false
+    private var watchAdPanel:RelativeLayout?=null
     private final var TAG="TrashBinGameAd"
 
     //TODO aggiungere la possibilità di mettere in pausa il gioco
@@ -83,24 +88,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
             startGame()
         }
 
-        binding.pauseButton.setOnClickListener { btn->
-            onPauseButtonPressed(btn)
-        }
-
         lottieRecycleAnimation=binding.lottie
-
-        var adRequest = AdRequest.Builder().build()
-        RewardedAd.load(requireContext(),"ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.d(TAG, adError.toString())
-                mRewardedAd = null
-            }
-
-            override fun onAdLoaded(rewardedAd: RewardedAd) {
-                Log.d(TAG, "Ad was loaded.")
-                mRewardedAd = rewardedAd
-            }
-        })
 
         return binding.root
     }
@@ -144,9 +132,22 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
         adSeen=false
         gamePaused=false
 
-        val layoutParams=(trashBinContainer.layoutParams as RelativeLayout.LayoutParams)
-        layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL)
-        trashBinContainer.layoutParams=layoutParams
+        //TODO una volta finito il test, mettere il vero ID dell'ad
+        var adRequest = AdRequest.Builder().build()
+        RewardedAd.load(requireContext(),"ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                Log.d(TAG, adError.toString())
+                mRewardedAd = null
+            }
+
+            override fun onAdLoaded(rewardedAd: RewardedAd) {
+                Log.d(TAG, "Ad was loaded.")
+                mRewardedAd = rewardedAd
+            }
+        })
+
+        //metto il cestino al centro dello schermo orizzonatalmente
+        trashBinContainer.x=(binding.root.width-trashBinContainer.width)/2F
 
         trashBinContainer.setOnTouchListener(this)
 
@@ -394,14 +395,16 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
         img_falling_sprite.animate().setUpdateListener(null)
         img_falling_sprite.animate().cancel()
 
-        val binX=trashBinContainer.x+((trashBinContainer.width-trashBinFrontLayer.width)/2).toFloat()
+        val binX=trashBinContainer.x + ((trashBinContainer.width - trashBinFrontLayer.width) / 2).toFloat()
         //controllo se la pallina è caduto sul bordo e quindi deve avennire un rimbalzo
-        if(img_falling_sprite.x+(img_falling_sprite.width/2+img_falling_sprite.width/8)<=binX||img_falling_sprite.x+(img_falling_sprite.width/2+img_falling_sprite.width/8)>=binX+trashBinBackLayer.width) {
-            var ballXMovement=(img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection] as Float
-            ballXMovement=-ballXMovement
-            (img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection]=ballXMovement
+        if (img_falling_sprite.x + (img_falling_sprite.width / 2 + img_falling_sprite.width / 8) <= binX || img_falling_sprite.x + (img_falling_sprite.width / 2 + img_falling_sprite.width / 8) >= binX + trashBinBackLayer.width) {
+            var ballXMovement =
+                (img_falling_sprite.tag as HashMap<String, Any>)[horizontalDirection] as Float
+            ballXMovement = -ballXMovement
+            (img_falling_sprite.tag as HashMap<String, Any>)[horizontalDirection] =
+                ballXMovement
 
-            (img_falling_sprite.tag as HashMap<String,Any>)[isFalling]=true
+            (img_falling_sprite.tag as HashMap<String, Any>)[isFalling] = true
 
             spriteBounce(img_falling_sprite)
         }
@@ -429,7 +432,6 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
             trashBinContainer.bringChildToFront(trashBinFrontLayer)
             trashBinContainer.bringChildToFront(lottieRecycleAnimation)
 
-
             img_falling_sprite.animate()
                 .translationX((trashBinContainer.width / 2) - (img_falling_sprite.width / 2).toFloat())
                 //.translationY(trashBinContainer.height/2.toFloat())
@@ -444,41 +446,37 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
 
     //questo metodo è dentro l'update listener della pallina
     fun spriteStatusCheck(img_falling_sprite: ImageView, animation: ObjectAnimator?){
-        while(gamePaused){
-            animation?.pause()
-            //provare con pause listener se non va???
-        }
-        animation?.resume()
-        if(gameRunning) {
-            if ((img_falling_sprite.tag as HashMap<String,Any>)[isFalling] == false) {
-                //animation?.removeAllUpdateListeners()
-                //animation?.doOnEnd {  }
-                //TODO sistemare il fatto che non si possa cancellare
-                animation?.pause()
-                //animation?.cancel()
-                objectCatched(img_falling_sprite)
-            }
-            else if ((img_falling_sprite.x + img_falling_sprite.width) >= binding.root.width) {
-                img_falling_sprite.x = (binding.root.width - img_falling_sprite.width).toFloat()
-
-                var ballXMovement=(img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection] as Float
-                ballXMovement=-ballXMovement
-                (img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection]=ballXMovement
-                img_falling_sprite.animate().translationX(ballXMovement)
-
-            } else if (img_falling_sprite.x <= 0) {
-                var ballXMovement=(img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection] as Float
-                ballXMovement=-ballXMovement
-                (img_falling_sprite.tag as HashMap<String,Any>)[horizontalDirection]=ballXMovement
-
-                img_falling_sprite.animate().translationX(ballXMovement)
-            }
-        }
-        else{
-            (img_falling_sprite.tag as HashMap<String,Any>)[isFalling]=false
-            img_falling_sprite.animate().setUpdateListener(null)
+        if(gamePaused||!gameRunning){
+            //metto in pause l'animazione della pallina
+            (img_falling_sprite.tag as HashMap<String, Any>)[isFalling] = false
             img_falling_sprite.animate().cancel()
+            animation?.cancel()
+            img_falling_sprite.animate().setUpdateListener(null)
             binding.root.removeView(img_falling_sprite)
+            return
+        }
+        if ((img_falling_sprite.tag as HashMap<String, Any>)[isFalling] == false) {
+            img_falling_sprite.animate().cancel()
+            animation?.cancel()
+            objectCatched(img_falling_sprite)
+        } else if ((img_falling_sprite.x + img_falling_sprite.width) >= binding.root.width) {
+            img_falling_sprite.x = (binding.root.width - img_falling_sprite.width).toFloat()
+
+            var ballXMovement =
+                (img_falling_sprite.tag as HashMap<String, Any>)[horizontalDirection] as Float
+            ballXMovement = -ballXMovement
+            (img_falling_sprite.tag as HashMap<String, Any>)[horizontalDirection] =
+                ballXMovement
+            img_falling_sprite.animate().translationX(ballXMovement)
+
+        } else if (img_falling_sprite.x <= 0) {
+            var ballXMovement =
+                (img_falling_sprite.tag as HashMap<String, Any>)[horizontalDirection] as Float
+            ballXMovement = -ballXMovement
+            (img_falling_sprite.tag as HashMap<String, Any>)[horizontalDirection] =
+                ballXMovement
+
+            img_falling_sprite.animate().translationX(ballXMovement)
         }
     }
 
@@ -488,46 +486,80 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
 
             if(showAdRequest) {
                 pauseGame()
+
+                if(watchAdPanel==null){
+                    watchAdPanel=binding.watchAdStub.inflate() as RelativeLayout
+                }
+
+                watchAdPanel!!.visibility=View.VISIBLE
+                watchAdPanel!!.bringToFront()
+
+                watchAdPanel!!.findViewById<ImageView>(R.id.btn_start_ad).setOnClickListener { btn ->
+                    onShowAdClicked(btn)
+                }
+
+                val progress=watchAdPanel!!.findViewById<ProgressBar>(R.id.watch_ad_progress_bar)
+
+                val millis=10000L
+                val interval=500L
+
+                object : CountDownTimer(millis,interval){
+
+                    override fun onTick(p0: Long) {
+                        val newProgress=(millis/interval).toInt()
+                        progress.setProgress(progress.progress-newProgress,true)
+                    }
+
+                    override fun onFinish() {
+                        watchAdPanel!!.visibility=View.INVISIBLE
+                        binding.root.removeView(img_falling_sprite)
+                        if(!adSeen) {
+                            spriteFallen(img_falling_sprite)
+                        }
+                    }
+                }.start()
+
                 showAdRequest=false
                 return
             }
-
-            spawnThread.interrupt()
-            println("game over")
-            //fermo il cestino
-            gameRunning=false
-            //salvo il max score nel db
-            if(auth.currentUser != null){
-                auth.uid?.let { Log.d("okokok", it) }
-                UID = auth.uid!!
-                userReference = database.getReference("Users")
-                userReference.child(UID).child("bin_score").get().addOnSuccessListener { //getto il tuo max score
-                    bestTrashScore = it.value.toString()
-                    val bestTrashInt = Integer.parseInt(bestTrashScore) //parsing
-                    score  = Integer.parseInt(binding.txtScore.text.toString())
-                    if(bestTrashInt < score){ //se il tuo max score è piu piccolo, aggiorno il db
-                        Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
-                        userReference.child(UID).child("bin_score").setValue(score)
+            else{
+                spawnThread.interrupt()
+                println("game over")
+                //fermo il cestino
+                gameRunning=false
+                //salvo il max score nel db
+                if(auth.currentUser != null){
+                    auth.uid?.let { Log.d("okokok", it) }
+                    UID = auth.uid!!
+                    userReference = database.getReference("Users")
+                    userReference.child(UID).child("bin_score").get().addOnSuccessListener { //getto il tuo max score
+                        bestTrashScore = it.value.toString()
+                        val bestTrashInt = Integer.parseInt(bestTrashScore) //parsing
+                        score  = Integer.parseInt(binding.txtScore.text.toString())
+                        if(bestTrashInt < score){ //se il tuo max score è piu piccolo, aggiorno il db
+                            Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
+                            userReference.child(UID).child("bin_score").setValue(score)
+                        }
                     }
                 }
+                (img_falling_sprite.tag as HashMap<String,Any>)[isFalling]=false
+                //faccio comparire la schermata di fine
+                trashBinContainer.setOnTouchListener(null)
+                if(gameOverScreen==null) {
+                    gameOverScreen = binding.gameOverStub.inflate() as RelativeLayout
+                }
+                else {
+                    gameOverScreen!!.visibility = View.VISIBLE
+                }
+                gameOverScreen!!.findViewById<TextView>(R.id.txt_final_score).text= "Hai fatto " + score.toString() + " punti"
+                //binding.txtFinalScore.text = "Hai fatto " + score.toString() + " punti"
+                score=0
+                gameOverScreen!!.findViewById<ImageButton>(R.id.restart_game_button).setOnClickListener { startGame() }
+                //binding.restartGameButton.setOnClickListener { startGame() }
+                //binding.gameOverScreen.visibility = View.VISIBLE
+                binding.root.removeView(img_falling_sprite)
+                //TODO se l'utente non è loggato far comparire il tasto per loggare
             }
-            (img_falling_sprite.tag as HashMap<String,Any>)[isFalling]=false
-            //faccio comparire la schermata di fine
-            trashBinContainer.setOnTouchListener(null)
-            if(gameOverScreen==null) {
-                gameOverScreen = binding.gameOverStub.inflate() as RelativeLayout
-            }
-            else {
-                gameOverScreen!!.visibility = View.VISIBLE
-            }
-            gameOverScreen!!.findViewById<TextView>(R.id.txt_final_score).text= "Hai fatto " + score.toString() + " punti"
-            //binding.txtFinalScore.text = "Hai fatto " + score.toString() + " punti"
-            score=0
-            gameOverScreen!!.findViewById<ImageButton>(R.id.restart_game_button).setOnClickListener { startGame() }
-            //binding.restartGameButton.setOnClickListener { startGame() }
-            //binding.gameOverScreen.visibility = View.VISIBLE
-            binding.root.removeView(img_falling_sprite)
-            //TODO se l'utente non è loggato far comparire il tasto per loggare
         }
         else {
             binding.root.removeView(img_falling_sprite)
@@ -546,37 +578,51 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
 
     fun pauseGame(){
         gamePaused=true
+        Log.d(TAG,"game paused")
     }
 
     fun resumeGame(){
         gamePaused=false
+        Log.d(TAG, "game resumed")
+        gameRunning=true
+        Thread.sleep(200)
+        startSpawn()
     }
 
     fun onShowAdClicked(view: View){
         adSeen = true
+        (view.parent as RelativeLayout).visibility=View.GONE
+        var rewardGot=false
+
         if (mRewardedAd != null) {
+            mRewardedAd?.fullScreenContentCallback=object : FullScreenContentCallback() {
+                override fun onAdDismissedFullScreenContent() {
+                    Log.d(TAG, "Ad was dismissed.")
+                    if(rewardGot){
+                        resumeGame()
+                    }
+                    else{
+                        //TODO show game over screen
+                    }
+                }
+
+                override fun onAdShowedFullScreenContent() {
+                    Log.d(TAG, "Ad showed fullscreen content.")
+                    mRewardedAd = null
+                }
+            }
+
             mRewardedAd?.show(requireActivity(), OnUserEarnedRewardListener() {
                 fun onUserEarnedReward(rewardItem: RewardItem) {
                     var rewardAmount = rewardItem.amount
                     var rewardType = rewardItem.type
                     Log.d(TAG, "User earned the reward.")
-                    resumeGame()
+                    rewardGot=true
                 }
+                onUserEarnedReward(it)
             })
         } else {
             Log.d(TAG, "The rewarded ad wasn't ready yet.")
         }
-    }
-
-    fun onPauseButtonPressed(btn: View){
-        pauseGame()
-        btn.setOnClickListener { onResumeButtonPressed(btn) }
-        (btn as ImageView).setImageResource(R.drawable.ic_play_arrow)
-    }
-
-    fun onResumeButtonPressed(btn: View){
-        resumeGame()
-        btn.setOnClickListener { onPauseButtonPressed(btn) }
-        (btn as ImageView).setImageResource(R.drawable.ic_pause)
     }
 }

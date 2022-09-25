@@ -14,17 +14,6 @@
         android:layout_height="match_parent"
         android:background="@drawable/trash_bin_game_background">
 
-        <ImageView
-            android:id="@+id/pause_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="2dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/ic_pause"/>
-
-
         <TextView
             android:id="@+id/txt_score"
             android:layout_width="80dp"
@@ -44,11 +33,18 @@
            android:id="@+id/game_over_stub"
            android:layout_width="220dp"
            android:layout_height="160dp"
-           android:layout_centerHorizontal="true"
-           android:layout_centerVertical="true"
+           android:layout_centerInParent="true"
            android:layout="@layout/game_over_layout"
            android:visibility="invisible"
            />
+
+        <ViewStub
+            android:id="@+id/watch_ad_stub"
+            android:layout_width="275dp"
+            android:layout_height="240dp"
+            android:layout_centerInParent="true"
+            android:layout="@layout/watch_ad_message"
+            android:visibility="invisible"/>
 
         <RelativeLayout
             android:id="@+id/trash_bin_container"

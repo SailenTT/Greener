@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="275dp"
-    android:layout_height="240dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/rounded_corners_shape"
     android:backgroundTint="@color/greenLogin"
     android:layout_gravity="center">
@@ -20,20 +20,23 @@
     <ProgressBar
         android:layout_marginTop="10dp"
         android:layout_below="@id/ad_text"
-        android:id="@+id/progress_bar"
+        android:id="@+id/watch_ad_progress_bar"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:indeterminateTint="@color/white"
-        android:progress="10"
+        android:progress="100"
+        android:indeterminate="false"
+        android:max="100"
         />
 
     <ImageView
+        android:id="@+id/btn_start_ad"
         android:layout_width="80dp"
         android:layout_height="70dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_play_ad"
-        android:layout_below="@id/progress_bar"
+        android:layout_below="@id/watch_ad_progress_bar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="6dp"
         />
