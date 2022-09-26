@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import kotlin.math.abs
 import kotlin.random.Random
 
@@ -69,7 +70,7 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
     private var adSeen=false
     private var gamePaused=false
     private var watchAdPanel:RelativeLayout?=null
-    private final var TAG="TrashBinGameAd"
+    private var TAG="TrashBinGameAd"
 
     //TODO aggiungere la possibilità di mettere in pausa il gioco
 
@@ -498,26 +499,15 @@ class TrashBinGameFragment : Fragment(), View.OnTouchListener {
                     onShowAdClicked(btn)
                 }
 
-                val progress=watchAdPanel!!.findViewById<ProgressBar>(R.id.watch_ad_progress_bar)
-
-                val millis=10000L
-                val interval=500L
-
-                object : CountDownTimer(millis,interval){
-
-                    override fun onTick(p0: Long) {
-                        val newProgress=(millis/interval).toInt()
-                        progress.setProgress(progress.progress-newProgress,true)
+                val progress=watchAdPanel!!.findViewById<CircularProgressBar>(R.id.watch_ad_progress_bar)
+                progress.progress=100f
+                progress.setProgressWithAnimation(0f, 5000)
+                progress.onProgressChangeListener= { currentProg->
+                    if(currentProg==0f){
+                        watchAdPanel!!.visibility=View.GONE
+                        spriteFallen(img_falling_sprite)
                     }
-
-                    override fun onFinish() {
-                        watchAdPanel!!.visibility=View.INVISIBLE
-                        binding.root.removeView(img_falling_sprite)
-                        if(!adSeen) {
-                            spriteFallen(img_falling_sprite)
-                        }
-                    }
-                }.start()
+                }
 
                 showAdRequest=false
                 return

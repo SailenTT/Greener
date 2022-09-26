@@ -40,8 +40,8 @@
 
         <ViewStub
             android:id="@+id/watch_ad_stub"
-            android:layout_width="275dp"
-            android:layout_height="240dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout="@layout/watch_ad_message"
             android:visibility="invisible"/>

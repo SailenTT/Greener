@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/rounded_corners_shape"
     android:backgroundTint="@color/greenLogin"
     android:layout_gravity="center">
@@ -17,18 +18,21 @@
         android:gravity="center"
         android:layout_centerHorizontal="true"/>
 
-    <ProgressBar
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
         android:layout_marginTop="10dp"
         android:layout_below="@id/ad_text"
         android:id="@+id/watch_ad_progress_bar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_centerHorizontal="true"
-        android:indeterminateTint="@color/white"
-        android:progress="100"
-        android:indeterminate="false"
-        android:max="100"
-        />
+        app:cpb_background_progressbar_color="@android:color/transparent"
+        app:cpb_background_progressbar_width="3dp"
+        app:cpb_progress_direction="to_left"
+        app:cpb_progress="100"
+        app:cpb_progressbar_color="@color/white"
+        app:cpb_progressbar_width="10dp"
+        android:layout_marginBottom="15dp"
+        app:cpb_round_border="false" />
 
     <ImageView
         android:id="@+id/btn_start_ad"
@@ -36,9 +40,14 @@
         android:layout_height="70dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_play_ad"
-        android:layout_below="@id/watch_ad_progress_bar"
+        android:layout_alignTop="@id/watch_ad_progress_bar"
+        android:layout_alignBottom="@id/watch_ad_progress_bar"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginBottom="19dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         />
 
 </RelativeLayout>
