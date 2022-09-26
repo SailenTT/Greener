@@ -1,5 +1,6 @@
 package com.eco.app.games
 
+import android.media.tv.AdRequest
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,6 +15,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.eco.app.R
 import com.eco.app.databinding.FragmentQuizBinding
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -38,12 +42,16 @@ class QuizFragment : Fragment() {
     private lateinit var quizReference: DatabaseReference
     private lateinit var userReference : DatabaseReference
     private var quizQuestionsNumber: Int = 10
+    private var mInterstitialAd : InterstitialAd? = null
+    var adRequest = com.google.android.gms.ads.AdRequest.Builder().build()
     val white_button_bg="@drawable/rounded_corners_shape"
     val wrong_answer_bg="@drawable/rounded_corners_red_bg_shape"
     val right_answer_bg="@drawable/rounded_corners_green_bg_shape"
     var quizList = arrayListOf<Question>()
     var questionNoRipetitions= arrayListOf<Int>()
     val resultFragment = ResultQuizFragment()
+
+    private final var TAG = "Pubblicita"
 
 
     companion object {
@@ -55,6 +63,7 @@ class QuizFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        loadAd()
         sharedElementEnterTransition = MaterialContainerTransform()
         // Inflate the layout for this fragment
         binding = FragmentQuizBinding.inflate(inflater, container, false)
@@ -68,6 +77,7 @@ class QuizFragment : Fragment() {
         txt_question = binding.tvQuestion
         correct_replies =0
         setQuiz(txt_question, buttons)
+
 
 
         return binding.root
@@ -199,6 +209,7 @@ class QuizFragment : Fragment() {
             correct_replies++
             quizQuestionsNumber--
             if (quizQuestionsNumber == 0) {
+                showAd()
                 replaceFragment(resultFragment)
                 questionNoRipetitions.clear()
             }
@@ -213,6 +224,7 @@ class QuizFragment : Fragment() {
             val imgRes=resources.getIdentifier(wrong_answer_bg, null, requireActivity().packageName)
             buttons[position]?.background=ResourcesCompat.getDrawable(resources,imgRes,null)
             if (quizQuestionsNumber == 0) { //se sei a fine quiz
+                showAd()
                 if(auth.currentUser != null){
                     UID = auth.uid!!
                     userReference = database.getReference("Users")
@@ -261,6 +273,29 @@ class QuizFragment : Fragment() {
         return array
     }
 
+    fun loadAd(){
+        InterstitialAd.load(requireContext(),"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback(){
+            override fun onAdFailedToLoad(p0: LoadAdError) {
+                super.onAdFailedToLoad(p0)
+                Log.d(TAG,p0.toString())
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(p0: InterstitialAd) {
+                super.onAdLoaded(p0)
+                Log.d(TAG,"Ad caricato")
+                mInterstitialAd = p0
+            }
+        })
+    }
+
+    fun showAd(){
+        if(mInterstitialAd != null){
+            mInterstitialAd!!.show(requireActivity())
+        }else{
+            Log.d(TAG,"Ad show error")
+        }
+    }
     override fun onDestroy() {
         super.onDestroy()
         //quizReference.removeEventListener(getQuizDataListener)
