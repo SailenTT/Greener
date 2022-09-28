@@ -10,11 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.eco.app.R
 import com.eco.app.databinding.FragmentQuizBinding
+import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
@@ -278,6 +280,7 @@ class QuizFragment : Fragment() {
             override fun onAdFailedToLoad(p0: LoadAdError) {
                 super.onAdFailedToLoad(p0)
                 Log.d(TAG,p0.toString())
+                Toast.makeText(requireContext(), getString(R.string.ad_load_error), Toast.LENGTH_SHORT).show()
                 mInterstitialAd = null
             }
 
@@ -285,8 +288,21 @@ class QuizFragment : Fragment() {
                 super.onAdLoaded(p0)
                 Log.d(TAG,"Ad caricato")
                 mInterstitialAd = p0
+
+                mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback(){
+                    override fun onAdClicked() {
+                        super.onAdClicked()
+                        Toast.makeText(requireContext(), "Ad clicked", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onAdDismissedFullScreenContent() {
+                        super.onAdDismissedFullScreenContent()
+                        mInterstitialAd = null
+                    }
+                }
             }
         })
+
     }
 
     fun showAd(){

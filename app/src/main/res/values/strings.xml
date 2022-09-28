@@ -66,6 +66,7 @@
     <string name="delete_account_successfull">Account cancellato correttamente</string>
     <string name="delete_account_error">Errore nella cancellazione</string>
     <string name="reauthentication_error">Errore nella riautenticazione</string>
+    <string name="ad_load_error">Ad non caricato</string>
     <string name="reauthentication_successfull">Riautenticato</string>
     
 
