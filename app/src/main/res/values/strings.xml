@@ -41,8 +41,33 @@
     <string name="on_boarding_3">Compila il calendario in base alle esigenze del tuo comune, e tieni traccia di quando portare fuori un certo tipo di spazzatura</string>
     <string name="calendar_notification_title">Reminder spazzatura</string>
     <string name="calendar_notification_body">Domani devi buttare: </string>
-
+    <string name="upped_photo_notification">Foto uppata</string>
+    <string name="not_upped_photo_notification">Foto non uppata</string>
     <string name="co2">CO<sub>2</sub></string>
     <string name="carboon_footprint_name">Carbon Footprint</string>
+    <string name="user_reference_error">Errore nei dati</string>
+    <string name="change_image_dialog">Vuoi cambiare immagine?</string>
+    <string name="yes_button">Si</string>
+    <string name="no_button">No</string>
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">Annulla</string>
+    <string name="quiz_score">Quiz score: </string>
+    <string name="trash_score">Trash bin score: </string>
+    <string name="divide_score">Divide score: </string>
+    <string name="carbon_score">Carbon footprint: </string>
+    <string name="growing_score">Growing tree scire: </string>
+    <string name="change_username_dialog_title">Modifica username</string>
+    <string name="change_username_dialog_message">Vuoi cambiare username?</string>
+    <string name="change_username">Inserisci il nuovo username</string>
+    <string name="change_username_successfull">Username aggiornato correttamente</string>
+    <string name="delete_account_dialog_title">Cancellazione account</string>
+    <string name="delete_account_dialog_message">Stai per cancellare il tuo account, perdendo tutti i tuoi dati, sei sicuro?</string>
+    <string name="delete_account_insert_password">Inserisci la tua password</string>
+    <string name="delete_account_successfull">Account cancellato correttamente</string>
+    <string name="delete_account_error">Errore nella cancellazione</string>
+    <string name="reauthentication_error">Errore nella riautenticazione</string>
+    <string name="reauthentication_successfull">Riautenticato</string>
+    
+
     <string name="shop_item_0">Ricarica Acqua</string>
 </resources>

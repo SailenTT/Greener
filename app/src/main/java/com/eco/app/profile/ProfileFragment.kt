@@ -84,7 +84,7 @@ class ProfileFragment : Fragment() {
         database = Firebase.database(getString(R.string.path_to_db))
         usersReference = database.getReference("Users")
         if(user==null){
-            Log.i("LoginInfo","Non sei loggato")
+            Log.d("LoginInfo","Non sei loggato")
         }else{
             UID = user.uid
             getInfos(usersReference,UID)
@@ -97,9 +97,9 @@ class ProfileFragment : Fragment() {
         val filename = UID
         val storageReference = FirebaseStorage.getInstance("gs://ecoapp-706b8.appspot.com").getReference("propics/$filename")
         storageReference.putFile(imguri).addOnSuccessListener {
-            Toast.makeText(context, "Foto uppata", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.upped_photo_notification), Toast.LENGTH_SHORT).show()
         }.addOnFailureListener{
-            Toast.makeText(context, "Non uppata la foto", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.not_upped_photo_notification), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -169,7 +169,7 @@ class ProfileFragment : Fragment() {
                     firstInfoLoaded=true
                 }
             }.addOnFailureListener {
-                Toast.makeText(context, "Error nei dati", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.user_reference_error), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -192,12 +192,12 @@ class ProfileFragment : Fragment() {
                     1002
                 ) // GIVE AN INTEGER VALUE FOR PERMISSION_CODE_WRITE LIKE 1002
             } else {
-                val changePicDialog= AlertDialog.Builder(context!!)
-                changePicDialog.setMessage("Vuoi cambiare immagine?")
-                changePicDialog.setNegativeButton("No"){dialog,_ ->
+                val changePicDialog= AlertDialog.Builder(requireContext())
+                changePicDialog.setMessage(getString(R.string.change_image_dialog))
+                changePicDialog.setNegativeButton(getString(R.string.no_button)){dialog,_ ->
                     dialog.dismiss()
                 }
-                changePicDialog.setPositiveButton("Si"){dialog,_ ->
+                changePicDialog.setPositiveButton(getString(R.string.yes_button)){dialog,_ ->
                     pickImage()
                 }
                 changePicDialog.show()
@@ -233,19 +233,19 @@ class ProfileFragment : Fragment() {
 
         loadedProfileLayout!!.findViewById<TextView>(R.id.tv_nickname).text = username
         loadedProfileLayout!!.findViewById<TextView>(R.id.tv_quizscore).text =
-            "Quiz score: $quizGameScore"
+            getString(R.string.quiz_score)+"$quizGameScore"
         loadedProfileLayout!!.findViewById<TextView>(R.id.tv_trashscore).text =
-            "Trash bin score: $trashBinGameScore"
+            getString(R.string.trash_score)+"$trashBinGameScore"
         loadedProfileLayout!!.findViewById<TextView>(R.id.tv_carbon).text =
-            "Carboon footprint: $carbonFootprintScore"
+            getString(R.string.carbon_score)+"$carbonFootprintScore"
         loadedProfileLayout!!.findViewById<TextView>(R.id.tv_dividescore).text =
-            "Divide score: $garbageSorterGameScore"
+            getString(R.string.divide_score)+"$garbageSorterGameScore"
         if(growingTreeScore == 0L){
             loadedProfileLayout!!.findViewById<TextView>(R.id.tv_growingtree).text =
                 "???"
         }else{
             loadedProfileLayout!!.findViewById<TextView>(R.id.tv_growingtree).text =
-                "Growing tree score: $growingTreeScore"
+                getString(R.string.growing_score)+"$growingTreeScore"
         }
         loadedProfileLayout!!.findViewById<TextView>(R.id.tv_email).text =
             email.toString()
@@ -257,12 +257,12 @@ class ProfileFragment : Fragment() {
     private fun changeUsernameDialog() {
         val alertDialogBuilder = AlertDialog.Builder(requireContext())
         with(alertDialogBuilder){
-            setTitle("Modifica username")
-            setMessage("Vuoi cambiare username?")
-            setPositiveButton("Si"){dialogInterface,_->
+            setTitle(getString(R.string.change_username_dialog_title))
+            setMessage(getString(R.string.change_username_dialog_message))
+            setPositiveButton(getString(R.string.yes_button)){dialogInterface,_->
                 changeUsername()
             }
-            setNegativeButton("No"){dialogInterface,_->
+            setNegativeButton(R.string.no_button){dialogInterface,_->
                 dialogInterface.dismiss()
             }
             show()
@@ -272,7 +272,7 @@ class ProfileFragment : Fragment() {
     private fun changeUsername() {
         val alertDialogBuilder = AlertDialog.Builder(requireContext())
         with(alertDialogBuilder) {
-            setTitle("Inserisci il nuovo username")
+            setTitle(getString(R.string.change_username))
         }
         val input = EditText(requireContext())
         with(input) {
@@ -281,18 +281,18 @@ class ProfileFragment : Fragment() {
         }
         alertDialogBuilder.setView(input)
 
-        alertDialogBuilder.setPositiveButton("Ok"){dialogInterface,_->
+        alertDialogBuilder.setPositiveButton(getString(R.string.yes_button)){dialogInterface,_->
             val newUsername = input.text.toString()
             val uid = auth.uid!!
             usersReference.child(uid).child("username").setValue(newUsername).addOnSuccessListener {
-                Toast.makeText(requireContext(), "Username aggiornato correttamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.change_username_successfull), Toast.LENGTH_SHORT).show()
                 tv_username.setText(newUsername)
                 tv_username.invalidate()
             }.addOnFailureListener{
-                Toast.makeText(requireContext(), "Errore dal server", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), R.string.user_reference_error, Toast.LENGTH_SHORT).show()
             }
         }
-        alertDialogBuilder.setNegativeButton("Cancella"){dialogInterface,_->
+        alertDialogBuilder.setNegativeButton(getString(R.string.no_button)){dialogInterface,_->
             dialogInterface.dismiss()
         }
         alertDialogBuilder.show()
@@ -301,9 +301,9 @@ class ProfileFragment : Fragment() {
     private fun deleteDialog(){
         val alertDialogBuilder = AlertDialog.Builder(requireContext())
         with(alertDialogBuilder){
-            setTitle("Cancellazione account")
-            setMessage("Stai per cancellare il tuo account, perdendo tutti i tuoi dati, sei sicuro?")
-            setPositiveButton("Si"){dialogInterface,_ ->
+            setTitle(getString(R.string.delete_account_dialog_title))
+            setMessage(getString(R.string.delete_account_dialog_message))
+            setPositiveButton(getString(R.string.yes_button)){dialogInterface,_ ->
                 //Toast.makeText(requireContext(), "Ok ti cancello", Toast.LENGTH_SHORT).show()
                 if(facebookAccessToken != null){
                     val token = FacebookAuthProvider.getCredential(facebookAccessToken.toString()) //todo sistemare mail nel profilo cosi da poterlo cancellare qui
@@ -311,7 +311,7 @@ class ProfileFragment : Fragment() {
                 deleteUser()
                 dialogInterface.dismiss()
             }
-            setNegativeButton("No"){dialogInterface,_ ->
+            setNegativeButton(getString(R.string.no_button)){dialogInterface,_ ->
                 //Toast.makeText(requireContext(), "Non ti cancello", Toast.LENGTH_SHORT).show()
                 dialogInterface.dismiss()
             }
@@ -334,7 +334,7 @@ class ProfileFragment : Fragment() {
             val uid = auth.uid!!
             val alertDialogBuilder = AlertDialog.Builder(requireContext())
             with(alertDialogBuilder) {
-                setTitle("Inserisci la tua password")
+                setTitle(getString(R.string.delete_account_insert_password))
             }
             val input = EditText(requireContext())
             with(input) {
@@ -344,7 +344,7 @@ class ProfileFragment : Fragment() {
             }
             alertDialogBuilder.setView(input)
 
-            alertDialogBuilder.setPositiveButton("OK") { dialogInterface, _ ->
+            alertDialogBuilder.setPositiveButton(getString(R.string.ok_button)) { dialogInterface, _ ->
                 val pwd = input.text.toString()
                 val credential = EmailAuthProvider.getCredential(user!!.email.toString(), pwd)
                 val type ="normal"
@@ -355,23 +355,23 @@ class ProfileFragment : Fragment() {
                         user.delete().addOnSuccessListener {
                             Toast.makeText(
                                 requireContext(),
-                                "Account cancellato correttamente",
+                                getString(R.string.delete_account_successfull),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
                             .addOnFailureListener {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Errore nella cancellazione",
+                                    getString(R.string.delete_account_error),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
                     }
                     .addOnFailureListener {
-                        Toast.makeText(requireContext(), "Errore nella riautenticazione", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.reauthentication_error), Toast.LENGTH_SHORT).show()
                     }
 
-            }.setNegativeButton("Annulla") { dialogInterface, _ ->
+            }.setNegativeButton(getString(R.string.cancel_button)) { dialogInterface, _ ->
                 dialogInterface.dismiss()
             }
             alertDialogBuilder.show()
@@ -384,16 +384,16 @@ class ProfileFragment : Fragment() {
         val uid = auth.uid!!
        val type = "Google"
         user!!.reauthenticate(credential).addOnSuccessListener {
-            Toast.makeText(requireContext(), "Riautenticato", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.reauthentication_successfull), Toast.LENGTH_SHORT).show()
             user.delete().addOnSuccessListener {
                 deleteHandler(user,uid,type)
-                Toast.makeText(requireContext(), "Account cancellato correttamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.delete_account_successfull), Toast.LENGTH_SHORT).show()
             }.addOnFailureListener{
-                Toast.makeText(requireContext(), "Errore nella cancellazione", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), getString(R.string.delete_account_error), Toast.LENGTH_SHORT)
                     .show()
             }
         }.addOnFailureListener{
-            Toast.makeText(requireContext(), "Non riautenticato", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.reauthentication_error), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -406,7 +406,7 @@ class ProfileFragment : Fragment() {
             // Toast.makeText(requireContext(), "Allright", Toast.LENGTH_SHORT).show()
             deleteHandler(user, uid, type)
         }.addOnFailureListener {
-            Toast.makeText(requireContext(), "Errore nella riautenticazione ", Toast.LENGTH_SHORT)
+            Toast.makeText(requireContext(), getString(R.string.reauthentication_error), Toast.LENGTH_SHORT)
                 .show()
         }
     }
@@ -420,7 +420,7 @@ class ProfileFragment : Fragment() {
             user.delete().addOnSuccessListener {
                 Toast.makeText(
                     requireContext(),
-                    "Account cancellato correttamente",
+                    getString(R.string.delete_account_successfull),
                     Toast.LENGTH_SHORT
                 ).show()
                 when(type){
@@ -429,7 +429,7 @@ class ProfileFragment : Fragment() {
                     "normal"->signOut()
                 }
             }.addOnFailureListener {
-                Toast.makeText(requireContext(), "Errore nella cancellazione", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), getString(R.string.delete_account_error), Toast.LENGTH_SHORT)
                     .show()
             }
         }.addOnFailureListener{
